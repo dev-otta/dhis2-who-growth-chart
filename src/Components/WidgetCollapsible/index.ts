@@ -1,0 +1,1 @@
+export { WidgetCollapsible } from './WidgetCollapsible';

@@ -1,0 +1,26 @@
+{
+  "name": "dhis2-who-growth-charts",
+  "version": "1.0.0",
+  "description": "",
+  "license": "BSD-3-Clause",
+  "private": true,
+  "scripts": {
+    "build": "d2-app-scripts build",
+    "start": "d2-app-scripts start",
+    "test": "d2-app-scripts test",
+    "deploy": "d2-app-scripts deploy"
+  },
+  "devDependencies": {
+    "@dhis2/cli-app-scripts": "^10.4.0"
+  },
+  "dependencies": {
+    "@dhis2/app-runtime": "^3.10.2",
+    "@dhis2/ui": "^9.0.1",
+    "@material-ui/core": "3.9.4",
+    "@tanstack/react-query": "^4"
+  },
+  "resolutions": {
+    "@dhis2/ui": "^9.0.1",
+    "@dhis2/app-runtime": "^3.10.2"
+  }
+}
