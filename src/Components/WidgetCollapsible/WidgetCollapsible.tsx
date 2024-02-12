@@ -103,7 +103,7 @@ const WidgetCollapsiblePlain = ({
     onClose: () => void,
     color?: string,
     borderless?: boolean,
-    children: React$Node,
+    children: ReactNode,
     classes: Object,
 }) => {
     const [childrenVisible, setChildrenVisibility] = useState(open); // controls whether children are rendered to the DOM

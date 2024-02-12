@@ -34,14 +34,8 @@ interface DataPoint {
     P999?: number;
 }
 
-interface Data {
-    Week?: DataPoint[];
-    Month?: DataPoint[];
-    Year?: DataPoint[];
-}
-
 interface GrowthChartProps {
-    data: Data;
+    data: DataPoint[];
 }
 
 const analyzeData = (data: DataPoint[]): { isWeekData: boolean; isMonthData: boolean; isYearData: boolean; isZScoreData: boolean; isPercentileData: boolean } => {
@@ -58,14 +52,23 @@ const analyzeData = (data: DataPoint[]): { isWeekData: boolean; isMonthData: boo
     return { isWeekData, isMonthData, isYearData, isZScoreData, isPercentileData };
 };
 
-export const DashboardGraphChart: React.FC<GrowthChartProps> = ({ data }) => {
+const growthData = (growthData: DataPoint[]) => {
+    // create an object with labels and datasets, where label is height and data is the height for each month
+    const labels: string[] = [];
+    const datasets: { label: string; data: number[]; borderColor: string }[] = [];
+
+    return { labels, datasets };
+
+}
+
+export const DashboardGraphChart: React.FC<GrowthChartProps> = ({ data, growth }) => {
     Chart.register(CategoryScale);
 
     const { isWeekData, isMonthData, isYearData, isZScoreData, isPercentileData } = analyzeData(data);
 
     console.log(isWeekData, isZScoreData, isPercentileData);
 
-    let labels: number[] = [];
+    let labels: string[] = [];
     let datasets: { label: string; data: number[]; borderColor: string }[] = [];
 
     if (isWeekData) {
@@ -118,6 +121,10 @@ export const DashboardGraphChart: React.FC<GrowthChartProps> = ({ data }) => {
             // Add other percentile datasets
         ];
     }
+
+    console.log("growthdata", growth)
+
+    datasets.push({ label: 'Height', data: growth.map((entry) => entry.height), borderColor: 'pink' });
 
     const chartData = { labels, datasets };
     console.log(chartData);
@@ -178,6 +185,8 @@ export const DashboardGraphChart: React.FC<GrowthChartProps> = ({ data }) => {
         },
     };
 
+
+    console.log("data and options", chartData, chartOptions)
     return (
         <div style={{ width: '1200px', height: '1000px' }}>
             <AutoSizer>
