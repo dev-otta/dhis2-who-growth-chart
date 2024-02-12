@@ -6,6 +6,7 @@ import {WidgetCollapsible} from "./Components/WidgetCollapsible";
 import {EnrollmentViewer} from "./Components/EnrollmentViewer";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {buildUrlQueryString} from "./utils/buildURLQueryString";
+import { Growthgraph } from "./Components/GrowthChart/DashboardGraph";
 
 const queryClient = new QueryClient();
 
@@ -52,13 +53,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                                 gap: '15px',
                             }}
                         >
-                            <EnrollmentViewer
-                                programId={programId}
-                                enrollmentId={enrollmentId}
-                                orgUnitId={orgUnitId}
-                                teiId={teiId}
-                                navigate={navigate}
-                            />
+                           <Growthgraph/>
 
                             <div>
                                 <Button
@@ -70,6 +65,8 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                                 >
                                     Return to dashboard
                                 </Button>
+
+                                
                             </div>
                         </div>
                     </WidgetCollapsible>

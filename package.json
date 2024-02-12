@@ -11,13 +11,17 @@
     "deploy": "d2-app-scripts deploy"
   },
   "devDependencies": {
-    "@dhis2/cli-app-scripts": "^10.4.0"
+    "@dhis2/cli-app-scripts": "^10.4.0",
+    "react-scripts": "5.1.0-next.14"
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.10.2",
     "@dhis2/ui": "^9.0.1",
     "@material-ui/core": "3.9.4",
-    "@tanstack/react-query": "^4"
+    "@tanstack/react-query": "^4",
+    "chart.js": "^4.4.1",
+    "react-chartjs-2": "^5.2.0",
+    "react-virtualized-auto-sizer": "^1.0.22"
   },
   "resolutions": {
     "@dhis2/ui": "^9.0.1",
