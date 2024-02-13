@@ -71,7 +71,9 @@ export const DashboardGraphChart = ({ growthLines, childGrowth, timePeriod, perc
 
     if (!percentile) {
 
-        // The commented code is dynamic, but i think the hardcoded one is better because there should just be 7 z-scores
+        // The commented code is dynamic, but i think the hardcoded one is better because there should just be 7 z-scores, 
+        // some of the WHO standards exclude SD1 and SD1neg, this can be excluded by either sending metadata with the data or just removing it from the dataset and checking if it exists
+
         // const zScoreLabels: string[] = Object.keys(growthLines[0]).filter(prop => prop.startsWith('SD'));
 
         // datasets = zScoreLabels.map(label => {
@@ -98,7 +100,7 @@ export const DashboardGraphChart = ({ growthLines, childGrowth, timePeriod, perc
             { label: 'Z-score 3', data: growthLines.map((entry: ZScoreData) => entry.SD3), borderColor: 'black' }
         ];
 
-        };
+    };
 
 
 
@@ -112,6 +114,34 @@ export const DashboardGraphChart = ({ growthLines, childGrowth, timePeriod, perc
             { label: '97%', data: growthLines.map((entry: PercentData) => entry.P97), borderColor: 'red' },
             // Add other percentile datasets
         ];
+
+
+        // Define the function to get the color based on the percentile
+        const getColorFromRank = (decimal: number) => {
+            if (decimal < 0.010) return 'red'; // 10% and below
+            if (decimal <= 0.03) return 'orange'; // above 10 to and with 30%
+            if (decimal < 0.070) return 'green'; // between 30% and 70%
+            if (decimal <= 0.090) return 'orange'; // 70% to 90%
+            if (decimal <= 10) return 'red'; // 90% and above
+        };
+
+        // Extract the percentile keys
+        const percentileKeys = Object.keys(growthLines[0]).filter(key => key.startsWith('P'));
+        console.log(percentileKeys);
+        datasets = percentileKeys.map(key => {
+            // Extract values for each percentile key
+            const data = growthLines.map(obj => obj[key]);
+            // Define the label for the percentile
+            const label = `${key.replace('P', '')}%`; // Remove the 'P' from the key
+
+            // Determine the border color based on the percentile rank
+            // Have to divide by 1000 because the values are in the range of 1 to 1000
+            const decimal = parseFloat(key.replace('P', '')) / 1000;
+            const borderColor = getColorFromRank(decimal);
+
+            console.log("key", key, "label", label, "data", data, "borderColor", borderColor)
+            return { label, data, borderColor };
+        });
     }
 
     // Here it is possible to assume that childgrowth is just an array with numbers, then we do not need .height and it works for all the cases
