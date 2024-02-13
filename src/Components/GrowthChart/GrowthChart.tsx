@@ -1,5 +1,5 @@
 import React from "react";
-import { GrowthChartGraph } from "./GrowthChartGraph";
+import { GrowthChartGraph } from "./GrowthChartBuilder";
 
 export const GrowthChart = () => {
     return (

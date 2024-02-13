@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import './Plugin.module.css';
 import {WidgetCollapsible} from "./Components/WidgetCollapsible";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import { GrowthChart } from "./Components/GrowthChart/GrowthChartDefault";
+import { GrowthChart } from "./Components/GrowthChart/GrowthChart";
 
 const queryClient = new QueryClient();
 
