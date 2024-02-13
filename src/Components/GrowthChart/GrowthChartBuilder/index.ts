@@ -1,1 +1,1 @@
-export { GrowthChartBuilder } from './GrowthChartBuilder.tsx'
+export { GrowthChartBuilder } from './GrowthChartBuilder'

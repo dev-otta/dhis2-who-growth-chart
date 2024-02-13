@@ -1,10 +1,17 @@
 import React from "react";
-import { GrowthChartGraph } from "./GrowthChartBuilder";
+import { GrowthChartBuilder } from "./GrowthChartBuilder";
+import { chartData } from "../../DataSets/ChartData";
 
 export const GrowthChart = () => {
+    const selectedChart = chartData["Weight-for-age GIRLS"]
+
+    console.log(selectedChart)
+
     return (
         <div>
-            <GrowthChartGraph />
+            <GrowthChartBuilder 
+                chartData={selectedChart}
+            />
         </div>
     )
 }
