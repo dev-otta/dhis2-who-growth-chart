@@ -1,12 +1,12 @@
-import React, {useState} from "react";
-import {Button} from "@dhis2/ui";
+import React, { useState } from "react";
+import { Button } from "@dhis2/ui";
 import './Plugin.module.css';
 import { EnrollmentOverviewProps } from "./Plugin.types";
-import {WidgetCollapsible} from "./Components/WidgetCollapsible";
-import {EnrollmentViewer} from "./Components/EnrollmentViewer";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import {buildUrlQueryString} from "./utils/buildURLQueryString";
-import { Growthgraph } from "./Components/GrowthChart/DashboardGraph";
+import { WidgetCollapsible } from "./Components/WidgetCollapsible";
+import { EnrollmentViewer } from "./Components/EnrollmentViewer";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { buildUrlQueryString } from "./utils/buildURLQueryString";
+import { GrowthGraph } from "./Components/GrowthChart/GrowthGraph";
 
 const queryClient = new QueryClient();
 
@@ -53,7 +53,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                                 gap: '15px',
                             }}
                         >
-                           <Growthgraph/>
+                            <GrowthGraph />
 
                             <div>
                                 <Button
@@ -66,7 +66,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                                     Return to dashboard
                                 </Button>
 
-                                
+
                             </div>
                         </div>
                     </WidgetCollapsible>

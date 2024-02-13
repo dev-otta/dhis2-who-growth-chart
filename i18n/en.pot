@@ -5,8 +5,14 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-02-09T14:08:36.583Z\n"
-"PO-Revision-Date: 2024-02-09T14:08:36.583Z\n"
+"POT-Creation-Date: 2024-02-12T18:31:31.548Z\n"
+"PO-Revision-Date: 2024-02-12T18:31:31.548Z\n"
 
 msgid "Week"
 msgstr "Week"
+
+msgid "Month"
+msgstr "Month"
+
+msgid "Year"
+msgstr "Year"
