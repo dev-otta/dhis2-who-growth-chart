@@ -17,7 +17,10 @@
     "@dhis2/app-runtime": "^3.10.2",
     "@dhis2/ui": "^9.0.1",
     "@material-ui/core": "3.9.4",
-    "@tanstack/react-query": "^4"
+    "@tanstack/react-query": "^4",
+    "@types/chart.js": "^2.9.41",
+    "chart.js": "^3.0.0",
+    "react-chartjs-2": "^5.2.0"
   },
   "resolutions": {
     "@dhis2/ui": "^9.0.1",
