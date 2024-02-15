@@ -5,11 +5,11 @@ export const chartLineColorPicker = (key: string): string => {
         case 'SD2neg':
             return 'red';
         case 'SD1neg':
-            return 'yellow';
+            return 'orange';
         case 'SD0':
             return 'green';
         case 'SD1':
-            return 'yellow';
+            return 'orange';
         case 'SD2':
             return 'red';
         case 'SD3':
