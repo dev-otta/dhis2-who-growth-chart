@@ -1,6 +1,7 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
+import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
 
 
 interface ChartData {
@@ -35,8 +36,9 @@ export const GrowthChartBuilder = ({ chartData }: GrowthChartBuilderProps) => {
             label: percentileKey,
             data: dataSetData.map((entry) => entry[percentileKey]),
             fill: false,
-            borderWidth: 0.9,
-            borderColor: 'black',
+            borderWidth: 2,
+            //color lines based on z score
+            borderColor: chartLineColorPicker(percentileKey),
         })),
     };
 

@@ -5,8 +5,6 @@ import { chartData } from "../../DataSets/ChartData";
 export const GrowthChart = () => {
     const selectedChart = chartData["Weight-for-age GIRLS"]
 
-    console.log(selectedChart)
-
     return (
         <div>
             <GrowthChartBuilder 
