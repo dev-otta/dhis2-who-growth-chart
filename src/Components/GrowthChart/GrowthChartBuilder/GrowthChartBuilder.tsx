@@ -3,6 +3,7 @@ import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { ChartData } from '../../../types/chartDataTypes';
 import { useRangeTimePeriode } from './useRangeTimePeriode';
+
 interface GrowthChartBuilderProps {
     chartData?: ChartData;
 }
@@ -18,7 +19,7 @@ export const GrowthChartBuilder = ({ chartData }: GrowthChartBuilderProps) => {
     if ( xLabelValues.length !== dataSet.length ) {
         console.error('xLabelValues and dataSet should have the same length');
     }
-    
+
     const data = {
         labels: xLabelValues,
         datasets: keysDataSet.map((key) => ({
