@@ -37,7 +37,6 @@ export const GrowthChartBuilder = ({ chartData }: GrowthChartBuilderProps) => {
             data: dataSetData.map((entry) => entry[percentileKey]),
             fill: false,
             borderWidth: 1.5,
-            //color lines based on z score
             borderColor: chartLineColorPicker(percentileKey),
         })),
     };
