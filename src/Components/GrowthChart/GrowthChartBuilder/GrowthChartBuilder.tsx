@@ -1,40 +1,28 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
-
-
-interface ChartData {
-    datasets: {
-        [key: string]: {
-            [key: string]: number;
-        }[];
-    };
-    metadata: {
-        label: string;
-        value: string;
-        yaxis: string;
-        xaxis: string;
-    }[];
-}
-
+import { ChartData } from '../../../types/chartDataTypes';
+import { useRangeTimePeriode } from './useRangeTimePeriode';
 interface GrowthChartBuilderProps {
     chartData?: ChartData;
 }
 
 export const GrowthChartBuilder = ({ chartData }: GrowthChartBuilderProps) => {
-    const dataSetData = chartData.datasets.Girls0to5Years
-    const dataSetMetadata = chartData.metadata[0]
-    const TimeInterval = Object.keys(dataSetData);
+    const dataSetName = Object.keys(chartData.datasets)[0];
+    const dataSet = chartData.datasets[dataSetName];
+    const dataSetMetadata = chartData.metadata[dataSetName];
 
-    const Keys = Object.keys(dataSetData[0]);
-    const percentileKeys = Keys.slice(1, Keys.length);
+    const xLabelValues = useRangeTimePeriode(dataSetMetadata.range.start, dataSetMetadata.range.end);
+    const keysDataSet = Object.keys(dataSet[0]);
 
+    if ( xLabelValues.length !== dataSet.length ) {
+        console.error('xLabelValues and dataSet should have the same length');
+    }
+    
     const data = {
-        labels: TimeInterval,
-        datasets: percentileKeys.map((percentileKey) => ({
-            label: percentileKey,
-            data: dataSetData.map((entry) => entry[percentileKey]),
-            fill: false,
+        labels: xLabelValues,
+        datasets: keysDataSet.map((key) => ({
+            data: dataSet.map((entry) => entry[key]),
             borderWidth: 0.9,
             borderColor: 'black',
         })),
@@ -56,7 +44,7 @@ export const GrowthChartBuilder = ({ chartData }: GrowthChartBuilderProps) => {
             x: {
                 title: {
                     display: true,
-                    text: dataSetMetadata.xaxis,
+                    text: `age (${dataSetMetadata.unit})`,
                 },
             },
             y: {
@@ -69,9 +57,7 @@ export const GrowthChartBuilder = ({ chartData }: GrowthChartBuilderProps) => {
     };
 
     return (
-        <div>
-            <Line data={data} options={options} />
-        </div>
+        <Line data={data} options={options} />
     );
 
 };
