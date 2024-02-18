@@ -1,4 +1,5 @@
 import React from 'react';
+import i18n from '@dhis2/d2-i18n'
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { ChartDataTypes } from '../../../types/chartDataTypes';
@@ -18,7 +19,7 @@ export const GrowthChartBuilder = ({ dataSetValues, dataSetMetadata, xLabelValue
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: { legend: { display: false } },
         scales: {
-            x: { title: { display: true, text: `age (${dataSetMetadata.unit})` } },
+            x: { title: { display: true, text: i18n.t(`age (${dataSetMetadata.unit})`)} },
             y: { title: { display: true, text: dataSetMetadata.yaxis } },
         },
     };
