@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { usePopper } from 'react-popper';
 import { EllipsisButton } from './EllipsisButton';
 import { Popover } from '@material-ui/core';
-import { PopoverList } from './PopoverList';
+import { PopoverList, PopoverListItem } from './PopoverList';
 
 
 export const ChartSettingsButton = ({ onClick }: any) => {
@@ -29,8 +29,10 @@ export const ChartSettingsButton = ({ onClick }: any) => {
                     style={styles.popper}
                     popoverAttributes={{ ...attributes.popper }}
                 >
-                    <p>This is some example content inside the popper.</p>
-                    <p>You can add any HTML content here.</p>
+                    <PopoverListItem label="Settings" icon={<span>🔧</span>} onClick={onClick} />
+                    <PopoverListItem label="Export" icon={<span>📤</span>} onClick={onClick} />
+                    <PopoverListItem label="Print" icon={<span>🖨️</span>} onClick={onClick} />
+                    <PopoverListItem label="Help" icon={<span>❓</span>} onClick={onClick} />
                 </PopoverList>
             )}
         </div>
