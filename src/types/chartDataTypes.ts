@@ -14,7 +14,8 @@ export interface ChartDataTypes {
 
 
 export const ChartCodes = Object.freeze({
-    wfa_g_0_5_z: i18n.t('Girls 0 to 5 years'),
+    wfa_g_0_5_y_z: i18n.t('Girls 0 to 5 years'),
+    wfa_g_0_13_w_z: i18n.t('Girls 0 to 13 weeks'),
   });
   
 
