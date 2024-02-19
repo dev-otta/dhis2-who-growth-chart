@@ -1,18 +1,11 @@
-export interface ChartData {
-    datasets: {
-        [key: string]: {
-            [key: string]: number;
-        }[];
+export interface ChartDataTypes {
+    dataSetValues: { [key: string]: number }[];
+    dataSetMetadata: {
+        label: string;
+        yaxis: string;
+        unit: string;
+        range: { start: number; end: number };
     };
-    metadata: {
-        [key: string]: {
-            label: string;
-            yaxis: string;
-            unit: string;
-            range: {
-                start: number;
-                end: number;
-            }
-        };
-    };
+    xLabelValues: number[];
+    keysDataSet: string[];
 }

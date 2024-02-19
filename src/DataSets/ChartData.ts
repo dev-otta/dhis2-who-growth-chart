@@ -7,7 +7,7 @@ export const chartData = {
 
     },
     metadata: {
-      "Girls0to5Years": { label: "Girls 0 to 5 years", yaxis: "Weight (kg)", unit: "Months", range: { start: 24, end: 60 } },
+      "Girls0to5Years": { label: "Girls 0 to 5 years", yaxis: "Weight (kg)", unit: "Months", range: { start: 0, end: 60 } },
     },
   },
 };
