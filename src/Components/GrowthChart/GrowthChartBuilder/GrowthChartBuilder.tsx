@@ -1,78 +1,29 @@
 import React from 'react';
+import i18n from '@dhis2/d2-i18n'
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
+import { ChartDataTypes } from '../../../types/chartDataTypes';
 import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
 
 
-interface ChartData {
-    datasets: {
-        [key: string]: {
-            [key: string]: number;
-        }[];
-    };
-    metadata: {
-        label: string;
-        value: string;
-        yaxis: string;
-        xaxis: string;
-    }[];
-}
-
-interface GrowthChartBuilderProps {
-    chartData?: ChartData;
-}
-
-export const GrowthChartBuilder = ({ chartData }: GrowthChartBuilderProps) => {
-    const dataSetData = chartData.datasets.Girls0to5Years
-    const dataSetMetadata = chartData.metadata[0]
-    const TimeInterval = Object.keys(dataSetData);
-
-    const Keys = Object.keys(dataSetData[0]);
-    const percentileKeys = Keys.slice(1, Keys.length);
-
+export const GrowthChartBuilder = ({ dataSetValues, dataSetMetadata, xLabelValues, keysDataSet }: ChartDataTypes) => {
     const data = {
-        labels: TimeInterval,
-        datasets: percentileKeys.map((percentileKey) => ({
-            label: percentileKey,
-            data: dataSetData.map((entry) => entry[percentileKey]),
-            fill: false,
-            borderWidth: 1.5,
-            borderColor: chartLineColorPicker(percentileKey),
+        labels: xLabelValues,
+        datasets: keysDataSet.map(key => ({
+            data: dataSetValues.map(entry => entry[key]),
+            borderWidth: 0.9,
+            borderColor: chartLineColorPicker(key),
         })),
     };
 
     const options = {
-        elements: {
-            point: {
-                radius: 0,
-                hoverRadius: 0,
-            },
-        },
-        plugins: {
-            legend: {
-                display: false,
-            },
-        },
+        elements: { point: { radius: 0, hoverRadius: 0 } },
+        plugins: { legend: { display: false } },
         scales: {
-            x: {
-                title: {
-                    display: true,
-                    text: dataSetMetadata.xaxis,
-                },
-            },
-            y: {
-                title: {
-                    display: true,
-                    text: dataSetMetadata.yaxis,
-                },
-            },
+            x: { title: { display: true, text: i18n.t(`age (${dataSetMetadata.unit})`)} },
+            y: { title: { display: true, text: dataSetMetadata.yaxis } },
         },
     };
 
-    return (
-        <div>
-            <Line data={data} options={options} />
-        </div>
-    );
-
+    return <Line data={data} options={options} />;
 };
