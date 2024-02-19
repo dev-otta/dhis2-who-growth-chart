@@ -1,16 +1,16 @@
-// @flow
-import React from 'react';
+import React, {ReactNode} from 'react';
 import cx from 'classnames';
 import { colors } from '@dhis2/ui';
 import { withStyles } from '@material-ui/core/styles';
 
 
 type Props = {
-    children: React$Node,
+    children: ReactNode,
     className?: string,
     dataTest?: string,
     disabled?: boolean,
     onClick?: () => void,
+    classes?: Record<string, string>
 };
 
 const styles = {

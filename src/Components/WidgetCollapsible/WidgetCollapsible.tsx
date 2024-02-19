@@ -5,6 +5,13 @@ import cx from 'classnames';
 import { colors, spacersNum, IconChevronUp24 } from '@dhis2/ui';
 import { IconButton } from './IconButton';
 
+type Classes = {
+    headerContainer: string,
+    header: string,
+    children: string,
+    toggleButton: string
+}
+
 const styles = {
     headerContainer: {
         borderRadius: 3,
@@ -103,8 +110,8 @@ const WidgetCollapsiblePlain = ({
     onClose: () => void,
     color?: string,
     borderless?: boolean,
-    children: React$Node,
-    classes: Object,
+    children: ReactNode,
+    classes: Classes,
 }) => {
     const [childrenVisible, setChildrenVisibility] = useState(open); // controls whether children are rendered to the DOM
     const [animationsReady, setAnimationsReadyStatus] = useState(false);
