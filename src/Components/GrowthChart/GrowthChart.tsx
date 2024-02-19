@@ -2,7 +2,7 @@ import React from "react";
 import { GrowthChartBuilder } from "./GrowthChartBuilder";
 import { chartData } from "../../DataSets/ChartData";
 import { useRangeTimePeriode } from './useRangeTimePeriode';
-import { EllipsisButton } from "./EllipsisButton";
+import { ChartSettingsButton } from "./ChartSettingsButton";
 
 export const GrowthChart = () => {
     const { datasets, metadata } = chartData["Weight-for-age GIRLS"];
@@ -23,7 +23,7 @@ export const GrowthChart = () => {
             xLabelValues={xLabelValues}
             keysDataSet={keysDataSet}
         />
-        <EllipsisButton onClick={() => console.log('clicked')} />
+        <ChartSettingsButton onClick={() => console.log('clicked')} />
     </>
     );
 };
