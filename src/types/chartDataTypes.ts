@@ -1,4 +1,5 @@
 export interface ChartDataTypes {
+    showAnnotation: boolean;
     dataSetValues: { [key: string]: number }[];
     dataSetMetadata: {
         label: string;

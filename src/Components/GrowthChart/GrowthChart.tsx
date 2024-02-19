@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { GrowthChartBuilder } from "./GrowthChartBuilder";
 import { chartData } from "../../DataSets/ChartData";
 import { useRangeTimePeriode } from './useRangeTimePeriode';
@@ -16,16 +16,19 @@ export const GrowthChart = () => {
         console.error('xLabelValues and dataSet should have the same length');
     }
 
-    return (
-    <div className="relative">
-        <ChartSettingsButton onClick={() => console.log('clicked')} className='absolute top-2 right-2' />
+    const [showAnnotation, setShowAnnotation] = useState(true);
 
-        <GrowthChartBuilder
-            dataSetValues={dataSetValues}
-            dataSetMetadata={dataSetMetadata}
-            xLabelValues={xLabelValues}
-            keysDataSet={keysDataSet}
-        />
-    </div>
+    return (
+        <div className="relative">
+            <ChartSettingsButton setShowAnnotation={setShowAnnotation} />
+
+            <GrowthChartBuilder
+                showAnnotation={showAnnotation}
+                dataSetValues={dataSetValues}
+                dataSetMetadata={dataSetMetadata}
+                xLabelValues={xLabelValues}
+                keysDataSet={keysDataSet}
+            />
+        </div>
     );
 };

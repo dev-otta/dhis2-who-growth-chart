@@ -3,11 +3,14 @@ import { usePopper } from 'react-popper';
 import { EllipsisButton } from './EllipsisButton';
 import { PopoverList, PopoverListItem } from './PopoverList';
 
+type ChartSettingsButtonProps = {
+    setShowAnnotation: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-export const ChartSettingsButton = ({ onClick }: any) => {
+export const ChartSettingsButton = ({ setShowAnnotation }: ChartSettingsButtonProps) => {
     const [referenceElement, setReferenceElement] = useState(null);
     const [popperElement, setPopperElement] = useState(null);
-    
+
     const [isVisible, setIsVisible] = useState(false);
 
     const { styles, attributes } = usePopper(referenceElement, popperElement, {
@@ -29,11 +32,11 @@ export const ChartSettingsButton = ({ onClick }: any) => {
                     style={styles.popper}
                     popoverAttributes={{ ...attributes.popper }}
                 >
-                    <PopoverListItem label="Settings" icon={<span>🔧</span>} onClick={onClick} />
-                    <PopoverListItem label="Annotations" icon={<span>📥</span>} onClick={onClick} />
-                    <PopoverListItem label="Export" icon={<span>📤</span>} onClick={onClick} />
-                    <PopoverListItem label="Print" icon={<span>🖨️</span>} onClick={onClick} />
-                    <PopoverListItem label="Help" icon={<span>❓</span>} onClick={onClick} />
+                    <PopoverListItem label="Settings" icon={<span>🔧</span>} onClick={() => console.log('Not Implemented')} />
+                    <PopoverListItem label="Annotations" icon={<span>📥</span>} onClick={() => setShowAnnotation(prevState => !prevState)} />                    
+                    <PopoverListItem label="Export" icon={<span>📤</span>} onClick={() => console.log('Not Implemented')} />
+                    <PopoverListItem label="Print" icon={<span>🖨️</span>} onClick={() => console.log('Not Implemented')} />
+                    <PopoverListItem label="Help" icon={<span>❓</span>} onClick={() => console.log('Not Implemented')} />
                 </PopoverList>
             )}
         </div>
