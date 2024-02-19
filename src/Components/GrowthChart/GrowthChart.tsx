@@ -2,12 +2,15 @@ import React from "react";
 import { GrowthChartBuilder } from "./GrowthChartBuilder";
 import { chartData } from "../../DataSets/ChartData";
 import { useRangeTimePeriode } from './useRangeTimePeriode';
+import { ChartCodes } from "../../types/chartDataTypes";
 
 export const GrowthChart = () => {
-    const { datasets, metadata } = chartData["Weight-for-age GIRLS"];
-    const dataSetValues = datasets["Girls0to5Years"];
-    const dataSetMetadata = metadata["Girls0to5Years"];
-
+    const categoryDataSets = chartData["Weight-for-age GIRLS"];
+    const dataSetEntry = categoryDataSets.datasets[ChartCodes.wfa_g_0_5_z];
+    
+    const dataSetValues = dataSetEntry.datasetValues;
+    const dataSetMetadata = dataSetEntry.metadata;
+    
     const xLabelValues = useRangeTimePeriode(dataSetMetadata.range.start, dataSetMetadata.range.end);
     const keysDataSet = Object.keys(dataSetValues[0]);
 
