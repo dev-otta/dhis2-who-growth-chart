@@ -1,8 +1,7 @@
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from 'react';
 import cx from 'classnames';
 import { colors } from '@dhis2/ui';
 import { withStyles } from '@material-ui/core/styles';
-
 
 type Props = {
     children: ReactNode,
@@ -40,14 +39,16 @@ const styles = {
     },
 };
 
-const IconButtonPlain = ({ children, className, dataTest, onClick, disabled, classes, ...passOnProps }: Props) => (
+const IconButtonPlain = ({
+    children, className, dataTest, onClick, disabled, classes, ...passOnProps
+}: Props) => (
     <button
         {...passOnProps}
         onClick={onClick}
         disabled={disabled}
         data-test={dataTest}
         className={cx(classes.button, { disabled, ...(className ? { [className]: true } : {}) })}
-        type="button"
+        type='button'
         tabIndex={0}
     >
         {children}

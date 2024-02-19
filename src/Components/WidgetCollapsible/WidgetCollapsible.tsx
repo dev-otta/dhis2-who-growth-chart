@@ -23,9 +23,7 @@ const styles = {
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
         },
-        '&.borderless': {
-            border: 'none',
-        },
+        '&.borderless': { border: 'none' },
     },
     header: {
         display: 'flex',
@@ -53,9 +51,7 @@ const styles = {
             animation: 'slideout 200ms normal forwards ease-in-out',
             transformOrigin: '100% 0%',
         },
-        '&.borderless': {
-            border: 'none',
-        },
+        '&.borderless': { border: 'none' },
     },
     toggleButton: {
         margin: `0 0 0 ${spacersNum.dp4}px`,
@@ -66,15 +62,9 @@ const styles = {
             background: colors.grey200,
             color: colors.grey800,
         },
-        '&.open': {
-            animation: 'flipOpen 200ms normal forwards linear',
-        },
-        '&.close': {
-            animation: 'flipClose 200ms normal forwards linear',
-        },
-        '&.closeinit': {
-            transform: 'rotateX(180deg)',
-        },
+        '&.open': { animation: 'flipOpen 200ms normal forwards linear' },
+        '&.close': { animation: 'flipClose 200ms normal forwards linear' },
+        '&.closeinit': { transform: 'rotateX(180deg)' },
     },
     '@keyframes slidein': {
         from: { transform: 'scaleY(0)' },
@@ -152,11 +142,12 @@ const WidgetCollapsiblePlain = ({
                 <div className={classes.header}>
                     {header}
                     <IconButton
-                        dataTest="widget-open-close-toggle-button"
+                        dataTest='widget-open-close-toggle-button'
                         className={cx(classes.toggleButton, {
                             closeinit: !animationsReady && !postEffectOpen,
                             open: animationsReady && postEffectOpen,
-                            close: animationsReady && !postEffectOpen })}
+                            close: animationsReady && !postEffectOpen,
+                        })}
                         onClick={open ? onClose : onOpen}
                     >
                         <IconChevronUp24 />
@@ -166,7 +157,7 @@ const WidgetCollapsiblePlain = ({
             {
                 childrenVisible ? (
                     <div
-                        data-test="widget-contents"
+                        data-test='widget-contents'
                         className={cx(classes.children, {
                             open: animationsReady && open,
                             close: animationsReady && !open,
