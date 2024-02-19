@@ -16,14 +16,16 @@ export const GrowthChart = () => {
         console.error('xLabelValues and dataSet should have the same length');
     }
 
-    return (<>
+    return (
+    <div className="relative">
+        <ChartSettingsButton onClick={() => console.log('clicked')} className='absolute top-2 right-2' />
+
         <GrowthChartBuilder
             dataSetValues={dataSetValues}
             dataSetMetadata={dataSetMetadata}
             xLabelValues={xLabelValues}
             keysDataSet={keysDataSet}
         />
-        <ChartSettingsButton onClick={() => console.log('clicked')} />
-    </>
+    </div>
     );
 };
