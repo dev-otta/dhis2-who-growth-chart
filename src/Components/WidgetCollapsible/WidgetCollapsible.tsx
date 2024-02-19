@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, ReactNode } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import cx from 'classnames';
 import { colors, spacersNum, IconChevronUp24 } from '@dhis2/ui';
-import { IconButton } from '../IconButton';
+import { IconButton } from './IconButton';
 
 const styles = {
     headerContainer: {
