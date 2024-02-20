@@ -32,10 +32,13 @@
     "chart.js": "^3.0.0",
     "classnames": "^2.5.1",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^17.0.0",
+    "react": "^17.0.0"
   },
   "resolutions": {
     "@dhis2/ui": "^9.0.1",
-    "@dhis2/app-runtime": "^3.10.2"
+    "@dhis2/app-runtime": "^3.10.2",
+    "react-dom": "^17.0.0",
+    "react": "^17.0.0"
   }
 }
