@@ -1,5 +1,7 @@
 import React from 'react';
 import Plugin from './Plugin';
+import './tailwind.css';
+import './index.css';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const query = { me: { resource: 'me' } };
