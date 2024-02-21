@@ -2,11 +2,11 @@ import React from "react";
 import { GrowthChartBuilder } from "./GrowthChartBuilder";
 import { chartData } from "../../DataSets/newWhoStandardDataSets/ZScores/ChartDataZscores";
 import { useRangeTimePeriode } from './useRangeTimePeriode';
-import { ChartCodes } from "../../types/chartDataTypes";
+import { ChartCodes, CategoryCodes } from "../../types/chartDataTypes";
 
 export const GrowthChart = () => {
-    const categoryDataSets = chartData["Weight-for-age GIRLS"];
-    const dataSetEntry = categoryDataSets.datasets[ChartCodes.wfa_g_0_5_y_z];
+    const categoryDataSets = chartData[CategoryCodes.hcfa_b];
+    const dataSetEntry = categoryDataSets.datasets[ChartCodes.hcfa_b_0_5_y_z];
     
     const dataSetValues = dataSetEntry.datasetValues;
     const dataSetMetadata = dataSetEntry.metadata;

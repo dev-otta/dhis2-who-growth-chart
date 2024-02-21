@@ -1,7 +1,7 @@
 
 export type EnrollmentOverviewProps = {
     programId: string;
-    orgUnitId: string;
+    orgtimeUnitId: string;
     enrollmentId: string;
     teiId: string;
     programStageId?: string;
