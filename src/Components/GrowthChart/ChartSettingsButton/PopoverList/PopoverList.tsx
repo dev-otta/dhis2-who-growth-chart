@@ -8,13 +8,13 @@ type PopoverListProps = {
 };
 
 export const PopoverList = ({ setPopperElement, style, popoverAttributes, children }: PopoverListProps): JSX.Element => (
-    <ul 
+    <div 
     ref={setPopperElement}
     style={style}
     {...popoverAttributes}
     className="bg-white border p-2 rounded border-gray-300 shadow-md z-10 absolute">
         {children}
-    </ul>
+    </div>
 );
 
 

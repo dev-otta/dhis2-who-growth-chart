@@ -7,12 +7,10 @@ type PopoverListItemProps = {
 };
 
 export const PopoverListItem = ({ label, icon, onClick }: PopoverListItemProps): JSX.Element => (
-  <li 
-  className="cursor-pointer hover:bg-gray-100 py-1 px-2 rounded"
+  <div 
+  className="flex flex-row cursor-pointer hover:bg-gray-100 py-1 px-2 rounded min-w-fit"
   onClick={onClick}>
-    <a>
       <span className="icon">{icon}</span>
       <span className="label">{label}</span>
-    </a>
-  </li>
+  </div>
 );
