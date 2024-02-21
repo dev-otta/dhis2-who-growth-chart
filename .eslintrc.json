@@ -63,7 +63,7 @@
       ],
       "no-multi-spaces": ["error", { "ignoreEOLComments": true }],
       "no-return-assign": ["error", "except-parens"],
-      "react/jsx-indent": [2, 4],
+      "react/jsx-indent": [1, 4],
       "@typescript-eslint/ban-ts-comment": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "implicit-arrow-linebreak": "off",
@@ -143,12 +143,11 @@
           "ExportDeclaration": { "multiline": true, "minProperties": 3 }
         }
       ],
-      "max-len": "off",
+      "max-len": ["error", { "code": 120 }],
       "no-shadow": "off",
       "react/jsx-props-no-spreading": "off",
       "camelcase": "off",
       "import/extensions": ["error", "never"]
     }
   }
-  
   
