@@ -146,17 +146,7 @@
       "max-len": "off",
       "no-shadow": "off",
       "react/jsx-props-no-spreading": "off",
-      "camelcase": [
-        "error",
-        {
-          "properties": "never",
-          "allow": [
-            "UNSAFE_componentWillMount",
-            "UNSAFE_componentWillReceiveProps",
-            "UNSAFE_componentWillUpdate"
-          ]
-        }
-      ],
+      "camelcase": "off",
       "import/extensions": ["error", "never"]
     }
   }
