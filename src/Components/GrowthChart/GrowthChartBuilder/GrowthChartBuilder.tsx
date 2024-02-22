@@ -30,25 +30,19 @@ export const GrowthChartBuilder = ({
         layout: { padding: { right: 60 } },
     };
 
-    useEffect(() => {
-        Chart.register({
-            id: 'custom_draw',
-            afterDraw: (chart) => {
-                const { ctx } = chart;
-                ctx.save();
-                ctx.font = `${Chart.defaults.font.size}px ${Chart.defaults.font.family}`;
-                ctx.fillStyle = 'red';
-                ctx.textBaseline = 'bottom';
-                chart.data.datasets.forEach((dataset, index) => {
-                    const meta = chart.getDatasetMeta(index);
-                    const [lastElement] = meta.data.slice(-1);
-                    const { x, y } = lastElement.getProps(['x', 'y']);
-                    ctx.fillStyle = typeof dataset.borderColor === 'string' ? dataset.borderColor : 'black';
-                    ctx.fillText(dataset.label, x + 10, y);
-                });
-                ctx.restore();
-            },
+    const afterDraw = (chart: Chart<'line', number[], string>) => {
+        const { ctx } = chart;
+        chart.data.datasets.forEach((dataset, index) => {
+            const meta = chart.getDatasetMeta(index);
+            const [lastElement] = meta.data.slice(-1);
+            const { x, y } = lastElement.getProps(['x', 'y']);
+            ctx.fillStyle = typeof dataset.borderColor === 'string' ? dataset.borderColor : 'black';
+            ctx.fillText(dataset.label, x + 10, y);
         });
+    };
+
+    useEffect(() => {
+        Chart.register({ id: 'custom_draw', afterDraw });
     }, []);
 
     return <Line data={data} options={options} />;
