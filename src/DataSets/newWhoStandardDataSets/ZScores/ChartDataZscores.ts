@@ -1,5 +1,5 @@
 import { hcfa_b_0_5_y_z, hcfa_b_0_13_w_z } from "./hcfa-boys";
-import { hcfa_g_0_5_y_z, hcfa_g_0_5_w_z } from "./hcfa-girls";
+import { hcfa_g_0_5_y_z, hcfa_g_0_13_w_z } from "./hcfa-girls";
 import { lhfa_b_0_2_y_z, lhfa_b_0_13_w_z, lhfa_b_2_5_y_z } from "./lhfa-boys";
 import { lhfa_g_0_2_y_z, lhfa_g_0_13_w_z, lhfa_g_2_5_y_z } from "./lhfa-girls";
 import { wfa_b_0_5_y_z, wfa_b_0_13_w_z } from "./wfa-boys";
@@ -44,10 +44,10 @@ export const chartData = {
           range: { start: 0, end: 60 }
         }
       },
-      [ChartCodes.hcfa_g_0_5_w_z]: {
-        datasetValues: hcfa_g_0_5_w_z,
+      [ChartCodes.hcfa_g_0_13_w_z]: {
+        datasetValues: hcfa_g_0_13_w_z,
         metadata: {
-          label: ChartCodes.hcfa_g_0_5_w_z.label,
+          label: ChartCodes.hcfa_g_0_13_w_z.label,
           measurementType: measurementTypeCodes.hc_cm,
           timeUnit: timeUnitCodes.weeks,
           range: { start: 0, end: 13 }

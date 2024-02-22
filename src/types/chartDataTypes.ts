@@ -51,7 +51,7 @@ export const ChartCodes = Object.freeze({
     hcfa_b_0_5_y_z: ChartLabelCodes.b_0_5_y,
     hcfa_b_0_13_w_z: ChartLabelCodes.b_0_13_w,
     hcfa_g_0_5_y_z: ChartLabelCodes.g_0_5_y,
-    hcfa_g_0_5_w_z: ChartLabelCodes.g_0_5_w,
+    hcfa_g_0_13_w_z: ChartLabelCodes.g_0_5_w,
     lhfa_b_0_2_y_z: ChartLabelCodes.b_0_2_y,
     lhfa_b_0_13_w_z: ChartLabelCodes.b_0_13_w,
     lhfa_b_2_5_y_z: ChartLabelCodes.b_2_5_y,

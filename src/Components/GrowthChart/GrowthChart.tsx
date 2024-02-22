@@ -5,8 +5,8 @@ import { useRangeTimePeriode } from './useRangeTimePeriode';
 import { ChartCodes, CategoryCodes } from "../../types/chartDataTypes";
 
 export const GrowthChart = () => {
-    const categoryDataSets = chartData[CategoryCodes.hcfa_b];
-    const dataSetEntry = categoryDataSets.datasets[ChartCodes.hcfa_b_0_5_y_z];
+    const categoryDataSets = chartData[CategoryCodes.wflh_b];
+    const dataSetEntry = categoryDataSets.datasets[ChartCodes.wfh_b_2_5_y_z];
     
     const dataSetValues = dataSetEntry.datasetValues;
     const dataSetMetadata = dataSetEntry.metadata;

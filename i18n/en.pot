@@ -5,8 +5,29 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-02-20T17:23:17.681Z\n"
-"PO-Revision-Date: 2024-02-20T17:23:17.681Z\n"
+"POT-Creation-Date: 2024-02-22T10:15:29.602Z\n"
+"PO-Revision-Date: 2024-02-22T10:15:29.602Z\n"
+
+msgid "Months"
+msgstr "Months"
+
+msgid "Weeks"
+msgstr "Weeks"
+
+msgid "Head circumference (cm)"
+msgstr "Head circumference (cm)"
+
+msgid "Length/height (cm)"
+msgstr "Length/height (cm)"
+
+msgid "Length (cm)"
+msgstr "Length (cm)"
+
+msgid "Height (cm)"
+msgstr "Height (cm)"
+
+msgid "Weight (kg)"
+msgstr "Weight (kg)"
 
 msgid "Head circumference-for-age BOYS"
 msgstr "Head circumference-for-age BOYS"
@@ -26,11 +47,11 @@ msgstr "Weight-for-age BOYS"
 msgid "Weight-for-age GIRLS"
 msgstr "Weight-for-age GIRLS"
 
-msgid "Weight-for-height/length BOYS"
-msgstr "Weight-for-height/length BOYS"
+msgid "Weight-for-length/height BOYS"
+msgstr "Weight-for-length/height BOYS"
 
-msgid "Weight-for-height/length GIRLS"
-msgstr "Weight-for-height/length GIRLS"
+msgid "Weight-for-length/height GIRLS"
+msgstr "Weight-for-length/height GIRLS"
 
 msgid "Boys 0 to 5 years"
 msgstr "Boys 0 to 5 years"
@@ -52,9 +73,6 @@ msgstr "Boys 2 to 5 years"
 
 msgid "Girls 0 to 2 years"
 msgstr "Girls 0 to 2 years"
-
-msgid "Girls 0 to 13 weeks"
-msgstr "Girls 0 to 13 weeks"
 
 msgid "Girls 2 to 5 years"
 msgstr "Girls 2 to 5 years"
