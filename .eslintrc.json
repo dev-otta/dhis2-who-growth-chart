@@ -133,6 +133,7 @@
           }
         }
       ],
+      "eol-last": ["error", "always"],
       "react-hooks/exhaustive-deps": "error",
       "object-curly-newline": [
         "error",
