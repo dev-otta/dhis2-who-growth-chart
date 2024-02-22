@@ -1,1 +1,1 @@
-export { GrowthChartBuilder } from './GrowthChartBuilder'
+export { GrowthChartBuilder } from './GrowthChartBuilder';

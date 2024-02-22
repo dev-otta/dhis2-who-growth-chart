@@ -1,6 +1,6 @@
-import React from "react";
-import { GrowthChartBuilder } from "./GrowthChartBuilder";
-import { chartData } from "../../DataSets/newWhoStandardDataSets/ZScores/ChartDataZscores";
+import React from 'react';
+import { GrowthChartBuilder } from './GrowthChartBuilder';
+import { chartData } from '../../DataSets/ChartData';
 import { useRangeTimePeriode } from './useRangeTimePeriode';
 import { ChartCodes, CategoryCodes } from "../../types/chartDataTypes";
 
@@ -18,10 +18,12 @@ export const GrowthChart = () => {
         console.error('xLabelValues and dataSet should have the same length');
     }
 
-    return <GrowthChartBuilder
-        dataSetValues={dataSetValues}
-        dataSetMetadata={dataSetMetadata}
-        xLabelValues={xLabelValues}
-        keysDataSet={keysDataSet} 
-    />;
+    return (
+        <GrowthChartBuilder
+            dataSetValues={dataSetValues}
+            dataSetMetadata={dataSetMetadata}
+            xLabelValues={xLabelValues}
+            keysDataSet={keysDataSet}
+        />
+    );
 };

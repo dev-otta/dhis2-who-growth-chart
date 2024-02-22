@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import './Plugin.module.css';
-import { WidgetCollapsible } from "./Components/WidgetCollapsible";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { GrowthChart } from "./Components/GrowthChart/GrowthChart";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { WidgetCollapsible } from './Components/WidgetCollapsible';
+import { GrowthChart } from './Components/GrowthChart/GrowthChart';
 
 const queryClient = new QueryClient();
 
@@ -19,11 +19,10 @@ const PluginInner = () => {
                 display: 'flex',
                 margin: 0,
                 padding: 0,
-            }}>
+            }}
+            >
                 <div
-                    style={{
-                        width: '100%',
-                    }}
+                    style={{ width: '100%' }}
                 >
                     <WidgetCollapsible
                         header={'Growth Chart'}
@@ -37,7 +36,7 @@ const PluginInner = () => {
                 </div>
             </div>
         </QueryClientProvider>
-    )
-}
+    );
+};
 
 export default PluginInner;
