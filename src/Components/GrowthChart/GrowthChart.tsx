@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { GrowthChartBuilder, useRangeTimePeriod } from "./GrowthChartBuilder";
-import { chartData } from "../../DataSets/ChartData";
-import { ChartSettingsButton } from "./ChartSettingsButton";
+import React from 'react';
+import { GrowthChartBuilder, useRangeTimePeriod } from './GrowthChartBuilder';
+import { chartData } from '../../DataSets/ChartData';
+// import { ChartSettingsButton } from './ChartSettingsButton';
 
 export const GrowthChart = () => {
     const { datasets, metadata } = chartData['Weight-for-age GIRLS'];
@@ -15,21 +15,22 @@ export const GrowthChart = () => {
         console.error('xLabelValues and dataSet should have the same length');
     }
 
-    const [showAnnotation, setShowAnnotation] = useState(true);
+    // const [showAnnotation, setShowAnnotation] = useState(true);
 
-    return (<>
-        <div className="relative w-full h-8">
-            <ChartSettingsButton setShowAnnotation={setShowAnnotation} />
-        </div>
-        <div>
+    return (
+        <>
+            <div className='relative w-full h-8'>
+                {/* <ChartSettingsButton setShowAnnotation={setShowAnnotation} /> */}
+            </div>
+            <div>
 
-            <GrowthChartBuilder
-                dataSetValues={dataSetValues}
-                dataSetMetadata={dataSetMetadata}
-                xLabelValues={xLabelValues}
-                keysDataSet={keysDataSet}
-            />
-        </div>
-    </>
+                <GrowthChartBuilder
+                    dataSetValues={dataSetValues}
+                    dataSetMetadata={dataSetMetadata}
+                    xLabelValues={xLabelValues}
+                    keysDataSet={keysDataSet}
+                />
+            </div>
+        </>
     );
 };
