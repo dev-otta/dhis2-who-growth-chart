@@ -21,7 +21,7 @@ export const GrowthChartBuilder = ({
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: { legend: { display: false } },
         scales: {
-            x: { title: { display: true, text: i18n.t(`Age (${dataSetMetadata.timeUnit})`)} },
+            x: { title: { display: true, text: i18n.t(`Age (${dataSetMetadata.timeUnit})`) } },
             y: { title: { display: true, text: dataSetMetadata.measurementType } },
         },
     };

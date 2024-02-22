@@ -1,4 +1,4 @@
-import i18n from '@dhis2/d2-i18n'
+import i18n from '@dhis2/d2-i18n';
 
 export interface ChartDataTypes {
     dataSetValues: { [key: string]: number }[];
@@ -14,7 +14,7 @@ export interface ChartDataTypes {
 
 export const timeUnitCodes = Object.freeze({
     months: i18n.t('Months'),
-    weeks: i18n.t('Weeks')
+    weeks: i18n.t('Weeks'),
 });
 
 export const measurementTypeCodes = Object.freeze({
@@ -33,7 +33,7 @@ export const CategoryCodes = Object.freeze({
     wfa_b: i18n.t('Weight-for-age BOYS'),
     wfa_g: i18n.t('Weight-for-age GIRLS'),
     wflh_b: i18n.t('Weight-for-length/height BOYS'),
-    wflh_g: i18n.t('Weight-for-length/height GIRLS')
+    wflh_g: i18n.t('Weight-for-length/height GIRLS'),
 });
 
 export const ChartLabelCodes = Object.freeze({
@@ -44,7 +44,7 @@ export const ChartLabelCodes = Object.freeze({
     b_0_2_y: i18n.t('Boys 0 to 2 years'),
     b_2_5_y: i18n.t('Boys 2 to 5 years'),
     g_0_2_y: i18n.t('Girls 0 to 2 years'),
-    g_2_5_y: i18n.t('Girls 2 to 5 years')
+    g_2_5_y: i18n.t('Girls 2 to 5 years'),
 });
 
 export const ChartCodes = Object.freeze({
@@ -65,8 +65,5 @@ export const ChartCodes = Object.freeze({
     wfh_g_2_5_y_z: ChartLabelCodes.g_2_5_y,
     wfl_g_0_2_y_z: ChartLabelCodes.g_0_2_y,
     wfh_b_2_5_y_z: ChartLabelCodes.b_2_5_y,
-    wfl_b_0_2_y_z: ChartLabelCodes.b_0_2_y
+    wfl_b_0_2_y_z: ChartLabelCodes.b_0_2_y,
 });
-
-
-    
