@@ -167,8 +167,8 @@ export const chartData = {
                 metadata: {
                     label: ChartCodes.wfh_b_2_5_y_z.label,
                     measurementType: measurementTypeCodes.w_kg,
-                    timeUnit: timeUnitCodes.months,
-                    range: { start: 65, end: 240 },
+                    timeUnit: measurementTypeCodes.h_cm,
+                    range: { start: 65, end: 120 },
                 },
             },
             [ChartCodes.wfl_b_0_2_y_z]: {
