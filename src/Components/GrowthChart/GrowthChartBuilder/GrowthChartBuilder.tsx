@@ -8,34 +8,8 @@ import { ChartDataTypes } from '../../../types/chartDataTypes';
 import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
 
 
-export const GrowthChartBuilder = ({ dataSetValues, dataSetMetadata, xLabelValues, keysDataSet }: ChartDataTypes) => {
+export const GrowthChartBuilder = ({ dataSetValues, dataSetMetadata, xLabelValues, keysDataSet, optionsObject }: ChartDataTypes) => {
     Chart.register(CategoryScale, annotationPlugin);
-
-    const annotations: any = [];
-
-    xLabelValues.forEach((label, index) => {
-        if (label % 12 === 0 && label != 0) {
-
-            annotations.push({
-                display: true,
-                type: 'line',
-                mode: 'vertical',
-                scaleID: 'x',
-                value: label,
-                label: {
-                    display: true,
-                    content: () => {
-                        const value = index / 12
-                        if(value == 1) return value + ' Year'
-                        return value + ' Years'
-                    },
-                    position: 'start',
-                    yAdjust: -10,
-                },
-                
-            })
-        }
-    });
 
     const data = {
         labels: xLabelValues,
@@ -50,7 +24,7 @@ export const GrowthChartBuilder = ({ dataSetValues, dataSetMetadata, xLabelValue
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: {
             annotation: {
-                annotations: annotations
+                annotations: optionsObject.annotations
             },
             legend: { display: false }
         },
