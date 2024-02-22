@@ -38,19 +38,43 @@ export const ChartSettingsButton = ({ setShowAnnotation }: ChartSettingsButtonPr
     }, []);
 
     return (
-        <div className='absolute top-2 right-2' ref={popoverRef}>
-            <EllipsisButton onClick={() => setIsVisible(prevState => !prevState)} isVisible={isVisible} setReferenceElement={setReferenceElement} />  
+        <div className='absolute top-2 right-3' ref={popoverRef}>
+            <EllipsisButton
+                onClick={() => setIsVisible((prevState) => !prevState)}
+                isVisible={isVisible}
+                setReferenceElement={setReferenceElement}
+            />
             {isVisible && (
                 <PopoverList
                     setPopperElement={setPopperElement}
                     style={styles.popper}
                     popoverAttributes={{ ...attributes.popper }}
                 >
-                    <PopoverListItem label="Settings" icon={<span>🔧</span>} onClick={() => console.log('Not Implemented')} />
-                    <PopoverListItem label="Annotations" icon={<span>📥</span>} onClick={() => setShowAnnotation(prevState => !prevState)} />                    
-                    <PopoverListItem label="Export" icon={<span>📤</span>} onClick={() => console.log('Not Implemented')} />
-                    <PopoverListItem label="Print" icon={<span>🖨️</span>} onClick={() => console.log('Not Implemented')} />
-                    <PopoverListItem label="Help" icon={<span>❓</span>} onClick={() => console.log('Not Implemented')} />
+                    <PopoverListItem
+                        label='Settings'
+                        icon={<span>🔧</span>}
+                        onClick={() => {}}
+                    />
+                    <PopoverListItem
+                        label='Annotations'
+                        icon={<span>📥</span>}
+                        onClick={() => setShowAnnotation((prevState) => !prevState)}
+                    />
+                    <PopoverListItem
+                        label='Export'
+                        icon={<span>📤</span>}
+                        onClick={() => {}}
+                    />
+                    <PopoverListItem
+                        label='Print'
+                        icon={<span>🖨️</span>}
+                        onClick={() => {}}
+                    />
+                    <PopoverListItem
+                        label='Help'
+                        icon={<span>❓</span>}
+                        onClick={() => {}}
+                    />
                 </PopoverList>
             )}
         </div>

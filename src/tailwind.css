@@ -646,6 +646,14 @@ video {
   right: 0.5rem;
 }
 
+.top-3 {
+  top: 0.75rem;
+}
+
+.right-3 {
+  right: 0.75rem;
+}
+
 .top-1 {
   top: 0.25rem;
 }

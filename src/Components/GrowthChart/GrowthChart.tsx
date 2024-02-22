@@ -17,9 +17,11 @@ export const GrowthChart = () => {
 
     const [showAnnotation, setShowAnnotation] = useState(true);
 
-    return (
-        <div className="relative">
+    return (<>
+        <div className="relative w-full h-8">
             <ChartSettingsButton setShowAnnotation={setShowAnnotation} />
+        </div>
+        <div>
 
             <GrowthChartBuilder
                 dataSetValues={dataSetValues}
@@ -28,5 +30,6 @@ export const GrowthChart = () => {
                 keysDataSet={keysDataSet}
             />
         </div>
+    </>
     );
 };
