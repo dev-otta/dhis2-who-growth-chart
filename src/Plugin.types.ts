@@ -1,4 +1,3 @@
-
 export type EnrollmentOverviewProps = {
     programId: string;
     orgUnitId: string;

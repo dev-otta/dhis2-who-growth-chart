@@ -4,9 +4,9 @@ import { chartData } from "../../DataSets/ChartData";
 import { ChartSettingsButton } from "./ChartSettingsButton";
 
 export const GrowthChart = () => {
-    const { datasets, metadata } = chartData["Weight-for-age GIRLS"];
-    const dataSetValues = datasets["Girls0to5Years"];
-    const dataSetMetadata = metadata["Girls0to5Years"];
+    const { datasets, metadata } = chartData['Weight-for-age GIRLS'];
+    const dataSetValues = datasets.Girls0to5Years;
+    const dataSetMetadata = metadata.Girls0to5Years;
 
     const xLabelValues = useRangeTimePeriod(dataSetMetadata.range.start, dataSetMetadata.range.end);
     const keysDataSet = Object.keys(dataSetValues[0]);
