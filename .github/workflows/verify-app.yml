@@ -1,0 +1,66 @@
+name: 'Capture Growth Chart: verify app'
+
+on:
+  push:
+    branches:
+
+env:
+  NODE_VERSION: 18.x
+
+jobs:
+  install_dependencies:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install Dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+
+  lint_code:
+    runs-on: ubuntu-latest
+    needs: install_dependencies
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: ${{ env.NODE_VERSION }}
+
+        - uses: actions/cache@v2
+          id: yarn-cache
+          with:
+            path: '**/node_modules'
+            key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+        - name: Lint Code
+          run: yarn lint
+
+  typescript_check:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    needs: install_dependencies
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Typescript Check
+        run: yarn tsc:check
