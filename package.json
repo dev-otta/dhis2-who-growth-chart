@@ -31,7 +31,7 @@
     "@material-ui/core": "3.9.4",
     "@tanstack/react-query": "^4",
     "@types/chart.js": "^2.9.41",
-    "chart.js": "^3.0.0",
+    "chart.js": "^4.4.1",
     "classnames": "^2.5.1",
     "prop-types": "15.8.1",
     "react": "^16.8.0",
