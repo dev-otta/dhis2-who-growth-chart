@@ -8,4 +8,5 @@ export interface ChartDataTypes {
     };
     xLabelValues: number[];
     keysDataSet: string[];
+    optionsObject: any;
 }

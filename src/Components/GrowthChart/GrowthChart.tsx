@@ -2,14 +2,18 @@ import React from "react";
 import { GrowthChartBuilder } from "./GrowthChartBuilder";
 import { chartData } from "../../DataSets/ChartData";
 import { useRangeTimePeriode } from './useRangeTimePeriode';
+import { GrowthChartAnnotations } from "./GrowthChartOptions";
 
 export const GrowthChart = () => {
     const { datasets, metadata } = chartData["Weight-for-age GIRLS"];
     const dataSetValues = datasets["Girls0to5Years"];
     const dataSetMetadata = metadata["Girls0to5Years"];
+    const optionsObject: any = {annotations: []}
 
     const xLabelValues = useRangeTimePeriode(dataSetMetadata.range.start, dataSetMetadata.range.end);
     const keysDataSet = Object.keys(dataSetValues[0]);
+
+    optionsObject.annotations = GrowthChartAnnotations(xLabelValues)
 
     if (xLabelValues.length !== dataSetValues.length) {
         console.error('xLabelValues and dataSet should have the same length');
@@ -20,5 +24,6 @@ export const GrowthChart = () => {
         dataSetMetadata={dataSetMetadata}
         xLabelValues={xLabelValues}
         keysDataSet={keysDataSet} 
+        optionsObject={optionsObject}
     />;
 };
