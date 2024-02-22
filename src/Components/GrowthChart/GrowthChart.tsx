@@ -1,6 +1,6 @@
 import React from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
-import { chartData } from '../../DataSets/ChartData';
+import { chartData } from '../../DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
 import { useRangeTimePeriode } from './useRangeTimePeriode';
 import { ChartCodes, CategoryCodes } from "../../types/chartDataTypes";
 
