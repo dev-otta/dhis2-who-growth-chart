@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { GrowthChartBuilder } from "./GrowthChartBuilder";
+import { GrowthChartBuilder, useRangeTimePeriod } from "./GrowthChartBuilder";
 import { chartData } from "../../DataSets/ChartData";
-import { useRangeTimePeriode } from './useRangeTimePeriode';
 import { ChartSettingsButton } from "./ChartSettingsButton";
 
 export const GrowthChart = () => {
@@ -9,7 +8,7 @@ export const GrowthChart = () => {
     const dataSetValues = datasets["Girls0to5Years"];
     const dataSetMetadata = metadata["Girls0to5Years"];
 
-    const xLabelValues = useRangeTimePeriode(dataSetMetadata.range.start, dataSetMetadata.range.end);
+    const xLabelValues = useRangeTimePeriod(dataSetMetadata.range.start, dataSetMetadata.range.end);
     const keysDataSet = Object.keys(dataSetValues[0]);
 
     if (xLabelValues.length !== dataSetValues.length) {
@@ -23,7 +22,6 @@ export const GrowthChart = () => {
             <ChartSettingsButton setShowAnnotation={setShowAnnotation} />
 
             <GrowthChartBuilder
-                showAnnotation={showAnnotation}
                 dataSetValues={dataSetValues}
                 dataSetMetadata={dataSetMetadata}
                 xLabelValues={xLabelValues}

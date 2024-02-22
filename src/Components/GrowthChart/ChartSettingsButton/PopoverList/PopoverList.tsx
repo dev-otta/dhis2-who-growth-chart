@@ -12,7 +12,7 @@ export const PopoverList = ({ setPopperElement, style, popoverAttributes, childr
     ref={setPopperElement}
     style={style}
     {...popoverAttributes}
-    className="bg-white border p-2 rounded border-gray-300 shadow-md z-10 absolute">
+    className="bg-white border rounded border-gray-300 shadow-md z-10 absolute">
         {children}
     </div>
 );
