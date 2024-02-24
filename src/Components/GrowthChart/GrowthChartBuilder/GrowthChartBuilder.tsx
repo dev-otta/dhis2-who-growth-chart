@@ -23,8 +23,8 @@ export const GrowthChartBuilder = ({
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: { legend: { display: false } },
         scales: {
-            x: { title: { display: true, text: i18n.t(`age (${dataSetMetadata.unit})`) } },
-            y: { title: { display: true, text: dataSetMetadata.yaxis } },
+            x: { title: { display: true, text: i18n.t(dataSetMetadata.timeUnit) } },
+            y: { title: { display: true, text: dataSetMetadata.measurementType } },
         },
         layout: { padding: { right: 75 } },
         animation: { onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation) },
