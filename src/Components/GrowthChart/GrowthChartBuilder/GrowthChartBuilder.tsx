@@ -19,7 +19,7 @@ export const GrowthChartBuilder = ({
         })),
     };
 
-    const options: any = {
+    const options = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: { legend: { display: false } },
         scales: {
@@ -27,7 +27,7 @@ export const GrowthChartBuilder = ({
             y: { title: { display: true, text: dataSetMetadata.yaxis } },
         },
         layout: { padding: { right: 75 } },
-        animation: { onProgress: annotateLineEnd },
+        animation: { onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation) },
     };
 
     return <Line data={data} options={options} />;
