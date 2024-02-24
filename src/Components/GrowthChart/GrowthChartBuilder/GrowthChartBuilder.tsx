@@ -4,6 +4,7 @@ import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { ChartDataTypes } from '../../../types/chartDataTypes';
 import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
+import { annotateLineEnd } from '../../../utils/annotateLineEnd';
 
 export const GrowthChartBuilder = ({
     dataSetValues, dataSetMetadata, xLabelValues, keysDataSet,
@@ -14,6 +15,7 @@ export const GrowthChartBuilder = ({
             data: dataSetValues.map((entry) => entry[key]),
             borderWidth: 0.9,
             borderColor: chartLineColorPicker(key),
+            label: key,
         })),
     };
 
@@ -24,6 +26,8 @@ export const GrowthChartBuilder = ({
             x: { title: { display: true, text: i18n.t(`age (${dataSetMetadata.unit})`) } },
             y: { title: { display: true, text: dataSetMetadata.yaxis } },
         },
+        layout: { padding: { right: 75 } },
+        animation: { onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation) },
     };
 
     return <Line data={data} options={options} />;
