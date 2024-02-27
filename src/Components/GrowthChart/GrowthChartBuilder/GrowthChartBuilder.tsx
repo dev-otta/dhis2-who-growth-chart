@@ -1,8 +1,7 @@
 import React from 'react';
 import i18n from '@dhis2/d2-i18n';
 import { Line } from 'react-chartjs-2';
-import Chart, { ChartOptions } from 'chart.js/auto';
-import { CategoryScale } from 'chart.js';
+import Chart, { ChartOptions, CategoryScale } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { ChartDataTypes } from '../../../types/chartDataTypes';
 import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
