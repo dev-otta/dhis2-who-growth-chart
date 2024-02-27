@@ -7,10 +7,9 @@ export interface AnnotationLabel {
 
 interface Annotation {
     display: boolean;
-    type: 'line' | 'box' | 'point' | 'range' | 'line-vertical' | 'box-vertical';
-    mode?: 'horizontal' | 'vertical' | 'nearest' | 'x' | 'y' | 'index' | 'dataset' | 'average' | 'point';
+    type: 'line';
     scaleID?: string;
-    value?: string | number | Date;
+    value?: number;
     borderWidth?: number;
     label?: AnnotationLabel;
 }
@@ -24,7 +23,6 @@ export const GrowthChartAnnotations = (xAxisValues: number[]) => {
                 annotations.push({
                     display: true,
                     type: 'line',
-                    mode: 'vertical',
                     scaleID: 'x',
                     borderWidth: 2,
                     value: index,
