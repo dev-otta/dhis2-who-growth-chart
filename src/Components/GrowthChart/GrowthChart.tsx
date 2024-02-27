@@ -31,7 +31,6 @@ export const GrowthChart = () => {
         console.error('xAxisValues and dataSet should have the same length');
     }
 
-
     return (
         <>
             <div className='relative w-full h-10'>
