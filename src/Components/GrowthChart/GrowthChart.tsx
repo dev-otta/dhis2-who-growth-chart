@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
 import { chartData } from '../../DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
-import { useRangeTimePeriode } from './useRangeTimePeriode';
+import { useRangeTimePeriod } from './GrowthChartBuilder';
 import { ChartCodes, CategoryCodes } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
+import { ChartSettingsButton } from './ChartSettingsButton';
 
 export const GrowthChart = () => {
     const categoryDataSets = chartData[CategoryCodes.wflh_b];
@@ -12,7 +13,7 @@ export const GrowthChart = () => {
     const dataSetValues = dataSetEntry.datasetValues;
     const dataSetMetadata = dataSetEntry.metadata;
 
-    const xAxisValues = useRangeTimePeriode(dataSetMetadata.range.start, dataSetMetadata.range.end);
+    const xAxisValues = useRangeTimePeriod(dataSetMetadata.range.start, dataSetMetadata.range.end);
     const keysDataSet = Object.keys(dataSetValues[0]);
 
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
@@ -30,15 +31,20 @@ export const GrowthChart = () => {
         console.error('xAxisValues and dataSet should have the same length');
     }
 
-    // const [showAnnotation, setShowAnnotation] = useState(true);
+    const [, setShowAnnotation] = useState(true);
 
     return (
-        <GrowthChartBuilder
-            dataSetValues={dataSetValues}
-            dataSetMetadata={dataSetMetadata}
-            xAxisValues={xAxisValues}
-            yAxisValues={yAxisValues}
-            keysDataSet={keysDataSet}
-        />
+        <> <div className="relative w-full h-10">
+            <ChartSettingsButton setShowAnnotation={setShowAnnotation} />
+        </div>
+            <GrowthChartBuilder
+                dataSetValues={dataSetValues}
+                dataSetMetadata={dataSetMetadata}
+                xAxisValues={xAxisValues}
+                yAxisValues={yAxisValues}
+                keysDataSet={keysDataSet}
+
+            />
+        </>
     );
 };
