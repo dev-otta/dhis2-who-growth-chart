@@ -7,12 +7,12 @@ import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
 import { annotateLineEnd } from '../../../utils/annotateLineEnd';
 
 export const GrowthChartBuilder = ({
-    dataSetValues, dataSetMetadata, xLabelValues, keysDataSet,
+    datasetValues, metadata, xLabelValues, keysDataSet,
 }: ChartDataTypes) => {
     const data = {
         labels: xLabelValues,
         datasets: keysDataSet.map((key) => ({
-            data: dataSetValues.map((entry) => entry[key]),
+            data: datasetValues.map((entry) => entry[key]),
             borderWidth: 0.9,
             borderColor: chartLineColorPicker(key),
             label: key,
@@ -23,8 +23,8 @@ export const GrowthChartBuilder = ({
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: { legend: { display: false } },
         scales: {
-            x: { title: { display: true, text: i18n.t(dataSetMetadata.timeUnit) } },
-            y: { title: { display: true, text: dataSetMetadata.measurementType } },
+            x: { title: { display: true, text: i18n.t(metadata.timeUnit) } },
+            y: { title: { display: true, text: metadata.measurementType } },
         },
         layout: { padding: { right: 75 } },
         animation: { onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation) },

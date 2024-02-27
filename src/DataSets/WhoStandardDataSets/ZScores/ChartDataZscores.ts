@@ -6,10 +6,13 @@ import { wfa_b_0_5_y_z, wfa_b_0_13_w_z } from './wfa-boys';
 import { wfa_g_0_5_y_z, wfa_g_0_13_w_z } from './wfa-girls';
 import { wfh_g_2_5_y_z, wfl_g_0_2_y_z } from './wfhl-girls';
 import { wfh_b_2_5_y_z, wfl_b_0_2_y_z } from './wfhl-boys';
+import { ChartCodes,
+    CategoryCodes,
+    measurementTypeCodes,
+    timeUnitCodes,
+    ChartData } from '../../../types/chartDataTypes';
 
-import { ChartCodes, CategoryCodes, measurementTypeCodes, timeUnitCodes } from '../../../types/chartDataTypes';
-
-export const chartData = {
+export const chartData: ChartData = {
     [CategoryCodes.hcfa_b]: {
         datasets: {
             [ChartCodes.hcfa_b_0_5_y_z]: {
