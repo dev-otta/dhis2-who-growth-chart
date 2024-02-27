@@ -1,3 +1,5 @@
+import i18n from '../../../locales';
+
 export interface AnnotationLabel {
     display: boolean;
     content?: () => string;
@@ -30,11 +32,11 @@ export const GrowthChartAnnotations = (xAxisValues: number[]) => {
                         display: true,
                         content: () => {
                             const value = label / 12;
-                            if (value === 1) return `${value} Year`;
-                            return `${value} Years`;
+                            if (value === 1) return `${value} ${i18n.t('Year')}`;
+                            return `${value} ${i18n.t('Years')}`;
                         },
-                        position: 'start',
-                        yAdjust: -10,
+                        position: 'end',
+                        yAdjust: 10,
                     },
 
                 });
