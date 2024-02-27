@@ -1,7 +1,7 @@
 import React from 'react';
 import i18n from '@dhis2/d2-i18n';
 import { Line } from 'react-chartjs-2';
-import Chart from 'chart.js/auto';
+import Chart, { ChartOptions } from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { ChartDataTypes } from '../../../types/chartDataTypes';
@@ -32,10 +32,8 @@ export const GrowthChartBuilder = ({
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: {
-            annotation: {
-                annotations: optionsObject.annotations
-            },
-            legend: { display: false }
+            annotation: { annotations: optionsObject.annotations || [] },
+            legend: { display: false },
         },
         scales: {
             x: { title: { display: true, text: i18n.t(dataSetMetadata.timeUnit) } },
@@ -55,6 +53,6 @@ export const GrowthChartBuilder = ({
 
         animation: { onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation) },
     };
-    console.log(Chart)
+
     return <Line data={data} options={options} />;
 };

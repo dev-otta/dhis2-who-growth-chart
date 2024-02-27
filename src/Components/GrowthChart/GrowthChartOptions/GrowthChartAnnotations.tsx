@@ -1,4 +1,4 @@
-interface AnnotationLabel {
+export interface AnnotationLabel {
     display: boolean;
     content?: () => string;
     position?: 'top' | 'bottom' | 'center' | 'start' | 'end';
@@ -11,35 +11,37 @@ interface Annotation {
     mode?: 'horizontal' | 'vertical' | 'nearest' | 'x' | 'y' | 'index' | 'dataset' | 'average' | 'point';
     scaleID?: string;
     value?: string | number | Date;
+    borderWidth?: number;
     label?: AnnotationLabel;
 }
 
-export const GrowthChartAnnotations = (xLabelValues: number[]) => {
+export const GrowthChartAnnotations = (xAxisValues: number[]) => {
     const annotations: Annotation[] = [];
 
-    xLabelValues.forEach((label, index) => {
-        if (label % 12 === 0 && label != 0) {
-
-            annotations.push({
-                display: true,
-                type: 'line',
-                mode: 'vertical',
-                scaleID: 'x',
-                value: label,
-                label: {
+    xAxisValues.forEach(
+        (label, index) => {
+            if (label % 12 === 0 && label !== 0) {
+                annotations.push({
                     display: true,
-                    content: () => {
-                        const value = index / 12
-                        if(value == 1) return value + ' Year'
-                        return value + ' Years'
+                    type: 'line',
+                    mode: 'vertical',
+                    scaleID: 'x',
+                    borderWidth: 2,
+                    value: index,
+                    label: {
+                        display: true,
+                        content: () => {
+                            const value = label / 12;
+                            if (value === 1) return `${value} Year`;
+                            return `${value} Years`;
+                        },
+                        position: 'start',
+                        yAdjust: -10,
                     },
-                    position: 'start',
-                    yAdjust: -10,
-                },
-                
-            })
-        }
-    });
 
-    return annotations
-}
+                });
+            }
+        },
+    );
+    return annotations;
+};
