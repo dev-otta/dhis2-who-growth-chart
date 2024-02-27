@@ -3,11 +3,7 @@ import { usePopper } from 'react-popper';
 import { EllipsisButton } from './EllipsisButton';
 import { PopoverList, PopoverListItem } from './PopoverList';
 
-type ChartSettingsButtonProps = {
-    setShowAnnotation: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-export const ChartSettingsButton = ({ setShowAnnotation }: ChartSettingsButtonProps) => {
+export const ChartSettingsButton = () => {
     const [referenceElement, setReferenceElement] = useState(null);
     const [popperElement, setPopperElement] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
@@ -51,28 +47,8 @@ export const ChartSettingsButton = ({ setShowAnnotation }: ChartSettingsButtonPr
                     popoverAttributes={{ ...attributes.popper }}
                 >
                     <PopoverListItem
-                        label='Settings'
+                        label='Coming soon'
                         icon={<span>🔧</span>}
-                        onClick={() => {}}
-                    />
-                    <PopoverListItem
-                        label='Annotations'
-                        icon={<span>📥</span>}
-                        onClick={() => setShowAnnotation((prevState) => !prevState)}
-                    />
-                    <PopoverListItem
-                        label='Export'
-                        icon={<span>📤</span>}
-                        onClick={() => {}}
-                    />
-                    <PopoverListItem
-                        label='Print'
-                        icon={<span>🖨️</span>}
-                        onClick={() => {}}
-                    />
-                    <PopoverListItem
-                        label='Help'
-                        icon={<span>❓</span>}
                         onClick={() => {}}
                     />
                 </PopoverList>
