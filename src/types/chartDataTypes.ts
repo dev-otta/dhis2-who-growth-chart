@@ -8,7 +8,8 @@ export interface ChartDataTypes {
         timeUnit: string;
         range: { start: number; end: number };
     };
-    xLabelValues: number[];
+    xAxisValues: number[];
+    yAxisValues: { minDataValue: number; maxDataValue: number };
     keysDataSet: string[];
 }
 
