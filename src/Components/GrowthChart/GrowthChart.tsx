@@ -1,36 +1,44 @@
-import React from 'react';
-import { GrowthChartBuilder, useRangeTimePeriod } from './GrowthChartBuilder';
-import { chartData } from '../../DataSets/ChartData';
-// import { ChartSettingsButton } from './ChartSettingsButton';
+import React, { useMemo } from 'react';
+import { GrowthChartBuilder } from './GrowthChartBuilder';
+import { chartData } from '../../DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
+import { useRangeTimePeriode } from './useRangeTimePeriode';
+import { ChartCodes, CategoryCodes } from '../../types/chartDataTypes';
+import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
 
 export const GrowthChart = () => {
-    const { datasets, metadata } = chartData['Weight-for-age GIRLS'];
-    const dataSetValues = datasets.Girls0to5Years;
-    const dataSetMetadata = metadata.Girls0to5Years;
+    const categoryDataSets = chartData[CategoryCodes.wflh_b];
+    const dataSetEntry = categoryDataSets.datasets[ChartCodes.wfh_b_2_5_y_z];
 
-    const xLabelValues = useRangeTimePeriod(dataSetMetadata.range.start, dataSetMetadata.range.end);
+    const dataSetValues = dataSetEntry.datasetValues;
+    const dataSetMetadata = dataSetEntry.metadata;
+
+    const xAxisValues = useRangeTimePeriode(dataSetMetadata.range.start, dataSetMetadata.range.end);
     const keysDataSet = Object.keys(dataSetValues[0]);
 
-    if (xLabelValues.length !== dataSetValues.length) {
-        console.error('xLabelValues and dataSet should have the same length');
+    const { min, max } = useCalculateMinMaxValues(dataSetValues);
+    const addRangePercentage = Math.floor((max - min) * 0.1);
+
+    const [minDataValue, maxDataValue] = useMemo(() => {
+        const minVal = Math.floor(min) - addRangePercentage;
+        const maxVal = Math.ceil(max) + addRangePercentage;
+        return [minVal, maxVal];
+    }, [min, max, addRangePercentage]);
+
+    const yAxisValues = { minDataValue, maxDataValue };
+
+    if (xAxisValues.length !== dataSetValues.length) {
+        console.error('xAxisValues and dataSet should have the same length');
     }
 
     // const [showAnnotation, setShowAnnotation] = useState(true);
 
     return (
-        <>
-            <div className='relative w-full h-8'>
-                {/* <ChartSettingsButton setShowAnnotation={setShowAnnotation} /> */}
-            </div>
-            <div>
-
-                <GrowthChartBuilder
-                    dataSetValues={dataSetValues}
-                    dataSetMetadata={dataSetMetadata}
-                    xLabelValues={xLabelValues}
-                    keysDataSet={keysDataSet}
-                />
-            </div>
-        </>
+        <GrowthChartBuilder
+            dataSetValues={dataSetValues}
+            dataSetMetadata={dataSetMetadata}
+            xAxisValues={xAxisValues}
+            yAxisValues={yAxisValues}
+            keysDataSet={keysDataSet}
+        />
     );
 };
