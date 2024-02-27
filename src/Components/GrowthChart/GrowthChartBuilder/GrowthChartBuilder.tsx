@@ -1,26 +1,35 @@
 import React from 'react';
-import i18n from '@dhis2/d2-i18n'
+import i18n from '@dhis2/d2-i18n';
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { ChartDataTypes } from '../../../types/chartDataTypes';
 import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
+import { annotateLineEnd } from '../../../utils/annotateLineEnd';
 
-
-export const GrowthChartBuilder = ({ dataSetValues, dataSetMetadata, xLabelValues, keysDataSet, optionsObject }: ChartDataTypes) => {
+export const GrowthChartBuilder = ({
+    dataSetValues,
+    dataSetMetadata,
+    xAxisValues,
+    yAxisValues,
+    keysDataSet, optionsObject,
+}: ChartDataTypes) => {
     Chart.register(CategoryScale, annotationPlugin);
 
+    const { minDataValue, maxDataValue } = yAxisValues;
+
     const data = {
-        labels: xLabelValues,
-        datasets: keysDataSet.map(key => ({
-            data: dataSetValues.map(entry => entry[key]),
+        labels: xAxisValues,
+        datasets: keysDataSet.map((key) => ({
+            data: dataSetValues.map((entry) => entry[key]),
             borderWidth: 0.9,
             borderColor: chartLineColorPicker(key),
+            label: key,
         })),
     };
 
-    const options = {
+    const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: {
             annotation: {
@@ -29,9 +38,22 @@ export const GrowthChartBuilder = ({ dataSetValues, dataSetMetadata, xLabelValue
             legend: { display: false }
         },
         scales: {
-            x: { title: { display: true, text: i18n.t(`age (${dataSetMetadata.unit})`) } },
-            y: { title: { display: true, text: dataSetMetadata.yaxis } },
+            x: { title: { display: true, text: i18n.t(dataSetMetadata.timeUnit) } },
+            y: {
+                title: { display: true, text: dataSetMetadata.measurementType },
+                position: 'left',
+                min: minDataValue,
+                max: maxDataValue,
+            },
+            yRight: {
+                position: 'right',
+                min: minDataValue,
+                max: maxDataValue,
+                ticks: { padding: 60 },
+            },
         },
+
+        animation: { onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation) },
     };
     console.log(Chart)
     return <Line data={data} options={options} />;
