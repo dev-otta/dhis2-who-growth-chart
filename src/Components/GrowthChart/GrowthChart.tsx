@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
-import { GrowthChartBuilder } from './GrowthChartBuilder';
+import { GrowthChartBuilder, useRangeTimePeriod } from './GrowthChartBuilder';
 import { chartData } from '../../DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
-import { useRangeTimePeriod } from './GrowthChartBuilder';
+
 import { ChartCodes, CategoryCodes } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
 import { ChartSettingsButton } from './ChartSettingsButton';
@@ -34,9 +34,11 @@ export const GrowthChart = () => {
     const [, setShowAnnotation] = useState(true);
 
     return (
-        <> <div className="relative w-full h-10">
-            <ChartSettingsButton setShowAnnotation={setShowAnnotation} />
-        </div>
+        <>
+            {' '}
+            <div className='relative w-full h-10'>
+                <ChartSettingsButton setShowAnnotation={setShowAnnotation} />
+            </div>
             <GrowthChartBuilder
                 dataSetValues={dataSetValues}
                 dataSetMetadata={dataSetMetadata}
