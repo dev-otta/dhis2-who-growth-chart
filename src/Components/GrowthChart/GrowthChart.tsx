@@ -16,8 +16,7 @@ export const GrowthChart = () => {
     const keysDataSet = Object.keys(dataSetValues[0]);
 
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
-    const range = max - min;
-    const addRangePercentage = Math.floor(range * 0.1);
+    const addRangePercentage = Math.floor((max - min) * 0.1);
 
     const [minDataValue, maxDataValue] = useMemo(() => {
         const minVal = Math.floor(min) - addRangePercentage;

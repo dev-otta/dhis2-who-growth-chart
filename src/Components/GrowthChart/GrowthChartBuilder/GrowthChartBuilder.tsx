@@ -8,7 +8,11 @@ import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
 import { annotateLineEnd } from '../../../utils/annotateLineEnd';
 
 export const GrowthChartBuilder = ({
-    dataSetValues, dataSetMetadata, xAxisValues, yAxisValues, keysDataSet,
+    dataSetValues,
+    dataSetMetadata,
+    xAxisValues,
+    yAxisValues,
+    keysDataSet,
 }: ChartDataTypes) => {
     const { minDataValue, maxDataValue } = yAxisValues;
 
