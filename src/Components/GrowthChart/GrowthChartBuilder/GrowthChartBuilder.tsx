@@ -12,7 +12,8 @@ export const GrowthChartBuilder = ({
     dataSetMetadata,
     xAxisValues,
     yAxisValues,
-    keysDataSet, optionsObject,
+    keysDataSet,
+    annotations,
 }: ChartDataTypes) => {
     Chart.register(CategoryScale, annotationPlugin);
 
@@ -31,7 +32,7 @@ export const GrowthChartBuilder = ({
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: {
-            annotation: { annotations: optionsObject.annotations },
+            annotation: annotations,
             legend: { display: false },
         },
         scales: {

@@ -1,23 +1,23 @@
 import i18n from '@dhis2/d2-i18n';
 
-export interface AnnotationLabel {
+export interface AnnotationLabelType {
     display: boolean;
     content?: () => string;
     position?: 'top' | 'bottom' | 'center' | 'start' | 'end';
     yAdjust?: number;
 }
 
-interface Annotation {
+export interface AnnotationType {
     display: boolean;
     type: 'line';
     scaleID?: string;
     value?: number;
     borderWidth?: number;
-    label?: AnnotationLabel;
+    label?: AnnotationLabelType;
 }
 
 export const GrowthChartAnnotations = (xAxisValues: number[]) => {
-    const annotations: Annotation[] = [];
+    const annotations: AnnotationType[] = [];
 
     xAxisValues.forEach(
         (label, index) => {

@@ -4,7 +4,7 @@ import { chartData } from '../../DataSets/WhoStandardDataSets/ZScores/ChartDataZ
 import { useRangeTimePeriode } from './useRangeTimePeriode';
 import { ChartCodes, CategoryCodes } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
-import { GrowthChartAnnotations, AnnotationLabel } from './GrowthChartOptions';
+import { GrowthChartAnnotations } from './GrowthChartOptions';
 
 export const GrowthChart = () => {
     const categoryDataSets = chartData[CategoryCodes.lhfa_g];
@@ -27,8 +27,7 @@ export const GrowthChart = () => {
 
     const yAxisValues = { minDataValue, maxDataValue };
 
-    const optionsObject: { annotations: AnnotationLabel[] } = { annotations: [] };
-    optionsObject.annotations = GrowthChartAnnotations(xAxisValues);
+    const annotations = { annotations: GrowthChartAnnotations(xAxisValues) };  
 
     if (xAxisValues.length !== dataSetValues.length) {
         console.error('xAxisValues and dataSet should have the same length');
@@ -41,7 +40,7 @@ export const GrowthChart = () => {
             xAxisValues={xAxisValues}
             yAxisValues={yAxisValues}
             keysDataSet={keysDataSet}
-            optionsObject={optionsObject}
+            annotations={annotations}
         />
     );
 };
