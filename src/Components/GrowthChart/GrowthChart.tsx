@@ -8,7 +8,7 @@ import { GrowthChartAnnotations } from './GrowthChartOptions';
 
 export const GrowthChart = () => {
     const categoryDataSets = chartData[CategoryCodes.lhfa_b];
-    const dataSetEntry = categoryDataSets.datasets[ChartCodes.lhfa_g_0_13_w_z];
+    const dataSetEntry = categoryDataSets.datasets[ChartCodes.lhfa_b_2_5_y_z];
 
     const dataSetValues = dataSetEntry.datasetValues;
     const dataSetMetadata = dataSetEntry.metadata;
@@ -28,7 +28,6 @@ export const GrowthChart = () => {
     const yAxisValues = { minDataValue, maxDataValue };
 
     const annotations = { annotations: GrowthChartAnnotations(xAxisValues, dataSetMetadata.timeUnit) };
-
     if (xAxisValues.length !== dataSetValues.length) {
         console.error('xAxisValues and dataSet should have the same length');
     }

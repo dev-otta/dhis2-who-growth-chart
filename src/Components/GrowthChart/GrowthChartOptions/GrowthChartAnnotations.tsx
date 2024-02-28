@@ -9,6 +9,8 @@ export interface AnnotationLabelType {
 
 export const GrowthChartAnnotations = (xAxisValues: number[], timeUnit: string) => {
     if (timeUnit === 'Months') {
+        const firstXValue = xAxisValues[0];
+
         return xAxisValues
             .filter((label) => label % 12 === 0 && label !== 0)
             .map((label) => ({
@@ -16,7 +18,7 @@ export const GrowthChartAnnotations = (xAxisValues: number[], timeUnit: string) 
                 type: 'line',
                 scaleID: 'x',
                 borderWidth: 1.2,
-                value: label,
+                value: label - firstXValue,
                 label: {
                     display: true,
                     content: () => {
