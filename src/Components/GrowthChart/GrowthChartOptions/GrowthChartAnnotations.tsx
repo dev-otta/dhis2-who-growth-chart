@@ -7,41 +7,27 @@ export interface AnnotationLabelType {
     yAdjust?: number;
 }
 
-export interface AnnotationType {
-    display: boolean;
-    type: 'line';
-    scaleID?: string;
-    value?: number;
-    borderWidth?: number;
-    label?: AnnotationLabelType;
-}
-
-export const GrowthChartAnnotations = (xAxisValues: number[]) => {
-    const annotations: AnnotationType[] = [];
-
-    xAxisValues.forEach(
-        (label, index) => {
-            if (label % 12 === 0 && label !== 0) {
-                annotations.push({
+export const GrowthChartAnnotations = (xAxisValues: number[], timeUnit: string) => {
+    if (timeUnit === 'Months') {
+        return xAxisValues
+            .filter((label) => label % 12 === 0 && label !== 0)
+            .map((label) => ({
+                display: true,
+                type: 'line',
+                scaleID: 'x',
+                borderWidth: 1.2,
+                value: label,
+                label: {
                     display: true,
-                    type: 'line',
-                    scaleID: 'x',
-                    borderWidth: 2,
-                    value: index,
-                    label: {
-                        display: true,
-                        content: () => {
-                            const value = label / 12;
-                            if (value === 1) return `${value} ${i18n.t('Year')}`;
-                            return `${value} ${i18n.t('Years')}`;
-                        },
-                        position: 'end',
-                        yAdjust: 10,
+                    content: () => {
+                        const value = label / 12;
+                        return `${value} ${value === 1 ? i18n.t('Year') : i18n.t('Years')}`;
                     },
+                    position: 'end',
+                    yAdjust: 10,
+                },
 
-                });
-            }
-        },
-    );
-    return annotations;
+            }));
+    }
+    return [];
 };
