@@ -28,8 +28,8 @@ export const ChartSelector = ({
     };
 
     return (
-        <div className='w-full flex pl-14'>
-            <div className='flex gap-2 text-sm'>
+        <div className='w-full flex'>
+            <div className='flex gap-2 text-sm pl-12'>
                 <div className='flex flex-col relative min-w-fit'>
                     <Menu>
                         {({ open }) => (
