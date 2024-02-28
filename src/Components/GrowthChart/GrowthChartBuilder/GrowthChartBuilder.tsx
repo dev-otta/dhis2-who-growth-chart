@@ -41,10 +41,9 @@ export const GrowthChartBuilder = ({
                 position: 'right',
                 min: minDataValue,
                 max: maxDataValue,
-                ticks: { padding: 60 },
+                ticks: { padding: 18 },
             },
         },
-
         animation: { onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation) },
     };
 

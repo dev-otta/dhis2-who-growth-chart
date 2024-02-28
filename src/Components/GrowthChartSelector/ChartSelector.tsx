@@ -28,60 +28,89 @@ export const ChartSelector = ({
     };
 
     return (
-        <div className='w-full flex justify-center items-center'>
-            <div className='flex w-1/2 gap-2 py-2 font-medium'>
-                <div className='flex w-1/2 relative'>
+        <div className='w-full flex pl-14'>
+            <div className='flex gap-2 text-sm'>
+                <div className='flex flex-col relative min-w-fit'>
                     <Menu>
-                        <Menu.Button
-                            className='py-3 bg-gray-200 rounded w-full h-full'
-                        >
-                            {category}
-                        </Menu.Button>
-                        <Menu.Items className='flex flex-col w-full bg-white rounded shadow-lg absolute'>
-                            {Object.keys(CategoryCodes).map((key) => (
-                                <Menu.Item key={key}>
-                                    {({ active }) => (
-                                        <button
-                                            className={
-                                                `
-                                                ${active && 'bg-gray-300'} 
-                                                ${CategoryCodes[key as keyof typeof CategoryCodes] === category
-                                                && 'bg-gray-200'} 
-                                                py-3`
-                                            }
-                                            onClick={() => handleCategoryChange(key)}
-                                        >
-                                            {CategoryCodes[key as keyof typeof CategoryCodes]}
-                                        </button>
-                                    )}
-                                </Menu.Item>
-                            ))}
-                        </Menu.Items>
+                        {({ open }) => (
+                            <>
+                                <Menu.Button
+                                    className={'flex flex-row rounded w-full border border-gray-300 py-1 gap-2 px-4'}
+                                >
+                                    {category}
+                                    <svg
+                                        xmlns='http://www.w3.org/2000/svg'
+                                        fill='currentColor'
+                                        id='Outline'
+                                        viewBox='0 0 24 24'
+                                        className={`w-5 h-5 ${open ? 'rotate-180' : ''}`}
+                                    >
+                                        <path
+                                            transform='rotate(90 12 12)'
+                                            d={`M15.4,9.88,10.81,5.29a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42L14,11.29a1,
+                                            1,0,0,1,0,1.42L9.4,17.29a1,1,0,0,0,1.41,1.42l4.59-4.59A3,3,0,0,0,15.4,9.88Z`}
+                                        />
+                                    </svg>
+                                </Menu.Button>
+                                <Menu.Items className='flex flex-col w-full bg-white rounded shadow-lg border absolute border-gray-300 mt-7'>
+                                    {Object.keys(CategoryCodes).map((key) => (
+                                        CategoryCodes[key as keyof typeof CategoryCodes] !== category && (
+                                            <Menu.Item key={key}>
+                                                {({ active }) => (
+                                                    <button
+                                                        className={`${active && 'bg-gray-200'} py-1`}
+                                                        onClick={() => handleCategoryChange(key)}
+                                                    >
+                                                        {CategoryCodes[key as keyof typeof CategoryCodes]}
+                                                    </button>
+                                                )}
+                                            </Menu.Item>
+                                        )
+                                    ))}
+                                </Menu.Items>
+                            </>
+                        )}
                     </Menu>
                 </div>
-                <div className='flex w-1/2 relative'>
+                <div className='flex flex-col relative min-w-fit items-center'>
                     <Menu>
-                        <Menu.Button
-                            className='py-3 bg-gray-200 rounded w-full h-full'
-                        >
-                            {dataset}
-                        </Menu.Button>
-                        <Menu.Items className='flex flex-col w-full bg-white rounded shadow-lg absolute'>
-                            {Object.keys(chartData[category].datasets).map((key) => (
-                                <Menu.Item key={key}>
-                                    {({ active }) => (
-                                        <button
-                                            className={
-                                                `${active && 'bg-gray-300'} ${key === dataset && 'bg-gray-200'} py-3`
-                                            }
-                                            onClick={() => handleDatasetChange(key)}
-                                        >
-                                            {key}
-                                        </button>
-                                    )}
-                                </Menu.Item>
-                            ))}
-                        </Menu.Items>
+                        {({ open }) => (
+                            <>
+                                <Menu.Button
+                                    className='flex flex-row rounded w-full border border-gray-300 py-1 justify-center gap-2 px-4'
+                                >
+                                    {dataset}
+                                    <svg
+                                        xmlns='http://www.w3.org/2000/svg'
+                                        fill='currentColor'
+                                        id='Outline'
+                                        viewBox='0 0 24 24'
+                                        className={`w-5 h-5 transform ${open ? 'rotate-180' : ''}`}
+                                    >
+                                        <path
+                                            transform='rotate(90 12 12)'
+                                            d={`M15.4,9.88,10.81,5.29a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42L14,11.29a1,
+                                            1,0,0,1,0,1.42L9.4,17.29a1,1,0,0,0,1.41,1.42l4.59-4.59A3,3,0,0,0,15.4,9.88Z`}
+                                        />
+                                    </svg>
+                                </Menu.Button>
+                                <Menu.Items className='flex flex-col w-full bg-white rounded absolute shadow-lg border border-gray-300 mt-7'>
+                                    {Object.keys(chartData[category].datasets).map((key) => (
+                                        key !== dataset && (
+                                            <Menu.Item key={key}>
+                                                {({ active }) => (
+                                                    <button
+                                                        className={`${active && 'bg-gray-200'} py-1`}
+                                                        onClick={() => handleDatasetChange(key)}
+                                                    >
+                                                        {key}
+                                                    </button>
+                                                )}
+                                            </Menu.Item>
+                                        )))}
+                                </Menu.Items>
+                            </>
+                        )}
                     </Menu>
                 </div>
             </div>
