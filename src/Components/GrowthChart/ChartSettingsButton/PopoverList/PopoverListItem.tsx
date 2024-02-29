@@ -10,7 +10,7 @@ export const PopoverListItem = ({ label, icon, onClick }: PopoverListItemProps):
     <div
         role='button'
         tabIndex={0}
-        className='flex flex-row cursor-pointer hover:bg-gray-300 py-1 px-2 rounded min-w-fit'
+        className='flex flex-row whitespace-nowrap cursor-pointer hover:bg-gray-300 py-1 px-2 rounded min-w-fit'
         onClick={onClick}
         onKeyDown={(event) => {
             if (event.key === 'Enter') {
@@ -18,8 +18,8 @@ export const PopoverListItem = ({ label, icon, onClick }: PopoverListItemProps):
             }
         }}
     >
-        <span className='icon'>{icon}</span>
-        <span className='label'>{label}</span>
+        {icon}
+        {label}
     </div>
 
 );

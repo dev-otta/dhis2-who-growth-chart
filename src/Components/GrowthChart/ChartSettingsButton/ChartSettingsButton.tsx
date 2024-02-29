@@ -48,8 +48,13 @@ export const ChartSettingsButton = () => {
                 >
                     <PopoverListItem
                         label='Coming soon'
+                        icon={'🔧'}
+                        onClick={() => { }}
+                    />
+                    <PopoverListItem
+                        label='Coming soon'
                         icon={<span>🔧</span>}
-                        onClick={() => {}}
+                        onClick={() => { }}
                     />
                 </PopoverList>
             )}
