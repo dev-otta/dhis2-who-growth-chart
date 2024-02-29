@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { usePopper } from 'react-popper';
 import { EllipsisButton } from './EllipsisButton';
-import { PopoverList, PopoverListItem } from './PopoverList';
+import { PopoverList, PopoverListItem, PopoverListDivider } from './PopoverList';
 
 export const ChartSettingsButton = () => {
     const [referenceElement, setReferenceElement] = useState(null);
@@ -51,11 +51,13 @@ export const ChartSettingsButton = () => {
                         icon={'🔧'}
                         onClick={() => { }}
                     />
+                    <PopoverListDivider />
                     <PopoverListItem
                         label='Coming soon'
                         icon={<span>🔧</span>}
                         onClick={() => { }}
                     />
+                    {/* rm listitem */}
                 </PopoverList>
             )}
         </div>
