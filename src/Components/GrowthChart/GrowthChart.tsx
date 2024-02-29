@@ -8,7 +8,7 @@ import { GrowthChartAnnotations } from './GrowthChartOptions';
 
 export const GrowthChart = () => {
     const categoryDataSets = chartData[CategoryCodes.lhfa_b];
-    const dataSetEntry = categoryDataSets.datasets[ChartCodes.lhfa_b_2_5_y_z];
+    const dataSetEntry = categoryDataSets.datasets[ChartCodes.lhfa_b_0_2_y_z];
 
     const dataSetValues = dataSetEntry.datasetValues;
     const dataSetMetadata = dataSetEntry.metadata;

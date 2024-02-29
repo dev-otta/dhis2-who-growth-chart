@@ -11,8 +11,8 @@ export const GrowthChartAnnotations = (xAxisValues: number[], timeUnit: string) 
     if (timeUnit === 'Months') {
         const firstXValue = xAxisValues[0];
 
-        return xAxisValues
-            .filter((label) => label % 12 === 0 && label !== 0)
+        const annotations = xAxisValues
+            .filter((label) => label % 12 === 0)
             .map((label) => ({
                 display: true,
                 type: 'line',
@@ -30,6 +30,10 @@ export const GrowthChartAnnotations = (xAxisValues: number[], timeUnit: string) 
                 },
 
             }));
+        annotations.pop();
+        annotations.shift();
+
+        return annotations;
     }
     return [];
 };
