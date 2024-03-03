@@ -7,9 +7,7 @@ import { CategoryCodes } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
 
 export const GrowthChart = () => {
-    const [category, setCategory] = useState<keyof typeof CategoryCodes>(
-        Object.keys(chartData)[0] as keyof typeof CategoryCodes,
-    );
+    const [category, setCategory] = useState<keyof typeof CategoryCodes>(Object.keys(chartData)[0] as keyof typeof CategoryCodes);
     const [dataset, setDataset] = useState<keyof typeof chartData>(Object.keys(chartData[category].datasets)[0]);
 
     const categoryDataSets = chartData[category];

@@ -1004,6 +1004,10 @@ video {
   width: 13rem;
 }
 
+.w-64 {
+  width: 16rem;
+}
+
 .w-28 {
   width: 7rem;
 }
