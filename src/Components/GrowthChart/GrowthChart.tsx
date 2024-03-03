@@ -5,6 +5,7 @@ import { useRangeTimePeriode } from './useRangeTimePeriode';
 import { ChartSelector } from '../GrowthChartSelector';
 import { CategoryCodes } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
+import { GrowthChartAnnotations } from './GrowthChartOptions';
 
 export const GrowthChart = () => {
     const [category, setCategory] = useState<keyof typeof CategoryCodes>(Object.keys(chartData)[0] as keyof typeof CategoryCodes);
@@ -30,6 +31,8 @@ export const GrowthChart = () => {
 
     const yAxisValues = { minDataValue, maxDataValue };
 
+    const annotations = { annotations: GrowthChartAnnotations(xAxisValues, dataSetMetadata.timeUnit) };
+
     if (xAxisValues.length !== dataSetValues.length) {
         console.error('xAxisValues and dataSet should have the same length');
     }
@@ -49,6 +52,7 @@ export const GrowthChart = () => {
                 xAxisValues={xAxisValues}
                 yAxisValues={yAxisValues}
                 keysDataSet={keysDataSet}
+                annotations={annotations}
             />
         </div>
     );
