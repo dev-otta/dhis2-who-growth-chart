@@ -31,7 +31,7 @@ export const GrowthChart = () => {
 
     const yAxisValues = { minDataValue, maxDataValue };
 
-    const annotations = { annotations: GrowthChartAnnotations(xAxisValues, dataSetMetadata.timeUnit) };
+    const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata.timeUnit);
 
     if (xAxisValues.length !== dataSetValues.length) {
         console.error('xAxisValues and dataSet should have the same length');

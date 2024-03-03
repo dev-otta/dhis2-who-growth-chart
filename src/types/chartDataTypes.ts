@@ -12,13 +12,13 @@ export interface ChartDataTypes {
     xAxisValues?: number[];
     yAxisValues?: { minDataValue: number; maxDataValue: number };
     keysDataSet?: string[];
+    annotations?: AnnotationLabelType[];
 }
 
 export interface ChartData {
     [key: string]: {
         datasets: { [key: string]: ChartDataTypes };
     };
-    annotations: { annotations: AnnotationLabelType[] };
 }
 
 export const timeUnitCodes = Object.freeze({
