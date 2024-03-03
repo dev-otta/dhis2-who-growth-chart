@@ -58,7 +58,8 @@ export const GrowthChartBuilder = ({
     return (
         <div className='aspect-video min-h-[400px]'>
             <AutoSizer>
-                {({ height, width }: any) => (
+                {/* eslint-disable-next-line react/no-unused-prop-types */}
+                {({ height, width }: { height: number, width: number}) => (
                     <div style={{ height, width }}>
                         <Line data={data} options={options} height={height} width={width} />
                     </div>
