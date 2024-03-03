@@ -61,7 +61,7 @@ export const GrowthChartBuilder = ({
                 {/* eslint-disable-next-line react/no-unused-prop-types */}
                 {({ height, width }: { height: number, width: number}) => (
                     <div style={{ height, width }}>
-                        <Line data={data} options={options} height={height} width={width} />
+                        <Line data={data} options={options} />
                     </div>
                 )}
             </AutoSizer>
