@@ -1,8 +1,8 @@
 import React from 'react';
 import i18n from '@dhis2/d2-i18n';
 import { Line } from 'react-chartjs-2';
-import { ChartOptions } from 'chart.js';
-import 'chart.js/auto';
+import Chart, { ChartOptions } from 'chart.js/auto';
+import annotationPlugin from 'chartjs-plugin-annotation';
 import { ChartDataTypes } from '../../../types/chartDataTypes';
 import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
 import { annotateLineEnd } from '../../../utils/annotateLineEnd';
@@ -13,7 +13,10 @@ export const GrowthChartBuilder = ({
     xAxisValues,
     yAxisValues,
     keysDataSet,
+    annotations,
 }: ChartDataTypes) => {
+    Chart.register(annotationPlugin);
+
     const { minDataValue, maxDataValue } = yAxisValues;
 
     const data = {
@@ -28,7 +31,10 @@ export const GrowthChartBuilder = ({
 
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
-        plugins: { legend: { display: false } },
+        plugins: {
+            annotation: annotations,
+            legend: { display: false },
+        },
         scales: {
             x: { title: { display: true, text: i18n.t(dataSetMetadata.timeUnit) } },
             y: {

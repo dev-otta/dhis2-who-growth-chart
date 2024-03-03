@@ -4,10 +4,11 @@ import { chartData } from '../../DataSets/WhoStandardDataSets/ZScores/ChartDataZ
 import { useRangeTimePeriode } from './useRangeTimePeriode';
 import { ChartCodes, CategoryCodes } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
+import { GrowthChartAnnotations } from './GrowthChartOptions';
 
 export const GrowthChart = () => {
-    const categoryDataSets = chartData[CategoryCodes.wflh_b];
-    const dataSetEntry = categoryDataSets.datasets[ChartCodes.wfh_b_2_5_y_z];
+    const categoryDataSets = chartData[CategoryCodes.lhfa_b];
+    const dataSetEntry = categoryDataSets.datasets[ChartCodes.lhfa_b_0_2_y_z];
 
     const dataSetValues = dataSetEntry.datasetValues;
     const dataSetMetadata = dataSetEntry.metadata;
@@ -26,6 +27,8 @@ export const GrowthChart = () => {
 
     const yAxisValues = { minDataValue, maxDataValue };
 
+    const annotations = { annotations: GrowthChartAnnotations(xAxisValues, dataSetMetadata.timeUnit) };
+
     if (xAxisValues.length !== dataSetValues.length) {
         console.error('xAxisValues and dataSet should have the same length');
     }
@@ -37,6 +40,7 @@ export const GrowthChart = () => {
             xAxisValues={xAxisValues}
             yAxisValues={yAxisValues}
             keysDataSet={keysDataSet}
+            annotations={annotations}
         />
     );
 };
