@@ -3,6 +3,7 @@ import i18n from '@dhis2/d2-i18n';
 import { Line } from 'react-chartjs-2';
 import Chart, { ChartOptions } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { ChartDataTypes } from '../../../types/chartDataTypes';
 import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
 import { annotateLineEnd } from '../../../utils/annotateLineEnd';
@@ -53,5 +54,16 @@ export const GrowthChartBuilder = ({
         animation: { onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation) },
     };
 
-    return <Line data={data} options={options} />;
+    return (
+        <div className='aspect-video min-h-[400px]'>
+            <AutoSizer>
+                {/* eslint-disable-next-line react/no-unused-prop-types */}
+                {({ height, width }: { height: number, width: number}) => (
+                    <div style={{ height, width }}>
+                        <Line data={data} options={options} />
+                    </div>
+                )}
+            </AutoSizer>
+        </div>
+    );
 };
