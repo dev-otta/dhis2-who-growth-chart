@@ -3,21 +3,30 @@ import { AnnotationLabelType } from '../Components/GrowthChart/GrowthChartOption
 
 export interface ChartDataTypes {
     datasetValues: { [key: string]: number }[];
-    metadata: {
+    datasetMetadata: {
         label: string;
         measurementType: string;
         timeUnit: string;
         range: { start: number; end: number };
     };
-    xAxisValues?: number[];
-    yAxisValues?: { minDataValue: number; maxDataValue: number };
-    keysDataSet?: string[];
-    annotations?: AnnotationLabelType[];
+    xAxisValues: number[];
+    yAxisValues: { minDataValue: number; maxDataValue: number };
+    keysDataSet: string[];
+    annotations: AnnotationLabelType[];
 }
 
 export interface ChartData {
     [key: string]: {
-        datasets: { [key: string]: ChartDataTypes };
+        datasets: { [key: string]: {
+            datasetValues: { [key: string]: number }[];
+            metadata: {
+                label: string;
+                measurementType: string;
+                timeUnit: string;
+                range: { start: number; end: number };
+                };
+            }
+        };
     };
 }
 

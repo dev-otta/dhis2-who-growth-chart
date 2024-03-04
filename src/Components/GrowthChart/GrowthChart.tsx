@@ -3,13 +3,13 @@ import { GrowthChartBuilder } from './GrowthChartBuilder';
 import { chartData } from '../../DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
 import { useRangeTimePeriode } from './useRangeTimePeriode';
 import { ChartSelector } from '../GrowthChartSelector';
-import { CategoryCodes } from '../../types/chartDataTypes';
+import { CategoryCodes, ChartData } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
 import { GrowthChartAnnotations } from './GrowthChartOptions';
 
 export const GrowthChart = () => {
     const [category, setCategory] = useState<keyof typeof CategoryCodes>(Object.keys(chartData)[0] as keyof typeof CategoryCodes);
-    const [dataset, setDataset] = useState<keyof typeof chartData>(Object.keys(chartData[category].datasets)[0]);
+    const [dataset, setDataset] = useState<keyof ChartData>(Object.keys(chartData[category].datasets)[0] as keyof ChartData);
 
     const categoryDataSets = chartData[category];
     const dataSetEntry = categoryDataSets.datasets[dataset];
@@ -48,7 +48,7 @@ export const GrowthChart = () => {
 
             <GrowthChartBuilder
                 datasetValues={dataSetValues}
-                metadata={dataSetMetadata}
+                datasetMetadata={dataSetMetadata}
                 xAxisValues={xAxisValues}
                 yAxisValues={yAxisValues}
                 keysDataSet={keysDataSet}

@@ -10,7 +10,7 @@ import { annotateLineEnd } from '../../../utils/annotateLineEnd';
 
 export const GrowthChartBuilder = ({
     datasetValues,
-    metadata,
+    datasetMetadata,
     xAxisValues,
     yAxisValues,
     keysDataSet,
@@ -37,9 +37,9 @@ export const GrowthChartBuilder = ({
             legend: { display: false },
         },
         scales: {
-            x: { title: { display: true, text: i18n.t(metadata.timeUnit) } },
+            x: { title: { display: true, text: i18n.t(datasetMetadata.timeUnit) } },
             y: {
-                title: { display: true, text: metadata.measurementType },
+                title: { display: true, text: datasetMetadata.measurementType },
                 position: 'left',
                 min: minDataValue,
                 max: maxDataValue,
