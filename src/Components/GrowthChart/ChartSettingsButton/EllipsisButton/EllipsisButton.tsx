@@ -1,5 +1,5 @@
 import React from 'react';
-import Ellipsis from '../../../../UI/Icons/Ellipsis.svg';
+import { Ellipsis } from '../../../../UI/Icons';
 
 type EllipsisButtonProps = {
     onClick: () => void;
