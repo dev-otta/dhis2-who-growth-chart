@@ -9,7 +9,7 @@ interface TimeUnitData {
 export interface AnnotationLabelType {
     display: boolean;
     content?: (value: number) => string;
-    position?: 'end';
+    position?: 'top' | 'bottom' | 'center' | 'start' | 'end';
     yAdjust?: number;
 }
 
