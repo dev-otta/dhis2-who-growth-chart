@@ -34,7 +34,7 @@ export const ChartSettingsButton = () => {
     }, []);
 
     return (
-        <div className='absolute top-2 right-3' ref={popoverRef}>
+        <div ref={popoverRef}>
             <EllipsisButton
                 onClick={() => setIsVisible((prevState) => !prevState)}
                 isVisible={isVisible}

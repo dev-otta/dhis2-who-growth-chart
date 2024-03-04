@@ -40,15 +40,18 @@ export const GrowthChart = () => {
 
     return (
         <div>
-            <ChartSelector
-                category={category}
-                dataset={dataset}
-                setCategory={setCategory}
-                setDataset={setDataset}
-            />
-
-            <div className='relative w-full h-10'>
-                <ChartSettingsButton />
+            <div className='flex flex-wrap-reverse pl-12'>
+                <div>
+                    <ChartSelector
+                        category={category}
+                        dataset={dataset}
+                        setCategory={setCategory}
+                        setDataset={setDataset}
+                    />
+                </div>
+                <div className='grow relative min-w-[100px]'>
+                    <ChartSettingsButton />
+                </div>
             </div>
 
             <GrowthChartBuilder
