@@ -1,14 +1,19 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
 import { chartData } from '../../DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
-import { ChartCodes, CategoryCodes } from '../../types/chartDataTypes';
-import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
-import { ChartSettingsButton } from './ChartSettingsButton';
 import { useRangeTimePeriod } from './useRangeTimePeriod';
+import { ChartSelector } from '../GrowthChartSelector';
+import { CategoryCodes, ChartData } from '../../types/chartDataTypes';
+import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
+import { GrowthChartAnnotations } from './GrowthChartOptions';
+import { ChartSettingsButton } from './ChartSettingsButton';
 
 export const GrowthChart = () => {
-    const categoryDataSets = chartData[CategoryCodes.wflh_b];
-    const dataSetEntry = categoryDataSets.datasets[ChartCodes.wfh_b_2_5_y_z];
+    const [category, setCategory] = useState<keyof typeof CategoryCodes>(Object.keys(chartData)[0] as keyof typeof CategoryCodes);
+    const [dataset, setDataset] = useState<keyof ChartData>(Object.keys(chartData[category].datasets)[0] as keyof ChartData);
+
+    const categoryDataSets = chartData[category];
+    const dataSetEntry = categoryDataSets.datasets[dataset];
 
     const dataSetValues = dataSetEntry.datasetValues;
     const dataSetMetadata = dataSetEntry.metadata;
@@ -27,23 +32,33 @@ export const GrowthChart = () => {
 
     const yAxisValues = { minDataValue, maxDataValue };
 
+    const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata.timeUnit);
+
     if (xAxisValues.length !== dataSetValues.length) {
         console.error('xAxisValues and dataSet should have the same length');
     }
 
     return (
-        <>
+        <div>
+            <ChartSelector
+                category={category}
+                dataset={dataset}
+                setCategory={setCategory}
+                setDataset={setDataset}
+            />
+
             <div className='relative w-full h-10'>
                 <ChartSettingsButton />
             </div>
+
             <GrowthChartBuilder
-                dataSetValues={dataSetValues}
-                dataSetMetadata={dataSetMetadata}
+                datasetValues={dataSetValues}
+                datasetMetadata={dataSetMetadata}
                 xAxisValues={xAxisValues}
                 yAxisValues={yAxisValues}
                 keysDataSet={keysDataSet}
-
+                annotations={annotations}
             />
-        </>
+        </div>
     );
 };
