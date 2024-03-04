@@ -13,12 +13,12 @@ export const ChartSelectorDropdown = ({
     items,
     handleItemChange,
 }: ChartSelectorDropdownProps) => (
-    <div className='flex flex-col relative min-w-fit'>
+    <div className='flex flex-col'>
         <Menu>
             {({ open }) => (
                 <>
                     <Menu.Button
-                        className={'flex flex-row rounded min-w-fit border border-gray-300 py-1 gap-2 pl-4 pr-2 justify-center items-center'}
+                        className={'flex flex-row rounded border border-gray-300 py-1 gap-2 pl-4 pr-2 items-center whitespace-nowrap'}
                     >
                         {title}
                         <svg
@@ -33,7 +33,7 @@ export const ChartSelectorDropdown = ({
                             />
                         </svg>
                     </Menu.Button>
-                    <Menu.Items className='flex flex-col bg-white rounded shadow-lg border absolute border-gray-300 mt-7 z-10'>
+                    <Menu.Items className='flex flex-col bg-white rounded shadow-lg z-10 absolute mt-8'>
                         {items.map((key) => (
                             key !== title && (
                                 <Menu.Item key={key}>
