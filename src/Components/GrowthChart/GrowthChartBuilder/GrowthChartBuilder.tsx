@@ -51,7 +51,7 @@ export const GrowthChartBuilder = ({
                 ticks: { padding: 18 },
             },
         },
-        animation: { onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation) },
+        animation: { onComplete: (chartAnimation: any) => annotateLineEnd(chartAnimation) },
     };
 
     return (
