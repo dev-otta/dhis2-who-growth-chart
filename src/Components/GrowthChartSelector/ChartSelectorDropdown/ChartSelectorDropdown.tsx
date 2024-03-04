@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu } from '@headlessui/react';
 import { CategoryCodes, ChartData } from '../../../types/chartDataTypes';
-import { Chevron } from '../../../UI/Icons';
+import Chevron from '../../../UI/Icons/Chevron.svg';
 
 interface ChartSelectorDropdownProps {
     title: keyof typeof CategoryCodes | keyof ChartData;
