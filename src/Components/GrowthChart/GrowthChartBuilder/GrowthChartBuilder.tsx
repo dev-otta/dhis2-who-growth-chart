@@ -9,8 +9,8 @@ import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
 import { annotateLineEnd } from '../../../utils/annotateLineEnd';
 
 export const GrowthChartBuilder = ({
-    dataSetValues,
-    dataSetMetadata,
+    datasetValues,
+    datasetMetadata,
     xAxisValues,
     yAxisValues,
     keysDataSet,
@@ -23,7 +23,7 @@ export const GrowthChartBuilder = ({
     const data = {
         labels: xAxisValues,
         datasets: keysDataSet.map((key) => ({
-            data: dataSetValues.map((entry) => entry[key]),
+            data: datasetValues.map((entry) => entry[key]),
             borderWidth: 0.9,
             borderColor: chartLineColorPicker(key),
             label: key,
@@ -33,13 +33,13 @@ export const GrowthChartBuilder = ({
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: {
-            annotation: annotations,
+            annotation: { annotations },
             legend: { display: false },
         },
         scales: {
-            x: { title: { display: true, text: i18n.t(dataSetMetadata.timeUnit) } },
+            x: { title: { display: true, text: i18n.t(datasetMetadata.timeUnit) } },
             y: {
-                title: { display: true, text: dataSetMetadata.measurementType },
+                title: { display: true, text: datasetMetadata.measurementType },
                 position: 'left',
                 min: minDataValue,
                 max: maxDataValue,
@@ -48,10 +48,9 @@ export const GrowthChartBuilder = ({
                 position: 'right',
                 min: minDataValue,
                 max: maxDataValue,
-                ticks: { padding: 60 },
+                ticks: { padding: 18 },
             },
         },
-
         animation: { onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation) },
     };
 
