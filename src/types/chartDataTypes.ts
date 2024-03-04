@@ -1,8 +1,9 @@
 import i18n from '@dhis2/d2-i18n';
+import { AnnotationLabelType } from '../Components/GrowthChart/GrowthChartOptions';
 
 export interface ChartDataTypes {
-    dataSetValues: { [key: string]: number }[];
-    dataSetMetadata: {
+    datasetValues: { [key: string]: number }[];
+    datasetMetadata: {
         label: string;
         measurementType: string;
         timeUnit: string;
@@ -11,6 +12,22 @@ export interface ChartDataTypes {
     xAxisValues: number[];
     yAxisValues: { minDataValue: number; maxDataValue: number };
     keysDataSet: string[];
+    annotations: AnnotationLabelType[];
+}
+
+export interface ChartData {
+    [key: string]: {
+        datasets: { [key: string]: {
+            datasetValues: { [key: string]: number }[];
+            metadata: {
+                label: string;
+                measurementType: string;
+                timeUnit: string;
+                range: { start: number; end: number };
+                };
+            }
+        };
+    };
 }
 
 export const timeUnitCodes = Object.freeze({
