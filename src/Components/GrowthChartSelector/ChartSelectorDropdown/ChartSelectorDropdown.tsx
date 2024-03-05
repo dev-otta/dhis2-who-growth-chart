@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu } from '@headlessui/react';
 import { CategoryCodes, ChartData } from '../../../types/chartDataTypes';
-import { Chevron } from '../../../UI/Icons';
+import { ChevronIcon } from '../../../UI/Icons';
 
 interface ChartSelectorDropdownProps {
     title: keyof typeof CategoryCodes | keyof ChartData;
@@ -22,7 +22,7 @@ export const ChartSelectorDropdown = ({
                         className={'flex flex-row rounded border border-gray-300 py-1 gap-2 pl-4 pr-2 items-center whitespace-nowrap'}
                     >
                         {title}
-                        <Chevron className={`w-3 h-3 ${open ? 'rotate-180' : ''}`} />
+                        <ChevronIcon className={`w-3 h-3 ${open ? 'rotate-180' : ''}`} />
                     </Menu.Button>
                     <Menu.Items className='flex flex-col bg-white rounded shadow-lg z-10 absolute mt-8'>
                         {items.map((key) => (
