@@ -75,6 +75,7 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
                 setDataset={setDataset}
                 chartData={chartDataForGender}
                 categoryCodes={categoryCodesForGender}
+                isDisabled={trackedEntitieGender !== undefined}
                 gender={gender}
                 setGender={setGender}
             />

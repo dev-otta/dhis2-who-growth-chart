@@ -9,6 +9,7 @@ interface ChartSelectorProps {
     setDataset: (dataset: keyof ChartData) => void;
     chartData: ChartData;
     categoryCodes: Record<string, string>;
+    isDisabled?: boolean;
     gender: string;
     setGender: (gender: keyof typeof GenderCodes) => void;
 }
@@ -20,6 +21,7 @@ export const ChartSelector = ({
     setDataset,
     chartData,
     categoryCodes,
+    isDisabled,
     gender,
     setGender,
 }: ChartSelectorProps) => {
@@ -35,11 +37,14 @@ export const ChartSelector = ({
 
     return (
         <div className='flex flex-wrap w-full gap-2 text-sm pl-12'>
-            <ChartSelectorDropdown
-                title={gender}
-                items={Object.values(GenderCodes)}
-                handleItemChange={setGender}
-            />
+            {!isDisabled
+            && (
+                <ChartSelectorDropdown
+                    title={gender}
+                    items={Object.values(GenderCodes)}
+                    handleItemChange={setGender}
+                />
+            )}
             <ChartSelectorDropdown
                 title={category}
                 items={Object.keys(categoryCodes)}
