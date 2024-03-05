@@ -179,7 +179,7 @@ export const chartData: ChartData = {
                 metadata: {
                     label: ChartCodes.wfl_b_0_2_y_z.label,
                     measurementType: measurementTypeCodes.w_kg,
-                    timeUnit: timeUnitCodes.months,
+                    timeUnit: measurementTypeCodes.h_cm,
                     range: { start: 45, end: 110 },
                 },
             },
@@ -192,7 +192,7 @@ export const chartData: ChartData = {
                 metadata: {
                     label: ChartCodes.wfh_g_2_5_y_z.label,
                     measurementType: measurementTypeCodes.w_kg,
-                    timeUnit: timeUnitCodes.months,
+                    timeUnit: measurementTypeCodes.h_cm,
                     range: { start: 65, end: 120 },
                 },
             },
@@ -201,7 +201,7 @@ export const chartData: ChartData = {
                 metadata: {
                     label: ChartCodes.wfl_g_0_2_y_z.label,
                     measurementType: measurementTypeCodes.w_kg,
-                    timeUnit: timeUnitCodes.months,
+                    timeUnit: measurementTypeCodes.h_cm,
                     range: { start: 45, end: 110 },
                 },
             },
