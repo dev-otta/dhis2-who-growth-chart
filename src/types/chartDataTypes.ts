@@ -8,6 +8,7 @@ export interface ChartDataTypes {
         measurementType: string;
         timeUnit: string;
         range: { start: number; end: number };
+        gender: string;
     };
     xAxisValues: number[];
     yAxisValues: { minDataValue: number; maxDataValue: number };
@@ -24,6 +25,7 @@ export interface ChartData {
                 measurementType: string;
                 timeUnit: string;
                 range: { start: number; end: number };
+                gender: string;
                 };
             }
         };
@@ -84,4 +86,9 @@ export const ChartCodes = Object.freeze({
     wfl_g_0_2_y_z: ChartLabelCodes.g_0_2_y,
     wfh_b_2_5_y_z: ChartLabelCodes.b_2_5_y,
     wfl_b_0_2_y_z: ChartLabelCodes.b_0_2_y,
+});
+
+export const GenderCodes = Object.freeze({
+    boys: i18n.t('Boys'),
+    girls: i18n.t('Girls'),
 });

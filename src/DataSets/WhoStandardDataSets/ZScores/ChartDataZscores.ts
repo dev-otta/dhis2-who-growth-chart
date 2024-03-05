@@ -10,7 +10,8 @@ import { ChartCodes,
     CategoryCodes,
     measurementTypeCodes,
     timeUnitCodes,
-    ChartData } from '../../../types/chartDataTypes';
+    ChartData,
+    GenderCodes } from '../../../types/chartDataTypes';
 
 export const chartData: ChartData = {
     [CategoryCodes.hcfa_b]: {
@@ -22,6 +23,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.hc_cm,
                     timeUnit: timeUnitCodes.months,
                     range: { start: 0, end: 60 },
+                    gender: GenderCodes.boys,
                 },
             },
             [ChartCodes.hcfa_b_0_13_w_z]: {
@@ -31,6 +33,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.hc_cm,
                     timeUnit: timeUnitCodes.weeks,
                     range: { start: 0, end: 13 },
+                    gender: GenderCodes.boys,
                 },
             },
         },
@@ -44,6 +47,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.hc_cm,
                     timeUnit: timeUnitCodes.months,
                     range: { start: 0, end: 60 },
+                    gender: GenderCodes.girls,
                 },
             },
             [ChartCodes.hcfa_g_0_13_w_z]: {
@@ -53,6 +57,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.hc_cm,
                     timeUnit: timeUnitCodes.weeks,
                     range: { start: 0, end: 13 },
+                    gender: GenderCodes.girls,
                 },
             },
         },
@@ -66,6 +71,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.lh_cm,
                     timeUnit: timeUnitCodes.months,
                     range: { start: 0, end: 24 },
+                    gender: GenderCodes.boys,
                 },
             },
             [ChartCodes.lhfa_b_0_13_w_z]: {
@@ -75,6 +81,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.lh_cm,
                     timeUnit: timeUnitCodes.weeks,
                     range: { start: 0, end: 13 },
+                    gender: GenderCodes.boys,
                 },
             },
             [ChartCodes.lhfa_b_2_5_y_z]: {
@@ -84,6 +91,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.lh_cm,
                     timeUnit: timeUnitCodes.months,
                     range: { start: 24, end: 60 },
+                    gender: GenderCodes.boys,
                 },
             },
         },
@@ -97,6 +105,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.lh_cm,
                     timeUnit: timeUnitCodes.months,
                     range: { start: 0, end: 24 },
+                    gender: GenderCodes.girls,
                 },
             },
             [ChartCodes.lhfa_g_0_13_w_z]: {
@@ -106,6 +115,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.lh_cm,
                     timeUnit: timeUnitCodes.weeks,
                     range: { start: 0, end: 13 },
+                    gender: GenderCodes.girls,
                 },
             },
             [ChartCodes.lhfa_g_2_5_y_z]: {
@@ -115,6 +125,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.lh_cm,
                     timeUnit: timeUnitCodes.months,
                     range: { start: 24, end: 60 },
+                    gender: GenderCodes.girls,
                 },
             },
         },
@@ -128,6 +139,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.w_kg,
                     timeUnit: timeUnitCodes.months,
                     range: { start: 0, end: 60 },
+                    gender: GenderCodes.boys,
                 },
             },
             [ChartCodes.wfa_b_0_13_w_z]: {
@@ -137,6 +149,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.w_kg,
                     timeUnit: timeUnitCodes.weeks,
                     range: { start: 0, end: 13 },
+                    gender: GenderCodes.boys,
                 },
             },
         },
@@ -150,6 +163,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.w_kg,
                     timeUnit: timeUnitCodes.months,
                     range: { start: 0, end: 60 },
+                    gender: GenderCodes.girls,
                 },
             },
             [ChartCodes.wfa_g_0_13_w_z]: {
@@ -159,6 +173,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.w_kg,
                     timeUnit: timeUnitCodes.weeks,
                     range: { start: 0, end: 13 },
+                    gender: GenderCodes.girls,
                 },
             },
         },
@@ -172,6 +187,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.w_kg,
                     timeUnit: measurementTypeCodes.h_cm,
                     range: { start: 65, end: 120 },
+                    gender: GenderCodes.boys,
                 },
             },
             [ChartCodes.wfl_b_0_2_y_z]: {
@@ -181,6 +197,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.w_kg,
                     timeUnit: timeUnitCodes.months,
                     range: { start: 45, end: 110 },
+                    gender: GenderCodes.boys,
                 },
             },
         },
@@ -194,6 +211,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.w_kg,
                     timeUnit: timeUnitCodes.months,
                     range: { start: 65, end: 120 },
+                    gender: GenderCodes.girls,
                 },
             },
             [ChartCodes.wfl_g_0_2_y_z]: {
@@ -203,6 +221,7 @@ export const chartData: ChartData = {
                     measurementType: measurementTypeCodes.w_kg,
                     timeUnit: timeUnitCodes.months,
                     range: { start: 45, end: 110 },
+                    gender: GenderCodes.girls,
                 },
             },
         },

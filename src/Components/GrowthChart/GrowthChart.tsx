@@ -1,24 +1,34 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
-import { chartData } from '../../DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
 import { useRangeTimePeriode } from './useRangeTimePeriode';
 import { ChartSelector } from '../GrowthChartSelector';
-import { CategoryCodes, ChartData } from '../../types/chartDataTypes';
+import { ChartData, GenderCodes, CategoryCodes } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
 import { GrowthChartAnnotations } from './GrowthChartOptions';
+import { useChartDataForGender } from '../../utils/DataFetching/Hooks/useChartDataForGender';
 
 export const GrowthChart = () => {
-    const [category, setCategory] = useState<keyof typeof CategoryCodes>(Object.keys(chartData)[0] as keyof typeof CategoryCodes);
-    const [dataset, setDataset] = useState<keyof ChartData>(Object.keys(chartData[category].datasets)[0] as keyof ChartData);
+    const [gender, setGender] = useState<keyof typeof GenderCodes>(GenderCodes.girls);
+    const { chartDataForGender, categoryCodesForGender } = useChartDataForGender({ gender });
 
-    const categoryDataSets = chartData[category];
-    const dataSetEntry = categoryDataSets.datasets[dataset];
+    const [category, setCategory] = useState<keyof typeof CategoryCodes>();
+    const [dataset, setDataset] = useState<keyof ChartData>();
 
-    const dataSetValues = dataSetEntry.datasetValues;
-    const dataSetMetadata = dataSetEntry.metadata;
+    useEffect(() => {
+        if (Object.keys(chartDataForGender).length > 0 && categoryCodesForGender) {
+            const newCategory = Object.keys(chartDataForGender)[0] as keyof typeof CategoryCodes;
+            setCategory(newCategory);
+            const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0] as keyof ChartData;
+            setDataset(newDataset);
+        }
+    }, [chartDataForGender, categoryCodesForGender]);
 
-    const xAxisValues = useRangeTimePeriode(dataSetMetadata.range.start, dataSetMetadata.range.end);
-    const keysDataSet = Object.keys(dataSetValues[0]);
+    const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
+
+    const dataSetValues = dataSetEntry?.datasetValues;
+    const dataSetMetadata = dataSetEntry?.metadata;
+
+    const xAxisValues = useRangeTimePeriode(dataSetMetadata?.range.start, dataSetMetadata?.range.end);
 
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
     const addRangePercentage = Math.floor((max - min) * 0.1);
@@ -29,13 +39,18 @@ export const GrowthChart = () => {
         return [minVal, maxVal];
     }, [min, max, addRangePercentage]);
 
-    const yAxisValues = { minDataValue, maxDataValue };
+    const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata?.timeUnit);
 
-    const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata.timeUnit);
+    if (!chartDataForGender || !categoryCodesForGender || !dataSetValues) {
+        return null;
+    }
 
-    if (xAxisValues.length !== dataSetValues.length) {
+    if (xAxisValues?.length !== dataSetValues?.length) {
         console.error('xAxisValues and dataSet should have the same length');
     }
+
+    const keysDataSet = Object.keys(dataSetValues[0]);
+    const yAxisValues = { minDataValue, maxDataValue };
 
     return (
         <div>
@@ -44,6 +59,10 @@ export const GrowthChart = () => {
                 dataset={dataset}
                 setCategory={setCategory}
                 setDataset={setDataset}
+                chartData={chartDataForGender}
+                categoryCodes={categoryCodesForGender}
+                gender={gender}
+                setGender={setGender}
             />
 
             <GrowthChartBuilder

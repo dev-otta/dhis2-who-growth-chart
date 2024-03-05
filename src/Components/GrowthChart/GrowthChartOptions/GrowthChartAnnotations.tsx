@@ -7,7 +7,7 @@ export interface AnnotationLabelType {
     yAdjust?: number;
 }
 
-export const GrowthChartAnnotations = (xAxisValues: number[], timeUnit: string) => {
+export const GrowthChartAnnotations = (xAxisValues: number[], timeUnit: string | undefined) => {
     if (timeUnit === 'Months') {
         const firstXValue = xAxisValues[0];
 
