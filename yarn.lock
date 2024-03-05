@@ -2619,6 +2619,11 @@
     "@react-hook/passive-layout-effect" "^1.2.0"
     "@react-hook/resize-observer" "^1.2.1"
 
+"@remix-run/router@1.15.2":
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.15.2.tgz#35726510d332ba5349c6398d13259d5da184553d"
+  integrity sha512-+Rnav+CaoTE5QJc4Jcwh5toUpnVLKYbpU6Ys0zqbakqbaLQHeglLVHPfxOiQqdNmUy5C2lXz5dwC6tQNX2JW2Q==
+
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.3.1.tgz#04bc0608f4aa4b2e4b1aebf284344d0f68fda283"
@@ -10565,7 +10570,7 @@ react-popper@^2.2.5:
     react-fast-compare "^3.0.1"
     warning "^4.0.2"
 
-react-query@^3.13.11:
+react-query@^3.13.11, react-query@^3.39.3:
   version "3.39.3"
   resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.39.3.tgz#4cea7127c6c26bdea2de5fb63e51044330b03f35"
   integrity sha512-nLfLz7GiohKTJDuT4us4X3h/8unOh+00MLb2yJoGTPjxKs2bc1iDhkNx2bd5MKklXnOD3NrVZ+J2UXujA5In4g==
@@ -10578,6 +10583,21 @@ react-refresh@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
+
+react-router-dom@^6.22.2:
+  version "6.22.2"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.22.2.tgz#8233968a8a576f3006e5549c80f3527d2598fc9c"
+  integrity sha512-WgqxD2qySEIBPZ3w0sHH+PUAiamDeszls9tzqMPBDA1YYVucTBXLU7+gtRfcSnhe92A3glPnvSxK2dhNoAVOIQ==
+  dependencies:
+    "@remix-run/router" "1.15.2"
+    react-router "6.22.2"
+
+react-router@6.22.2:
+  version "6.22.2"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.22.2.tgz#27e77e4c635a5697693b922d131d773451c98a5b"
+  integrity sha512-YD3Dzprzpcq+tBMHBS822tCjnWD3iIZbTeSXMY9LPSG541EfoBGyZ3bS25KEnaZjLcmQpw2AVLkFyfgXY8uvcw==
+  dependencies:
+    "@remix-run/router" "1.15.2"
 
 react-scripts@5.1.0-next.14:
   version "5.1.0-next.14"

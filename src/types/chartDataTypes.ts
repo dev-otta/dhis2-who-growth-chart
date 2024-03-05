@@ -89,6 +89,6 @@ export const ChartCodes = Object.freeze({
 });
 
 export const GenderCodes = Object.freeze({
-    boys: i18n.t('Boys'),
-    girls: i18n.t('Girls'),
+    male: i18n.t('Boys'),
+    female: i18n.t('Girls'),
 });

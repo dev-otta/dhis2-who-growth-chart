@@ -1,1 +1,1 @@
-export { useChartDataForGender } from './useChartDataForGender';
+export { useTeiById } from './useTeiById';

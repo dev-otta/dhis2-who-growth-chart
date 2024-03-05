@@ -5,10 +5,20 @@ import { ChartSelector } from '../GrowthChartSelector';
 import { ChartData, GenderCodes, CategoryCodes } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
 import { GrowthChartAnnotations } from './GrowthChartOptions';
-import { useChartDataForGender } from '../../utils/DataFetching/Hooks/useChartDataForGender';
+import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
+import { useTeiById } from '../../utils/DataFetching/Hooks';
 
-export const GrowthChart = () => {
-    const [gender, setGender] = useState<keyof typeof GenderCodes>(GenderCodes.girls);
+interface GrowthChartProps {
+    teiId: string;
+}
+
+export const GrowthChart = ({ teiId }: GrowthChartProps) => {
+    const { trackedEntitie } = useTeiById({ teiId });
+    const trackedEntitieGender = GenderCodes[trackedEntitie?.attributes.find(
+        (attribute: any) => attribute.displayName === 'Gender',
+    ).value?.toLowerCase() as 'male' | 'female'];
+
+    const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntitieGender || GenderCodes.male);
     const { chartDataForGender, categoryCodesForGender } = useChartDataForGender({ gender });
 
     const [category, setCategory] = useState<keyof typeof CategoryCodes>();
@@ -22,6 +32,10 @@ export const GrowthChart = () => {
             setDataset(newDataset);
         }
     }, [chartDataForGender, categoryCodesForGender]);
+
+    useEffect(() => {
+        trackedEntitieGender && setGender(trackedEntitieGender);
+    }, [trackedEntitieGender]);
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
 
@@ -45,7 +59,7 @@ export const GrowthChart = () => {
         return null;
     }
 
-    if (xAxisValues?.length !== dataSetValues?.length) {
+    if (xAxisValues.length !== dataSetValues.length) {
         console.error('xAxisValues and dataSet should have the same length');
     }
 

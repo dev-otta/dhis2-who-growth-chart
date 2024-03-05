@@ -5,11 +5,14 @@ import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WidgetCollapsible } from './Components/WidgetCollapsible';
 import { GrowthChart } from './Components/GrowthChart/GrowthChart';
+import { EnrollmentOverviewProps } from './Plugin.types';
 
 const queryClient = new QueryClient();
 
-const PluginInner = () => {
+const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const [open, setOpen] = useState(true);
+
+    const { teiId } = propsFromParent;
 
     return (
         <QueryClientProvider
@@ -33,7 +36,9 @@ const PluginInner = () => {
                         onOpen={() => setOpen(true)}
                         onClose={() => setOpen(false)}
                     >
-                        <GrowthChart />
+                        <GrowthChart
+                            teiId={teiId}
+                        />
                     </WidgetCollapsible>
                 </div>
             </div>
