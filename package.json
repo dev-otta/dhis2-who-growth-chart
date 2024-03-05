@@ -40,6 +40,7 @@
     "react": "^16.8.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^16.8.0",
+    "react-popper": "^2.3.0",
     "react-virtualized-auto-sizer": "^1.0.23",
     "styled-jsx": "^4"
   },
