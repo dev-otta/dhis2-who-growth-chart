@@ -26,13 +26,13 @@ const timeUnitData: { [key: string]: TimeUnitData } = {
     },
 };
 
-const contentText = (value: number, timeUnit: string) => {
-    const { singular, plural } = timeUnitData[timeUnit];
+const contentText = (value: number, xAxisLabel: string) => {
+    const { singular, plural } = timeUnitData[xAxisLabel];
     return `${value} ${value === 1 ? singular : plural}`;
 };
 
-export const GrowthChartAnnotations = (xAxisValues: number[], timeUnit: string) => {
-    const timeUnitConfig = timeUnitData[timeUnit];
+export const GrowthChartAnnotations = (xAxisValues: number[], xAxisLabel: string) => {
+    const timeUnitConfig = timeUnitData[xAxisLabel];
     if (timeUnitConfig) {
         const firstXValue = xAxisValues[0];
         const { divisor } = timeUnitConfig;
@@ -49,7 +49,7 @@ export const GrowthChartAnnotations = (xAxisValues: number[], timeUnit: string) 
                     display: true,
                     content: () => {
                         const value = label / divisor;
-                        return contentText(value, timeUnit);
+                        return contentText(value, xAxisLabel);
                     },
                     position: 'end',
                     yAdjust: 10,

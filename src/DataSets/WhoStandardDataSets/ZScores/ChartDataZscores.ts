@@ -15,74 +15,74 @@ import { ChartCodes,
 export const chartData: ChartData = {
     [CategoryCodes.hcfa_b]: {
         datasets: {
-            [ChartCodes.hcfa_b_0_5_y_z]: {
-                datasetValues: hcfa_b_0_5_y_z,
-                metadata: {
-                    label: ChartCodes.hcfa_b_0_5_y_z.label,
-                    measurementType: measurementTypeCodes.hc_cm,
-                    timeUnit: timeUnitCodes.months,
-                    range: { start: 0, end: 60 },
-                },
-            },
             [ChartCodes.hcfa_b_0_13_w_z]: {
                 datasetValues: hcfa_b_0_13_w_z,
                 metadata: {
-                    label: ChartCodes.hcfa_b_0_13_w_z.label,
-                    measurementType: measurementTypeCodes.hc_cm,
-                    timeUnit: timeUnitCodes.weeks,
+                    chartLabel: ChartCodes.hcfa_b_0_13_w_z.label,
+                    xAxisLabel: timeUnitCodes.weeks,
+                    yAxisLabel: measurementTypeCodes.hc_cm,
                     range: { start: 0, end: 13 },
+                },
+            },
+            [ChartCodes.hcfa_b_0_5_y_z]: {
+                datasetValues: hcfa_b_0_5_y_z,
+                metadata: {
+                    chartLabel: ChartCodes.hcfa_b_0_5_y_z.label,
+                    xAxisLabel: timeUnitCodes.months,
+                    yAxisLabel: measurementTypeCodes.hc_cm,
+                    range: { start: 0, end: 60 },
                 },
             },
         },
     },
     [CategoryCodes.hcfa_g]: {
         datasets: {
-            [ChartCodes.hcfa_g_0_5_y_z]: {
-                datasetValues: hcfa_g_0_5_y_z,
-                metadata: {
-                    label: ChartCodes.hcfa_g_0_5_y_z.label,
-                    measurementType: measurementTypeCodes.hc_cm,
-                    timeUnit: timeUnitCodes.months,
-                    range: { start: 0, end: 60 },
-                },
-            },
             [ChartCodes.hcfa_g_0_13_w_z]: {
                 datasetValues: hcfa_g_0_13_w_z,
                 metadata: {
-                    label: ChartCodes.hcfa_g_0_13_w_z.label,
-                    measurementType: measurementTypeCodes.hc_cm,
-                    timeUnit: timeUnitCodes.weeks,
+                    chartLabel: ChartCodes.hcfa_g_0_13_w_z.label,
+                    xAxisLabel: timeUnitCodes.weeks,
+                    yAxisLabel: measurementTypeCodes.hc_cm,
                     range: { start: 0, end: 13 },
+                },
+            },
+            [ChartCodes.hcfa_g_0_5_y_z]: {
+                datasetValues: hcfa_g_0_5_y_z,
+                metadata: {
+                    chartLabel: ChartCodes.hcfa_g_0_5_y_z.label,
+                    xAxisLabel: timeUnitCodes.months,
+                    yAxisLabel: measurementTypeCodes.hc_cm,
+                    range: { start: 0, end: 60 },
                 },
             },
         },
     },
     [CategoryCodes.lhfa_b]: {
         datasets: {
-            [ChartCodes.lhfa_b_0_2_y_z]: {
-                datasetValues: lhfa_b_0_2_y_z,
-                metadata: {
-                    label: ChartCodes.lhfa_b_0_2_y_z.label,
-                    measurementType: measurementTypeCodes.lh_cm,
-                    timeUnit: timeUnitCodes.months,
-                    range: { start: 0, end: 24 },
-                },
-            },
             [ChartCodes.lhfa_b_0_13_w_z]: {
                 datasetValues: lhfa_b_0_13_w_z,
                 metadata: {
-                    label: ChartCodes.lhfa_b_0_13_w_z.label,
-                    measurementType: measurementTypeCodes.lh_cm,
-                    timeUnit: timeUnitCodes.weeks,
+                    chartLabel: ChartCodes.lhfa_b_0_13_w_z.label,
+                    xAxisLabel: timeUnitCodes.weeks,
+                    yAxisLabel: measurementTypeCodes.l_cm,
                     range: { start: 0, end: 13 },
+                },
+            },
+            [ChartCodes.lhfa_b_0_2_y_z]: {
+                datasetValues: lhfa_b_0_2_y_z,
+                metadata: {
+                    chartLabel: ChartCodes.lhfa_b_0_2_y_z.label,
+                    xAxisLabel: timeUnitCodes.months,
+                    yAxisLabel: measurementTypeCodes.l_cm,
+                    range: { start: 0, end: 24 },
                 },
             },
             [ChartCodes.lhfa_b_2_5_y_z]: {
                 datasetValues: lhfa_b_2_5_y_z,
                 metadata: {
-                    label: ChartCodes.lhfa_b_2_5_y_z.label,
-                    measurementType: measurementTypeCodes.lh_cm,
-                    timeUnit: timeUnitCodes.months,
+                    chartLabel: ChartCodes.lhfa_b_2_5_y_z.label,
+                    xAxisLabel: timeUnitCodes.months,
+                    yAxisLabel: measurementTypeCodes.h_cm,
                     range: { start: 24, end: 60 },
                 },
             },
@@ -90,30 +90,30 @@ export const chartData: ChartData = {
     },
     [CategoryCodes.lhfa_g]: {
         datasets: {
-            [ChartCodes.lhfa_g_0_2_y_z]: {
-                datasetValues: lhfa_g_0_2_y_z,
-                metadata: {
-                    label: ChartCodes.lhfa_g_0_2_y_z.label,
-                    measurementType: measurementTypeCodes.lh_cm,
-                    timeUnit: timeUnitCodes.months,
-                    range: { start: 0, end: 24 },
-                },
-            },
             [ChartCodes.lhfa_g_0_13_w_z]: {
                 datasetValues: lhfa_g_0_13_w_z,
                 metadata: {
-                    label: ChartCodes.lhfa_g_0_13_w_z.label,
-                    measurementType: measurementTypeCodes.lh_cm,
-                    timeUnit: timeUnitCodes.weeks,
+                    chartLabel: ChartCodes.lhfa_g_0_13_w_z.label,
+                    xAxisLabel: timeUnitCodes.weeks,
+                    yAxisLabel: measurementTypeCodes.l_cm,
                     range: { start: 0, end: 13 },
+                },
+            },
+            [ChartCodes.lhfa_g_0_2_y_z]: {
+                datasetValues: lhfa_g_0_2_y_z,
+                metadata: {
+                    chartLabel: ChartCodes.lhfa_g_0_2_y_z.label,
+                    xAxisLabel: timeUnitCodes.months,
+                    yAxisLabel: measurementTypeCodes.l_cm,
+                    range: { start: 0, end: 24 },
                 },
             },
             [ChartCodes.lhfa_g_2_5_y_z]: {
                 datasetValues: lhfa_g_2_5_y_z,
                 metadata: {
-                    label: ChartCodes.lhfa_g_2_5_y_z.label,
-                    measurementType: measurementTypeCodes.lh_cm,
-                    timeUnit: timeUnitCodes.months,
+                    chartLabel: ChartCodes.lhfa_g_2_5_y_z.label,
+                    xAxisLabel: timeUnitCodes.months,
+                    yAxisLabel: measurementTypeCodes.h_cm,
                     range: { start: 24, end: 60 },
                 },
             },
@@ -121,88 +121,88 @@ export const chartData: ChartData = {
     },
     [CategoryCodes.wfa_b]: {
         datasets: {
-            [ChartCodes.wfa_b_0_5_y_z]: {
-                datasetValues: wfa_b_0_5_y_z,
-                metadata: {
-                    label: ChartCodes.wfa_b_0_5_y_z.label,
-                    measurementType: measurementTypeCodes.w_kg,
-                    timeUnit: timeUnitCodes.months,
-                    range: { start: 0, end: 60 },
-                },
-            },
             [ChartCodes.wfa_b_0_13_w_z]: {
                 datasetValues: wfa_b_0_13_w_z,
                 metadata: {
-                    label: ChartCodes.wfa_b_0_13_w_z.label,
-                    measurementType: measurementTypeCodes.w_kg,
-                    timeUnit: timeUnitCodes.weeks,
+                    chartLabel: ChartCodes.wfa_b_0_13_w_z.label,
+                    xAxisLabel: timeUnitCodes.weeks,
+                    yAxisLabel: measurementTypeCodes.w_kg,
                     range: { start: 0, end: 13 },
+                },
+            },
+            [ChartCodes.wfa_b_0_5_y_z]: {
+                datasetValues: wfa_b_0_5_y_z,
+                metadata: {
+                    chartLabel: ChartCodes.wfa_b_0_5_y_z.label,
+                    xAxisLabel: timeUnitCodes.months,
+                    yAxisLabel: measurementTypeCodes.w_kg,
+                    range: { start: 0, end: 60 },
                 },
             },
         },
     },
     [CategoryCodes.wfa_g]: {
         datasets: {
-            [ChartCodes.wfa_g_0_5_y_z]: {
-                datasetValues: wfa_g_0_5_y_z,
-                metadata: {
-                    label: ChartCodes.wfa_g_0_5_y_z.label,
-                    measurementType: measurementTypeCodes.w_kg,
-                    timeUnit: timeUnitCodes.months,
-                    range: { start: 0, end: 60 },
-                },
-            },
             [ChartCodes.wfa_g_0_13_w_z]: {
                 datasetValues: wfa_g_0_13_w_z,
                 metadata: {
-                    label: ChartCodes.wfa_g_0_13_w_z.label,
-                    measurementType: measurementTypeCodes.w_kg,
-                    timeUnit: timeUnitCodes.weeks,
+                    chartLabel: ChartCodes.wfa_g_0_13_w_z.label,
+                    xAxisLabel: timeUnitCodes.weeks,
+                    yAxisLabel: measurementTypeCodes.w_kg,
                     range: { start: 0, end: 13 },
+                },
+            },
+            [ChartCodes.wfa_g_0_5_y_z]: {
+                datasetValues: wfa_g_0_5_y_z,
+                metadata: {
+                    chartLabel: ChartCodes.wfa_g_0_5_y_z.label,
+                    xAxisLabel: timeUnitCodes.months,
+                    yAxisLabel: measurementTypeCodes.w_kg,
+                    range: { start: 0, end: 60 },
                 },
             },
         },
     },
     [CategoryCodes.wflh_b]: {
         datasets: {
-            [ChartCodes.wfh_b_2_5_y_z]: {
-                datasetValues: wfh_b_2_5_y_z,
-                metadata: {
-                    label: ChartCodes.wfh_b_2_5_y_z.label,
-                    measurementType: measurementTypeCodes.w_kg,
-                    timeUnit: measurementTypeCodes.h_cm,
-                    range: { start: 65, end: 120 },
-                },
-            },
             [ChartCodes.wfl_b_0_2_y_z]: {
                 datasetValues: wfl_b_0_2_y_z,
                 metadata: {
-                    label: ChartCodes.wfl_b_0_2_y_z.label,
-                    measurementType: measurementTypeCodes.w_kg,
-                    timeUnit: measurementTypeCodes.h_cm,
+                    chartLabel: ChartCodes.wfl_b_0_2_y_z.label,
+                    xAxisLabel: measurementTypeCodes.l_cm,
+                    yAxisLabel: measurementTypeCodes.w_kg,
                     range: { start: 45, end: 110 },
+                },
+            },
+            [ChartCodes.wfh_b_2_5_y_z]: {
+                datasetValues: wfh_b_2_5_y_z,
+                metadata: {
+                    chartLabel: ChartCodes.wfh_b_2_5_y_z.label,
+                    xAxisLabel: measurementTypeCodes.h_cm,
+                    yAxisLabel: measurementTypeCodes.w_kg,
+                    range: { start: 65, end: 120 },
                 },
             },
         },
     },
     [CategoryCodes.wflh_g]: {
         datasets: {
-            [ChartCodes.wfh_g_2_5_y_z]: {
-                datasetValues: wfh_g_2_5_y_z,
-                metadata: {
-                    label: ChartCodes.wfh_g_2_5_y_z.label,
-                    measurementType: measurementTypeCodes.w_kg,
-                    timeUnit: measurementTypeCodes.h_cm,
-                    range: { start: 65, end: 120 },
-                },
-            },
             [ChartCodes.wfl_g_0_2_y_z]: {
                 datasetValues: wfl_g_0_2_y_z,
                 metadata: {
-                    label: ChartCodes.wfl_g_0_2_y_z.label,
-                    measurementType: measurementTypeCodes.w_kg,
-                    timeUnit: measurementTypeCodes.h_cm,
+                    chartLabel: ChartCodes.wfl_g_0_2_y_z.label,
+                    xAxisLabel: measurementTypeCodes.l_cm,
+                    yAxisLabel: measurementTypeCodes.w_kg,
                     range: { start: 45, end: 110 },
+                },
+            },
+            [ChartCodes.wfh_g_2_5_y_z]: {
+                datasetValues: wfh_g_2_5_y_z,
+                metadata: {
+                    chartLabel: ChartCodes.wfh_g_2_5_y_z.label,
+                    xAxisLabel: measurementTypeCodes.h_cm,
+                    yAxisLabel: measurementTypeCodes.w_kg,
+                    range: { start: 65, end: 120 },
                 },
             },
         },

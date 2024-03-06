@@ -37,9 +37,19 @@ export const GrowthChartBuilder = ({
             legend: { display: false },
         },
         scales: {
-            x: { title: { display: true, text: i18n.t(datasetMetadata.timeUnit) } },
+            x: {
+                title: {
+                    display: true,
+                    text: i18n.t(datasetMetadata.xAxisLabel),
+                    font: { size: 13 },
+                },
+            },
             y: {
-                title: { display: true, text: datasetMetadata.measurementType },
+                title: {
+                    display: true,
+                    text: i18n.t(datasetMetadata.yAxisLabel),
+                    font: { size: 13 },
+                },
                 position: 'left',
                 min: minDataValue,
                 max: maxDataValue,

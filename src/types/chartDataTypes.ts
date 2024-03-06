@@ -4,9 +4,9 @@ import { AnnotationLabelType } from '../Components/GrowthChart/GrowthChartOption
 export interface ChartDataTypes {
     datasetValues: { [key: string]: number }[];
     datasetMetadata: {
-        label: string;
-        measurementType: string;
-        timeUnit: string;
+        chartLabel: string;
+        yAxisLabel: string;
+        xAxisLabel: string;
         range: { start: number; end: number };
     };
     xAxisValues: number[];
@@ -20,9 +20,9 @@ export interface ChartData {
         datasets: { [key: string]: {
             datasetValues: { [key: string]: number }[];
             metadata: {
-                label: string;
-                measurementType: string;
-                timeUnit: string;
+                chartLabel: string;
+                yAxisLabel: string;
+                xAxisLabel: string;
                 range: { start: number; end: number };
                 };
             }
@@ -37,7 +37,6 @@ export const timeUnitCodes = Object.freeze({
 
 export const measurementTypeCodes = Object.freeze({
     hc_cm: i18n.t('Head circumference (cm)'),
-    lh_cm: i18n.t('Length/height (cm)'),
     l_cm: i18n.t('Length (cm)'),
     h_cm: i18n.t('Height (cm)'),
     w_kg: i18n.t('Weight (kg)'),
@@ -58,7 +57,7 @@ export const ChartLabelCodes = Object.freeze({
     b_0_5_y: i18n.t('Boys 0 to 5 years'),
     b_0_13_w: i18n.t('Boys 0 to 13 weeks'),
     g_0_5_y: i18n.t('Girls 0 to 5 years'),
-    g_0_5_w: i18n.t('Girls 0 to 5 weeks'),
+    g_0_5_w: i18n.t('Girls 0 to 13 weeks'),
     b_0_2_y: i18n.t('Boys 0 to 2 years'),
     b_2_5_y: i18n.t('Boys 2 to 5 years'),
     g_0_2_y: i18n.t('Girls 0 to 2 years'),
