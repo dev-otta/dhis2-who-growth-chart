@@ -51,14 +51,17 @@ export const GrowthChartBuilder = ({
                 ticks: { padding: 18 },
             },
         },
-        animation: { onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation) },
+        animation: {
+            onComplete: (chartAnimation: any) => annotateLineEnd(chartAnimation),
+            onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation),
+        },
     };
 
     return (
         <div className='aspect-video min-h-[400px]'>
             <AutoSizer>
                 {/* eslint-disable-next-line react/no-unused-prop-types */}
-                {({ height, width }: { height: number, width: number}) => (
+                {({ height, width }: { height: number, width: number }) => (
                     <div style={{ height, width }}>
                         <Line data={data} options={options} />
                     </div>
