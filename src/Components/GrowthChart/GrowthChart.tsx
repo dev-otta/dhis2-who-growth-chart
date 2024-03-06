@@ -1,11 +1,12 @@
 import React, { useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
 import { chartData } from '../../DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
-import { useRangeTimePeriode } from './useRangeTimePeriode';
+import { useRangeTimePeriod } from './useRangeTimePeriod';
 import { ChartSelector } from '../GrowthChartSelector';
 import { CategoryCodes, ChartData } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
 import { GrowthChartAnnotations } from './GrowthChartOptions';
+import { ChartSettingsButton } from './ChartSettingsButton';
 
 export const GrowthChart = () => {
     const [category, setCategory] = useState<keyof typeof CategoryCodes>(Object.keys(chartData)[0] as keyof typeof CategoryCodes);
@@ -17,7 +18,7 @@ export const GrowthChart = () => {
     const dataSetValues = dataSetEntry.datasetValues;
     const dataSetMetadata = dataSetEntry.metadata;
 
-    const xAxisValues = useRangeTimePeriode(dataSetMetadata.range.start, dataSetMetadata.range.end);
+    const xAxisValues = useRangeTimePeriod(dataSetMetadata.range.start, dataSetMetadata.range.end);
     const keysDataSet = Object.keys(dataSetValues[0]);
 
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
@@ -39,12 +40,19 @@ export const GrowthChart = () => {
 
     return (
         <div>
-            <ChartSelector
-                category={category}
-                dataset={dataset}
-                setCategory={setCategory}
-                setDataset={setDataset}
-            />
+            <div className='flex flex-wrap-reverse pl-12'>
+                <div>
+                    <ChartSelector
+                        category={category}
+                        dataset={dataset}
+                        setCategory={setCategory}
+                        setDataset={setDataset}
+                    />
+                </div>
+                <div className='grow relative min-w-[100px]'>
+                    <ChartSettingsButton />
+                </div>
+            </div>
 
             <GrowthChartBuilder
                 datasetValues={dataSetValues}
