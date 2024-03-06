@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
-import { useRangeTimePeriode } from './useRangeTimePeriode';
+import { useRangeTimePeriod } from '../../utils/useRangeTimePeriod';
 import { ChartSelector } from '../GrowthChartSelector';
 import { ChartData, GenderCodes, CategoryCodes } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
 import { GrowthChartAnnotations } from './GrowthChartOptions';
+import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
 import { useTeiById } from '../../utils/DataFetching/Hooks';
 
@@ -42,7 +43,7 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
     const dataSetValues = dataSetEntry?.datasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
 
-    const xAxisValues = useRangeTimePeriode(dataSetMetadata?.range.start, dataSetMetadata?.range.end);
+    const xAxisValues = useRangeTimePeriod(dataSetMetadata?.range.start, dataSetMetadata?.range.end);
 
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
     const addRangePercentage = Math.floor((max - min) * 0.1);
@@ -68,17 +69,24 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
 
     return (
         <div>
-            <ChartSelector
-                category={category}
-                dataset={dataset}
-                setCategory={setCategory}
-                setDataset={setDataset}
-                chartData={chartDataForGender}
-                categoryCodes={categoryCodesForGender}
-                isDisabled={trackedEntitieGender !== undefined}
-                gender={gender}
-                setGender={setGender}
-            />
+            <div className='flex flex-wrap-reverse pl-12'>
+                <div>
+                    <ChartSelector
+                        category={category}
+                        dataset={dataset}
+                        setCategory={setCategory}
+                        setDataset={setDataset}
+                        chartData={chartDataForGender}
+                        categoryCodes={categoryCodesForGender}
+                        isDisabled={trackedEntitieGender !== undefined}
+                        gender={gender}
+                        setGender={setGender}
+                    />
+                </div>
+                <div className='grow relative min-w-[100px]'>
+                    <ChartSettingsButton />
+                </div>
+            </div>
 
             <GrowthChartBuilder
                 datasetValues={dataSetValues}
