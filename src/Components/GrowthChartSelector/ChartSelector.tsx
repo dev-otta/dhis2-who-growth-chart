@@ -27,7 +27,7 @@ export const ChartSelector = ({
     };
 
     return (
-        <div className='flex flex-wrap w-full gap-2 text-sm pl-12'>
+        <div className='flex flex-wrap w-full gap-2 text-sm'>
             <ChartSelectorDropdown
                 title={category}
                 items={Object.values(CategoryCodes)}

@@ -614,6 +614,10 @@ video {
   right: -55px;
 }
 
+.right-\[55px\] {
+  right: 55px;
+}
+
 .left-\[-55px\] {
   left: -55px;
 }
@@ -644,6 +648,14 @@ video {
 
 .right-2 {
   right: 0.5rem;
+}
+
+.top-3 {
+  top: 0.75rem;
+}
+
+.right-3 {
+  right: 0.75rem;
 }
 
 .top-1 {
