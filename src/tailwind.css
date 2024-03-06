@@ -614,6 +614,10 @@ video {
   right: -55px;
 }
 
+.right-\[55px\] {
+  right: 55px;
+}
+
 .left-\[-55px\] {
   left: -55px;
 }

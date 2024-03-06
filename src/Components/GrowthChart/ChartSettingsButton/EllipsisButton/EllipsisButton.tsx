@@ -13,7 +13,7 @@ export const EllipsisButton = ({ onClick, isVisible, setReferenceElement }: Elli
         aria-label='Chart settings'
         onClick={onClick}
         ref={setReferenceElement}
-        className='flex items-center justify-center w-7 h-7 rounded border
+        className='flex items-center absolute right-[55px] justify-center w-7 h-7 rounded border border-gray-300
         text-gray-600 hover:bg-gray-300 hover:text-gray-700'
         style={isVisible ? { border: '1px solid black' } : {}}
     >

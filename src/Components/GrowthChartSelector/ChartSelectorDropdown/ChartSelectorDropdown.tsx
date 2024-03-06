@@ -19,7 +19,7 @@ export const ChartSelectorDropdown = ({
             {({ open }) => (
                 <>
                     <Menu.Button
-                        className={'flex flex-row rounded border border-gray-300 py-1 gap-2 pl-4 pr-2 items-center whitespace-nowrap'}
+                        className={'flex flex-row rounded border border-gray-300 py-1 gap-2 h-7 pl-4 pr-2 items-center whitespace-nowrap'}
                     >
                         {title}
                         <Chevron className={`w-3 h-3 ${open ? 'rotate-180' : ''}`} />
