@@ -11,10 +11,15 @@ import { ChartCodes,
     measurementTypeCodes,
     timeUnitCodes,
     ChartData,
-    GenderCodes } from '../../../types/chartDataTypes';
+    GenderCodes,
+    CategoryLabels } from '../../../types/chartDataTypes';
 
 export const chartData: ChartData = {
     [CategoryCodes.hcfa_b]: {
+        categoryMetadata: {
+            label: CategoryLabels.hcfa,
+            gender: GenderCodes.male,
+        },
         datasets: {
             [ChartCodes.hcfa_b_0_5_y_z]: {
                 datasetValues: hcfa_b_0_5_y_z,
@@ -39,6 +44,10 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.hcfa_g]: {
+        categoryMetadata: {
+            label: CategoryLabels.hcfa,
+            gender: GenderCodes.female,
+        },
         datasets: {
             [ChartCodes.hcfa_g_0_5_y_z]: {
                 datasetValues: hcfa_g_0_5_y_z,
@@ -63,6 +72,10 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.lhfa_b]: {
+        categoryMetadata: {
+            label: CategoryLabels.lhfa,
+            gender: GenderCodes.male,
+        },
         datasets: {
             [ChartCodes.lhfa_b_0_2_y_z]: {
                 datasetValues: lhfa_b_0_2_y_z,
@@ -97,6 +110,10 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.lhfa_g]: {
+        categoryMetadata: {
+            label: CategoryLabels.lhfa,
+            gender: GenderCodes.female,
+        },
         datasets: {
             [ChartCodes.lhfa_g_0_2_y_z]: {
                 datasetValues: lhfa_g_0_2_y_z,
@@ -131,6 +148,10 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.wfa_b]: {
+        categoryMetadata: {
+            label: CategoryLabels.wfa,
+            gender: GenderCodes.male,
+        },
         datasets: {
             [ChartCodes.wfa_b_0_5_y_z]: {
                 datasetValues: wfa_b_0_5_y_z,
@@ -155,6 +176,10 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.wfa_g]: {
+        categoryMetadata: {
+            label: CategoryLabels.wfa,
+            gender: GenderCodes.female,
+        },
         datasets: {
             [ChartCodes.wfa_g_0_5_y_z]: {
                 datasetValues: wfa_g_0_5_y_z,
@@ -179,6 +204,10 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.wflh_b]: {
+        categoryMetadata: {
+            label: CategoryLabels.wflh,
+            gender: GenderCodes.male,
+        },
         datasets: {
             [ChartCodes.wfh_b_2_5_y_z]: {
                 datasetValues: wfh_b_2_5_y_z,
@@ -203,6 +232,10 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.wflh_g]: {
+        categoryMetadata: {
+            label: CategoryLabels.wflh,
+            gender: GenderCodes.female,
+        },
         datasets: {
             [ChartCodes.wfh_g_2_5_y_z]: {
                 datasetValues: wfh_g_2_5_y_z,

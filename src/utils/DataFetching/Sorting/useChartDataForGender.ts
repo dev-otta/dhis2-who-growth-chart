@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ChartData, CategoryCodes } from '../../../types/chartDataTypes';
+import { ChartData } from '../../../types/chartDataTypes';
 import { chartData } from '../../../DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
 
 interface ChartDataForGenderProps {
@@ -7,28 +7,21 @@ interface ChartDataForGenderProps {
 }
 
 export const useChartDataForGender = ({ gender }: ChartDataForGenderProps) => {
-    const [chartDataForGender, setData] = useState<ChartData>({});
-    const [categoryCodesForGender, setCategoryCodes] = useState<Record<string, string>>({});
+    const [chartDataForGender, setChartDataForGender] = useState<ChartData>({});
 
     useEffect(() => {
-        const newData: ChartData = {};
-        const newCategoryCodes: Record<string, string> = {};
-
-        Object.keys(chartData).forEach((category) => {
-            Object.keys(chartData[category].datasets).forEach((dataset) => {
-                if (chartData[category].datasets[dataset].metadata.gender === gender) {
-                    if (!newData[category]) {
-                        newData[category] = { datasets: {} };
-                    }
-                    newData[category].datasets[dataset] = chartData[category].datasets[dataset];
-                    newCategoryCodes[category] = CategoryCodes[category as keyof typeof CategoryCodes];
+        const filteredData = Object.entries(chartData).reduce(
+            (acc: ChartData, [key, value]) => {
+                if (value.categoryMetadata.gender === gender) {
+                    acc[key] = value;
                 }
-            });
-        });
+                return acc;
+            },
+            {},
+        );
 
-        setData(newData);
-        setCategoryCodes(newCategoryCodes);
+        setChartDataForGender(filteredData);
     }, [gender]);
 
-    return { chartDataForGender, categoryCodesForGender };
+    return { chartDataForGender };
 };

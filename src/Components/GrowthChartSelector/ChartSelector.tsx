@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChartData, CategoryCodes, GenderCodes } from '../../types/chartDataTypes';
+import { ChartData, CategoryCodes, GenderCodes, CategoryToLabel } from '../../types/chartDataTypes';
 import { ChartSelectorDropdown } from './ChartSelectorDropdown/ChartSelectorDropdown';
 
 interface ChartSelectorProps {
@@ -8,7 +8,6 @@ interface ChartSelectorProps {
     setCategory: (category: keyof typeof CategoryCodes) => void;
     setDataset: (dataset: keyof ChartData) => void;
     chartData: ChartData;
-    categoryCodes: Record<string, string>;
     isDisabled?: boolean;
     gender: string;
     setGender: (gender: keyof typeof GenderCodes) => void;
@@ -20,13 +19,12 @@ export const ChartSelector = ({
     setCategory,
     setDataset,
     chartData,
-    categoryCodes,
     isDisabled,
     gender,
     setGender,
 }: ChartSelectorProps) => {
     const handleCategoryChange = (value: string) => {
-        const newCategory = value as keyof typeof CategoryCodes;
+        const newCategory = Object.keys(chartData).find((key) => chartData[key].categoryMetadata.label === value) as keyof typeof CategoryCodes;
         setCategory(newCategory);
         setDataset(Object.keys(chartData[newCategory].datasets)[0] as keyof ChartData);
     };
@@ -37,17 +35,15 @@ export const ChartSelector = ({
 
     return (
         <div className='flex flex-wrap w-full gap-2 text-sm'>
-            {!isDisabled
-            && (
-                <ChartSelectorDropdown
-                    title={gender}
-                    items={Object.values(GenderCodes)}
-                    handleItemChange={setGender}
-                />
-            )}
             <ChartSelectorDropdown
-                title={category}
-                items={Object.keys(categoryCodes)}
+                title={gender}
+                items={Object.values(GenderCodes)}
+                handleItemChange={setGender}
+                isDisabled={isDisabled}
+            />
+            <ChartSelectorDropdown
+                title={CategoryToLabel[category]}
+                items={Object.keys(chartData).map((key) => chartData[key].categoryMetadata.label)}
                 handleItemChange={handleCategoryChange}
             />
             <ChartSelectorDropdown

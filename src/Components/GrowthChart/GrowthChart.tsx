@@ -14,29 +14,33 @@ interface GrowthChartProps {
 }
 
 export const GrowthChart = ({ teiId }: GrowthChartProps) => {
-    const { trackedEntitie } = useTeiById({ teiId });
-    const trackedEntitieGender = GenderCodes[trackedEntitie?.attributes.find(
+    const {
+        trackedEntity,
+        isLoading,
+        isError,
+    } = useTeiById({ teiId });
+    const trackedEntityGender = GenderCodes[trackedEntity?.attributes.find(
         (attribute: any) => attribute.displayName === 'Gender',
     ).value?.toLowerCase() as 'male' | 'female'];
 
-    const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntitieGender || GenderCodes.male);
-    const { chartDataForGender, categoryCodesForGender } = useChartDataForGender({ gender });
+    const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender || GenderCodes.male);
+    const { chartDataForGender } = useChartDataForGender({ gender });
 
     const [category, setCategory] = useState<keyof typeof CategoryCodes>();
     const [dataset, setDataset] = useState<keyof ChartData>();
 
     useEffect(() => {
-        if (Object.keys(chartDataForGender).length > 0 && categoryCodesForGender) {
+        if (Object.keys(chartDataForGender).length > 0) {
             const newCategory = Object.keys(chartDataForGender)[0] as keyof typeof CategoryCodes;
             setCategory(newCategory);
             const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0] as keyof ChartData;
             setDataset(newDataset);
         }
-    }, [chartDataForGender, categoryCodesForGender]);
+    }, [chartDataForGender]);
 
     useEffect(() => {
-        trackedEntitieGender && setGender(trackedEntitieGender);
-    }, [trackedEntitieGender]);
+        trackedEntityGender && setGender(trackedEntityGender);
+    }, [trackedEntityGender]);
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
 
@@ -56,7 +60,15 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
 
     const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata?.timeUnit);
 
-    if (!chartDataForGender || !categoryCodesForGender || !dataSetValues) {
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (isError) {
+        console.error('Error fetching tracked entity data.');
+    }
+
+    if (!chartDataForGender || !dataSetValues) {
         return null;
     }
 
@@ -77,8 +89,7 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
                         setCategory={setCategory}
                         setDataset={setDataset}
                         chartData={chartDataForGender}
-                        categoryCodes={categoryCodesForGender}
-                        isDisabled={trackedEntitieGender !== undefined}
+                        isDisabled={trackedEntityGender !== undefined}
                         gender={gender}
                         setGender={setGender}
                     />
