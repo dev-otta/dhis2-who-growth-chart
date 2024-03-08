@@ -50,7 +50,10 @@ export const GrowthChart = () => {
                     />
                 </div>
                 <div className='grow relative min-w-[100px]'>
-                    <ChartSettingsButton />
+                    <ChartSettingsButton
+                        category={category}
+                        dataset={dataset}
+                    />
                 </div>
             </div>
 

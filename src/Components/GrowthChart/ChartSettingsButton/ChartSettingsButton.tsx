@@ -2,14 +2,17 @@ import React, { useState, useRef, useEffect } from 'react';
 import { usePopper } from 'react-popper';
 import { EllipsisButton } from './EllipsisButton';
 import { PopoverList, PopoverListItem, PopoverListDivider } from './PopoverList';
+import { chart
+import pdfIcon from '../../pdfIcon.svg';
+import { usePrintDocument } from '../../../utils/usePrintDocument';
 
-export const ChartSettingsButton = () => {
+export const ChartSettingsButton = ({ category, dataset }: ) => {
     const [referenceElement, setReferenceElement] = useState(null);
     const [popperElement, setPopperElement] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
 
     const { styles, attributes } = usePopper(referenceElement, popperElement, {
-        placement: 'bottom',
+        placement: 'bottom-end',
         modifiers: [
             {
                 name: 'offset',
@@ -33,6 +36,8 @@ export const ChartSettingsButton = () => {
         };
     }, []);
 
+    const handlePrintDocument = () => { usePrintDocument({ category, dataset }); };
+
     return (
         <div ref={popoverRef}>
             <EllipsisButton
@@ -47,17 +52,11 @@ export const ChartSettingsButton = () => {
                     popoverAttributes={{ ...attributes.popper }}
                 >
                     <PopoverListItem
-                        label='Coming soon'
-                        icon={'🔧'}
-                        onClick={() => { }}
+                        label='Convcert to PDF'
+                        icon={<img src={pdfIcon} alt='PDF Icon' />}
+                        onClick={handlePrintDocument}
                     />
                     <PopoverListDivider />
-                    <PopoverListItem
-                        label='Coming soon'
-                        icon={<span>🔧</span>}
-                        onClick={() => { }}
-                    />
-                    {/* rm listitem */}
                 </PopoverList>
             )}
         </div>
