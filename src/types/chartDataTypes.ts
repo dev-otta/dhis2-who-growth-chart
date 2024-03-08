@@ -4,11 +4,9 @@ import { AnnotationLabelType } from '../Components/GrowthChart/GrowthChartOption
 export interface ChartDataTypes {
     datasetValues: { [key: string]: number }[];
     datasetMetadata: {
-        label: string;
         measurementType: string;
         timeUnit: string;
         range: { start: number; end: number };
-        gender: string;
     };
     xAxisValues: number[];
     yAxisValues: { minDataValue: number; maxDataValue: number };
@@ -29,7 +27,6 @@ export interface ChartData {
                 measurementType: string;
                 timeUnit: string;
                 range: { start: number; end: number };
-                gender: string;
                 };
             }
         };
@@ -78,22 +75,29 @@ export const CategoryToLabel = Object.freeze({
     wflh_g: CategoryLabels.wflh,
 });
 
+export const DataSetLabels = Object.freeze({
+    y_0_5: i18n.t('0 to 5 years'),
+    w_0_13: i18n.t('0 to 13 weeks'),
+    y_0_2: i18n.t('0 to 2 years'),
+    y_2_5: i18n.t('2 to 5 years'),
+});
+
 export const ChartLabelCodes = Object.freeze({
-    b_0_5_y: i18n.t('0 to 5 years'),
-    b_0_13_w: i18n.t('0 to 13 weeks'),
-    g_0_5_y: i18n.t('0 to 5 years'),
-    g_0_5_w: i18n.t('0 to 5 weeks'),
-    b_0_2_y: i18n.t('0 to 2 years'),
-    b_2_5_y: i18n.t('2 to 5 years'),
-    g_0_2_y: i18n.t('0 to 2 years'),
-    g_2_5_y: i18n.t('2 to 5 years'),
+    b_0_5_y: DataSetLabels.y_0_5,
+    b_0_13_w: DataSetLabels.w_0_13,
+    g_0_5_y: DataSetLabels.y_0_5,
+    g_0_13_w: DataSetLabels.w_0_13,
+    b_0_2_y: DataSetLabels.y_0_2,
+    b_2_5_y: DataSetLabels.y_2_5,
+    g_0_2_y: DataSetLabels.y_0_2,
+    g_2_5_y: DataSetLabels.y_2_5,
 });
 
 export const ChartCodes = Object.freeze({
     hcfa_b_0_5_y_z: ChartLabelCodes.b_0_5_y,
     hcfa_b_0_13_w_z: ChartLabelCodes.b_0_13_w,
     hcfa_g_0_5_y_z: ChartLabelCodes.g_0_5_y,
-    hcfa_g_0_13_w_z: ChartLabelCodes.g_0_5_w,
+    hcfa_g_0_13_w_z: ChartLabelCodes.g_0_13_w,
     lhfa_b_0_2_y_z: ChartLabelCodes.b_0_2_y,
     lhfa_b_0_13_w_z: ChartLabelCodes.b_0_13_w,
     lhfa_b_2_5_y_z: ChartLabelCodes.b_2_5_y,
@@ -103,7 +107,7 @@ export const ChartCodes = Object.freeze({
     wfa_b_0_5_y_z: ChartLabelCodes.b_0_5_y,
     wfa_b_0_13_w_z: ChartLabelCodes.b_0_13_w,
     wfa_g_0_5_y_z: ChartLabelCodes.g_0_5_y,
-    wfa_g_0_13_w_z: ChartLabelCodes.g_0_5_w,
+    wfa_g_0_13_w_z: ChartLabelCodes.g_0_13_w,
     wfh_g_2_5_y_z: ChartLabelCodes.g_2_5_y,
     wfl_g_0_2_y_z: ChartLabelCodes.g_0_2_y,
     wfh_b_2_5_y_z: ChartLabelCodes.b_2_5_y,
