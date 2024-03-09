@@ -22,13 +22,12 @@ export const GrowthChart = () => {
     const keysDataSet = Object.keys(dataSetValues[0]);
 
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
-    const addRangePercentage = Math.floor((max - min) * 0.1);
 
     const [minDataValue, maxDataValue] = useMemo(() => {
-        const minVal = Math.floor(min) - addRangePercentage;
-        const maxVal = Math.ceil(max) + addRangePercentage;
+        const minVal = Math.max(0, Math.floor(min));
+        const maxVal = Math.ceil(max);
         return [minVal, maxVal];
-    }, [min, max, addRangePercentage]);
+    }, [min, max]);
 
     const yAxisValues = { minDataValue, maxDataValue };
 
