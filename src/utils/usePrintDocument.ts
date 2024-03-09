@@ -1,12 +1,13 @@
 import html2canvas from 'html2canvas';
 import JsPDF from 'jspdf';
+import { CategoryCodes, ChartData } from '../types/chartDataTypes';
 
-interface ChartSelectorProps {
+interface PrintDocumentProps {
     category: keyof typeof CategoryCodes;
-    dataset: keyof typeof chartData;
+    dataset: keyof ChartData;
 }
 
-export const usePrintDocument = ({ category, dataset }: ChartSelectorProps) => {
+export const usePrintDocument = ({ category, dataset }: PrintDocumentProps) => {
     const input = document.getElementById('divToPrint');
     html2canvas(input, { logging: false })
         .then((canvas) => {
