@@ -49,7 +49,7 @@ export const GrowthChart = () => {
                         setDataset={setDataset}
                     />
                 </div>
-                <div className='grow relative min-w-[100px]'>
+                <div className='grow relative min-w-[100px] text-sm'>
                     <ChartSettingsButton
                         category={category}
                         dataset={dataset}

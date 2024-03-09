@@ -43,10 +43,7 @@ export const ChartSettingsButton = ({ category, dataset }: ChartSettingsButtonPr
     const handlePrintDocument = () => { usePrintDocument({ category, dataset }); };
 
     return (
-        <div
-            ref={popoverRef}
-            className='text-sm'
-        >
+        <div ref={popoverRef}>
             <EllipsisButton
                 onClick={() => setIsVisible((prevState) => !prevState)}
                 isVisible={isVisible}

@@ -20,6 +20,6 @@ export const usePrintDocument = ({ category, dataset }: PrintDocumentProps) => {
             pdf.text(`Dataset: ${dataset}`, 20, 30);
             pdf.addImage(imgData, 'JPEG', 10, 32, width - 20, height - 30);
 
-            pdf.save('download.pdf');
+            pdf.save(`${category}_${dataset}.pdf`);
         });
 };
