@@ -81,5 +81,10 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
+      - uses: actions/cache@v2
+        with:
+          path: '~/.cache/Cypress'
+          key: ${{ runner.os }}-cypress-${{ hashFiles('**/yarn.lock') }}
+
       - name: Cypress Component Tests
         run: yarn cypress:run-ct
