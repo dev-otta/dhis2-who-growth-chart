@@ -54,7 +54,7 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
         return [minVal, maxVal];
     }, [min, max, addRangePercentage]);
 
-    const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata?.timeUnit);
+    const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata?.xAxisLabel);
 
     if (!chartDataForGender || !dataSetValues) {
         return null;

@@ -4,8 +4,9 @@ import { AnnotationLabelType } from '../Components/GrowthChart/GrowthChartOption
 export interface ChartDataTypes {
     datasetValues: { [key: string]: number }[];
     datasetMetadata: {
-        measurementType: string;
-        timeUnit: string;
+        chartLabel: string;
+        yAxisLabel: string;
+        xAxisLabel: string;
         range: { start: number; end: number };
     };
     xAxisValues: number[];
@@ -23,9 +24,9 @@ export interface ChartData {
         datasets: { [key: string]: {
             datasetValues: { [key: string]: number }[];
             metadata: {
-                label: string;
-                measurementType: string;
-                timeUnit: string;
+                chartLabel: string;
+                yAxisLabel: string;
+                xAxisLabel: string;
                 range: { start: number; end: number };
                 };
             }
@@ -40,7 +41,6 @@ export const timeUnitCodes = Object.freeze({
 
 export const measurementTypeCodes = Object.freeze({
     hc_cm: i18n.t('Head circumference (cm)'),
-    lh_cm: i18n.t('Length/height (cm)'),
     l_cm: i18n.t('Length (cm)'),
     h_cm: i18n.t('Height (cm)'),
     w_kg: i18n.t('Weight (kg)'),
