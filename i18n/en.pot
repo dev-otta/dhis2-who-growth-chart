@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-10T12:23:53.648Z\n"
-"PO-Revision-Date: 2024-03-10T12:23:53.648Z\n"
+"POT-Creation-Date: 2024-03-10T14:31:51.560Z\n"
+"PO-Revision-Date: 2024-03-10T14:31:51.560Z\n"
 
 msgid "Year"
 msgstr "Year"
@@ -25,9 +25,6 @@ msgstr "Weeks"
 
 msgid "Head circumference (cm)"
 msgstr "Head circumference (cm)"
-
-msgid "Length/height (cm)"
-msgstr "Length/height (cm)"
 
 msgid "Length (cm)"
 msgstr "Length (cm)"
