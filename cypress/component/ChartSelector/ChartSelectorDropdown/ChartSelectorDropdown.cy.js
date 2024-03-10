@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChartSelectorDropdown } from '../../../../src/Components/GrowthChartSelector/ChartSelectorDropdown';
 
-describe('ChartSelector', () => {
+describe('ChartSelectorDropdown', () => {
     const TestComponent = () => {
         const [title, handleItemChange] = useState('0 to 13 weeks');
         return (
@@ -11,25 +11,24 @@ describe('ChartSelector', () => {
                 items={['0 to 13 weeks', '0 to 2 years', '2 to 5 years']}
                 handleItemChange={handleItemChange}
                 isDisabled={false}
+                dataTest='CGC-dropdown'
             />
         );
     };
 
     it('Should render the chart selector dropdown component', () => {
-        cy.viewport(1024, 914);
         cy.mount(
             <TestComponent />,
         );
-        cy.contains('0 to 13 weeks');
+        cy.get('[data-test="CGC-dropdown-button"]').should('contain', '0 to 13 weeks');
     });
 
     it('Selecting a new item should change the title', () => {
-        cy.viewport(1024, 914);
         cy.mount(
             <TestComponent />,
         );
-        cy.contains('button', '0 to 13 weeks').click();
-        cy.contains('2 to 5 years').click();
-        cy.contains('2 to 5 years');
+        cy.get('[data-test="CGC-dropdown-button"]').contains('0 to 13 weeks').click();
+        cy.get('[data-test="CGC-dropdown-item"]').contains('0 to 2 years').click();
+        cy.get('[data-test="CGC-dropdown-button"]').should('contain', '0 to 2 years');
     });
 });

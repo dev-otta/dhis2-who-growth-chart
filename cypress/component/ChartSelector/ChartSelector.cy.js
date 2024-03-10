@@ -25,42 +25,38 @@ describe('ChartSelector', () => {
     };
 
     it('Should render the chart selector component', () => {
-        cy.viewport(1024, 914);
         cy.mount(
             <TestComponent />,
         );
-        cy.contains('Boy');
-        cy.contains('Head circumference for age');
-        cy.contains('0 to 13 weeks');
+        cy.get('[data-test="CGC-gender-dropdown-button"]').should('contain', 'Boy');
+        cy.get('[data-test="CGC-category-dropdown-button"]').should('contain', 'Head circumference for age');
+        cy.get('[data-test="CGC-dataset-dropdown-button"]').should('contain', '0 to 13 weeks');
     });
 
     it('Should be able to change the gender', () => {
-        cy.viewport(1024, 914);
         cy.mount(
             <TestComponent />,
         );
-        cy.contains('button', 'Boy').click();
-        cy.contains('button', 'Girl').click();
-        cy.contains('Girl');
+        cy.get('[data-test="CGC-gender-dropdown-button"]').contains('Boy').click();
+        cy.get('[data-test="CGC-gender-dropdown-item"]').contains('Girl').click();
+        cy.get('[data-test="CGC-gender-dropdown-button"]').should('contain', 'Girl');
     });
 
     it('Should be able to change the category', () => {
-        cy.viewport(1024, 914);
         cy.mount(
             <TestComponent />,
         );
-        cy.contains('button', 'Head circumference for age').click();
-        cy.contains('button', 'Weight for age').click();
-        cy.contains('Weight for age');
+        cy.get('[data-test="CGC-category-dropdown-button"]').contains('Head circumference for age').click();
+        cy.get('[data-test="CGC-category-dropdown-item"]').contains('Weight for age').click();
+        cy.get('[data-test="CGC-category-dropdown-button"]').should('contain', 'Weight for age');
     });
 
     it('Should be able to change the dataset', () => {
-        cy.viewport(1024, 914);
         cy.mount(
             <TestComponent />,
         );
-        cy.contains('button', '0 to 13 weeks').click();
-        cy.contains('button', '0 to 5 years').click();
-        cy.contains('0 to 5 years');
+        cy.get('[data-test="CGC-dataset-dropdown-button"]').contains('0 to 13 weeks').click();
+        cy.get('[data-test="CGC-dataset-dropdown-item"]').contains('0 to 5 years').click();
+        cy.get('[data-test="CGC-dataset-dropdown-button"]').should('contain', '0 to 5 years');
     });
 });
