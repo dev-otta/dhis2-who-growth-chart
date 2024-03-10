@@ -1,4 +1,8 @@
 /// <reference types="cypress" />
+import '../../src/Plugin.module.css';
+import '../../src/tailwind.css';
+import '../../src/index.css';
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
