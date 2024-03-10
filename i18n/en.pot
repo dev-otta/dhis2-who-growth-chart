@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-06T13:28:40.431Z\n"
-"PO-Revision-Date: 2024-03-06T13:28:40.431Z\n"
+"POT-Creation-Date: 2024-03-10T12:23:53.648Z\n"
+"PO-Revision-Date: 2024-03-10T12:23:53.648Z\n"
 
 msgid "Year"
 msgstr "Year"
@@ -56,17 +56,14 @@ msgstr "0 to 5 years"
 msgid "0 to 13 weeks"
 msgstr "0 to 13 weeks"
 
-msgid "0 to 5 weeks"
-msgstr "0 to 5 weeks"
-
 msgid "0 to 2 years"
 msgstr "0 to 2 years"
 
 msgid "2 to 5 years"
 msgstr "2 to 5 years"
 
-msgid "Boys"
-msgstr "Boys"
+msgid "Boy"
+msgstr "Boy"
 
-msgid "Girls"
-msgstr "Girls"
+msgid "Girl"
+msgstr "Girl"

@@ -14,11 +14,7 @@ interface GrowthChartProps {
 }
 
 export const GrowthChart = ({ teiId }: GrowthChartProps) => {
-    const {
-        trackedEntity,
-        isLoading,
-        isError,
-    } = useTeiById({ teiId });
+    const { trackedEntity } = useTeiById({ teiId });
     const trackedEntityGender = GenderCodes[trackedEntity?.attributes.find(
         (attribute: any) => attribute.displayName === 'Gender',
     ).value?.toLowerCase() as 'male' | 'female'];
@@ -59,14 +55,6 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
     }, [min, max, addRangePercentage]);
 
     const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata?.timeUnit);
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (isError) {
-        console.error('Error fetching tracked entity data.');
-    }
 
     if (!chartDataForGender || !dataSetValues) {
         return null;
