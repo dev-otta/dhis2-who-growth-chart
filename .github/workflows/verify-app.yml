@@ -86,5 +86,8 @@ jobs:
           path: '~/.cache/Cypress'
           key: ${{ runner.os }}-cypress-${{ hashFiles('**/yarn.lock') }}
 
+      - name: Install cypress
+        run: yarn cypress install --force
+
       - name: Cypress Component Tests
         run: yarn cypress:run-ct
