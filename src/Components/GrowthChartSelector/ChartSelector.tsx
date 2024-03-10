@@ -1,13 +1,16 @@
 import React from 'react';
-import { CategoryCodes, ChartData } from '../../types/chartDataTypes';
-import { chartData } from '../../DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
+import { ChartData, CategoryCodes, GenderCodes, CategoryToLabel } from '../../types/chartDataTypes';
 import { ChartSelectorDropdown } from './ChartSelectorDropdown/ChartSelectorDropdown';
 
 interface ChartSelectorProps {
     category: keyof typeof CategoryCodes;
-    dataset: keyof typeof chartData;
+    dataset: keyof ChartData;
     setCategory: (category: keyof typeof CategoryCodes) => void;
     setDataset: (dataset: keyof ChartData) => void;
+    chartData: ChartData;
+    isDisabled?: boolean;
+    gender: string;
+    setGender: (gender: keyof typeof GenderCodes) => void;
 }
 
 export const ChartSelector = ({
@@ -15,9 +18,13 @@ export const ChartSelector = ({
     dataset,
     setCategory,
     setDataset,
+    chartData,
+    isDisabled,
+    gender,
+    setGender,
 }: ChartSelectorProps) => {
     const handleCategoryChange = (value: string) => {
-        const newCategory = value as keyof typeof CategoryCodes;
+        const newCategory = Object.keys(chartData).find((key) => chartData[key].categoryMetadata.label === value) as keyof typeof CategoryCodes;
         setCategory(newCategory);
         setDataset(Object.keys(chartData[newCategory].datasets)[0] as keyof ChartData);
     };
@@ -29,8 +36,14 @@ export const ChartSelector = ({
     return (
         <div className='flex flex-wrap w-full gap-2 text-sm'>
             <ChartSelectorDropdown
-                title={category}
-                items={Object.values(CategoryCodes)}
+                title={gender}
+                items={Object.values(GenderCodes)}
+                handleItemChange={setGender}
+                isDisabled={isDisabled}
+            />
+            <ChartSelectorDropdown
+                title={CategoryToLabel[category]}
+                items={Object.keys(chartData).map((key) => chartData[key].categoryMetadata.label)}
                 handleItemChange={handleCategoryChange}
             />
             <ChartSelectorDropdown

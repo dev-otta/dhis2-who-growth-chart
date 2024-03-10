@@ -10,15 +10,21 @@ import { ChartCodes,
     CategoryCodes,
     measurementTypeCodes,
     timeUnitCodes,
-    ChartData } from '../../../types/chartDataTypes';
+    ChartData,
+    GenderCodes,
+    CategoryLabels } from '../../../types/chartDataTypes';
 
 export const chartData: ChartData = {
     [CategoryCodes.hcfa_b]: {
+        categoryMetadata: {
+            label: CategoryLabels.hcfa,
+            gender: GenderCodes.male,
+        },
         datasets: {
             [ChartCodes.hcfa_b_0_13_w_z]: {
                 datasetValues: hcfa_b_0_13_w_z,
                 metadata: {
-                    chartLabel: ChartCodes.hcfa_b_0_13_w_z.label,
+                    chartLabel: ChartCodes.hcfa_b_0_13_w_z,
                     xAxisLabel: timeUnitCodes.weeks,
                     yAxisLabel: measurementTypeCodes.hc_cm,
                     range: { start: 0, end: 13 },
@@ -36,11 +42,15 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.hcfa_g]: {
+        categoryMetadata: {
+            label: CategoryLabels.hcfa,
+            gender: GenderCodes.female,
+        },
         datasets: {
             [ChartCodes.hcfa_g_0_13_w_z]: {
                 datasetValues: hcfa_g_0_13_w_z,
                 metadata: {
-                    chartLabel: ChartCodes.hcfa_g_0_13_w_z.label,
+                    chartLabel: ChartCodes.hcfa_g_0_13_w_z,
                     xAxisLabel: timeUnitCodes.weeks,
                     yAxisLabel: measurementTypeCodes.hc_cm,
                     range: { start: 0, end: 13 },
@@ -49,7 +59,7 @@ export const chartData: ChartData = {
             [ChartCodes.hcfa_g_0_5_y_z]: {
                 datasetValues: hcfa_g_0_5_y_z,
                 metadata: {
-                    chartLabel: ChartCodes.hcfa_g_0_5_y_z.label,
+                    chartLabel: ChartCodes.hcfa_g_0_5_y_z,
                     xAxisLabel: timeUnitCodes.months,
                     yAxisLabel: measurementTypeCodes.hc_cm,
                     range: { start: 0, end: 60 },
@@ -58,11 +68,15 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.lhfa_b]: {
+        categoryMetadata: {
+            label: CategoryLabels.lhfa,
+            gender: GenderCodes.male,
+        },
         datasets: {
             [ChartCodes.lhfa_b_0_13_w_z]: {
                 datasetValues: lhfa_b_0_13_w_z,
                 metadata: {
-                    chartLabel: ChartCodes.lhfa_b_0_13_w_z.label,
+                    chartLabel: ChartCodes.lhfa_b_0_13_w_z,
                     xAxisLabel: timeUnitCodes.weeks,
                     yAxisLabel: measurementTypeCodes.l_cm,
                     range: { start: 0, end: 13 },
@@ -71,7 +85,7 @@ export const chartData: ChartData = {
             [ChartCodes.lhfa_b_0_2_y_z]: {
                 datasetValues: lhfa_b_0_2_y_z,
                 metadata: {
-                    chartLabel: ChartCodes.lhfa_b_0_2_y_z.label,
+                    chartLabel: ChartCodes.lhfa_b_0_2_y_z,
                     xAxisLabel: timeUnitCodes.months,
                     yAxisLabel: measurementTypeCodes.l_cm,
                     range: { start: 0, end: 24 },
@@ -80,7 +94,7 @@ export const chartData: ChartData = {
             [ChartCodes.lhfa_b_2_5_y_z]: {
                 datasetValues: lhfa_b_2_5_y_z,
                 metadata: {
-                    chartLabel: ChartCodes.lhfa_b_2_5_y_z.label,
+                    chartLabel: ChartCodes.lhfa_b_2_5_y_z,
                     xAxisLabel: timeUnitCodes.months,
                     yAxisLabel: measurementTypeCodes.h_cm,
                     range: { start: 24, end: 60 },
@@ -89,11 +103,15 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.lhfa_g]: {
+        categoryMetadata: {
+            label: CategoryLabels.lhfa,
+            gender: GenderCodes.female,
+        },
         datasets: {
             [ChartCodes.lhfa_g_0_13_w_z]: {
                 datasetValues: lhfa_g_0_13_w_z,
                 metadata: {
-                    chartLabel: ChartCodes.lhfa_g_0_13_w_z.label,
+                    chartLabel: ChartCodes.lhfa_g_0_13_w_z,
                     xAxisLabel: timeUnitCodes.weeks,
                     yAxisLabel: measurementTypeCodes.l_cm,
                     range: { start: 0, end: 13 },
@@ -111,7 +129,7 @@ export const chartData: ChartData = {
             [ChartCodes.lhfa_g_2_5_y_z]: {
                 datasetValues: lhfa_g_2_5_y_z,
                 metadata: {
-                    chartLabel: ChartCodes.lhfa_g_2_5_y_z.label,
+                    chartLabel: ChartCodes.lhfa_g_2_5_y_z,
                     xAxisLabel: timeUnitCodes.months,
                     yAxisLabel: measurementTypeCodes.h_cm,
                     range: { start: 24, end: 60 },
@@ -120,11 +138,15 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.wfa_b]: {
+        categoryMetadata: {
+            label: CategoryLabels.wfa,
+            gender: GenderCodes.male,
+        },
         datasets: {
             [ChartCodes.wfa_b_0_13_w_z]: {
                 datasetValues: wfa_b_0_13_w_z,
                 metadata: {
-                    chartLabel: ChartCodes.wfa_b_0_13_w_z.label,
+                    chartLabel: ChartCodes.wfa_b_0_13_w_z,
                     xAxisLabel: timeUnitCodes.weeks,
                     yAxisLabel: measurementTypeCodes.w_kg,
                     range: { start: 0, end: 13 },
@@ -142,11 +164,15 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.wfa_g]: {
+        categoryMetadata: {
+            label: CategoryLabels.wfa,
+            gender: GenderCodes.female,
+        },
         datasets: {
             [ChartCodes.wfa_g_0_13_w_z]: {
                 datasetValues: wfa_g_0_13_w_z,
                 metadata: {
-                    chartLabel: ChartCodes.wfa_g_0_13_w_z.label,
+                    chartLabel: ChartCodes.wfa_g_0_13_w_z,
                     xAxisLabel: timeUnitCodes.weeks,
                     yAxisLabel: measurementTypeCodes.w_kg,
                     range: { start: 0, end: 13 },
@@ -164,6 +190,10 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.wflh_b]: {
+        categoryMetadata: {
+            label: CategoryLabels.wflh,
+            gender: GenderCodes.male,
+        },
         datasets: {
             [ChartCodes.wfl_b_0_2_y_z]: {
                 datasetValues: wfl_b_0_2_y_z,
@@ -177,7 +207,7 @@ export const chartData: ChartData = {
             [ChartCodes.wfh_b_2_5_y_z]: {
                 datasetValues: wfh_b_2_5_y_z,
                 metadata: {
-                    chartLabel: ChartCodes.wfh_b_2_5_y_z.label,
+                    chartLabel: ChartCodes.wfh_b_2_5_y_z,
                     xAxisLabel: measurementTypeCodes.h_cm,
                     yAxisLabel: measurementTypeCodes.w_kg,
                     range: { start: 65, end: 120 },
@@ -186,6 +216,10 @@ export const chartData: ChartData = {
         },
     },
     [CategoryCodes.wflh_g]: {
+        categoryMetadata: {
+            label: CategoryLabels.wflh,
+            gender: GenderCodes.female,
+        },
         datasets: {
             [ChartCodes.wfl_g_0_2_y_z]: {
                 datasetValues: wfl_g_0_2_y_z,
@@ -199,7 +233,7 @@ export const chartData: ChartData = {
             [ChartCodes.wfh_g_2_5_y_z]: {
                 datasetValues: wfh_g_2_5_y_z,
                 metadata: {
-                    chartLabel: ChartCodes.wfh_g_2_5_y_z.label,
+                    chartLabel: ChartCodes.wfh_g_2_5_y_z,
                     xAxisLabel: measurementTypeCodes.h_cm,
                     yAxisLabel: measurementTypeCodes.w_kg,
                     range: { start: 65, end: 120 },
