@@ -40,7 +40,7 @@ export const ChartSettingsButton = ({ category, dataset }: ChartSettingsButtonPr
         };
     }, []);
 
-    const handlePrintDocument = () => { usePrintDocument({ category, dataset }); };
+    const handlePrintDocument = () => usePrintDocument({ category, dataset });
 
     return (
         <div ref={popoverRef}>
