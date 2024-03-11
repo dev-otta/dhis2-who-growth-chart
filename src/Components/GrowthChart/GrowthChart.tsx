@@ -46,13 +46,12 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
     const xAxisValues = useRangeTimePeriod(dataSetMetadata?.range.start, dataSetMetadata?.range.end);
 
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
-    const addRangePercentage = Math.floor((max - min) * 0.1);
 
     const [minDataValue, maxDataValue] = useMemo(() => {
-        const minVal = Math.floor(min) - addRangePercentage;
-        const maxVal = Math.ceil(max) + addRangePercentage;
+        const minVal = Math.max(0, Math.floor(min));
+        const maxVal = Math.ceil(max);
         return [minVal, maxVal];
-    }, [min, max, addRangePercentage]);
+    }, [min, max]);
 
     const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata?.xAxisLabel);
 
