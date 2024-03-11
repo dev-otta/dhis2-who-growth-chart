@@ -86,6 +86,7 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
                     <ChartSettingsButton
                         category={category}
                         dataset={dataset}
+                        gender={gender}
                     />
                 </div>
             </div>
