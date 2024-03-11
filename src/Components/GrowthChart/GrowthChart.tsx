@@ -82,8 +82,12 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
                         setGender={setGender}
                     />
                 </div>
-                <div className='grow relative min-w-[100px]'>
-                    <ChartSettingsButton />
+                <div className='grow relative min-w-[100px] text-sm'>
+                    <ChartSettingsButton
+                        category={category}
+                        dataset={dataset}
+                        gender={gender}
+                    />
                 </div>
             </div>
 
