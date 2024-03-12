@@ -23,6 +23,14 @@ describe('ChartSelectorDropdown', () => {
         cy.get('[data-test="CGC-dropdown-button"]').should('contain', '0 to 13 weeks');
     });
 
+    it('Should render all the dropdown items', () => {
+        cy.mount(
+            <TestComponent />,
+        );
+        cy.get('[data-test="CGC-dropdown-button"]').click();
+        cy.get('[data-test="CGC-dropdown-item"]').should('have.length', 2);
+    });
+
     it('Selecting a new item should change the title', () => {
         cy.mount(
             <TestComponent />,
