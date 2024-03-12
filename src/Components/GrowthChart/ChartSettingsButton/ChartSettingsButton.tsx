@@ -2,18 +2,27 @@ import React, { useState, useRef, useEffect } from 'react';
 import { usePopper } from 'react-popper';
 import { EllipsisButton } from './EllipsisButton';
 import { PopoverList, PopoverListItem, PopoverListDivider } from './PopoverList';
+import { usePrintDocument } from '../../../utils/usePrintDocument';
+import { CategoryCodes, ChartData } from '../../../types/chartDataTypes';
+import { PdfIcon } from '../../../UI/Icons/PdfIcon';
 
-export const ChartSettingsButton = () => {
+interface ChartSettingsButtonProps {
+    category: keyof typeof CategoryCodes;
+    dataset: keyof ChartData;
+    gender: string;
+}
+
+export const ChartSettingsButton = ({ category, dataset, gender }: ChartSettingsButtonProps) => {
     const [referenceElement, setReferenceElement] = useState(null);
     const [popperElement, setPopperElement] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
 
     const { styles, attributes } = usePopper(referenceElement, popperElement, {
-        placement: 'bottom',
+        placement: 'bottom-end',
         modifiers: [
             {
                 name: 'offset',
-                options: { offset: [0, 5] },
+                options: { offset: [0, 2] },
             },
         ],
     });
@@ -33,6 +42,10 @@ export const ChartSettingsButton = () => {
         };
     }, []);
 
+    const handlePrintDocument = () => usePrintDocument({
+        category, dataset, gender,
+    });
+
     return (
         <div ref={popoverRef}>
             <EllipsisButton
@@ -47,17 +60,11 @@ export const ChartSettingsButton = () => {
                     popoverAttributes={{ ...attributes.popper }}
                 >
                     <PopoverListItem
-                        label='Coming soon'
-                        icon={'🔧'}
-                        onClick={() => { }}
+                        label='Convert to PDF'
+                        icon={<PdfIcon />}
+                        onClick={handlePrintDocument}
                     />
                     <PopoverListDivider />
-                    <PopoverListItem
-                        label='Coming soon'
-                        icon={<span>🔧</span>}
-                        onClick={() => { }}
-                    />
-                    {/* rm listitem */}
                 </PopoverList>
             )}
         </div>
