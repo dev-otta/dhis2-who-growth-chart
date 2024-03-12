@@ -6,13 +6,17 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WidgetCollapsible } from './Components/WidgetCollapsible';
 import { GrowthChart } from './Components/GrowthChart/GrowthChart';
 import { EnrollmentOverviewProps } from './Plugin.types';
+import { useTeiById } from './utils/DataFetching/Hooks';
+import { useChartConfig } from './utils/DataFetching/Hooks/useChartConfig';
 
 const queryClient = new QueryClient();
 
 const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
-    const [open, setOpen] = useState(true);
-
+    const { chartConfig } = useChartConfig();
     const { teiId } = propsFromParent;
+    const { trackedEntity } = useTeiById({ teiId });
+
+    const [open, setOpen] = useState(true);
 
     return (
         <QueryClientProvider
@@ -37,7 +41,8 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                         onClose={() => setOpen(false)}
                     >
                         <GrowthChart
-                            teiId={teiId}
+                            trackedEntity={trackedEntity}
+                            chartConfig={chartConfig}
                         />
                     </WidgetCollapsible>
                 </div>

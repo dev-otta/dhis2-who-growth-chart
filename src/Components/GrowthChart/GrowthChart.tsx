@@ -7,19 +7,23 @@ import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
 import { GrowthChartAnnotations } from './GrowthChartOptions';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
-import { useTeiById } from '../../utils/DataFetching/Hooks';
+import { TrackedEntity } from '../../utils/DataFetching/Hooks/useTeiById';
+import { ChartConfig } from '../../utils/DataFetching/Hooks/useChartConfig';
 
 interface GrowthChartProps {
-    teiId: string;
+    trackedEntity: TrackedEntity;
+    chartConfig: ChartConfig;
 }
 
-export const GrowthChart = ({ teiId }: GrowthChartProps) => {
-    const { trackedEntity } = useTeiById({ teiId });
-    const trackedEntityGender = GenderCodes[trackedEntity?.attributes.find(
-        (attribute: any) => attribute.displayName === 'Gender',
+export const GrowthChart = ({
+    trackedEntity,
+    chartConfig,
+}: GrowthChartProps) => {
+    const trackedEntityGender = GenderCodes[trackedEntity?.attributes?.find(
+        (attribute: any) => attribute.attribute === chartConfig?.childVariables.gender,
     ).value?.toLowerCase() as 'male' | 'female'];
 
-    const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender || GenderCodes.male);
+    const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender || GenderCodes.female);
     const { chartDataForGender } = useChartDataForGender({ gender });
 
     const [category, setCategory] = useState<keyof typeof CategoryCodes>();
@@ -35,8 +39,8 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
     }, [chartDataForGender]);
 
     useEffect(() => {
-        trackedEntityGender && setGender(trackedEntityGender);
-    }, [trackedEntityGender]);
+        trackedEntity && trackedEntityGender && setGender(trackedEntityGender);
+    }, [trackedEntity, trackedEntityGender]);
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
 
@@ -76,7 +80,7 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
                         setCategory={setCategory}
                         setDataset={setDataset}
                         chartData={chartDataForGender}
-                        isDisabled={trackedEntityGender !== undefined}
+                        isDisabled={trackedEntityGender !== undefined && trackedEntity !== undefined}
                         gender={gender}
                         setGender={setGender}
                     />
