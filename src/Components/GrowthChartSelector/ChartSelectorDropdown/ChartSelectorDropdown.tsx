@@ -8,6 +8,7 @@ interface ChartSelectorDropdownProps {
     items: string[];
     handleItemChange: (key: string) => void;
     isDisabled?: boolean;
+    dataTest?: string;
 }
 
 export const ChartSelectorDropdown = ({
@@ -15,12 +16,14 @@ export const ChartSelectorDropdown = ({
     items,
     handleItemChange,
     isDisabled,
+    dataTest,
 }: ChartSelectorDropdownProps) => (
     <div className='flex flex-col'>
         {isDisabled ? (
             <button
                 className='flex flex-row rounded border border-gray-300 py-1 gap-2 h-7 px-4 items-center whitespace-nowrap'
                 disabled
+                data-test={`${dataTest}-disabled-button`}
             >
                 {title}
             </button>
@@ -30,6 +33,7 @@ export const ChartSelectorDropdown = ({
                     <>
                         <Menu.Button
                             className='flex flex-row rounded border border-gray-300 py-1 gap-2 h-7 pl-4 pr-2 items-center whitespace-nowrap'
+                            data-test={`${dataTest}-button`}
                         >
                             {title}
                             <Chevron className={`w-3 h-3 ${open ? 'rotate-180' : ''}`} />
@@ -43,6 +47,7 @@ export const ChartSelectorDropdown = ({
                                             <button
                                                 className={`${active && 'bg-gray-200'} py-1 px-4 whitespace-nowrap`}
                                                 onClick={() => handleItemChange(key)}
+                                                data-test={`${dataTest}-item`}
                                             >
                                                 {key}
                                             </button>
