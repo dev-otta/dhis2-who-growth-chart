@@ -40,16 +40,19 @@ export const ChartSelector = ({
                 items={Object.values(GenderCodes)}
                 handleItemChange={setGender}
                 isDisabled={isDisabled}
+                dataTest='CGC-gender-dropdown'
             />
             <ChartSelectorDropdown
                 title={CategoryToLabel[category]}
                 items={Object.keys(chartData).map((key) => chartData[key].categoryMetadata.label)}
                 handleItemChange={handleCategoryChange}
+                dataTest='CGC-category-dropdown'
             />
             <ChartSelectorDropdown
                 title={dataset}
                 items={Object.keys(chartData[category].datasets)}
                 handleItemChange={handleDatasetChange}
+                dataTest='CGC-dataset-dropdown'
             />
         </div>
     );
