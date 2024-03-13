@@ -10,7 +10,8 @@
     "test": "d2-app-scripts test",
     "deploy": "d2-app-scripts deploy",
     "tsc:check": "tsc --noEmit",
-    "lint": "eslint -c .eslintrc.json . --quiet"
+    "lint": "eslint -c .eslintrc.json . --quiet",
+    "deploy:test": "yarn build && yarn deploy"
   },
   "devDependencies": {
     "@dhis2/cli-app-scripts": "^11.0.0",
