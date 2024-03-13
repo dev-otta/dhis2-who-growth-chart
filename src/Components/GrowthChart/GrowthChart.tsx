@@ -17,7 +17,7 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
     const { trackedEntity } = useTeiById({ teiId });
     const trackedEntityGender = GenderCodes[trackedEntity?.attributes.find(
         (attribute: any) => attribute.displayName === 'Gender',
-    ).value?.toLowerCase() as 'male' | 'female'];
+    )?.value?.toLowerCase() as 'male' | 'female'];
 
     const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender || GenderCodes.male);
     const { chartDataForGender } = useChartDataForGender({ gender });
