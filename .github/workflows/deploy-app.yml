@@ -3,7 +3,7 @@ name: 'Capture Growth Chart: Build & Deploy'
 on:
   workflow_run:
     workflows:
-      - 'Capture Growth Chart: Build & Deploy'
+      - 'Capture Growth Chart: verify app'
     branches: master
     types:
       - completed
