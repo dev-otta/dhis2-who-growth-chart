@@ -4,9 +4,14 @@ import { Line } from 'react-chartjs-2';
 import Chart, { ChartOptions } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { ChartDataTypes } from '../../../types/chartDataTypes';
+import { ChartDataTypes, CategoryToLabel } from '../../../types/chartDataTypes';
 import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
 import { annotateLineEnd } from '../../../utils/annotateLineEnd';
+import { useMeasurementDataForcategory } from '../../../utils/useMeasurementDataForCategory';
+
+interface GrowthChartBuilderProps extends ChartDataTypes {
+    category: keyof typeof CategoryToLabel;
+}
 
 export const GrowthChartBuilder = ({
     datasetValues,
@@ -16,7 +21,8 @@ export const GrowthChartBuilder = ({
     keysDataSet,
     annotations,
     measurementData,
-}: ChartDataTypes) => {
+    category,
+}: GrowthChartBuilderProps) => {
     Chart.register(annotationPlugin);
 
     const { minDataValue, maxDataValue } = yAxisValues;
@@ -28,23 +34,8 @@ export const GrowthChartBuilder = ({
         label: key,
     }));
 
-    const generateMeasurementData = (measurementData, measurementType) => {
-        const measurementDataValues = measurementData.map((entry) => parseFloat(entry.dataValues[measurementType]));
-        return [
-            {
-                data: measurementDataValues,
-                borderWidth: 1.5,
-                borderColor: 'rgba(43,102,147,255)',
-                pointRadius: 5,
-                pointBackgroundColor: 'rgba(43,102,147,255)',
-                fill: false,
-                borderDash: [5, 5],
-            },
-        ];
-    };
-
-    const measurementType = 'height';
-    const MeasurementData = generateMeasurementData(measurementData, measurementType);
+    const categoryLabel = CategoryToLabel[category];
+    const MeasurementData = useMeasurementDataForcategory(measurementData, categoryLabel);
 
     const data = {
         labels: xAxisValues,

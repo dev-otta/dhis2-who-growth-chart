@@ -99,6 +99,7 @@ export const GrowthChart = ({ teiId }: GrowthChartProps) => {
                 keysDataSet={keysDataSet}
                 annotations={annotations}
                 measurementData={measurementData}
+                category={category}
             />
         </div>
     );
