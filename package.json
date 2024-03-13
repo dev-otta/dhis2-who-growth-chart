@@ -11,6 +11,7 @@
     "deploy": "d2-app-scripts deploy",
     "tsc:check": "tsc --noEmit",
     "lint": "eslint -c .eslintrc.json . --quiet",
+    "deploy:test": "yarn build && yarn deploy",
     "cypress:run-ct": "cypress run --component"
   },
   "devDependencies": {
