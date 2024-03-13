@@ -15,19 +15,43 @@ export const GrowthChartBuilder = ({
     yAxisValues,
     keysDataSet,
     annotations,
+    measurementData,
 }: ChartDataTypes) => {
     Chart.register(annotationPlugin);
 
     const { minDataValue, maxDataValue } = yAxisValues;
 
+    const ZscoreLines = keysDataSet.map((key) => ({
+        data: datasetValues.map((entry) => entry[key]),
+        borderWidth: 0.9,
+        borderColor: chartLineColorPicker(key),
+        label: key,
+    }));
+
+    const generateMeasurementData = (measurementData, measurementType) => {
+        const measurementDataValues = measurementData.map((entry) => parseFloat(entry.dataValues[measurementType]));
+        return [
+            {
+                data: measurementDataValues,
+                borderWidth: 1.5,
+                borderColor: 'rgba(43,102,147,255)',
+                pointRadius: 5,
+                pointBackgroundColor: 'rgba(43,102,147,255)',
+                fill: false,
+                borderDash: [5, 5],
+            },
+        ];
+    };
+
+    const measurementType = 'height';
+    const MeasurementData = generateMeasurementData(measurementData, measurementType);
+
     const data = {
         labels: xAxisValues,
-        datasets: keysDataSet.map((key) => ({
-            data: datasetValues.map((entry) => entry[key]),
-            borderWidth: 0.9,
-            borderColor: chartLineColorPicker(key),
-            label: key,
-        })),
+        datasets: [
+            ...ZscoreLines,
+            ...MeasurementData,
+        ],
     };
 
     const options: ChartOptions<'line'> = {
@@ -35,6 +59,10 @@ export const GrowthChartBuilder = ({
         plugins: {
             annotation: { annotations },
             legend: { display: false },
+            tooltip: {
+                intersect: false,
+                filter: (tooltipItem: any) => tooltipItem.datasetIndex === 7,
+            },
         },
         scales: {
             x: {

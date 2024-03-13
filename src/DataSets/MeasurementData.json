@@ -1,0 +1,114 @@
+[
+    {
+        "eventDate": "2023-03-11",
+        "dataValues": {
+            "weight": "3.2",
+            "headCircumference": "33.9",
+            "height": "49.1"
+        }
+    },
+    {
+        "eventDate": "2023-03-18",
+        "dataValues": {
+            "weight": "3.3",
+            "headCircumference": "34.6",
+            "height": "50.3"
+        }
+    },
+    {
+        "eventDate": "2023-03-25",
+        "dataValues": {
+            "weight": "3.6",
+            "headCircumference": "35.2",
+            "height": "51.5"
+        }
+    },
+    {
+        "eventDate": "2023-04-01",
+        "dataValues": {
+            "weight": "3.8",
+            "headCircumference": "35.8",
+            "height": "52.5"
+        }
+    },
+    {
+        "eventDate": "2023-04-08",
+        "dataValues": {
+            "weight": "4.1",
+            "headCircumference": "36.4",
+            "height": "53.4"
+        }
+    },
+    {
+        "eventDate": "2023-04-15",
+        "dataValues": {
+            "weight": "4.3",
+            "headCircumference": "36.8",
+            "height": "54.2"
+        }
+    },
+    {
+        "eventDate": "2023-04-22",
+        "dataValues": {
+            "weight": "4.6",
+            "headCircumference": "37.3",
+            "height": "55.1"
+        }
+    },
+    {
+        "eventDate": "2023-04-29",
+        "dataValues": {
+            "weight": "4.8",
+            "headCircumference": "37.7",
+            "height": "55.8"
+        }
+    },
+    {
+        "eventDate": "2023-05-06",
+        "dataValues": {
+            "weight": "5.0",
+            "headCircumference": "38",
+            "height": "56.6"
+        }
+    },
+    {
+        "eventDate": "2023-05-13",
+        "dataValues": {
+            "weight": "5.2",
+            "headCircumference": "38.4",
+            "height": "57.3"
+        }
+    },
+    {
+        "eventDate": "2023-05-20",
+        "dataValues": {
+            "weight": "5.4",
+            "headCircumference": "38.7",
+            "height": "57.9"
+        }
+    },
+    {
+        "eventDate": "2023-05-27",
+        "dataValues": {
+            "weight": "5.5",
+            "headCircumference": "39",
+            "height": "58.6"
+        }
+    },
+    {
+        "eventDate": "2023-06-03",
+        "dataValues": {
+            "weight": "5.7",
+            "headCircumference": "39.3",
+            "height": "59.2"
+        }
+    },
+    {
+        "eventDate": "2023-06-10",
+        "dataValues": {
+            "weight": "5.8",
+            "headCircumference": "39.5",
+            "height": "59.8"
+        }
+    }
+]
