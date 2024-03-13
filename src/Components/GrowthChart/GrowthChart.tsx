@@ -21,7 +21,7 @@ export const GrowthChart = ({
 }: GrowthChartProps) => {
     const trackedEntityGender = GenderCodes[trackedEntity?.attributes?.find(
         (attribute: any) => attribute.attribute === chartConfig?.metadata.attributes.gender,
-    ).value?.toLowerCase() as 'male' | 'female'];
+    )?.value?.toLowerCase() as 'male' | 'female'];
 
     const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender || GenderCodes.female);
     const { chartDataForGender } = useChartDataForGender({ gender });
