@@ -2,22 +2,23 @@ import { useQuery } from 'react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
 
 export type ChartConfig = {
-    childVariables: {
-        gender: string;
-        dateOfBirth: string;
-    };
-    stageVariables: {
-        programStageId: string;
-    };
-    growthVariables: {
-        Height: string;
-        Weight: string;
-        Length: string;
-        HeadCircumference: string;
+    metadata: {
+        attributes: {
+            dateOfBirth: string;
+            gender: string;
+        };
+        dataElements: {
+            headCircumference: string;
+            height: string;
+            weight: string;
+        };
+        program: {
+            programStageId: string;
+        };
     };
     settings: {
-        zScoreStandard: string;
         defaultStandard: string;
+        zScoreStandard: string;
     };
 };
 
@@ -27,7 +28,7 @@ export const useChartConfig = () => {
         data,
         isLoading,
         isError,
-    } = useQuery('chartConfig', () => dataEngine.query({ chartConfig: { resource: 'dataStore/capture/growthChartConfig' } }), { staleTime: 5000 });
+    } = useQuery('chartConfig', () => dataEngine.query({ chartConfig: { resource: 'dataStore/capture-growth-charts/config' } }), { staleTime: 5000 });
 
     return {
         chartConfig: data?.chartConfig as ChartConfig,
