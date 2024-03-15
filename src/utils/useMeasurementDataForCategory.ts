@@ -1,6 +1,5 @@
-import { CategoryCodes, CategoryLabels } from '../types/chartDataTypes';
-
 interface MeasurementDataEntry {
+    eventDate: string | Date;
     dataValues: {
         [key: string]: number | string;
     };
@@ -8,22 +7,31 @@ interface MeasurementDataEntry {
 
 export const useMeasurementDataForcategory = (
     measurementData: MeasurementDataEntry[],
-    categoryLabel: typeof CategoryCodes,
+    fieldName: string,
+    category: string,
 ) => {
-    const datasetMappings = {
-        [CategoryLabels.hcfa]: 'headCircumference',
-        [CategoryLabels.lhfa]: 'height',
-        [CategoryLabels.wfa]: 'weight',
-        [CategoryLabels.wflh]: 'weight',
-    };
+    const measurementDataValues: { x: Date | number | string; y: number; eventDate?: Date }[] = [];
 
-    const fieldName = datasetMappings[categoryLabel];
-    if (!fieldName) { return []; }
+    measurementData.forEach((entry: MeasurementDataEntry) => {
+        let xValue: Date | number | string;
+        let yValue: number;
+        let eventDateValue: Date | undefined;
 
-    const measurementDataValues = measurementData.map((entry: any) => parseFloat(entry.dataValues[fieldName]));
+        if (category === 'wflh_b' || category === 'wflh_g') {
+            xValue = parseFloat(entry.dataValues.height as string);
+            yValue = parseFloat(entry.dataValues.weight as string);
+            eventDateValue = new Date(entry.eventDate);
+
+            return measurementDataValues.push({ x: xValue, y: yValue, eventDate: eventDateValue });
+        }
+        xValue = (entry.eventDate as Date);
+        yValue = parseFloat(entry.dataValues[fieldName] as string);
+        return measurementDataValues.push({ x: xValue, y: yValue });
+    });
 
     return [
         {
+            id: 'measurementData',
             data: measurementDataValues,
             borderWidth: 1.5,
             borderColor: 'rgba(43,102,147,255)',
