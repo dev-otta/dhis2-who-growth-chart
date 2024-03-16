@@ -35,7 +35,7 @@ export const useMeasurementDataChart = (
         });
     }
 
-    if (dataset === '0 to 2 years') {
+    if (dataset === '0 to 2 years' || dataset === '0 to 5 years') {
         measurementData.forEach((entry: MeasurementDataEntry) => {
             let xValue: Date | number | string;
             let yValue: number;

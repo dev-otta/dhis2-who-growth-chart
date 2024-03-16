@@ -26,6 +26,18 @@ export const useCalculateDecimalDate = (date, dataset) => {
         return diffInMonths.toFixed(2);
     }
 
+    if (dataset === '0 to 5 years') {
+        const millisecondsInMonth = millisecondsInDay * 30.44;
+
+        const formattedDate = new Date(date);
+        const diffInMilliseconds = formattedDate - birthday;
+        const diffInMonths = (diffInMilliseconds / millisecondsInMonth);
+
+        if (diffInMonths < 0) return null;
+        if (diffInMonths > 60) return null;
+        return diffInMonths.toFixed(2);
+    }
+
     if (dataset === '2 to 5 years') {
         const millisecondsInMonth = millisecondsInDay * 30.44;
 

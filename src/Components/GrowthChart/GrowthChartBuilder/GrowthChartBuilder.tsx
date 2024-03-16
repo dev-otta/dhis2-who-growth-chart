@@ -31,7 +31,7 @@ export const GrowthChartBuilder = ({
 
     const ZscoreLines = keysDataSet.map((key) => ({
         data: datasetValues.map((entry, index) => ({
-            x: adjustIndex + index,
+            x: (category !== 'wflh_b' && category !== 'wflh_g') ? adjustIndex + index : datasetMetadata.range.start + index,
             y: entry[key],
         })),
         borderWidth: 0.9,
