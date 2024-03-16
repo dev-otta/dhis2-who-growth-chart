@@ -28,10 +28,14 @@ export const useChartConfig = () => {
         data,
         isLoading,
         isError,
-    } = useQuery('chartConfig', () => dataEngine.query({ chartConfig: { resource: 'dataStore/capture-growth-charts/config' } }), { staleTime: 5000 });
+    } = useQuery(
+        'chartConfig',
+        (): any => dataEngine.query({ chartConfig: { resource: 'dataStore/capture-growth-charts/config' } }),
+        { staleTime: 5000 },
+    );
 
     return {
-        chartConfig: data?.chartConfig as ChartConfig,
+        chartConfig: data?.chartConfig,
         isLoading,
         isError,
     };

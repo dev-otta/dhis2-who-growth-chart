@@ -1,9 +1,9 @@
-import { Event, DataValue } from '../Hooks/useEvents';
+import { DataValue, Event } from '../Hooks/useEvents';
 
-export interface MappedDataValues {
+export interface MappedDataValue {
     eventDate: string;
     dataValues: DataValue;
-}[];
+}
 
 interface UseMappedGrowthVariablesProps {
     events: Event[];
@@ -13,19 +13,16 @@ interface UseMappedGrowthVariablesProps {
 export const useMappedGrowthVariables = ({
     events,
     growthVariables,
-}: UseMappedGrowthVariablesProps): { eventDate: string; dataValues: { [key: string]: string } }[] | undefined => {
-    const mappedDataValues = events?.map((event) => {
-        const dataValueMap = event.dataValues.reduce((acc: { [key: string]: string }, dataValue: DataValue) => {
-            const key = Object.keys(growthVariables).find((key) => growthVariables[key] === dataValue.dataElement);
-            if (key) {
-                acc[key] = dataValue.value;
-            }
-            return acc;
-        }, {});
+}: UseMappedGrowthVariablesProps): MappedDataValue[] | undefined => events?.map((event: Event) => {
+    const dataValueMap: DataValue = {};
 
-        const eventDate = event.eventDate.split('T')[0];
+    Object.entries(growthVariables).reduce((acc, [key, value]: [string, string]) => {
+        const dataValue = Number(Object.entries(event.dataValues).find(([dataElement]) => dataElement === value)?.[1]);
+        if (dataValue && value) acc[key] = dataValue;
+        return acc;
+    }, dataValueMap);
 
-        return { eventDate, dataValues: dataValueMap };
-    });
-    return mappedDataValues;
-};
+    const eventDate = String(event.occurredAt).split('T')[0];
+
+    return { eventDate, dataValues: dataValueMap };
+});
