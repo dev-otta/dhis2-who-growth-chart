@@ -13,6 +13,10 @@ export const annotateLineEnd = (animation: Animation & { chart?: Chart }) => {
 
     const { ctx } = chart;
 
+    const labelsToInclude = ['SD0', 'SD1', 'SD2', 'SD3', 'SD1neg', 'SD2neg', 'SD3neg'];
+
+    const ZscoreLines = chart.data.datasets.filter((dataset: DataSet) => labelsToInclude.includes(dataset.label));
+
     const extractNumberFromLabel = (label: string): number => {
         const numberStr = label.replace(/[^\d.-]/g, '');
         return parseFloat(numberStr);
@@ -30,7 +34,7 @@ export const annotateLineEnd = (animation: Animation & { chart?: Chart }) => {
         ctx.fillText(text, x, y);
     };
 
-    chart.data.datasets.forEach((dataset: DataSet, index: number) => {
+    ZscoreLines.forEach((dataset: DataSet, index: number) => {
         const meta = chart.getDatasetMeta(index);
         const [lastElement] = meta.data.slice(-1);
         const { x, y } = lastElement.getProps(['x', 'y']);
