@@ -7,7 +7,7 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import { ChartDataTypes, CategoryToLabel, CategoryLabels } from '../../../types/chartDataTypes';
 import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
 import { annotateLineEnd } from '../../../utils/annotateLineEnd';
-import { useMeasurementDataForcategory } from '../../../utils/useMeasurementDataForCategory';
+import { useMeasurementDataChart } from '../../../utils/useMeasurementDataChart';
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
@@ -21,13 +21,19 @@ export const GrowthChartBuilder = ({
     annotations,
     measurementData,
     category,
+    dataset
 }: GrowthChartBuilderProps) => {
     Chart.register(annotationPlugin);
 
     const { minDataValue, maxDataValue } = yAxisValues;
 
+    const adjustIndex = (dataset === '2 to 5 years') ? 24 : 0;
+
     const ZscoreLines = keysDataSet.map((key) => ({
-        data: datasetValues.map((entry) => entry[key]),
+        data: datasetValues.map((entry, index) => ({
+            x: adjustIndex + index,
+            y: entry[key],
+        })),
         borderWidth: 0.9,
         borderColor: chartLineColorPicker(key),
         label: key,
@@ -43,17 +49,12 @@ export const GrowthChartBuilder = ({
 
     const fieldName = datasetMappings[categoryLabel];
     const formattedFieldName = fieldName.charAt(0).toUpperCase() + fieldName.substring(1);
-    const MeasurementData = useMeasurementDataForcategory(measurementData, fieldName, category);
+    const MeasurementData = useMeasurementDataChart(measurementData, fieldName, category, dataset);
 
     console.log('MeasurementData', MeasurementData);
     console.log('ZscoreLines', ZscoreLines);
 
-    const data = {
-        datasets: [
-            ...ZscoreLines,
-            ...MeasurementData,
-        ],
-    };
+    const data = { datasets: [...ZscoreLines, ...MeasurementData] };
 
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
@@ -77,11 +78,7 @@ export const GrowthChartBuilder = ({
                 callbacks: {
                     title: () => '',
                     beforeLabel: (tooltipItem: any) => {
-                        if (category === 'wflh_b' || category === 'wflh_g') {
-                            const date = new Date(tooltipItem.raw.eventDate).toLocaleDateString();
-                            return `${i18n.t('Date')}: ${date}`;
-                        }
-                        const date = new Date(tooltipItem.label).toLocaleDateString();
+                        const date = new Date(tooltipItem.raw.eventDate).toLocaleDateString();
                         return `${i18n.t('Date')}: ${date}`;
                     },
                     label: (tooltipItem: any) => {
@@ -96,12 +93,15 @@ export const GrowthChartBuilder = ({
         },
         scales: {
             x: {
-                type: category === 'wflh_b' || category === 'wflh_g' ? 'linear' : 'category',
+                type: 'linear',
                 title: {
                     display: true,
                     text: i18n.t(datasetMetadata.xAxisLabel),
                     font: { size: 13 },
                 },
+                min: datasetMetadata.range.start,
+                max: datasetMetadata.range.end,
+                ticks: { stepSize: 1 },
             },
             y: {
                 title: {

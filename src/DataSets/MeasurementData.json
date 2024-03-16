@@ -1,6 +1,6 @@
 [
     {
-        "eventDate": "2023-03-11",
+        "eventDate": "2021-01-01",
         "dataValues": {
             "weight": "3.2",
             "headCircumference": "33.9",
@@ -8,15 +8,15 @@
         }
     },
     {
-        "eventDate": "2023-03-18",
+        "eventDate": "2021-01-08",
         "dataValues": {
             "weight": "3.3",
-            "headCircumference": "34.6",
+            "headCircumference": "34.5",
             "height": "50.3"
         }
     },
     {
-        "eventDate": "2023-03-25",
+        "eventDate": "2021-01-15",
         "dataValues": {
             "weight": "3.6",
             "headCircumference": "35.2",
@@ -24,7 +24,7 @@
         }
     },
     {
-        "eventDate": "2023-04-01",
+        "eventDate": "2021-01-26",
         "dataValues": {
             "weight": "3.5",
             "headCircumference": "35.8",
@@ -32,7 +32,7 @@
         }
     },
     {
-        "eventDate": "2023-04-08",
+        "eventDate": "2021-02-01",
         "dataValues": {
             "weight": "4.1",
             "headCircumference": "36.4",
@@ -40,7 +40,7 @@
         }
     },
     {
-        "eventDate": "2023-04-15",
+        "eventDate": "2021-02-08",
         "dataValues": {
             "weight": "4.3",
             "headCircumference": "36.8",
@@ -48,7 +48,7 @@
         }
     },
     {
-        "eventDate": "2023-04-22",
+        "eventDate": "2021-02-15",
         "dataValues": {
             "weight": "4.6",
             "headCircumference": "37.3",
@@ -56,7 +56,7 @@
         }
     },
     {
-        "eventDate": "2023-04-29",
+        "eventDate": "2021-02-24",
         "dataValues": {
             "weight": "4.8",
             "headCircumference": "37.7",
@@ -64,7 +64,7 @@
         }
     },
     {
-        "eventDate": "2023-05-06",
+        "eventDate": "2021-03-01",
         "dataValues": {
             "weight": "5.0",
             "headCircumference": "38",
@@ -72,7 +72,7 @@
         }
     },
     {
-        "eventDate": "2023-05-13",
+        "eventDate": "2021-03-10",
         "dataValues": {
             "weight": "5.2",
             "headCircumference": "38.4",
@@ -80,7 +80,7 @@
         }
     },
     {
-        "eventDate": "2023-05-20",
+        "eventDate": "2021-03-18",
         "dataValues": {
             "weight": "5.4",
             "headCircumference": "38.7",
@@ -88,7 +88,7 @@
         }
     },
     {
-        "eventDate": "2023-05-27",
+        "eventDate": "2021-03-24",
         "dataValues": {
             "weight": "5.5",
             "headCircumference": "39",
@@ -96,7 +96,7 @@
         }
     },
     {
-        "eventDate": "2023-06-03",
+        "eventDate": "2021-04-01",
         "dataValues": {
             "weight": "5.7",
             "headCircumference": "39.3",
@@ -104,11 +104,403 @@
         }
     },
     {
-        "eventDate": "2023-06-10",
+        "eventDate": "2021-05-01",
         "dataValues": {
-            "weight": "5.8",
-            "headCircumference": "39.5",
+            "weight": "6.0",
+            "headCircumference": "39.6",
             "height": "59.8"
+        }
+    },
+    {
+        "eventDate": "2021-06-01",
+        "dataValues": {
+            "weight": "6.3",
+            "headCircumference": "39.9",
+            "height": "60.3"
+        }
+    },
+    {
+        "eventDate": "2021-07-01",
+        "dataValues": {
+            "weight": "6.6",
+            "headCircumference": "40.2",
+            "height": "60.9"
+        }
+    },
+    {
+        "eventDate": "2021-08-01",
+        "dataValues": {
+            "weight": "6.9",
+            "headCircumference": "40.5",
+            "height": "61.4"
+        }
+    },
+    {
+        "eventDate": "2021-09-01",
+        "dataValues": {
+            "weight": "7.2",
+            "headCircumference": "40.8",
+            "height": "62.0"
+        }
+    },
+    {
+        "eventDate": "2021-10-01",
+        "dataValues": {
+            "weight": "7.5",
+            "headCircumference": "41.1",
+            "height": "62.5"
+        }
+    },
+    {
+        "eventDate": "2021-11-01",
+        "dataValues": {
+            "weight": "7.8",
+            "headCircumference": "41.4",
+            "height": "63.1"
+        }
+    },
+    {
+        "eventDate": "2021-12-01",
+        "dataValues": {
+            "weight": "8.1",
+            "headCircumference": "41.7",
+            "height": "63.6"
+        }
+    },
+    {
+        "eventDate": "2022-01-07",
+        "dataValues": {
+            "weight": "5.9",
+            "headCircumference": "39.9",
+            "height": "60.3"
+        }
+    },
+    {
+        "eventDate": "2022-02-04",
+        "dataValues": {
+            "weight": "6.2",
+            "headCircumference": "40.7",
+            "height": "61.5"
+        }
+    },
+    {
+        "eventDate": "2022-03-04",
+        "dataValues": {
+            "weight": "6.5",
+            "headCircumference": "41.2",
+            "height": "62.8"
+        }
+    },
+    {
+        "eventDate": "2022-04-01",
+        "dataValues": {
+            "weight": "6.9",
+            "headCircumference": "41.8",
+            "height": "64.2"
+        }
+    },
+    {
+        "eventDate": "2022-04-29",
+        "dataValues": {
+            "weight": "7.3",
+            "headCircumference": "42.5",
+            "height": "65.8"
+        }
+    },
+    {
+        "eventDate": "2023-01-06",
+        "dataValues": {
+            "weight": "14.4",
+            "headCircumference": "33.2",
+            "height": "85.7"
+        }
+    },
+    {
+        "eventDate": "2023-02-03",
+        "dataValues": {
+            "weight": "15.9",
+            "headCircumference": "34.1",
+            "height": "86.6"
+        }
+    },
+    {
+        "eventDate": "2023-03-03",
+        "dataValues": {
+            "weight": "17.6",
+            "headCircumference": "35.0",
+            "height": "87.4"
+        }
+    },
+    {
+        "eventDate": "2023-04-07",
+        "dataValues": {
+            "weight": "19.5",
+            "headCircumference": "35.9",
+            "height": "88.3"
+        }
+    },
+    {
+        "eventDate": "2023-05-05",
+        "dataValues": {
+            "weight": "21.6",
+            "headCircumference": "36.8",
+            "height": "89.1"
+        }
+    },
+    {
+        "eventDate": "2023-06-02",
+        "dataValues": {
+            "weight": "24.0",
+            "headCircumference": "37.7",
+            "height": "89.9"
+        }
+    },
+    {
+        "eventDate": "2023-06-30",
+        "dataValues": {
+            "weight": "26.6",
+            "headCircumference": "38.6",
+            "height": "90.7"
+        }
+    },
+    {
+        "eventDate": "2023-07-28",
+        "dataValues": {
+            "weight": "29.5",
+            "headCircumference": "39.5",
+            "height": "91.4"
+        }
+    },
+    {
+        "eventDate": "2023-08-25",
+        "dataValues": {
+            "weight": "32.7",
+            "headCircumference": "40.4",
+            "height": "92.2"
+        }
+    },
+    {
+        "eventDate": "2023-09-22",
+        "dataValues": {
+            "weight": "36.2",
+            "headCircumference": "41.3",
+            "height": "92.9"
+        }
+    },
+    {
+        "eventDate": "2023-10-20",
+        "dataValues": {
+            "weight": "40.0",
+            "headCircumference": "42.2",
+            "height": "93.6"
+        }
+    },
+    {
+        "eventDate": "2023-11-17",
+        "dataValues": {
+            "weight": "44.1",
+            "headCircumference": "43.1",
+            "height": "94.4"
+        }
+    },
+    {
+        "eventDate": "2023-12-15",
+        "dataValues": {
+            "weight": "48.5",
+            "headCircumference": "44.0",
+            "height": "95.1"
+        }
+    },
+    {
+        "eventDate": "2024-01-12",
+        "dataValues": {
+            "weight": "53.2",
+            "headCircumference": "45.8",
+            "height": "95.7"
+        }
+    },
+    {
+        "eventDate": "2024-02-09",
+        "dataValues": {
+            "weight": "58.2",
+            "headCircumference": "46.5",
+            "height": "96.4"
+        }
+    },
+    {
+        "eventDate": "2024-03-08",
+        "dataValues": {
+            "weight": "63.8",
+            "headCircumference": "47.2",
+            "height": "97.1"
+        }
+    },
+    {
+        "eventDate": "2024-04-05",
+        "dataValues": {
+            "weight": "69.7",
+            "headCircumference": "47.9",
+            "height": "97.7"
+        }
+    },
+    {
+        "eventDate": "2024-05-03",
+        "dataValues": {
+            "weight": "76.0",
+            "headCircumference": "48.6",
+            "height": "98.4"
+        }
+    },
+    {
+        "eventDate": "2024-06-07",
+        "dataValues": {
+            "weight": "82.6",
+            "headCircumference": "49.3",
+            "height": "99.0"
+        }
+    },
+    {
+        "eventDate": "2024-07-05",
+        "dataValues": {
+            "weight": "89.7",
+            "headCircumference": "49.9",
+            "height": "99.7"
+        }
+    },
+    {
+        "eventDate": "2024-08-02",
+        "dataValues": {
+            "weight": "97.1",
+            "headCircumference": "50.5",
+            "height": "100.3"
+        }
+    },
+    {
+        "eventDate": "2024-09-06",
+        "dataValues": {
+            "weight": "105.0",
+            "headCircumference": "51.0",
+            "height": "100.9"
+        }
+    },
+    {
+        "eventDate": "2024-10-04",
+        "dataValues": {
+            "weight": "113.3",
+            "headCircumference": "51.5",
+            "height": "101.5"
+        }
+    },
+    {
+        "eventDate": "2024-11-01",
+        "dataValues": {
+            "weight": "122.0",
+            "headCircumference": "51.9",
+            "height": "102.1"
+        }
+    },
+    {
+        "eventDate": "2024-12-06",
+        "dataValues": {
+            "weight": "131.1",
+            "headCircumference": "52.3",
+            "height": "102.7"
+        }
+    },
+    {
+        "eventDate": "2025-01-03",
+        "dataValues": {
+            "weight": "140.6",
+            "headCircumference": "52.7",
+            "height": "103.3"
+        }
+    },
+    {
+        "eventDate": "2025-02-07",
+        "dataValues": {
+            "weight": "150.5",
+            "headCircumference": "53.1",
+            "height": "103.9"
+        }
+    },
+    {
+        "eventDate": "2025-03-07",
+        "dataValues": {
+            "weight": "160.8",
+            "headCircumference": "53.5",
+            "height": "104.5"
+        }
+    },
+    {
+        "eventDate": "2025-04-04",
+        "dataValues": {
+            "weight": "171.5",
+            "headCircumference": "53.8",
+            "height": "105.0"
+        }
+    },
+    {
+        "eventDate": "2025-05-02",
+        "dataValues": {
+            "weight": "182.6",
+            "headCircumference": "54.2",
+            "height": "105.6"
+        }
+    },
+    {
+        "eventDate": "2025-06-06",
+        "dataValues": {
+            "weight": "194.1",
+            "headCircumference": "54.5",
+            "height": "106.2"
+        }
+    },
+    {
+        "eventDate": "2025-07-04",
+        "dataValues": {
+            "weight": "205.9",
+            "headCircumference": "54.8",
+            "height": "106.7"
+        }
+    },
+    {
+        "eventDate": "2025-08-01",
+        "dataValues": {
+            "weight": "218.1",
+            "headCircumference": "55.1",
+            "height": "107.3"
+        }
+    },
+    {
+        "eventDate": "2025-09-05",
+        "dataValues": {
+            "weight": "230.7",
+            "headCircumference": "55.4",
+            "height": "107.8"
+        }
+    },
+    {
+        "eventDate": "2025-10-03",
+        "dataValues": {
+            "weight": "243.6",
+            "headCircumference": "55.6",
+            "height": "108.4"
+        }
+    },
+    {
+        "eventDate": "2025-11-07",
+        "dataValues": {
+            "weight": "256.9",
+            "headCircumference": "55.9",
+            "height": "108.9"
+        }
+    },
+    {
+        "eventDate": "2025-12-05",
+        "dataValues": {
+            "weight": "270.5",
+            "headCircumference": "56.1",
+            "height": "109.4"
         }
     }
 ]
