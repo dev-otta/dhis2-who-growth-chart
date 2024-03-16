@@ -11,13 +11,6 @@ type UseEventsByProgramStageProps = {
     teiId: string | undefined;
 };
 
-export type GrowthEvent = {
-    eventDate: string;
-    height: number;
-    weight: number;
-    headCircumference: number;
-};
-
 export type DataValue = {
     [key: string]: string | number;
 };
