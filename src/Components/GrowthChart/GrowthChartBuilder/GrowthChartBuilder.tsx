@@ -11,6 +11,7 @@ import { useMeasurementDataChart } from '../../../utils/useMeasurementDataChart'
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
+    dataset: string | number;
 }
 
 export const GrowthChartBuilder = ({
@@ -21,7 +22,7 @@ export const GrowthChartBuilder = ({
     annotations,
     measurementData,
     category,
-    dataset
+    dataset,
 }: GrowthChartBuilderProps) => {
     Chart.register(annotationPlugin);
 
@@ -50,9 +51,6 @@ export const GrowthChartBuilder = ({
     const fieldName = datasetMappings[categoryLabel];
     const formattedFieldName = fieldName.charAt(0).toUpperCase() + fieldName.substring(1);
     const MeasurementData = useMeasurementDataChart(measurementData, fieldName, category, dataset);
-
-    console.log('MeasurementData', MeasurementData);
-    console.log('ZscoreLines', ZscoreLines);
 
     const data = { datasets: [...ZscoreLines, ...MeasurementData] };
 
