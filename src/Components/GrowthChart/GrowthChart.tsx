@@ -8,7 +8,7 @@ import { GrowthChartAnnotations } from './GrowthChartOptions';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
 import { useTeiById } from '../../utils/DataFetching/Hooks';
-import { default as measurementData } from '../../DataSets/MeasurementData.json';
+import measurementData from '../../DataSets/MeasurementData.json';
 
 interface GrowthChartProps {
     teiId: string;

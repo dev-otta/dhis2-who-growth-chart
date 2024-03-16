@@ -1,6 +1,6 @@
 import React from 'react';
 import i18n from '@dhis2/d2-i18n';
-import { Line } from 'react-chartjs-2'; // Endret importen her
+import { Line } from 'react-chartjs-2';
 import Chart, { ChartOptions } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -52,7 +52,7 @@ export const GrowthChartBuilder = ({
     const formattedFieldName = fieldName.charAt(0).toUpperCase() + fieldName.substring(1);
     const MeasurementData = useMeasurementDataChart(measurementData, fieldName, category, dataset);
 
-    const data = { datasets: [...ZscoreLines, ...MeasurementData] };
+    const data : any = { datasets: [...ZscoreLines, ...MeasurementData] };
 
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
