@@ -14,18 +14,20 @@ import measurementData from '../../DataSets/MeasurementData.json';
 interface GrowthChartProps {
     trackedEntity: TrackedEntity;
     chartConfig: ChartConfig;
+    chartData: ChartData;
 }
 
 export const GrowthChart = ({
     trackedEntity,
     chartConfig,
+    chartData,
 }: GrowthChartProps) => {
     const trackedEntityGender = GenderCodes[trackedEntity?.attributes?.find(
         (attribute: any) => attribute.attribute === chartConfig?.metadata.attributes.gender,
     )?.value?.toLowerCase() as 'male' | 'female'];
 
-    const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender || GenderCodes.female);
-    const { chartDataForGender } = useChartDataForGender({ gender });
+    const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender || GenderCodes.male);
+    const { chartDataForGender } = useChartDataForGender({ gender, chartData });
 
     const [category, setCategory] = useState<keyof typeof CategoryCodes>();
     const [dataset, setDataset] = useState<keyof ChartData>();

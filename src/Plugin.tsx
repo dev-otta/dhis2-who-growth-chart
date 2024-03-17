@@ -8,15 +8,22 @@ import { GrowthChart } from './Components/GrowthChart/GrowthChart';
 import { EnrollmentOverviewProps } from './Plugin.types';
 import { useTeiById } from './utils/DataFetching/Hooks';
 import { useChartConfig } from './utils/DataFetching/Hooks/useChartConfig';
+import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
+import { chartData } from './DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
 
 const queryClient = new QueryClient();
 
 const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
-    const { chartConfig } = useChartConfig();
+    const { chartConfig, isLoading } = useChartConfig();
+    const { customReferences, isLoading: isLoadingRef } = useCustomReferences();
     const { teiId } = propsFromParent;
     const { trackedEntity } = useTeiById({ teiId });
 
     const [open, setOpen] = useState(true);
+
+    if (isLoading || isLoadingRef) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <QueryClientProvider
@@ -43,6 +50,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                         <GrowthChart
                             trackedEntity={trackedEntity}
                             chartConfig={chartConfig}
+                            chartData={chartConfig.settings.customReferences ? customReferences : chartData}
                         />
                     </WidgetCollapsible>
                 </div>
