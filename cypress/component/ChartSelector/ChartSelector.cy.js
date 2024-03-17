@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ChartSelector } from '../../../src/Components/GrowthChartSelector';
 import { useChartDataForGender } from '../../../src/utils/DataFetching/Sorting/useChartDataForGender';
+import { chartData as chartDataWHO } from '../../../src/DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
 
 describe('ChartSelector', () => {
     const TestComponent = () => {
         const [gender, setGender] = useState('Boy');
-        const { chartDataForGender } = useChartDataForGender({ gender: 'Boy' });
+        const { chartDataForGender } = useChartDataForGender({ gender: 'Boy', chartData: chartDataWHO });
         const [chartData, setChartData] = useState(null);
         const [category, setCategory] = useState(null);
         const [dataset, setDataset] = useState(null);
