@@ -1,12 +1,11 @@
-export const useCalculateDecimalDate = (date: string, dataset: string): string => {
-    const birthday: Date = new Date('2021-01-01');
+export const useCalculateDecimalDate = (date: string, dataset: string, dateOfBirth: Date): string => {
     const millisecondsInDay = 1000 * 60 * 60 * 24;
 
     if (dataset === '0 to 13 weeks') {
         const millisecondsInWeek = millisecondsInDay * 7;
 
         const formattedDate: Date = new Date(date);
-        const diffInMilliseconds = formattedDate.getTime() - birthday.getTime();
+        const diffInMilliseconds = formattedDate.getTime() - dateOfBirth.getTime();
         const diffInWeeks = (diffInMilliseconds / millisecondsInWeek);
 
         if (diffInWeeks < 0) return null;
@@ -18,7 +17,7 @@ export const useCalculateDecimalDate = (date: string, dataset: string): string =
         const millisecondsInMonth = millisecondsInDay * 30.44;
 
         const formattedDate: Date = new Date(date);
-        const diffInMilliseconds = formattedDate.getTime() - birthday.getTime();
+        const diffInMilliseconds = formattedDate.getTime() - dateOfBirth.getTime();
         const diffInMonths = (diffInMilliseconds / millisecondsInMonth);
 
         if (diffInMonths < 0) return null;
@@ -33,7 +32,7 @@ export const useCalculateDecimalDate = (date: string, dataset: string): string =
         const millisecondsInMonth = millisecondsInDay * 30.44;
 
         const formattedDate: Date = new Date(date);
-        const diffInMilliseconds = formattedDate.getTime() - birthday.getTime();
+        const diffInMilliseconds = formattedDate.getTime() - dateOfBirth.getTime();
         const diffInMonths = (diffInMilliseconds / millisecondsInMonth);
 
         if (diffInMonths < 24) return null;
