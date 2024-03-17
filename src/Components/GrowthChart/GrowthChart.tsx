@@ -19,7 +19,7 @@ export const GrowthChart = ({
     measurementData,
 }: GrowthChartProps) => {
     const trackedEntityGender = GenderCodes[trackedEntity?.gender?.toLowerCase() as 'male' | 'female'];
-    const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntity !== undefined ? trackedEntityGender : GenderCodes.female);
+    const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.female);
     const { chartDataForGender } = useChartDataForGender({ gender });
 
     const [category, setCategory] = useState<keyof typeof CategoryCodes>();
@@ -35,7 +35,7 @@ export const GrowthChart = ({
     }, [chartDataForGender]);
 
     useEffect(() => {
-        trackedEntity !== undefined && setGender(GenderCodes[trackedEntity?.gender?.toLowerCase() as 'male' | 'female']);
+        trackedEntity?.gender !== undefined && setGender(GenderCodes[trackedEntity?.gender?.toLowerCase() as 'male' | 'female']);
     }, [trackedEntity]);
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
