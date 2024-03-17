@@ -9,6 +9,7 @@ import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
 import { TrackedEntity } from '../../utils/DataFetching/Hooks/useTeiById';
 import { ChartConfig } from '../../utils/DataFetching/Hooks/useChartConfig';
+import measurementData from '../../DataSets/MeasurementData.json';
 
 interface GrowthChartProps {
     trackedEntity: TrackedEntity;
@@ -101,6 +102,9 @@ export const GrowthChart = ({
                 yAxisValues={yAxisValues}
                 keysDataSet={keysDataSet}
                 annotations={annotations}
+                measurementData={measurementData}
+                category={category}
+                dataset={dataset}
             />
         </div>
     );
