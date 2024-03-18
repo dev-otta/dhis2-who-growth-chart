@@ -7,6 +7,7 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import { ChartDataTypes, CategoryToLabel, CategoryLabels } from '../../../types/chartDataTypes';
 import { annotateLineEnd } from '../../../utils/annotateLineEnd';
 import { useMeasurementPlotting, useZscoreLines } from '../../../utils';
+import { tooltipConfig } from './tooltipConfig';
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
@@ -39,45 +40,17 @@ export const GrowthChartBuilder = ({
 
     const fieldName = datasetMappings[categoryLabel];
     const formattedFieldName = fieldName.charAt(0).toUpperCase() + fieldName.substring(1);
+
     const ZscoreLinesData = useZscoreLines(datasetValues, keysDataSet, datasetMetadata, category, dataset);
     const MeasurementData = useMeasurementPlotting(measurementData, fieldName, category, dataset, dateOfBirth);
-
-    const data : any = { datasets: [...ZscoreLinesData, ...MeasurementData] };
+    const data: any = { datasets: [...ZscoreLinesData, ...MeasurementData] };
 
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: {
             annotation: { annotations },
             legend: { display: false },
-            tooltip: {
-                enabled: true,
-                intersect: false,
-                position: 'nearest',
-                backgroundColor: 'white',
-                bodyFont: { size: 12 },
-                bodyColor: 'black',
-                borderColor: 'black',
-                borderWidth: 1,
-                padding: 12,
-                caretPadding: 4,
-                boxPadding: 4,
-                usePointStyle: true,
-                filter: (tooltipItem: any) => tooltipItem.dataset.id === 'measurementData',
-                callbacks: {
-                    title: () => '',
-                    beforeLabel: (tooltipItem: any) => {
-                        const date = new Date(tooltipItem.raw.eventDate).toLocaleDateString();
-                        return `${i18n.t('Date')}: ${date}`;
-                    },
-                    label: (tooltipItem: any) => {
-                        if (category === 'wflh_b' || category === 'wflh_g') {
-                            return `${i18n.t('Height')}: ${tooltipItem.label} | ${i18n.t('Weight')}: ${tooltipItem.formattedValue}`;
-                        }
-                        const value = tooltipItem.formattedValue;
-                        return `${formattedFieldName}: ${value}`;
-                    },
-                },
-            },
+            tooltip: tooltipConfig(formattedFieldName, categoryLabel),
         },
         scales: {
             x: {
