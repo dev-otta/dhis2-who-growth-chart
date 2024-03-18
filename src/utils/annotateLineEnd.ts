@@ -27,7 +27,7 @@ export const annotateLineEnd = (animation: Animation & { chart?: Chart }, percen
         }
         if (!percentiles) {
             const isNegative = originalLabel.includes('neg');
-            return isNegative ? `-${labelText}` : ` ${labelText.toString()}`;
+            return isNegative ? `-${labelText}` : ` ${labelText}`;
         }
         return originalLabel;
     };

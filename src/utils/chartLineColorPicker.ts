@@ -5,7 +5,6 @@ export const chartLineColorPicker = (key: string, percentiles: boolean): string 
         if (value >= 0.015 && value < 0.04) return 'orange';
         if (value <= 0.085 && value > 0.06) return 'orange';
         if (value >= 0.04 && value <= 0.06) return 'green';
-        return 'grey';
     }
     if (!percentiles) {
         switch (key) {
