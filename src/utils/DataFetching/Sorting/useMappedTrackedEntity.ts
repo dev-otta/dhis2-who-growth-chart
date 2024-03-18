@@ -22,7 +22,7 @@ export const useMappedTrackedEntityVariables = ({
         dateOfBirth: undefined,
         gender: undefined,
     };
-    if (!trackedEntity || !trackedEntityAttributes) {
+    if (!trackedEntity || !trackedEntityAttributes || !variableMappings) {
         return mappedValues;
     }
 

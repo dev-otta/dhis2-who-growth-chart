@@ -63,10 +63,6 @@ export const GrowthChart = ({
         console.error('xAxisValues and dataSet should have the same length');
     }
 
-    if (!measurementData) {
-        return null;
-    }
-
     const keysDataSet = Object.keys(dataSetValues[0]);
     const yAxisValues = { minDataValue, maxDataValue };
 
