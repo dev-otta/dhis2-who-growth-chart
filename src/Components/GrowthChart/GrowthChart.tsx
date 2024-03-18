@@ -43,6 +43,7 @@ export const GrowthChart = ({
     const dataSetValues = dataSetEntry?.datasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
 
+    //remove
     const xAxisValues = useRangeTimePeriod(dataSetMetadata?.range.start, dataSetMetadata?.range.end);
 
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
@@ -57,10 +58,6 @@ export const GrowthChart = ({
 
     if (!chartDataForGender || !dataSetValues) {
         return null;
-    }
-
-    if (xAxisValues.length !== dataSetValues.length) {
-        console.error('xAxisValues and dataSet should have the same length');
     }
 
     const keysDataSet = Object.keys(dataSetValues[0]);
@@ -91,13 +88,12 @@ export const GrowthChart = ({
             </div>
 
             <GrowthChartBuilder
+                measurementData={measurementData}
                 datasetValues={dataSetValues}
                 datasetMetadata={dataSetMetadata}
-                xAxisValues={xAxisValues}
                 yAxisValues={yAxisValues}
                 keysDataSet={keysDataSet}
                 annotations={annotations}
-                measurementData={measurementData}
                 dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
                 category={category}
                 dataset={dataset}

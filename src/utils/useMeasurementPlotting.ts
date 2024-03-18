@@ -7,7 +7,7 @@ export interface MeasurementDataEntry {
     };
 }
 
-export const useMeasurementDataChart = (
+export const useMeasurementPlotting = (
     measurementData: MeasurementDataEntry[],
     fieldName: string,
     category: string,

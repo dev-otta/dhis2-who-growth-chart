@@ -5,9 +5,8 @@ import Chart, { ChartOptions } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { ChartDataTypes, CategoryToLabel, CategoryLabels } from '../../../types/chartDataTypes';
-import { chartLineColorPicker } from '../../../utils/chartLineColorPicker';
 import { annotateLineEnd } from '../../../utils/annotateLineEnd';
-import { useMeasurementDataChart } from '../../../utils/useMeasurementDataChart';
+import { useMeasurementPlotting, useZscoreLines } from '../../../utils';
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
@@ -30,18 +29,6 @@ export const GrowthChartBuilder = ({
 
     const { minDataValue, maxDataValue } = yAxisValues;
 
-    const adjustIndex = (dataset === '2 to 5 years') ? 24 : 0;
-
-    const ZscoreLines = keysDataSet.map((key) => ({
-        data: datasetValues.map((entry, index) => ({
-            x: (category !== 'wflh_b' && category !== 'wflh_g') ? adjustIndex + index : datasetMetadata.range.start + index,
-            y: entry[key],
-        })),
-        borderWidth: 0.9,
-        borderColor: chartLineColorPicker(key),
-        label: key,
-    }));
-
     const categoryLabel = CategoryToLabel[category];
     const datasetMappings: { [key: string]: string } = {
         [CategoryLabels.hcfa]: 'headCircumference',
@@ -52,9 +39,10 @@ export const GrowthChartBuilder = ({
 
     const fieldName = datasetMappings[categoryLabel];
     const formattedFieldName = fieldName.charAt(0).toUpperCase() + fieldName.substring(1);
-    const MeasurementData = useMeasurementDataChart(measurementData, fieldName, category, dataset, dateOfBirth);
+    const ZscoreLinesData = useZscoreLines(datasetValues, keysDataSet, datasetMetadata, category, dataset);
+    const MeasurementData = useMeasurementPlotting(measurementData, fieldName, category, dataset, dateOfBirth);
 
-    const data : any = { datasets: [...ZscoreLines, ...MeasurementData] };
+    const data : any = { datasets: [...ZscoreLinesData, ...MeasurementData] };
 
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },

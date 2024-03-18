@@ -18,7 +18,6 @@ export interface ChartDataTypes {
         xAxisLabel: string;
         range: { start: number; end: number };
     };
-    xAxisValues: number[];
     yAxisValues: { minDataValue: number; maxDataValue: number };
     keysDataSet: string[];
     annotations: AnnotationLabelType[];
