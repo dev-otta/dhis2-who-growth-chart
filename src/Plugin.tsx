@@ -3,6 +3,7 @@ import './Plugin.module.css';
 import './tailwind.css';
 import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import i18n from '@dhis2/d2-i18n';
 import { WidgetCollapsible } from './Components/WidgetCollapsible';
 import { GrowthChart } from './Components/GrowthChart/GrowthChart';
 import { EnrollmentOverviewProps } from './Plugin.types';
@@ -49,7 +50,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                     style={{ width: '100%' }}
                 >
                     <WidgetCollapsible
-                        header={'Growth Chart'}
+                        header={i18n.t('Growth Chart')}
                         borderless={false}
                         open={open}
                         onOpen={() => setOpen(true)}
