@@ -19,6 +19,7 @@ export const GrowthChart = ({
     measurementData,
 }: GrowthChartProps) => {
     const trackedEntityGender = GenderCodes[trackedEntity?.gender?.toLowerCase() as 'male' | 'female'];
+
     const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.female);
     const { chartDataForGender } = useChartDataForGender({ gender });
 
@@ -40,7 +41,7 @@ export const GrowthChart = ({
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
 
-    const dataSetValues = dataSetEntry?.datasetValues;
+    const dataSetValues = dataSetEntry?.zScoreDatasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
 
     const xAxisValues = useRangeTimePeriod(dataSetMetadata?.range.start, dataSetMetadata?.range.end);

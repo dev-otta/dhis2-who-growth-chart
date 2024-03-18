@@ -32,7 +32,8 @@ export interface ChartData {
             gender: string;
         };
         datasets: { [key: string]: {
-            datasetValues: { [key: string]: number }[];
+            zScoreDatasetValues: { [key: string]: number }[];
+            percentileDatasetValues: { [key: string]: number }[];
             metadata: {
                 chartLabel: string;
                 yAxisLabel: string;
