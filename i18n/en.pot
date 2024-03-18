@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-18T09:11:56.105Z\n"
-"PO-Revision-Date: 2024-03-18T09:11:56.105Z\n"
+"POT-Creation-Date: 2024-03-18T18:21:13.560Z\n"
+"PO-Revision-Date: 2024-03-18T18:21:13.560Z\n"
 
 msgid "Date"
 msgstr "Date"
@@ -17,20 +17,11 @@ msgstr "Height"
 msgid "Weight"
 msgstr "Weight"
 
-msgid "Year"
-msgstr "Year"
-
-msgid "Years"
-msgstr "Years"
-
-msgid "Month"
-msgstr "Month"
+msgid "Growth Chart"
+msgstr "Growth Chart"
 
 msgid "Months"
 msgstr "Months"
-
-msgid "Growth Chart"
-msgstr "Growth Chart"
 
 msgid "Weeks"
 msgstr "Weeks"
@@ -76,3 +67,12 @@ msgstr "Boy"
 
 msgid "Girl"
 msgstr "Girl"
+
+msgid "Year"
+msgstr "Year"
+
+msgid "Years"
+msgstr "Years"
+
+msgid "Month"
+msgstr "Month"

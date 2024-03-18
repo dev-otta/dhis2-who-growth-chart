@@ -1,10 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
-import { useRangeTimePeriod } from '../../utils/useRangeTimePeriod';
 import { ChartSelector } from '../GrowthChartSelector';
 import { ChartData, GenderCodes, CategoryCodes, MeasurementData } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
-import { GrowthChartAnnotations } from './GrowthChartOptions';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
 import { ChartConfig } from '../../utils/DataFetching/Hooks/useChartConfig';
@@ -43,9 +41,6 @@ export const GrowthChart = ({
     const dataSetValues = dataSetEntry?.datasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
 
-    //remove
-    const xAxisValues = useRangeTimePeriod(dataSetMetadata?.range.start, dataSetMetadata?.range.end);
-
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
 
     const [minDataValue, maxDataValue] = useMemo(() => {
@@ -53,8 +48,6 @@ export const GrowthChart = ({
         const maxVal = Math.ceil(max);
         return [minVal, maxVal];
     }, [min, max]);
-
-    const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata?.xAxisLabel);
 
     if (!chartDataForGender || !dataSetValues) {
         return null;
@@ -93,7 +86,6 @@ export const GrowthChart = ({
                 datasetMetadata={dataSetMetadata}
                 yAxisValues={yAxisValues}
                 keysDataSet={keysDataSet}
-                annotations={annotations}
                 dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
                 category={category}
                 dataset={dataset}

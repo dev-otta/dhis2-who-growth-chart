@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n';
-import { AnnotationLabelType } from '../Components/GrowthChart/GrowthChartOptions';
 
 export interface MeasurementData {
     eventDate: string;
@@ -20,7 +19,6 @@ export interface ChartDataTypes {
     };
     yAxisValues: { minDataValue: number; maxDataValue: number };
     keysDataSet: string[];
-    annotations: AnnotationLabelType[];
     measurementData: MeasurementData[];
 }
 

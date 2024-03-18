@@ -8,6 +8,7 @@ import { ChartDataTypes, CategoryToLabel, CategoryLabels } from '../../../types/
 import { annotateLineEnd } from '../../../utils/annotateLineEnd';
 import { useMeasurementPlotting, useZscoreLines } from '../../../utils';
 import { tooltipConfig } from './tooltipConfig';
+import { useGrowthChartAnnotations } from '../../../utils/GrowthChartOptions';
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
@@ -20,7 +21,6 @@ export const GrowthChartBuilder = ({
     datasetMetadata,
     yAxisValues,
     keysDataSet,
-    annotations,
     measurementData,
     category,
     dataset,
@@ -44,6 +44,7 @@ export const GrowthChartBuilder = ({
     const ZscoreLinesData = useZscoreLines(datasetValues, keysDataSet, datasetMetadata, category, dataset);
     const MeasurementData = useMeasurementPlotting(measurementData, fieldName, category, dataset, dateOfBirth);
     const data: any = { datasets: [...ZscoreLinesData, ...MeasurementData] };
+    const annotations = useGrowthChartAnnotations(ZscoreLinesData, datasetMetadata);
 
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
