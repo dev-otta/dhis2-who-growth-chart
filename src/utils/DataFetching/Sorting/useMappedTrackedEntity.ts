@@ -26,15 +26,14 @@ export const useMappedTrackedEntityVariables = ({
         return mappedValues;
     }
 
-    Object.entries(variableMappings).forEach(([key, attributeId]) => {
+    return Object.entries(variableMappings).reduce((acc, [key, attributeId]) => {
         const attribute = trackedEntityAttributes.find((attr: Attribute) => attr.attribute === attributeId);
         if (attribute) {
             const value = trackedEntity.attributes.find((attr: Attribute) => attr.attribute === attributeId)?.value;
             if (value !== undefined && value !== null) {
-                mappedValues[key] = value;
+                acc[key] = value;
             }
         }
-    });
-
-    return mappedValues;
+        return acc;
+    }, mappedValues);
 };
