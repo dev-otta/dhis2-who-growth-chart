@@ -1,18 +1,18 @@
-import { hcfa_b_0_5_y_z, hcfa_b_0_13_w_z } from './hcfa-boys';
-import { hcfa_g_0_5_y_z, hcfa_g_0_13_w_z } from './hcfa-girls';
-import { lhfa_b_0_2_y_z, lhfa_b_0_13_w_z, lhfa_b_2_5_y_z } from './lhfa-boys';
-import { lhfa_g_0_2_y_z, lhfa_g_0_13_w_z, lhfa_g_2_5_y_z } from './lhfa-girls';
-import { wfa_b_0_5_y_z, wfa_b_0_13_w_z } from './wfa-boys';
-import { wfa_g_0_5_y_z, wfa_g_0_13_w_z } from './wfa-girls';
-import { wfh_g_2_5_y_z, wfl_g_0_2_y_z } from './wfhl-girls';
-import { wfh_b_2_5_y_z, wfl_b_0_2_y_z } from './wfhl-boys';
+import { hcfa_b_0_5_y_z, hcfa_b_0_13_w_z } from './ZScores/hcfa-boys';
+import { hcfa_g_0_5_y_z, hcfa_g_0_13_w_z } from './ZScores/hcfa-girls';
+import { lhfa_b_0_2_y_z, lhfa_b_0_13_w_z, lhfa_b_2_5_y_z } from './ZScores/lhfa-boys';
+import { lhfa_g_0_2_y_z, lhfa_g_0_13_w_z, lhfa_g_2_5_y_z } from './ZScores/lhfa-girls';
+import { wfa_b_0_5_y_z, wfa_b_0_13_w_z } from './ZScores/wfa-boys';
+import { wfa_g_0_5_y_z, wfa_g_0_13_w_z } from './ZScores/wfa-girls';
+import { wfh_g_2_5_y_z, wfl_g_0_2_y_z } from './ZScores/wfhl-girls';
+import { wfh_b_2_5_y_z, wfl_b_0_2_y_z } from './ZScores/wfhl-boys';
 import { ChartCodes,
     CategoryCodes,
     measurementTypeCodes,
     timeUnitCodes,
     ChartData,
     GenderCodes,
-    CategoryLabels } from '../../../types/chartDataTypes';
+    CategoryLabels } from '../../types/chartDataTypes';
 
 export const chartData: ChartData = {
     [CategoryCodes.hcfa_b]: {

@@ -24,11 +24,13 @@ export const useMappedGrowthVariables = ({
         height: '',
     };
 
-    Object.entries(growthVariables).reduce((acc, [key, value]: [string, string]) => {
-        const dataValue = String(Object.entries(event.dataValues).find(([dataElement]) => dataElement === value)?.[1]);
-        if (dataValue && value) acc[key] = dataValue;
-        return acc;
-    }, dataValueMap);
+    if (growthVariables && event.dataValues) {
+        Object.entries(growthVariables).reduce((acc, [key, value]: [string, string]) => {
+            const dataValue = String(Object.entries(event.dataValues).find(([dataElement]) => dataElement === value)?.[1]);
+            if (dataValue && value) acc[key] = dataValue;
+            return acc;
+        }, dataValueMap);
+    }
 
     const eventDate = String(event.occurredAt).split('T')[0];
 

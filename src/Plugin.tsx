@@ -12,11 +12,13 @@ import { useChartConfig } from './utils/DataFetching/Hooks/useChartConfig';
 import { useMappedGrowthVariables } from './utils/DataFetching/Sorting/useMappedGrowthVariables';
 import { useEventsByProgramStage } from './utils/DataFetching/Hooks/useEvents';
 import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/useMappedTrackedEntity';
+import { ChartConfigError } from './UI/GenericError/ChartConfigError';
+import { GenericLoading } from './UI/GenericLoading';
 
 const queryClient = new QueryClient();
 
 const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
-    const { chartConfig } = useChartConfig();
+    const { chartConfig, isLoading, isError } = useChartConfig();
     const { teiId, programId, orgUnitId } = propsFromParent;
     const { trackedEntity } = useTeiById({ teiId });
     const { events } = useEventsByProgramStage({
@@ -33,6 +35,14 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const mappedGrowthVariables = useMappedGrowthVariables({ growthVariables: chartConfig?.metadata.dataElements, events });
 
     const [open, setOpen] = useState(true);
+
+    if (isLoading) {
+        return <GenericLoading />;
+    }
+
+    if (isError) {
+        return <ChartConfigError />;
+    }
 
     return (
         <QueryClientProvider
