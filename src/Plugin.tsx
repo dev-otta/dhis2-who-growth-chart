@@ -38,6 +38,8 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isWeightInGrams: chartConfig?.settings.weightInGrams || false,
     });
 
+    const usePercent = chartConfig?.settings.defaultStandard === 'p';
+
     const [open, setOpen] = useState(true);
 
     if (isLoading) {
@@ -73,6 +75,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                         <GrowthChart
                             trackedEntity={mappedTrackedEntity}
                             measurementData={mappedGrowthVariables}
+                            usePercent={usePercent}
                         />
                     </WidgetCollapsible>
                 </div>

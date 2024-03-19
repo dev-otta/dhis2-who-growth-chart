@@ -13,7 +13,7 @@ interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
     dataset: string | number;
     dateOfBirth: Date;
-    percentiles: boolean;
+    usePercent: boolean;
 }
 
 export const GrowthChartBuilder = ({
@@ -26,7 +26,7 @@ export const GrowthChartBuilder = ({
     category,
     dataset,
     dateOfBirth,
-    percentiles,
+    usePercent,
 }: GrowthChartBuilderProps) => {
     Chart.register(annotationPlugin);
 
@@ -40,7 +40,7 @@ export const GrowthChartBuilder = ({
             y: entry[key],
         })),
         borderWidth: 0.9,
-        borderColor: chartLineColorPicker(key, percentiles),
+        borderColor: chartLineColorPicker(key, usePercent),
         label: key,
     }));
 
@@ -119,12 +119,12 @@ export const GrowthChartBuilder = ({
                 position: 'right',
                 min: minDataValue,
                 max: maxDataValue,
-                ticks: { padding: percentiles ? 36 : 18 },
+                ticks: { padding: usePercent ? 36 : 18 },
             },
         },
         animation: {
-            onComplete: (chartAnimation: any) => annotateLineEnd(chartAnimation, percentiles, keysDataSet),
-            onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation, percentiles, keysDataSet),
+            onComplete: (chartAnimation: any) => annotateLineEnd(chartAnimation, usePercent, keysDataSet),
+            onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation, usePercent, keysDataSet),
         },
     };
 

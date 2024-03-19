@@ -13,14 +13,15 @@ import { usePercentilesOrZScores } from '../../utils/DataFetching/Sorting';
 interface GrowthChartProps {
     trackedEntity: ChartConfig['metadata']['attributes'];
     measurementData: MeasurementData[];
+    usePercent: boolean;
 }
 
 export const GrowthChart = ({
     trackedEntity,
     measurementData,
+    usePercent,
 }: GrowthChartProps) => {
     const trackedEntityGender = GenderCodes[trackedEntity?.gender?.toLowerCase() as 'male' | 'female'];
-    const [percentiles] = useState<boolean>(false);
 
     const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.female);
     const { chartDataForGender } = useChartDataForGender({ gender });
@@ -43,7 +44,7 @@ export const GrowthChart = ({
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
 
-    const dataSetValues = usePercentilesOrZScores(dataSetEntry, percentiles);
+    const dataSetValues = usePercentilesOrZScores(dataSetEntry, usePercent);
     const dataSetMetadata = dataSetEntry?.metadata;
 
     const xAxisValues = useRangeTimePeriod(dataSetMetadata?.range.start, dataSetMetadata?.range.end);
@@ -104,7 +105,7 @@ export const GrowthChart = ({
                 dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
                 category={category}
                 dataset={dataset}
-                percentiles={percentiles}
+                usePercent={usePercent}
             />
         </div>
     );
