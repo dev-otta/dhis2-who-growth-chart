@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-19T06:39:45.126Z\n"
-"PO-Revision-Date: 2024-03-19T06:39:45.126Z\n"
+"POT-Creation-Date: 2024-03-19T10:22:35.729Z\n"
+"PO-Revision-Date: 2024-03-19T10:22:35.729Z\n"
 
 msgid "Date"
 msgstr "Date"
@@ -32,17 +32,11 @@ msgstr "Months"
 msgid "Weeks"
 msgstr "Weeks"
 
-msgid "Head circumference (cm)"
-msgstr "Head circumference (cm)"
+msgid "Head circumference"
+msgstr "Head circumference"
 
-msgid "Length (cm)"
-msgstr "Length (cm)"
-
-msgid "Height (cm)"
-msgstr "Height (cm)"
-
-msgid "Weight (kg)"
-msgstr "Weight (kg)"
+msgid "Length"
+msgstr "Length"
 
 msgid "Head circumference for age"
 msgstr "Head circumference for age"
