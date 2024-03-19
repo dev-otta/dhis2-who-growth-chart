@@ -52,13 +52,15 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         <QueryClientProvider
             client={queryClient}
         >
-            <div style={{
-                backgroundColor: 'white',
-                width: '100vw',
-                display: 'flex',
-                margin: 0,
-                padding: 0,
-            }}
+            <div
+                style={{
+                    backgroundColor: 'white',
+                    width: '100vw',
+                    display: 'flex',
+                    minWidth: 'fit-content',
+                    margin: 0,
+                    padding: 0,
+                }}
             >
                 <div
                     style={{ width: '100%' }}
