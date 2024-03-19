@@ -15,6 +15,11 @@ export type DataValue = {
     [key: string]: string | number;
 };
 
+export type MeasurementData = {
+    eventDate: string;
+    dataValues: DataValue;
+};
+
 export interface Event {
     dataValues: DataValue[];
     occurredAt: string;

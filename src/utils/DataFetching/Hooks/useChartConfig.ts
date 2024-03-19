@@ -19,6 +19,7 @@ export type ChartConfig = {
     settings: {
         customReferences: boolean;
         zScoreStandard: string;
+        weightInGrams: boolean;
     };
 };
 

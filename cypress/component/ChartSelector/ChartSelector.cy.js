@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChartSelector } from '../../../src/Components/GrowthChartSelector';
 import { useChartDataForGender } from '../../../src/utils/DataFetching/Sorting/useChartDataForGender';
-import { chartData as chartDataWHO } from '../../../src/DataSets/WhoStandardDataSets/ZScores/ChartDataZscores';
+import { chartData as chartDataWHO } from '../../../src/DataSets/WhoStandardDataSets/ChartDataZscores';
 
 describe('ChartSelector', () => {
     const TestComponent = () => {

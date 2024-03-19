@@ -1,6 +1,6 @@
 import { useCalculateDecimalDate } from './useCalculateDecimalDate';
 
-interface MeasurementDataEntry {
+export interface MeasurementDataEntry {
     eventDate: string | Date;
     dataValues: {
         [key: string]: number | string;
@@ -12,11 +12,12 @@ export const useMeasurementDataChart = (
     fieldName: string,
     category: string,
     dataset: string | number,
+    dateOfBirth: Date,
 ) => {
     const measurementDataValues: { x: Date | number | string; y: number; eventDate?: Date }[] = [];
 
     if (dataset === '0 to 13 weeks' || dataset === '0 to 2 years' || dataset === '0 to 5 years') {
-        measurementData.forEach((entry: MeasurementDataEntry) => {
+        measurementData?.forEach((entry: MeasurementDataEntry) => {
             let xValue: Date | number | string;
             let yValue: number;
 
@@ -30,7 +31,7 @@ export const useMeasurementDataChart = (
                 } else {
                     dateString = entry.eventDate.toISOString();
                 }
-                const xValueDecimalDate: string = useCalculateDecimalDate(dateString, dataset);
+                const xValueDecimalDate: string = useCalculateDecimalDate(dateString, dataset, dateOfBirth);
                 xValue = xValueDecimalDate;
                 yValue = parseFloat(entry.dataValues[fieldName] as string);
             }
@@ -60,7 +61,7 @@ export const useMeasurementDataChart = (
                 } else {
                     dateString = entry.eventDate.toISOString();
                 }
-                const xValueDecimalDate: string = useCalculateDecimalDate(dateString, dataset);
+                const xValueDecimalDate: string = useCalculateDecimalDate(dateString, dataset, dateOfBirth);
                 xValue = xValueDecimalDate;
                 yValue = parseFloat(entry.dataValues[fieldName] as string);
             }
