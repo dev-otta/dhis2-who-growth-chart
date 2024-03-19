@@ -19,6 +19,7 @@ export type ChartConfig = {
     settings: {
         defaultStandard: string;
         zScoreStandard: string;
+        weightInGrams: boolean;
     };
 };
 

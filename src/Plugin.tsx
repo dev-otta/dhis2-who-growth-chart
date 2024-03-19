@@ -32,7 +32,11 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         variableMappings: chartConfig?.metadata.attributes, trackedEntity, trackedEntityAttributes: trackedEntity?.attributes,
     });
 
-    const mappedGrowthVariables = useMappedGrowthVariables({ growthVariables: chartConfig?.metadata.dataElements, events });
+    const mappedGrowthVariables = useMappedGrowthVariables({
+        growthVariables: chartConfig?.metadata.dataElements,
+        events,
+        isWeightInGrams: chartConfig?.settings.weightInGrams || false,
+    });
 
     const [open, setOpen] = useState(true);
 
