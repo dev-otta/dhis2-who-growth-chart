@@ -181,7 +181,7 @@ Create a new `Tracked entity attribute` for `Gender` (Do this even if it exists 
                 }
         
     - Create new namespace `capture-growth-chart` with key `config`
-        - The growth chart plugin needs this config to work. All Id's should be changed and will be specific for each implementation. The structure of the config has to be the same as the one in the example below..
+        - The growth chart plugin needs this config to work. All Id's should be changed and will be specific for each implementation. The `femaleOptionCode` and `maleOptionCode` should map to the used option codes in the implementation. The structure of the config has to be the same as the one in the example below.
             ```json
                 {
                     "metadata": {
