@@ -1,12 +1,13 @@
 import { useQuery } from 'react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
-import { GenderCodes } from '../../../types/chartDataTypes';
 
 export type ChartConfig = {
     metadata: {
         attributes: {
             dateOfBirth: string;
-            gender: keyof typeof GenderCodes;
+            gender: string;
+            femaleOptionCode: string;
+            maleOptionCode: string;
         };
         dataElements: {
             headCircumference: string;
