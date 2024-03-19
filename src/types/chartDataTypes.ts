@@ -56,6 +56,12 @@ export const measurementTypeCodes = Object.freeze({
     w_kg: i18n.t('Weight (kg)'),
 });
 
+export const units = Object.freeze({
+    cm: i18n.t('cm'),
+    kg: i18n.t('kg'),
+    g: i18n.t('g'),
+});
+
 export const CategoryLabels = Object.freeze({
     hcfa: i18n.t('Head circumference for age'),
     lhfa: i18n.t('Length/height for age'),
