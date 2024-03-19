@@ -7,34 +7,38 @@ interface DataSet {
     label: string;
 }
 
-export const annotateLineEnd = (animation: Animation & { chart?: Chart }) => {
+export const annotateLineEnd = (animation: Animation & { chart?: Chart }, percentiles: boolean, keysDataSet: string[]) => {
     const { chart } = animation;
     if (!chart) return;
 
     const { ctx } = chart;
 
-    const labelsToInclude = ['SD0', 'SD1', 'SD2', 'SD3', 'SD1neg', 'SD2neg', 'SD3neg'];
+    const labelsToInclude = keysDataSet;
 
-    const ZscoreLines = chart.data.datasets.filter((dataset: DataSet) => labelsToInclude.includes(dataset.label));
+    const lines = chart.data.datasets.filter((dataset: DataSet) => labelsToInclude.includes(dataset.label));
 
-    const extractNumberFromLabel = (label: string): number => {
-        const numberStr = label.replace(/[^\d.-]/g, '');
-        return parseFloat(numberStr);
-    };
+    const extractNumberFromLabel = (label: string): number => parseFloat(label.replace(/[^\d.-]/g, ''));
 
     const adjustLabel = (labelText: number, originalLabel: string): string => {
-        const isNegative = originalLabel.includes('neg');
-        if (isNegative) return `-${labelText}`;
-        return ` ${labelText.toString()}`;
+        if (percentiles) {
+            if (originalLabel === 'P01') return '0.1%';
+            if (originalLabel === 'P999') return '99.9%';
+            return `${labelText}%`;
+        }
+        if (!percentiles) {
+            const isNegative = originalLabel.includes('neg');
+            return isNegative ? `-${labelText}` : ` ${labelText}`;
+        }
+        return originalLabel;
     };
 
     const drawText = (ctx: CanvasRenderingContext2D, text: string, x: number, y: number, color: string) => {
         ctx.fillStyle = color;
         ctx.font = '14px Arial';
-        ctx.fillText(text, x, y);
+        ctx.fillText(text, x + 3, y + 4);
     };
 
-    ZscoreLines.forEach((dataset: DataSet, index: number) => {
+    lines.forEach((dataset: DataSet, index: number) => {
         const meta = chart.getDatasetMeta(index);
         const [lastElement] = meta.data.slice(-1);
         const { x, y } = lastElement.getProps(['x', 'y']);
@@ -42,6 +46,6 @@ export const annotateLineEnd = (animation: Animation & { chart?: Chart }) => {
         const labelText = extractNumberFromLabel(dataset.label);
         const adjustedLabelText = adjustLabel(labelText, dataset.label);
 
-        drawText(ctx, adjustedLabelText, x + 3, y + 4, dataset.borderColor);
+        drawText(ctx, adjustedLabelText.toString(), x, y, dataset.borderColor);
     });
 };

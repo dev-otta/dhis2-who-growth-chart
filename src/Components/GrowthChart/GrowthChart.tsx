@@ -8,6 +8,7 @@ import { GrowthChartAnnotations } from './GrowthChartOptions';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
 import { ChartConfig } from '../../utils/DataFetching/Hooks/useChartConfig';
+import { usePercentilesOrZScores } from '../../utils/DataFetching/Sorting';
 
 interface GrowthChartProps {
     trackedEntity: ChartConfig['metadata']['attributes'];
@@ -19,6 +20,8 @@ export const GrowthChart = ({
     measurementData,
 }: GrowthChartProps) => {
     const trackedEntityGender = GenderCodes[trackedEntity?.gender?.toLowerCase() as 'male' | 'female'];
+    const [percentiles] = useState<boolean>(false);
+
     const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.female);
     const { chartDataForGender } = useChartDataForGender({ gender });
 
@@ -40,7 +43,7 @@ export const GrowthChart = ({
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
 
-    const dataSetValues = dataSetEntry?.datasetValues;
+    const dataSetValues = usePercentilesOrZScores(dataSetEntry, percentiles);
     const dataSetMetadata = dataSetEntry?.metadata;
 
     const xAxisValues = useRangeTimePeriod(dataSetMetadata?.range.start, dataSetMetadata?.range.end);
@@ -101,6 +104,7 @@ export const GrowthChart = ({
                 dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
                 category={category}
                 dataset={dataset}
+                percentiles={percentiles}
             />
         </div>
     );
