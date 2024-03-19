@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n';
-import { timeUnitCodes } from '../../types/chartDataTypes';
+import { TimeUnitCodes } from '../../types/chartDataTypes';
 
 interface TimeUnitData {
     singular: string;
@@ -15,12 +15,12 @@ export interface AnnotationLabelType {
 }
 
 const timeUnitData: { [key: string]: TimeUnitData } = {
-    [timeUnitCodes.months]: {
+    [TimeUnitCodes.months]: {
         singular: i18n.t('Year'),
         plural: i18n.t('Years'),
         divisor: 12,
     },
-    [timeUnitCodes.weeks]: {
+    [TimeUnitCodes.weeks]: {
         singular: i18n.t('Month'),
         plural: i18n.t('Months'),
         divisor: 4,

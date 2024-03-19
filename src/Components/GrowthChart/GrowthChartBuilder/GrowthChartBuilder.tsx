@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 import Chart, { ChartOptions } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { ChartDataTypes, CategoryToLabel, CategoryLabels } from '../../../types/chartDataTypes';
+import { ChartDataTypes, CategoryToLabel, MeasurementTypeCodesLabel, MeasurementTypeCodes } from '../../../types/chartDataTypes';
 import { annotateLineEnd } from '../../../utils/annotateLineEnd';
 import { useMeasurementPlotting, useZscoreLines } from '../../../utils';
 import { tooltipConfig } from './tooltipConfig';
@@ -31,18 +31,12 @@ export const GrowthChartBuilder = ({
     const { minDataValue, maxDataValue } = yAxisValues;
 
     const categoryLabel = CategoryToLabel[category];
-    const datasetMappings: { [key: string]: string } = {
-        [CategoryLabels.hcfa]: 'headCircumference',
-        [CategoryLabels.lhfa]: 'height',
-        [CategoryLabels.wfa]: 'weight',
-        [CategoryLabels.wflh]: 'weight',
-    };
 
-    const fieldName = datasetMappings[categoryLabel];
-    const formattedFieldName = fieldName.charAt(0).toUpperCase() + fieldName.substring(1);
+    const MeasuremenCode = MeasurementTypeCodes[category];
+    const MeasuremenLabel = MeasurementTypeCodesLabel[MeasuremenCode];
 
     const ZscoreLinesData = useZscoreLines(datasetValues, keysDataSet, datasetMetadata, category, dataset);
-    const MeasurementData = useMeasurementPlotting(measurementData, fieldName, category, dataset, dateOfBirth);
+    const MeasurementData = useMeasurementPlotting(measurementData, MeasuremenCode, category, dataset, dateOfBirth);
     const data: any = { datasets: [...ZscoreLinesData, ...MeasurementData] };
     const annotations = useGrowthChartAnnotations(ZscoreLinesData, datasetMetadata);
 
@@ -51,7 +45,7 @@ export const GrowthChartBuilder = ({
         plugins: {
             annotation: { annotations },
             legend: { display: false },
-            tooltip: tooltipConfig(formattedFieldName, categoryLabel),
+            tooltip: tooltipConfig(MeasuremenLabel, categoryLabel),
         },
         scales: {
             x: {

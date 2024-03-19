@@ -38,9 +38,8 @@ export const GrowthChart = ({
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
 
-    const dataSetValues = dataSetEntry?.datasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
-
+    const dataSetValues = dataSetEntry?.datasetValues;
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
 
     const [minDataValue, maxDataValue] = useMemo(() => {
