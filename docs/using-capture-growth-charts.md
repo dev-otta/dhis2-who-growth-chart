@@ -4,58 +4,150 @@
 
 Capture growth charts is a web application that allows users to capture and view growth data for children under the age of 5. The application is designed to be used by health workers in the field to capture growth data for children and to view growth charts for children in their care. The application is designed to be used on a tablet or computer device and is optimized for data entry and visualization of growth charts for efficient monitoring of child development.
 
-## Register an event { #capture_register_event } 
+## Growth chart plugin upload
 
-1. Open the **Capture** app.
+# Configuration { #configuration }
+## Maintenance { #maintenance }
 
-2. Select an organisation unit.
+### Dataelement
+Create data elements for **Weight**, **Height** and **Head circumference**.
+Weight can be in either `gram` or `kg`, but height and head circumference should be in `cm`.
+ <br />
 
-3. Select an event program.
+### Program
+#### Tracked entity attribute
+Tracked entity attribues needed for the Growth chart plugin is `Date of birth` and `gender`. However, `First Name` and `Last Name` are also needed if you want the name to be printed when using the print function. <br /> <br />
+                    
+#### Tracked entity type
+Tracked entity type for person needs the same attributes as the tracked entity attributes. <br />
 
-    You will only see programs associated with the selected organisation unit and programs you have access to, and that are shared with your user group through data level sharing.
 
-4. If the program has a category combination set the category option will have to be selected.
+#### Program     
+##### Attributes
+Select you preffered program for storing the growth variables and displaying the Growth Chart.
+The program should have the following attributes:
+- `First name`
+- `Last name`
+- `Date of birth`
+- `Gender`
+ <br />
 
-5. Click **Create new event**.
 
-    ![create new event](resources/images/create_new_event.png)
+##### Program stages
+Select stage where growth variables currently are or will be stored.
+The program stage should have the following data elements:
+- `Weight` (g or kg)
+- `Height` (cm)
+- `Head circumference` (cm)
+<br />                  
+                         
+## Datastore Manangement { #datastore_management }
+### Capture
+In namespace `capture`, enter the file with key `enrollmentOverviewLayout`
+Add new section for the growth chart under `leftColumn`. You can choose where on the left column to place it. Add the following code, but remember to change out `<Url of instance>` with the url of your instance.
+```json
+{
+    "source": "<Url of instance>/api/apps/capture-growth-chart/plugin.html",
+    "type": "plugin"
+}
+```
 
-6. Fill in the required information. If the programs program stage is configured to capture a location:
+### Capture-growth-chart
+#### Config      
+Create new namespace `capture-growth-chart` with key `config`
+The growth chart plugin needs this config to work. All Id's should be changed, and will be specific for each implementation. The `femaleOptionCode` and `maleOptionCode` should map to the option codes used for gender. The structure of the config has to be the same as the one in the example below;
+```json
+    {
+        "metadata": {
+            "attributes": {
+                "dateOfBirth": "AMl8BkN8Lyq",
+                "gender": "tyNlJWNnEbs",
+                "femaleOptionCode": "CGC_Female",
+                "maleOptionCode": "CGC_Male"
+            },
+            "dataElements": {
+                "headCircumference": "GfchA70xtmP",
+                "height": "wWCSulSdUgd",
+                "weight": "yZwKJdYXTZF"
+            },
+            "program": {
+                "programStageId": "h3gT08Et4sC"
+            }
+        },
+        "settings": {
+            "customReferences": false,
+            "defaultStandard": "ID",
+            "weightInGrams": false
+        }
+    }
+```    
+<br />
 
-    - If the field is a coordinate field you can either enter the coordinates
-    directly or you can click the **map** icon to the left of the coordinate field.
-    The latter one will open a map where you can search for a location or set on
-    directly by clicking on the map.
+#### Custom references
+##### Create custom references
+1. Create a new key in the `capture-growth-chart` namespace with the key `customReferences`
+2. Add the custom references you want to use. The structure of the custom references has to be the same as the one in the example below. But the **datasetValues** should be changed to fit your own references.
+```json
+{
+    "hcfa_b": {
+        "categoryMetadata": {
+            "gender": "Boy",
+            "label": "Head circumference for age"
+        },
+        "datasets": {
+            "0 to 13 weeks": {
+                "datasetValues": [
+                    {
+                        "SD0": 34.5,
+                        "SD1": 35.7,
+                        "SD1neg": 33.2,
+                        "SD2": 37,
+                        "SD2neg": 31.9,
+                        "SD3": 38.3,
+                        "SD3neg": 30.7
+                    },
+                    // ... more data points ...
+                ],
+                "metadata": {
+                    "chartLabel": "0 to 13 weeks",
+                    "range": {
+                        "end": 13,
+                        "start": 0
+                    },
+                    "xAxisLabel": "Weeks",
+                    "yAxisLabel": "Head circumference (cm)"
+                }
+            },
+            "0 to 5 years": {
+                "datasetValues": [
+                    {
+                        "SD0": 34.5,
+                        "SD1": 35.7,
+                        "SD1neg": 33.2,
+                        "SD2": 37,
+                        "SD2neg": 31.9,
+                        "SD3": 38.3,
+                        "SD3neg": 30.7
+                    },
+                    // ... more data points ...
+                ],
+                "metadata": {
+                    "chartLabel": "0 to 5 years",
+                    "range": {
+                        "end": 5,
+                        "start": 0
+                    },
+                    "xAxisLabel": "Years",
+                    "yAxisLabel": "Head circumference (cm)"
+                }
+            }
+        }
+    }
+}
+```
+<br />
 
-    - If the field is a polygon field you can click the **map** icon to the left of
-    the field. This will open a map where you can search for a location and capture
-    a polygon (button in the upper right corner of the map).
+##### Use custom references
 
-7. If desired you can add a comment by clicking the **Write comment** button at the bottom of the form. Note that Event comments are attributed to a user and cannot be deleted. 
-
-8. If desired you can add a relationship by clicking the **Add relationship** button at the bottom of the form.
-   See the section about **Adding a relationship** for more information.
-
-9. Click **Save and exit** or click the arrow next to the button to select **Save and add another**.
-
-    - **Save and add another** will save the current event and clear the form.
-    All the events that you have captured will be displayed in a list at the bottom of the page.
-    When you want to finish capturing events you can, if the form is blank,
-    click the finish button or if your form contains data click the arrow
-    next to **Save and add another** and select **Save and exit**.
-
-> **Note**
->
-> Some data elements in an event might be mandatory (marked with a red star next to the data element label).
-> All mandatory data elements must be filled in before the user is allowed to complete the event.
-> The exception to this is if the user has the authority called __"Ignore validation of required fields in Tracker and Event Capture".__
-> If the user has this authority, the mandatory data elements will not be required and
-> the red star will not be displayed next to the data element label. Note that super user that have the __"ALL"__ authority automatically
-> have this authority.
-
-> **Tip**
->
-> The data entry form can also be displayed in **row view**. In this mode the data elements are arranged horizontally. This can be
-> achieved by clicking the **Switch to row view** button on the top right of the data entry form. If you are currently in **row view** you
-> can switch to the default form view by clicking the **Switch to form view** button on the top right of the data entry form.
+If you want to use custom references, you can set `customReferences` to `true` in the config. This will make the plugin use the custom references you have created. If you want to use the default references, you can set `customReferences` to `false` in the config. This will make the plugin use the WHO references. <br /> 
 
