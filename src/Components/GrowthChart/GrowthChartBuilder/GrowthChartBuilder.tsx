@@ -45,7 +45,10 @@ export const GrowthChartBuilder = ({
         plugins: {
             annotation: { annotations },
             legend: { display: false },
-            tooltip: tooltipConfig(MeasuremenLabel, categoryLabel),
+            tooltip: {
+                ...tooltipConfig(MeasuremenLabel, categoryLabel),
+                animation: false,
+            },
         },
         scales: {
             x: {

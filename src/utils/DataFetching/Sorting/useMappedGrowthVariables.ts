@@ -1,4 +1,5 @@
 import { Event } from '../Hooks/useEvents';
+import { useIsWeightInGrams } from '../Hooks/useIsWeightInGrams';
 
 interface UseMappedGrowthVariablesProps {
     events: Event[];
@@ -30,7 +31,8 @@ export const useMappedGrowthVariables = ({
         Object.entries(growthVariables).reduce((acc, [key, value]: [string, string]) => {
             const dataValue = String(Object.entries(event.dataValues).find(([dataElement]) => dataElement === value)?.[1]);
             if (dataValue && value) {
-                acc[key] = (key === 'weight' && (isWeightInGrams || Number(dataValue) > 1000)) ? String(Number(dataValue) / 1000) : dataValue;
+                acc[key] = (key === 'weight' && useIsWeightInGrams(isWeightInGrams, Number(dataValue)))
+                    ? String(Number(dataValue) / 1000) : dataValue;
             }
             return acc;
         }, dataValueMap);
