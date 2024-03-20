@@ -23,7 +23,7 @@ Weight can be in either `gram` or `kg`, but height and head circumference should
 Tracked entity attribues needed for the Growth chart plugin is `Date of birth` and `gender`. However, `First Name` and `Last Name` are also needed if you want the name to be printed when using the print function. <br /> <br />
                     
 #### Tracked entity type
-Tracked entity type for person needs the same attributes as the tracked entity attributes. <br />
+Tracked entity type for person needs the same attributes as the tracked entity attributes. <br /> <br />
 
 
 #### Program     
@@ -36,14 +36,13 @@ The program should have the following attributes:
 - `Gender`
  <br />
 
-
 ##### Program stages
 Select stage where growth variables currently are or will be stored.
 The program stage should have the following data elements:
 - `Weight` (g or kg)
 - `Height` (cm)
 - `Head circumference` (cm)
-<br />                  
+<br /> <br />               
                          
 ## Datastore Manangement { #datastore_management }
 ### Capture
@@ -55,6 +54,7 @@ Add new section for the growth chart under `leftColumn`. You can choose where on
     "type": "plugin"
 }
 ```
+<br />
 
 ### Capture-growth-chart
 #### Config      
@@ -154,4 +154,3 @@ The growth chart plugin needs this config to work. All Id's should be changed, a
 ##### Use custom references
 
 If you want to use custom references, you can set `customReferences` to `true` in the config. This will make the plugin use the custom references you have created. If you want to use the default references, you can set `customReferences` to `false` in the config. This will make the plugin use the WHO references. <br /> 
-
