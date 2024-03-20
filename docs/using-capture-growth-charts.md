@@ -4,7 +4,11 @@
 
 Capture growth charts is a web application that allows users to capture and view growth data for children under the age of 5. The application is designed to be used by health workers in the field to capture growth data for children and to view growth charts for children in their care. The application is designed to be used on a tablet or computer device and is optimized for data entry and visualization of growth charts for efficient monitoring of child development.
 
-## Growth chart plugin upload
+# Growth chart plugin upload
+Run yarn build in the root of the project to build the plugin. Then upload the plugin to the DHIS2 instance using the App Management app. Now the plugin should be an available app on the instance and you can find it on this url: 
+- `<Url of instance>/api/apps/capture-growth-chart/plugin.html` 
+
+Remember to alter `<Url of instance>` with the actual url of you instance.
 
 # Configuration { #configuration }
 ## Maintenance { #maintenance }
@@ -57,29 +61,29 @@ Add new section for the growth chart under `leftColumn`. You can choose where on
 Create new namespace `capture-growth-chart` with key `config`
 The growth chart plugin needs this config to work. All Id's should be changed, and will be specific for each implementation. The `femaleOptionCode` and `maleOptionCode` should map to the option codes used for gender. The structure of the config has to be the same as the one in the example below;
 ```json
-    {
-        "metadata": {
-            "attributes": {
-                "dateOfBirth": "AMl8BkN8Lyq",
-                "gender": "tyNlJWNnEbs",
-                "femaleOptionCode": "CGC_Female",
-                "maleOptionCode": "CGC_Male"
-            },
-            "dataElements": {
-                "headCircumference": "GfchA70xtmP",
-                "height": "wWCSulSdUgd",
-                "weight": "yZwKJdYXTZF"
-            },
-            "program": {
-                "programStageId": "h3gT08Et4sC"
-            }
+{
+    "metadata": {
+        "attributes": {
+            "dateOfBirth": "AMl8BkN8Lyq",
+            "gender": "tyNlJWNnEbs",
+            "femaleOptionCode": "CGC_Female",
+            "maleOptionCode": "CGC_Male"
         },
-        "settings": {
-            "customReferences": false,
-            "defaultStandard": "ID",
-            "weightInGrams": false
+        "dataElements": {
+            "headCircumference": "GfchA70xtmP",
+            "height": "wWCSulSdUgd",
+            "weight": "yZwKJdYXTZF"
+        },
+        "program": {
+            "programStageId": "h3gT08Et4sC"
         }
+    },
+    "settings": {
+        "customReferences": false,
+        "defaultStandard": "ID",
+        "weightInGrams": false
     }
+}
 ```    
 <br />
 
