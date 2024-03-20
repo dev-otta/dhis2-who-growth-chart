@@ -6,6 +6,8 @@ export type ChartConfig = {
         attributes: {
             dateOfBirth: string;
             gender: string;
+            femaleOptionCode: string;
+            maleOptionCode: string;
         };
         dataElements: {
             headCircumference: string;
@@ -19,6 +21,7 @@ export type ChartConfig = {
     settings: {
         defaultStandard: string;
         zScoreStandard: string;
+        weightInGrams: boolean;
     };
 };
 

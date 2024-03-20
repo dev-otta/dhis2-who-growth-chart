@@ -5,10 +5,10 @@ import { ChartData, GenderCodes, CategoryCodes, MeasurementData } from '../../ty
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
-import { ChartConfig } from '../../utils/DataFetching/Hooks/useChartConfig';
+import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTrackedEntity';
 
 interface GrowthChartProps {
-    trackedEntity: ChartConfig['metadata']['attributes'];
+    trackedEntity: MappedEntityValues;
     measurementData: MeasurementData[];
 }
 
@@ -16,8 +16,8 @@ export const GrowthChart = ({
     trackedEntity,
     measurementData,
 }: GrowthChartProps) => {
-    const trackedEntityGender = GenderCodes[trackedEntity?.gender?.toLowerCase() as 'male' | 'female'];
-    const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.female);
+    const trackedEntityGender = trackedEntity.gender;
+    const [gender, setGender] = useState<string>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.CGC_Female);
     const { chartDataForGender } = useChartDataForGender({ gender });
 
     const [category, setCategory] = useState<keyof typeof CategoryCodes>();
@@ -33,7 +33,7 @@ export const GrowthChart = ({
     }, [chartDataForGender]);
 
     useEffect(() => {
-        trackedEntity?.gender !== undefined && setGender(GenderCodes[trackedEntity?.gender?.toLowerCase() as 'male' | 'female']);
+        Object.values(GenderCodes).includes(trackedEntity.gender) && setGender(trackedEntity?.gender);
     }, [trackedEntity]);
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
