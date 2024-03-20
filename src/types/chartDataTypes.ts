@@ -9,6 +9,12 @@ export interface MeasurementData {
     };
 }
 
+interface TimeUnitData {
+    singular: string;
+    plural: string;
+    divisor: number;
+}
+
 export interface ChartDataTypes {
     datasetValues: { [key: string]: number }[];
     datasetMetadata: {
@@ -47,6 +53,19 @@ export const TimeUnitCodes = Object.freeze({
     weeks: i18n.t('Weeks'),
 });
 
+export const timeUnitData: { [key: string]: TimeUnitData } = {
+    [TimeUnitCodes.months]: {
+        singular: i18n.t('Year'),
+        plural: i18n.t('Years'),
+        divisor: 12,
+    },
+    [TimeUnitCodes.weeks]: {
+        singular: i18n.t('Month'),
+        plural: i18n.t('Months'),
+        divisor: 4,
+    },
+};
+
 export const MeasurementTypeCodesLabel = Object.freeze({
     headCircumference: i18n.t('Head circumference'),
     length: i18n.t('Length'),
@@ -65,10 +84,10 @@ export const MeasurementTypeCodes = Object.freeze({
     wflh_g: 'weight',
 });
 
-export const units = Object.freeze({
-    cm: i18n.t('cm'),
-    kg: i18n.t('kg'),
-    g: i18n.t('g'),
+export const unitCodes = Object.freeze({
+    cm: 'cm',
+    kg: 'kg',
+    g: 'g',
 });
 
 export const CategoryLabels = Object.freeze({

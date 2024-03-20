@@ -1,11 +1,4 @@
-import i18n from '@dhis2/d2-i18n';
-import { TimeUnitCodes } from '../../types/chartDataTypes';
-
-interface TimeUnitData {
-    singular: string;
-    plural: string;
-    divisor: number;
-}
+import { timeUnitData } from '../../types/chartDataTypes';
 
 export interface AnnotationLabelType {
     display: boolean;
@@ -13,19 +6,6 @@ export interface AnnotationLabelType {
     position?: 'top' | 'bottom' | 'center' | 'start' | 'end';
     yAdjust?: number;
 }
-
-const timeUnitData: { [key: string]: TimeUnitData } = {
-    [TimeUnitCodes.months]: {
-        singular: i18n.t('Year'),
-        plural: i18n.t('Years'),
-        divisor: 12,
-    },
-    [TimeUnitCodes.weeks]: {
-        singular: i18n.t('Month'),
-        plural: i18n.t('Months'),
-        divisor: 4,
-    },
-};
 
 const contentText = (value: number, xAxisLabel: string) => {
     const { singular, plural } = timeUnitData[xAxisLabel];

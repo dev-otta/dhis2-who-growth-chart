@@ -32,11 +32,11 @@ export const GrowthChartBuilder = ({
 
     const categoryLabel = CategoryToLabel[category];
 
-    const MeasuremenCode = MeasurementTypeCodes[category];
-    const MeasuremenLabel = MeasurementTypeCodesLabel[MeasuremenCode];
+    const MeasurementCode = MeasurementTypeCodes[category];
+    const MeasurementLabel = MeasurementTypeCodesLabel[MeasurementCode];
 
     const ZscoreLinesData = useZscoreLines(datasetValues, keysDataSet, datasetMetadata, category, dataset);
-    const MeasurementData = useMeasurementPlotting(measurementData, MeasuremenCode, category, dataset, dateOfBirth);
+    const MeasurementData = useMeasurementPlotting(measurementData, MeasurementCode, category, dataset, dateOfBirth);
     const data: any = { datasets: [...ZscoreLinesData, ...MeasurementData] };
     const annotations = useGrowthChartAnnotations(ZscoreLinesData, datasetMetadata);
 
@@ -46,7 +46,7 @@ export const GrowthChartBuilder = ({
             annotation: { annotations },
             legend: { display: false },
             tooltip: {
-                ...tooltipConfig(MeasuremenLabel, categoryLabel),
+                ...tooltipConfig(MeasurementLabel, categoryLabel),
                 animation: false,
             },
         },
