@@ -1,3 +1,4 @@
+import { GenderCodes } from '../../../types/chartDataTypes';
 import { ChartConfig } from '../Hooks/useChartConfig';
 import { TrackedEntity } from '../Hooks/useTeiById';
 
@@ -5,7 +6,10 @@ interface Attribute {
     [key: string]: string;
 }
 
-type ChartConfigAttributes = ChartConfig['metadata']['attributes'] & { [key: string]: string };
+export interface MappedEntityValues {
+    dateOfBirth: string | undefined;
+    gender: string;
+}
 
 interface UseMappedTrackedEntityVariablesProps {
     trackedEntity: TrackedEntity;
@@ -17,20 +21,32 @@ export const useMappedTrackedEntityVariables = ({
     trackedEntity,
     trackedEntityAttributes,
     variableMappings,
-}: UseMappedTrackedEntityVariablesProps): ChartConfigAttributes => {
-    const mappedValues: ChartConfigAttributes = {
+}: UseMappedTrackedEntityVariablesProps): MappedEntityValues => {
+    const mappedValues: MappedEntityValues = {
         dateOfBirth: undefined,
         gender: undefined,
     };
+
     if (!trackedEntity || !trackedEntityAttributes || !variableMappings) {
         return mappedValues;
     }
 
     return Object.entries(variableMappings).reduce((acc, [key, attributeId]) => {
+        if (key !== 'dateOfBirth' && key !== 'gender') return acc;
+
         const attribute = trackedEntityAttributes.find((attr: Attribute) => attr.attribute === attributeId);
         if (attribute) {
             const value = trackedEntity.attributes.find((attr: Attribute) => attr.attribute === attributeId)?.value;
             if (value !== undefined && value !== null) {
+                if (key === 'gender') {
+                    if (value === variableMappings.femaleOptionCode) {
+                        acc.gender = GenderCodes.CGC_Female;
+                    }
+                    if (value === variableMappings.maleOptionCode) {
+                        acc.gender = GenderCodes.CGC_Male;
+                    }
+                    return acc;
+                }
                 acc[key] = value;
             }
         }
