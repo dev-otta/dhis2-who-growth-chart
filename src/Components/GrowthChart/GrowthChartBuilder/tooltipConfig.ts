@@ -11,6 +11,7 @@ interface TooltipConfig {
     borderColor: string;
     borderWidth: number;
     padding: number;
+    animation: boolean;
     caretPadding: number;
     boxPadding: number;
     usePointStyle: boolean;
@@ -36,6 +37,7 @@ export const tooltipConfig = (formattedFieldName: string, category: string): Too
     boxPadding: 4,
     usePointStyle: true,
     filter: (tooltipItem) => tooltipItem.dataset.id === 'measurementData',
+    animation: false,
     callbacks: {
         title: () => '',
         beforeLabel: (tooltipItem) => {
