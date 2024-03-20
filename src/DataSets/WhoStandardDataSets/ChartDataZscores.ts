@@ -18,7 +18,7 @@ export const chartData: ChartData = {
     [CategoryCodes.hcfa_b]: {
         categoryMetadata: {
             label: CategoryLabels.hcfa,
-            gender: GenderCodes.male,
+            gender: GenderCodes.CGC_Male,
         },
         datasets: {
             [ChartCodes.hcfa_b_0_13_w_z]: {
@@ -44,7 +44,7 @@ export const chartData: ChartData = {
     [CategoryCodes.hcfa_g]: {
         categoryMetadata: {
             label: CategoryLabels.hcfa,
-            gender: GenderCodes.female,
+            gender: GenderCodes.CGC_Female,
         },
         datasets: {
             [ChartCodes.hcfa_g_0_13_w_z]: {
@@ -70,7 +70,7 @@ export const chartData: ChartData = {
     [CategoryCodes.lhfa_b]: {
         categoryMetadata: {
             label: CategoryLabels.lhfa,
-            gender: GenderCodes.male,
+            gender: GenderCodes.CGC_Male,
         },
         datasets: {
             [ChartCodes.lhfa_b_0_13_w_z]: {
@@ -105,7 +105,7 @@ export const chartData: ChartData = {
     [CategoryCodes.lhfa_g]: {
         categoryMetadata: {
             label: CategoryLabels.lhfa,
-            gender: GenderCodes.female,
+            gender: GenderCodes.CGC_Female,
         },
         datasets: {
             [ChartCodes.lhfa_g_0_13_w_z]: {
@@ -140,7 +140,7 @@ export const chartData: ChartData = {
     [CategoryCodes.wfa_b]: {
         categoryMetadata: {
             label: CategoryLabels.wfa,
-            gender: GenderCodes.male,
+            gender: GenderCodes.CGC_Male,
         },
         datasets: {
             [ChartCodes.wfa_b_0_13_w_z]: {
@@ -166,7 +166,7 @@ export const chartData: ChartData = {
     [CategoryCodes.wfa_g]: {
         categoryMetadata: {
             label: CategoryLabels.wfa,
-            gender: GenderCodes.female,
+            gender: GenderCodes.CGC_Female,
         },
         datasets: {
             [ChartCodes.wfa_g_0_13_w_z]: {
@@ -192,7 +192,7 @@ export const chartData: ChartData = {
     [CategoryCodes.wflh_b]: {
         categoryMetadata: {
             label: CategoryLabels.wflh,
-            gender: GenderCodes.male,
+            gender: GenderCodes.CGC_Male,
         },
         datasets: {
             [ChartCodes.wfl_b_0_2_y_z]: {
@@ -218,7 +218,7 @@ export const chartData: ChartData = {
     [CategoryCodes.wflh_g]: {
         categoryMetadata: {
             label: CategoryLabels.wflh,
-            gender: GenderCodes.female,
+            gender: GenderCodes.CGC_Female,
         },
         datasets: {
             [ChartCodes.wfl_g_0_2_y_z]: {
