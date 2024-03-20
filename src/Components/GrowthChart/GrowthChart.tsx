@@ -1,10 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
-import { useRangeTimePeriod } from '../../utils/useRangeTimePeriod';
 import { ChartSelector } from '../GrowthChartSelector';
 import { ChartData, GenderCodes, CategoryCodes, MeasurementData } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
-import { GrowthChartAnnotations } from './GrowthChartOptions';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
 import { ChartConfig } from '../../utils/DataFetching/Hooks/useChartConfig';
@@ -40,11 +38,8 @@ export const GrowthChart = ({
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
 
-    const dataSetValues = dataSetEntry?.datasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
-
-    const xAxisValues = useRangeTimePeriod(dataSetMetadata?.range.start, dataSetMetadata?.range.end);
-
+    const dataSetValues = dataSetEntry?.datasetValues;
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
 
     const [minDataValue, maxDataValue] = useMemo(() => {
@@ -53,14 +48,8 @@ export const GrowthChart = ({
         return [minVal, maxVal];
     }, [min, max]);
 
-    const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata?.xAxisLabel);
-
     if (!chartDataForGender || !dataSetValues) {
         return null;
-    }
-
-    if (xAxisValues.length !== dataSetValues.length) {
-        console.error('xAxisValues and dataSet should have the same length');
     }
 
     const keysDataSet = Object.keys(dataSetValues[0]);
@@ -91,13 +80,11 @@ export const GrowthChart = ({
             </div>
 
             <GrowthChartBuilder
+                measurementData={measurementData}
                 datasetValues={dataSetValues}
                 datasetMetadata={dataSetMetadata}
-                xAxisValues={xAxisValues}
                 yAxisValues={yAxisValues}
                 keysDataSet={keysDataSet}
-                annotations={annotations}
-                measurementData={measurementData}
                 dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
                 category={category}
                 dataset={dataset}
