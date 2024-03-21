@@ -12,7 +12,7 @@ import { useGrowthChartAnnotations } from '../../../utils/GrowthChartOptions';
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
-    dataset: string | number;
+    dataset: string;
     dateOfBirth: Date;
 }
 
@@ -35,8 +35,11 @@ export const GrowthChartBuilder = ({
     const MeasuremenCode = MeasurementTypeCodes[category];
     const MeasuremenLabel = MeasurementTypeCodesLabel[MeasuremenCode];
 
-    const ZscoreLinesData = useZscoreLines(datasetValues, keysDataSet, datasetMetadata, category, dataset);
-    const MeasurementData = useMeasurementPlotting(measurementData, MeasuremenCode, category, dataset, dateOfBirth);
+    const adjustIndex = (dataset === '2 to 5 years') ? 24 : 0;
+    const startIndex = (category !== 'wflh_b' && category !== 'wflh_g') ? adjustIndex : datasetMetadata.range.start;
+
+    const ZscoreLinesData = useZscoreLines(datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex);
+    const MeasurementData = useMeasurementPlotting(measurementData, MeasuremenCode, category, dataset, dateOfBirth, startIndex);
     const data: any = { datasets: [...ZscoreLinesData, ...MeasurementData] };
     const annotations = useGrowthChartAnnotations(ZscoreLinesData, datasetMetadata);
 

@@ -1,4 +1,5 @@
 import { useCalculateDecimalDate } from './useCalculateDecimalDate';
+import { DataSetLabels } from '../types/chartDataTypes';
 
 export interface MeasurementDataEntry {
     eventDate: string | Date;
@@ -8,70 +9,48 @@ export interface MeasurementDataEntry {
 }
 
 export const useMeasurementPlotting = (
-    measurementData: MeasurementDataEntry[],
+    measurementData: MeasurementDataEntry[] | undefined,
     fieldName: string,
     category: string,
-    dataset: string | number,
+    dataset: string,
     dateOfBirth: Date,
+    startIndex: number,
 ) => {
     const measurementDataValues: { x: Date | number | string; y: number; eventDate?: Date }[] = [];
 
-    if (dataset === '0 to 13 weeks' || dataset === '0 to 2 years' || dataset === '0 to 5 years') {
-        measurementData?.forEach((entry: MeasurementDataEntry) => {
-            let xValue: Date | number | string;
-            let yValue: number;
-
-            if (category === 'wflh_b' || category === 'wflh_g') {
-                xValue = parseFloat(entry.dataValues.height as string);
-                yValue = parseFloat(entry.dataValues.weight as string);
-            } else {
-                let dateString: string;
-                if (typeof entry.eventDate === 'string') {
-                    dateString = entry.eventDate;
-                } else {
-                    dateString = entry.eventDate.toISOString();
-                }
-                const xValueDecimalDate: string = useCalculateDecimalDate(dateString, dataset, dateOfBirth);
-                xValue = xValueDecimalDate;
-                yValue = parseFloat(entry.dataValues[fieldName] as string);
-            }
-            const eventDateValue = new Date(entry.eventDate);
-            return measurementDataValues.push({
-                x: xValue,
-                y: yValue,
-                eventDate: eventDateValue,
-            });
-        });
+    if (!measurementData) {
+        return [];
     }
 
-    if (dataset === '2 to 5 years') {
-        measurementData = measurementData.slice(24);
+    const processEntry = (entry: MeasurementDataEntry) => {
+        let xValue: Date | number | string;
+        let yValue: number;
 
-        measurementData.forEach((entry: MeasurementDataEntry) => {
-            let xValue: Date | number | string;
-            let yValue: number;
+        if (category === 'wflh_b' || category === 'wflh_g') {
+            xValue = parseFloat(entry.dataValues.height as string);
+            yValue = parseFloat(entry.dataValues.weight as string);
+        } else {
+            const dateString: string = typeof entry.eventDate === 'string' ? entry.eventDate : entry.eventDate.toISOString();
+            const xValueDecimalDate: string = useCalculateDecimalDate(dateString, dataset, dateOfBirth);
+            xValue = xValueDecimalDate;
+            yValue = parseFloat(entry.dataValues[fieldName] as string);
+        }
 
-            if (category === 'wflh_b' || category === 'wflh_g') {
-                xValue = parseFloat(entry.dataValues.height as string);
-                yValue = parseFloat(entry.dataValues.weight as string);
-            } else {
-                let dateString: string;
-                if (typeof entry.eventDate === 'string') {
-                    dateString = entry.eventDate;
-                } else {
-                    dateString = entry.eventDate.toISOString();
-                }
-                const xValueDecimalDate: string = useCalculateDecimalDate(dateString, dataset, dateOfBirth);
-                xValue = xValueDecimalDate;
-                yValue = parseFloat(entry.dataValues[fieldName] as string);
-            }
-            const eventDateValue = new Date(entry.eventDate);
-            return measurementDataValues.push({
-                x: xValue,
-                y: yValue,
-                eventDate: eventDateValue,
-            });
+        const eventDateValue = new Date(entry.eventDate);
+        measurementDataValues.push({
+            x: xValue,
+            y: yValue,
+            eventDate: eventDateValue,
         });
+    };
+
+    const validDatasets = Object.values(DataSetLabels);
+    if (validDatasets.includes(dataset)) {
+        measurementData.forEach(processEntry);
+
+        if (dataset !== DataSetLabels.y_2_5) {
+            measurementDataValues.filter((data) => typeof data.x === 'number' && data.x >= startIndex);
+        }
     }
 
     return [
