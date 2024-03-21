@@ -12,7 +12,7 @@ export const useMeasurementPlotting = (
     measurementData: MeasurementDataEntry[] | undefined,
     fieldName: string,
     category: string,
-    dataset: string,
+    dataset: string | number,
     dateOfBirth: Date,
     startIndex: number,
 ) => {
