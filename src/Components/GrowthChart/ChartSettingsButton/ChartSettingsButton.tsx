@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { usePopper } from 'react-popper';
 import { EllipsisButton } from './EllipsisButton';
 import { PopoverList, PopoverListItem, PopoverListDivider } from './PopoverList';
-import { usePrintDocument } from '../../../utils/usePrintDocument';
+import { PrintDocument } from '../../../utils/ChartOptions';
 import { CategoryCodes, ChartData } from '../../../types/chartDataTypes';
 import { PdfIcon } from '../../../UI/Icons/PdfIcon';
 
@@ -42,7 +42,7 @@ export const ChartSettingsButton = ({ category, dataset, gender }: ChartSettings
         };
     }, []);
 
-    const handlePrintDocument = () => usePrintDocument({
+    const handlePrintDocument = () => PrintDocument({
         category, dataset, gender,
     });
 

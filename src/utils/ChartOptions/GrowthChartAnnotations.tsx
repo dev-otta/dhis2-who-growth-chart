@@ -32,7 +32,7 @@ const contentText = (value: number, xAxisLabel: string) => {
     return `${value} ${value === 1 ? singular : plural}`;
 };
 
-export const useGrowthChartAnnotations = (
+export const GrowthChartAnnotations = (
     ZscoreLines: any[],
     datasetMetadata: any,
 ): AnnotationLabelType[] => {

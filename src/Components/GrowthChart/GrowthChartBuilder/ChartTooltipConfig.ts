@@ -22,7 +22,7 @@ interface TooltipConfig {
     };
 }
 
-export const tooltipConfig = (formattedFieldName: string, category: string): TooltipConfig => ({
+export const ChartTooltipConfig = (formattedFieldName: string, category: string): TooltipConfig => ({
     enabled: true,
     intersect: false,
     position: 'nearest' as Scriptable<keyof TooltipPositionerMap, ScriptableTooltipContext<'line'>>,

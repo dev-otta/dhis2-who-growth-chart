@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
-import { ChartSelector } from '../GrowthChartSelector';
+import { ChartSelector } from './GrowthChartSelector';
 import { ChartData, GenderCodes, CategoryCodes, MeasurementData } from '../../types/chartDataTypes';
-import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
+import { useCalculateMinMaxValues } from '../../utils/Hooks/Calculations/useCalculateMinMaxValues';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
 import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTrackedEntity';

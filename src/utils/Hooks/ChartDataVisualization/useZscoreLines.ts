@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { chartLineColorPicker } from './chartLineColorPicker';
+import { ChartLineColorPicker } from '../../ChartOptions';
 
 interface DatasetValues {
     [key: string]: number;
@@ -22,7 +22,7 @@ export const useZscoreLines = (
                 y: entry[key],
             })),
             borderWidth: 0.9,
-            borderColor: chartLineColorPicker(key),
+            borderColor: ChartLineColorPicker(key),
             label: key,
         }));
 

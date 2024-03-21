@@ -5,10 +5,9 @@ import Chart, { ChartOptions } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { ChartDataTypes, CategoryToLabel, MeasurementTypeCodesLabel, MeasurementTypeCodes } from '../../../types/chartDataTypes';
-import { annotateLineEnd } from '../../../utils/annotateLineEnd';
-import { useMeasurementPlotting, useZscoreLines } from '../../../utils';
-import { tooltipConfig } from './tooltipConfig';
-import { useGrowthChartAnnotations } from '../../../utils/GrowthChartOptions';
+import { GrowthChartAnnotations, AnnotateLineEnd } from '../../../utils/ChartOptions';
+import { useMeasurementPlotting, useZscoreLines } from '../../../utils/Hooks/ChartDataVisualization';
+import { ChartTooltipConfig } from './ChartTooltipConfig';
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
@@ -41,14 +40,14 @@ export const GrowthChartBuilder = ({
     const ZscoreLinesData = useZscoreLines(datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex);
     const MeasurementData = useMeasurementPlotting(measurementData, MeasuremenCode, category, dataset, dateOfBirth, startIndex);
     const data: any = { datasets: [...ZscoreLinesData, ...MeasurementData] };
-    const annotations = useGrowthChartAnnotations(ZscoreLinesData, datasetMetadata);
+    const annotations = GrowthChartAnnotations(ZscoreLinesData, datasetMetadata);
 
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: {
             annotation: { annotations },
             legend: { display: false },
-            tooltip: tooltipConfig(MeasuremenLabel, categoryLabel),
+            tooltip: ChartTooltipConfig(MeasuremenLabel, categoryLabel),
         },
         scales: {
             x: {
@@ -80,8 +79,8 @@ export const GrowthChartBuilder = ({
             },
         },
         animation: {
-            onComplete: (chartAnimation: any) => annotateLineEnd(chartAnimation),
-            onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation),
+            onComplete: (chartAnimation: any) => AnnotateLineEnd(chartAnimation),
+            onProgress: (chartAnimation: any) => AnnotateLineEnd(chartAnimation),
         },
     };
 
