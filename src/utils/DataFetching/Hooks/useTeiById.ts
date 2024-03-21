@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
+import { RequestedEntities, handleAPIResponse } from './handleAPIResponse';
 
 type UseEventByIdProps = {
     teiId: string | undefined;
@@ -35,14 +36,16 @@ export const useTeiById = ({ teiId }: UseEventByIdProps): UseEventByIdReturn => 
         isLoading,
         isError,
     } = useQuery(['teilById', teiId], () => dataEngine.query({
-        eventById: {
+        trackedEntity: {
             resource: 'tracker/trackedEntities',
             id: ({ teiId }) => teiId,
         },
     }, { variables: { teiId } }), { staleTime: 5000 });
 
+    const apiResponse: TrackedEntity = handleAPIResponse(RequestedEntities.trackedEntity, data);
+
     return {
-        trackedEntity: data?.eventById as TrackedEntity,
+        trackedEntity: apiResponse,
         isLoading,
         isError,
     };
