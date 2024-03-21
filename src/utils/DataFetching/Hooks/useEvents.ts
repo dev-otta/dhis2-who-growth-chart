@@ -3,6 +3,7 @@ import { useDataEngine } from '@dhis2/app-runtime';
 import { useMemo } from 'react';
 import { convertDataElementToValues } from '../Convert';
 import { ServerEvent } from '../../../types/Event.types';
+import { RequestedEntities, handleAPIResponse } from './handleAPIResponse';
 
 type UseEventsByProgramStageProps = {
     programStageId: string | undefined;
@@ -36,7 +37,7 @@ interface UseEventsByProgramStageReturn {
     stageHasEvents: boolean;
 }
 
-export const useEventsByProgramStage = ({
+export const useEvents = ({
     orgUnitId,
     programId,
     programStageId,
@@ -72,13 +73,15 @@ export const useEventsByProgramStage = ({
         },
     }), { staleTime: 5000 });
 
-    const events = useMemo(() => data?.eventsByProgramStage?.instances?.map((event: ServerEvent) => {
+    const apiResponse = handleAPIResponse(RequestedEntities.events, data?.eventsByProgramStage);
+
+    const events = useMemo(() => apiResponse?.map((event: ServerEvent) => {
         const dataValues = convertDataElementToValues(event?.dataValues);
         return {
             ...event,
             dataValues,
         };
-    }), [data]);
+    }), [apiResponse]);
 
     const stageHasEvents = useMemo(() => events?.length !== 0, [events]);
 
