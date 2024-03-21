@@ -86,6 +86,7 @@ export const GrowthChart = ({
                         category={category}
                         dataset={dataset}
                         gender={gender}
+                        trackedEntity={trackedEntity}
                     />
                 </div>
             </div>
