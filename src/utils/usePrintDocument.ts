@@ -30,7 +30,7 @@ export const usePrintDocument = ({
             pdf.setFontSize(18);
             lastName && pdf.text(`${firstName} ${lastName}`, 20, 20);
             lastName && pdf.setFontSize(14);
-            pdf.text(`${i18n.t(gender)} | ${CategoryToLabel[category]} - ${dataset}`, 20, 30);
+            pdf.text(`${i18n.t(gender)} - ${CategoryToLabel[category]} - ${dataset}`, 20, 30);
             pdf.addImage(imgData, 'JPEG', 10, 35, width - 20, height - 40);
 
             lastName ? pdf.save(`${lastName}_${category}_${datasetPdfLabel}.pdf`) : pdf.save(`${category}_${datasetPdfLabel}.pdf`);
