@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChartSelector } from '../../../src/Components/GrowthChartSelector';
+import { ChartSelector } from '../../../src/components/GrowthChart/GrowthChartSelector';
 import { useChartDataForGender } from '../../../src/utils/DataFetching/Sorting/useChartDataForGender';
 
 describe('ChartSelector', () => {
