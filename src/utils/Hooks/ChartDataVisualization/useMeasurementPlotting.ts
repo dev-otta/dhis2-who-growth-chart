@@ -27,13 +27,15 @@ export const useMeasurementPlotting = (
         let yValue: number;
 
         if (category === 'wflh_b' || category === 'wflh_g') {
-            xValue = parseFloat(entry.dataValues.height as string);
-            yValue = parseFloat(entry.dataValues.weight as string);
+            if (category === 'wflh_b' || category === 'wflh_g') {
+                xValue = parseFloat(String(entry.dataValues.height));
+                yValue = parseFloat(String(entry.dataValues.weight));
+            }
         } else {
             const dateString: string = typeof entry.eventDate === 'string' ? entry.eventDate : entry.eventDate.toISOString();
             const xValueDecimalDate: string = useCalculateDecimalDate(dateString, dataset, dateOfBirth);
             xValue = xValueDecimalDate;
-            yValue = parseFloat(entry.dataValues[fieldName] as string);
+            yValue = parseFloat(String(entry.dataValues[fieldName]));
         }
 
         const eventDateValue = new Date(entry.eventDate);
