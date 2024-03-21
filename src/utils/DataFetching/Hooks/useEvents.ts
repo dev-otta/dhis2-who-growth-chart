@@ -5,8 +5,6 @@ import { convertDataElementToValues } from '../Convert';
 import { ServerEvent } from '../../../types/Event.types';
 
 type UseEventsByProgramStageProps = {
-    programStageId: string | undefined;
-    orgUnitId: string | undefined;
     programId: string | undefined;
     teiId: string | undefined;
 };
@@ -36,10 +34,8 @@ interface UseEventsByProgramStageReturn {
     stageHasEvents: boolean;
 }
 
-export const useEventsByProgramStage = ({
-    orgUnitId,
+export const useEvents = ({
     programId,
-    programStageId,
     teiId,
 }: UseEventsByProgramStageProps): UseEventsByProgramStageReturn => {
     const dataEngine = useDataEngine();
@@ -47,28 +43,21 @@ export const useEventsByProgramStage = ({
         data,
         isLoading,
         isError,
-    } = useQuery(['eventsByProgramStage', orgUnitId, programStageId, programId, teiId], (): any => dataEngine.query({
+    } = useQuery(['eventsByProgramStage', programId, teiId], (): any => dataEngine.query({
         eventsByProgramStage: {
             resource: 'tracker/events',
             params: ({
-                orgUnitId,
-                programStageId,
                 programId,
                 teiId,
             }) => ({
-                fields: 'event,status,program,dataValues,occurredAt,programStage',
                 program: programId,
-                programStage: programStageId,
-                orgUnit: orgUnitId,
                 trackedEntity: teiId,
             }),
         },
     }, {
         variables: {
-            orgUnitId,
-            programStageId,
-            programId,
             teiId,
+            programId,
         },
     }), { staleTime: 5000 });
 
