@@ -72,7 +72,7 @@ export const useEventsByProgramStage = ({
         },
     }), { staleTime: 5000 });
 
-    const events = useMemo(() => data?.eventsByProgramStage?.events?.map((event: ServerEvent) => {
+    const events = useMemo(() => data?.eventsByProgramStage?.instances?.map((event: ServerEvent) => {
         const dataValues = convertDataElementToValues(event?.dataValues);
         return {
             ...event,
