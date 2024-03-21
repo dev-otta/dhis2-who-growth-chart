@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 import Chart, { ChartOptions } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { ChartDataTypes, CategoryToLabel, MeasurementTypeCodesLabel, MeasurementTypeCodes } from '../../../types/chartDataTypes';
+import { ChartDataTypes, CategoryToLabel, MeasurementTypeCodes } from '../../../types/chartDataTypes';
 import { annotateLineEnd } from '../../../utils/annotateLineEnd';
 import { useMeasurementPlotting, useZscoreLines } from '../../../utils';
 import { tooltipConfig } from './tooltipConfig';
@@ -30,10 +30,7 @@ export const GrowthChartBuilder = ({
 
     const { minDataValue, maxDataValue } = yAxisValues;
 
-    const categoryLabel = CategoryToLabel[category];
-
     const MeasurementCode = MeasurementTypeCodes[category];
-    const MeasurementLabel = MeasurementTypeCodesLabel[MeasurementCode];
 
     const ZscoreLinesData = useZscoreLines(datasetValues, keysDataSet, datasetMetadata, category, dataset);
     const MeasurementData = useMeasurementPlotting(measurementData, MeasurementCode, category, dataset, dateOfBirth);
@@ -46,7 +43,7 @@ export const GrowthChartBuilder = ({
             annotation: { annotations },
             legend: { display: false },
             tooltip: {
-                ...tooltipConfig(MeasurementLabel, categoryLabel),
+                ...tooltipConfig(category, datasetMetadata.xAxisLabel, datasetMetadata.yAxisLabel),
                 animation: false,
             },
         },

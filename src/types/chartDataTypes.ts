@@ -97,6 +97,13 @@ export const CategoryLabels = Object.freeze({
     wflh: i18n.t('Weight for length/height'),
 });
 
+const CategoryToYUnitLabel = Object.freeze({
+    hcfa: unitCodes.cm,
+    lhfa: unitCodes.cm,
+    wfa: unitCodes.kg,
+    wflh: unitCodes.cm,
+});
+
 export const CategoryCodes = Object.freeze({
     hcfa_b: 'hcfa_b',
     hcfa_g: 'hcfa_g',
@@ -118,6 +125,18 @@ export const CategoryToLabel = Object.freeze({
     wflh_b: CategoryLabels.wflh,
     wflh_g: CategoryLabels.wflh,
 });
+
+export const CategoryToYUnit = Object.freeze({
+    hcfa_b: CategoryToYUnitLabel.hcfa,
+    hcfa_g: CategoryToYUnitLabel.hcfa,
+    lhfa_b: CategoryToYUnitLabel.lhfa,
+    lhfa_g: CategoryToYUnitLabel.lhfa,
+    wfa_b: CategoryToYUnitLabel.wfa,
+    wfa_g: CategoryToYUnitLabel.wfa,
+    wflh_b: CategoryToYUnitLabel.wflh,
+    wflh_g: CategoryToYUnitLabel.wflh,
+});
+
 export const DataSetLabels = Object.freeze({
     y_0_5: i18n.t('0 to 5 years'),
     w_0_13: i18n.t('0 to 13 weeks'),
