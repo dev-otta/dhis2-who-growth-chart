@@ -4,14 +4,15 @@ import { Line } from 'react-chartjs-2';
 import Chart, { ChartOptions } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { ChartDataTypes, CategoryToLabel, MeasurementTypeCodesLabel, MeasurementTypeCodes } from '../../../types/chartDataTypes';
+import { ChartDataTypes, CategoryToLabel, MeasurementTypeCodesLabel,
+    MeasurementTypeCodes, DataSetLabels, CategoryCodes } from '../../../types/chartDataTypes';
 import { GrowthChartAnnotations, AnnotateLineEnd } from '../../../utils/ChartOptions';
 import { useMeasurementPlotting, useZscoreLines } from '../../../utils/Hooks/ChartDataVisualization';
 import { ChartTooltipConfig } from './ChartTooltipConfig';
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
-    dataset: string | number;
+    dataset: string;
     dateOfBirth: Date;
 }
 
@@ -34,8 +35,8 @@ export const GrowthChartBuilder = ({
     const MeasuremenCode = MeasurementTypeCodes[category];
     const MeasuremenLabel = MeasurementTypeCodesLabel[MeasuremenCode];
 
-    const adjustIndex = (dataset === '2 to 5 years') ? 24 : 0;
-    const startIndex = (category !== 'wflh_b' && category !== 'wflh_g') ? adjustIndex : datasetMetadata.range.start;
+    const adjustIndex = (dataset === DataSetLabels.y_2_5) ? 24 : 0;
+    const startIndex = (category !== CategoryCodes.wflh_b && category !== CategoryCodes.wflh_g) ? adjustIndex : datasetMetadata.range.start;
 
     const ZscoreLinesData = useZscoreLines(datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex);
     const MeasurementData = useMeasurementPlotting(measurementData, MeasuremenCode, category, dataset, dateOfBirth, startIndex);

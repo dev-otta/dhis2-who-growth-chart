@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
 import { ChartSelector } from './GrowthChartSelector';
-import { ChartData, GenderCodes, CategoryCodes, MeasurementData } from '../../types/chartDataTypes';
+import { GenderCodes, CategoryCodes, MeasurementData } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/Hooks/Calculations/useCalculateMinMaxValues';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
@@ -21,13 +21,13 @@ export const GrowthChart = ({
     const { chartDataForGender } = useChartDataForGender({ gender });
 
     const [category, setCategory] = useState<keyof typeof CategoryCodes>();
-    const [dataset, setDataset] = useState<keyof ChartData>();
+    const [dataset, setDataset] = useState<string>();
 
     useEffect(() => {
         if (Object.keys(chartDataForGender).length > 0) {
             const newCategory = Object.keys(chartDataForGender)[0] as keyof typeof CategoryCodes;
             setCategory(newCategory);
-            const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0] as keyof ChartData;
+            const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0];
             setDataset(newDataset);
         }
     }, [chartDataForGender]);

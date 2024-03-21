@@ -1,5 +1,5 @@
 import { useCalculateDecimalDate } from '../Calculations/useCalculateDecimalDate';
-import { DataSetLabels } from '../../../types/chartDataTypes';
+import { DataSetLabels, CategoryCodes } from '../../../types/chartDataTypes';
 
 export interface MeasurementDataEntry {
     eventDate: string | Date;
@@ -12,7 +12,7 @@ export const useMeasurementPlotting = (
     measurementData: MeasurementDataEntry[] | undefined,
     fieldName: string,
     category: string,
-    dataset: string | number,
+    dataset: string,
     dateOfBirth: Date,
     startIndex: number,
 ) => {
@@ -26,11 +26,9 @@ export const useMeasurementPlotting = (
         let xValue: Date | number | string;
         let yValue: number;
 
-        if (category === 'wflh_b' || category === 'wflh_g') {
-            if (category === 'wflh_b' || category === 'wflh_g') {
-                xValue = parseFloat(String(entry.dataValues.height));
-                yValue = parseFloat(String(entry.dataValues.weight));
-            }
+        if (category === CategoryCodes.wflh_b || category === CategoryCodes.wflh_g) {
+            xValue = parseFloat(String(entry.dataValues.height));
+            yValue = parseFloat(String(entry.dataValues.weight));
         } else {
             const dateString: string = typeof entry.eventDate === 'string' ? entry.eventDate : entry.eventDate.toISOString();
             const xValueDecimalDate: string = useCalculateDecimalDate(dateString, dataset, dateOfBirth);
