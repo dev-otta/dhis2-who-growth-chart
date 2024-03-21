@@ -6,6 +6,8 @@ export type ChartConfig = {
         attributes: {
             dateOfBirth: string;
             gender: string;
+            femaleOptionCode: string;
+            maleOptionCode: string;
         };
         dataElements: {
             headCircumference: string;
