@@ -13,7 +13,7 @@ interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
     dataset: string | number;
     dateOfBirth: Date;
-    percentiles: boolean;
+    isPercentiles: boolean;
 }
 
 export const GrowthChartBuilder = ({
@@ -26,7 +26,7 @@ export const GrowthChartBuilder = ({
     category,
     dataset,
     dateOfBirth,
-    percentiles,
+    isPercentiles,
 }: GrowthChartBuilderProps) => {
     Chart.register(annotationPlugin);
 
@@ -34,13 +34,13 @@ export const GrowthChartBuilder = ({
 
     const adjustIndex = (dataset === '2 to 5 years') ? 24 : 0;
 
-    const ZscoreLines = keysDataSet.map((key) => ({
+    const growthLines = keysDataSet.map((key) => ({
         data: datasetValues.map((entry, index) => ({
             x: (category !== 'wflh_b' && category !== 'wflh_g') ? adjustIndex + index : datasetMetadata.range.start + index,
             y: entry[key],
         })),
         borderWidth: 0.9,
-        borderColor: chartLineColorPicker(key, percentiles),
+        borderColor: chartLineColorPicker(key, isPercentiles),
         label: key,
     }));
 
@@ -56,7 +56,7 @@ export const GrowthChartBuilder = ({
     const formattedFieldName = fieldName.charAt(0).toUpperCase() + fieldName.substring(1);
     const MeasurementData = useMeasurementDataChart(measurementData, fieldName, category, dataset, dateOfBirth);
 
-    const data: any = { datasets: [...ZscoreLines, ...MeasurementData] };
+    const data: any = { datasets: [...growthLines, ...MeasurementData] };
 
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
@@ -119,12 +119,12 @@ export const GrowthChartBuilder = ({
                 position: 'right',
                 min: minDataValue,
                 max: maxDataValue,
-                ticks: { padding: percentiles ? 36 : 18 },
+                ticks: { padding: isPercentiles ? 36 : 18 },
             },
         },
         animation: {
-            onComplete: (chartAnimation: any) => annotateLineEnd(chartAnimation, percentiles, keysDataSet),
-            onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation, percentiles, keysDataSet),
+            onComplete: (chartAnimation: any) => annotateLineEnd(chartAnimation, isPercentiles, keysDataSet),
+            onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation, isPercentiles, keysDataSet),
         },
     };
 

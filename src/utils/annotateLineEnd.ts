@@ -7,7 +7,7 @@ interface DataSet {
     label: string;
 }
 
-export const annotateLineEnd = (animation: Animation & { chart?: Chart }, percentiles: boolean, keysDataSet: string[]) => {
+export const annotateLineEnd = (animation: Animation & { chart?: Chart }, isPercentiles: boolean, keysDataSet: string[]) => {
     const { chart } = animation;
     if (!chart) return;
 
@@ -20,12 +20,12 @@ export const annotateLineEnd = (animation: Animation & { chart?: Chart }, percen
     const extractNumberFromLabel = (label: string): number => parseFloat(label.replace(/[^\d.-]/g, ''));
 
     const adjustLabel = (labelText: number, originalLabel: string): string => {
-        if (percentiles) {
+        if (isPercentiles) {
             if (originalLabel === 'P01') return '0.1%';
             if (originalLabel === 'P999') return '99.9%';
             return `${labelText}%`;
         }
-        if (!percentiles) {
+        if (!isPercentiles) {
             const isNegative = originalLabel.includes('neg');
             return isNegative ? `-${labelText}` : ` ${labelText}`;
         }
