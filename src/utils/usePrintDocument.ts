@@ -32,6 +32,6 @@ export const usePrintDocument = ({
             pdf.text(`${gender} | ${CategoryToLabel[category]} - ${dataset}`, 20, 30);
             pdf.addImage(imgData, 'JPEG', 10, 35, width - 20, height - 40);
 
-            pdf.save(`${firstName}_${lastName}_${category}_${datasetPdfLabel}.pdf`);
+            lastName ? pdf.save(`${lastName}_${category}_${datasetPdfLabel}.pdf`) : pdf.save(`${category}_${datasetPdfLabel}.pdf`);
         });
 };
