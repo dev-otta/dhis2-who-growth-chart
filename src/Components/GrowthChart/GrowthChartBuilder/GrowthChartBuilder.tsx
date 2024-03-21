@@ -11,7 +11,7 @@ import { ChartTooltipConfig } from './ChartTooltipConfig';
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
-    dataset: string;
+    dataset: string | number;
     dateOfBirth: Date;
 }
 

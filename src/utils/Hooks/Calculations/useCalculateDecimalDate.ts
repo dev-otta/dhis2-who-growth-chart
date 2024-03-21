@@ -1,4 +1,4 @@
-export const useCalculateDecimalDate = (date: string, dataset: string, dateOfBirth: Date): string => {
+export const useCalculateDecimalDate = (date: string, dataset: string | number, dateOfBirth: Date): string => {
     const millisecondsInDay = 1000 * 60 * 60 * 24;
 
     if (dataset === '0 to 13 weeks') {
