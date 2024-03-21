@@ -2,16 +2,16 @@ import { Event } from '../Hooks/useEvents';
 
 interface UseMappedGrowthVariablesProps {
     events: Event[];
-    growthVariables: { [key: string]: string };
+    growthVariables: { [key: string]: number | undefined };
     isWeightInGrams: boolean;
 }
 
 export interface MappedDataValue {
     eventDate: string;
     dataValues: {
-        weight: string;
-        headCircumference: string;
-        height: string;
+        weight: number;
+        headCircumference: number;
+        height: number;
     };
 }
 
@@ -20,17 +20,17 @@ export const useMappedGrowthVariables = ({
     growthVariables,
     isWeightInGrams,
 }: UseMappedGrowthVariablesProps): MappedDataValue[] | undefined => events?.map((event: Event) => {
-    const dataValueMap: { weight: string; headCircumference: string; height: string; [key: string]: string } = {
-        weight: '',
-        headCircumference: '',
-        height: '',
+    const dataValueMap: { weight: number; headCircumference: number; height: number; [key: string]: number } = {
+        weight: undefined,
+        headCircumference: undefined,
+        height: undefined,
     };
 
     if (growthVariables && event.dataValues) {
-        Object.entries(growthVariables).reduce((acc, [key, value]: [string, string]) => {
-            const dataValue = String(Object.entries(event.dataValues).find(([dataElement]) => dataElement === value)?.[1]);
+        Object.entries(growthVariables).reduce((acc, [key, value]: [string, number | undefined]) => {
+            const dataValue = Number(Object.entries(event.dataValues).find(([dataElement]) => dataElement === String(value))?.[1]);
             if (dataValue && value) {
-                acc[key] = (key === 'weight' && (isWeightInGrams || Number(dataValue) > 1000)) ? String(Number(dataValue) / 1000) : dataValue;
+                acc[key] = (key === 'weight' && (isWeightInGrams || dataValue > 1000)) ? dataValue / 1000 : dataValue;
             }
             return acc;
         }, dataValueMap);

@@ -8,6 +8,7 @@ import { GrowthChartAnnotations } from './GrowthChartOptions';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
 import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTrackedEntity';
+import { useFilterByMissingData } from '../../utils/Hooks';
 
 interface GrowthChartProps {
     trackedEntity: MappedEntityValues;
@@ -22,23 +23,25 @@ export const GrowthChart = ({
     const [gender, setGender] = useState<string>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.CGC_Female);
     const { chartDataForGender } = useChartDataForGender({ gender });
 
+    const { chartData } = useFilterByMissingData(measurementData, chartDataForGender);
+
     const [category, setCategory] = useState<keyof typeof CategoryCodes>();
     const [dataset, setDataset] = useState<keyof ChartData>();
 
     useEffect(() => {
-        if (Object.keys(chartDataForGender).length > 0) {
-            const newCategory = Object.keys(chartDataForGender)[0] as keyof typeof CategoryCodes;
+        if (Object.keys(chartData).length > 0) {
+            const newCategory = Object.keys(chartData)[0] as keyof typeof CategoryCodes;
             setCategory(newCategory);
-            const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0] as keyof ChartData;
+            const newDataset = Object.keys(chartData[newCategory].datasets)[0] as keyof ChartData;
             setDataset(newDataset);
         }
-    }, [chartDataForGender]);
+    }, [chartData]);
 
     useEffect(() => {
         Object.values(GenderCodes).includes(trackedEntity.gender) && setGender(trackedEntity?.gender);
     }, [trackedEntity]);
 
-    const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
+    const dataSetEntry = chartData[category]?.datasets[dataset];
 
     const dataSetValues = dataSetEntry?.datasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
@@ -55,7 +58,7 @@ export const GrowthChart = ({
 
     const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata?.xAxisLabel);
 
-    if (!chartDataForGender || !dataSetValues) {
+    if (!chartData || !dataSetValues) {
         return null;
     }
 
@@ -75,7 +78,7 @@ export const GrowthChart = ({
                         dataset={dataset}
                         setCategory={setCategory}
                         setDataset={setDataset}
-                        chartData={chartDataForGender}
+                        chartData={chartData}
                         isDisabled={trackedEntityGender !== undefined}
                         gender={gender}
                         setGender={setGender}

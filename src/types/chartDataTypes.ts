@@ -4,9 +4,9 @@ import { AnnotationLabelType } from '../Components/GrowthChart/GrowthChartOption
 export interface MeasurementData {
     eventDate: string;
     dataValues: {
-        weight: string;
-        headCircumference: string;
-        height: string;
+        weight: number;
+        headCircumference: number;
+        height: number;
     };
 }
 
