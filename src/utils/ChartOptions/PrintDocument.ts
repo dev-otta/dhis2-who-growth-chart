@@ -1,6 +1,6 @@
 import html2canvas from 'html2canvas';
 import JsPDF from 'jspdf';
-import { CategoryCodes, ChartData, CategoryToLabel } from '../types/chartDataTypes';
+import { CategoryCodes, ChartData, CategoryToLabel } from '../../types/chartDataTypes';
 
 interface PrintDocumentProps {
     category: keyof typeof CategoryCodes;
@@ -8,7 +8,7 @@ interface PrintDocumentProps {
     gender: string;
 }
 
-export const usePrintDocument = ({ category, dataset, gender }: PrintDocumentProps) => {
+export const PrintDocument = ({ category, dataset, gender }: PrintDocumentProps) => {
     const datasetPdfLabel = String(dataset).replace(/ /g, '_');
     const input = document.getElementById('divToPrint');
     html2canvas(input, { logging: false })

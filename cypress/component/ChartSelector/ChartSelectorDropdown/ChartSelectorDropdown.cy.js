@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChartSelectorDropdown } from '../../../../src/Components/GrowthChartSelector/ChartSelectorDropdown';
+import { ChartSelectorDropdown } from '../../../../src/components/GrowthChart/GrowthChartSelector/ChartSelectorDropdown';
 
 describe('ChartSelectorDropdown', () => {
     const TestComponent = () => {
