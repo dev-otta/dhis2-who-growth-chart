@@ -28,14 +28,14 @@ export interface ChartData {
             label: string;
             gender: string;
         };
-        datasets: {
-            [key: string]: {
-                datasetValues: { [key: string]: number }[];
-                metadata: {
-                    chartLabel: string;
-                    yAxisLabel: string;
-                    xAxisLabel: string;
-                    range: { start: number; end: number };
+        datasets: { [key: string]: {
+            zScoreDatasetValues: { [key: string]: number }[];
+            percentileDatasetValues: { [key: string]: number }[];
+            metadata: {
+                chartLabel: string;
+                yAxisLabel: string;
+                xAxisLabel: string;
+                range: { start: number; end: number };
                 };
             }
         };

@@ -7,13 +7,14 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import { ChartDataTypes, CategoryToLabel, MeasurementTypeCodesLabel,
     MeasurementTypeCodes, DataSetLabels, CategoryCodes } from '../../../types/chartDataTypes';
 import { GrowthChartAnnotations, AnnotateLineEnd } from '../../../utils/ChartOptions';
-import { useMeasurementPlotting, useZscoreLines } from '../../../utils/Hooks/ChartDataVisualization';
-import { ChartTooltipConfig } from './ChartTooltipConfig';
+import { useMeasurementPlotting, useChartLines } from '../../../utils/Hooks/ChartDataVisualization';
+import { ChartTooltip } from './ChartTooltip';
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
     dataset: string;
     dateOfBirth: Date;
+    isPercentiles: boolean;
 }
 
 export const GrowthChartBuilder = ({
@@ -25,6 +26,7 @@ export const GrowthChartBuilder = ({
     category,
     dataset,
     dateOfBirth,
+    isPercentiles,
 }: GrowthChartBuilderProps) => {
     Chart.register(annotationPlugin);
 
@@ -38,17 +40,17 @@ export const GrowthChartBuilder = ({
     const adjustIndex = (dataset === DataSetLabels.y_2_5) ? 24 : 0;
     const startIndex = (category !== CategoryCodes.wflh_b && category !== CategoryCodes.wflh_g) ? adjustIndex : datasetMetadata.range.start;
 
-    const ZscoreLinesData = useZscoreLines(datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex);
+    const ChartLinesData = useChartLines(datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex, isPercentiles);
     const MeasurementData = useMeasurementPlotting(measurementData, MeasuremenCode, category, dataset, dateOfBirth, startIndex);
-    const data: any = { datasets: [...ZscoreLinesData, ...MeasurementData] };
-    const annotations = GrowthChartAnnotations(ZscoreLinesData, datasetMetadata);
+    const data: any = { datasets: [...ChartLinesData, ...MeasurementData] };
+    const annotations = GrowthChartAnnotations(ChartLinesData, datasetMetadata);
 
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: {
             annotation: { annotations },
             legend: { display: false },
-            tooltip: ChartTooltipConfig(MeasuremenLabel, categoryLabel),
+            tooltip: ChartTooltip(MeasuremenLabel, categoryLabel),
         },
         scales: {
             x: {
@@ -76,12 +78,12 @@ export const GrowthChartBuilder = ({
                 position: 'right',
                 min: minDataValue,
                 max: maxDataValue,
-                ticks: { padding: 18 },
+                ticks: { padding: isPercentiles ? 36 : 18 },
             },
         },
         animation: {
-            onComplete: (chartAnimation: any) => AnnotateLineEnd(chartAnimation),
-            onProgress: (chartAnimation: any) => AnnotateLineEnd(chartAnimation),
+            onComplete: (chartAnimation: any) => AnnotateLineEnd(chartAnimation, isPercentiles, keysDataSet),
+            onProgress: (chartAnimation: any) => AnnotateLineEnd(chartAnimation, isPercentiles, keysDataSet),
         },
     };
 

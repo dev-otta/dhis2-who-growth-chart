@@ -5,13 +5,14 @@ interface DatasetValues {
     [key: string]: number;
 }
 
-export const useZscoreLines = (
+export const useChartLines = (
     datasetValues: DatasetValues[],
     keysDataSet: string[],
     datasetMetadata: any,
     category: string,
     dataset: string | number,
     startIndex: number,
+    isPercentiles: boolean,
 ) => {
     const [zScoreLines, setZScoreLines] = useState<any[]>([]);
 
@@ -22,12 +23,12 @@ export const useZscoreLines = (
                 y: entry[key],
             })),
             borderWidth: 0.9,
-            borderColor: ChartLineColorPicker(key),
+            borderColor: ChartLineColorPicker(key, isPercentiles),
             label: key,
         }));
 
         setZScoreLines(ZscoreLines);
-    }, [datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex]);
+    }, [datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex, isPercentiles]);
 
     return zScoreLines;
 };

@@ -6,6 +6,14 @@ import { wfa_b_0_5_y_z, wfa_b_0_13_w_z } from './ZScores/wfa-boys';
 import { wfa_g_0_5_y_z, wfa_g_0_13_w_z } from './ZScores/wfa-girls';
 import { wfh_g_2_5_y_z, wfl_g_0_2_y_z } from './ZScores/wfhl-girls';
 import { wfh_b_2_5_y_z, wfl_b_0_2_y_z } from './ZScores/wfhl-boys';
+import { hcfa_b_0_5_y_p, hcfa_b_0_13_w_p } from './Percentiles/hcfa-boys';
+import { hcfa_g_0_5_y_p, hcfa_g_0_13_w_p } from './Percentiles/hcfa-girls';
+import { lhfa_b_0_2_y_p, lhfa_b_0_13_w_p, lhfa_b_2_5_y_p } from './Percentiles/lhfa-boys';
+import { lhfa_g_0_2_y_p, lhfa_g_0_13_w_p, lhfa_g_2_5_y_p } from './Percentiles/lhfa-girls';
+import { wfa_b_0_5_y_p, wfa_b_0_13_w_p } from './Percentiles/wfa-boys';
+import { wfa_g_0_5_y_p, wfa_g_0_13_w_p } from './Percentiles/wfa-girls';
+import { wfh_g_2_5_y_p, wfl_g_0_2_y_p } from './Percentiles/wfhl-girls';
+import { wfh_b_2_5_y_p, wfl_b_0_2_y_p } from './Percentiles/wfhl-boys';
 import { ChartCodes,
     CategoryCodes,
     MeasurementTypeCodesLabel,
@@ -22,7 +30,8 @@ export const chartData: ChartData = {
         },
         datasets: {
             [ChartCodes.hcfa_b_0_13_w_z]: {
-                datasetValues: hcfa_b_0_13_w_z,
+                zScoreDatasetValues: hcfa_b_0_13_w_z,
+                percentileDatasetValues: hcfa_b_0_13_w_p,
                 metadata: {
                     chartLabel: ChartCodes.hcfa_b_0_13_w_z,
                     xAxisLabel: TimeUnitCodes.weeks,
@@ -31,7 +40,8 @@ export const chartData: ChartData = {
                 },
             },
             [ChartCodes.hcfa_b_0_5_y_z]: {
-                datasetValues: hcfa_b_0_5_y_z,
+                zScoreDatasetValues: hcfa_b_0_5_y_z,
+                percentileDatasetValues: hcfa_b_0_5_y_p,
                 metadata: {
                     chartLabel: ChartCodes.hcfa_b_0_5_y_z.label,
                     xAxisLabel: TimeUnitCodes.months,
@@ -48,7 +58,8 @@ export const chartData: ChartData = {
         },
         datasets: {
             [ChartCodes.hcfa_g_0_13_w_z]: {
-                datasetValues: hcfa_g_0_13_w_z,
+                zScoreDatasetValues: hcfa_g_0_13_w_z,
+                percentileDatasetValues: hcfa_g_0_13_w_p,
                 metadata: {
                     chartLabel: ChartCodes.hcfa_g_0_13_w_z,
                     xAxisLabel: TimeUnitCodes.weeks,
@@ -57,7 +68,8 @@ export const chartData: ChartData = {
                 },
             },
             [ChartCodes.hcfa_g_0_5_y_z]: {
-                datasetValues: hcfa_g_0_5_y_z,
+                zScoreDatasetValues: hcfa_g_0_5_y_z,
+                percentileDatasetValues: hcfa_g_0_5_y_p,
                 metadata: {
                     chartLabel: ChartCodes.hcfa_g_0_5_y_z,
                     xAxisLabel: TimeUnitCodes.months,
@@ -74,7 +86,8 @@ export const chartData: ChartData = {
         },
         datasets: {
             [ChartCodes.lhfa_b_0_13_w_z]: {
-                datasetValues: lhfa_b_0_13_w_z,
+                zScoreDatasetValues: lhfa_b_0_13_w_z,
+                percentileDatasetValues: lhfa_b_0_13_w_p,
                 metadata: {
                     chartLabel: ChartCodes.lhfa_b_0_13_w_z,
                     xAxisLabel: TimeUnitCodes.weeks,
@@ -83,7 +96,8 @@ export const chartData: ChartData = {
                 },
             },
             [ChartCodes.lhfa_b_0_2_y_z]: {
-                datasetValues: lhfa_b_0_2_y_z,
+                zScoreDatasetValues: lhfa_b_0_2_y_z,
+                percentileDatasetValues: lhfa_b_0_2_y_p,
                 metadata: {
                     chartLabel: ChartCodes.lhfa_b_0_2_y_z,
                     xAxisLabel: TimeUnitCodes.months,
@@ -92,7 +106,8 @@ export const chartData: ChartData = {
                 },
             },
             [ChartCodes.lhfa_b_2_5_y_z]: {
-                datasetValues: lhfa_b_2_5_y_z,
+                zScoreDatasetValues: lhfa_b_2_5_y_z,
+                percentileDatasetValues: lhfa_b_2_5_y_p,
                 metadata: {
                     chartLabel: ChartCodes.lhfa_b_2_5_y_z,
                     xAxisLabel: TimeUnitCodes.months,
@@ -109,7 +124,8 @@ export const chartData: ChartData = {
         },
         datasets: {
             [ChartCodes.lhfa_g_0_13_w_z]: {
-                datasetValues: lhfa_g_0_13_w_z,
+                zScoreDatasetValues: lhfa_g_0_13_w_z,
+                percentileDatasetValues: lhfa_g_0_13_w_p,
                 metadata: {
                     chartLabel: ChartCodes.lhfa_g_0_13_w_z,
                     xAxisLabel: TimeUnitCodes.weeks,
@@ -118,7 +134,8 @@ export const chartData: ChartData = {
                 },
             },
             [ChartCodes.lhfa_g_0_2_y_z]: {
-                datasetValues: lhfa_g_0_2_y_z,
+                zScoreDatasetValues: lhfa_g_0_2_y_z,
+                percentileDatasetValues: lhfa_g_0_2_y_p,
                 metadata: {
                     chartLabel: ChartCodes.lhfa_g_0_2_y_z.label,
                     xAxisLabel: TimeUnitCodes.months,
@@ -127,7 +144,8 @@ export const chartData: ChartData = {
                 },
             },
             [ChartCodes.lhfa_g_2_5_y_z]: {
-                datasetValues: lhfa_g_2_5_y_z,
+                zScoreDatasetValues: lhfa_g_2_5_y_z,
+                percentileDatasetValues: lhfa_g_2_5_y_p,
                 metadata: {
                     chartLabel: ChartCodes.lhfa_g_2_5_y_z,
                     xAxisLabel: TimeUnitCodes.months,
@@ -144,7 +162,8 @@ export const chartData: ChartData = {
         },
         datasets: {
             [ChartCodes.wfa_b_0_13_w_z]: {
-                datasetValues: wfa_b_0_13_w_z,
+                zScoreDatasetValues: wfa_b_0_13_w_z,
+                percentileDatasetValues: wfa_b_0_13_w_p,
                 metadata: {
                     chartLabel: ChartCodes.wfa_b_0_13_w_z,
                     xAxisLabel: TimeUnitCodes.weeks,
@@ -153,7 +172,8 @@ export const chartData: ChartData = {
                 },
             },
             [ChartCodes.wfa_b_0_5_y_z]: {
-                datasetValues: wfa_b_0_5_y_z,
+                zScoreDatasetValues: wfa_b_0_5_y_z,
+                percentileDatasetValues: wfa_b_0_5_y_p,
                 metadata: {
                     chartLabel: ChartCodes.wfa_b_0_5_y_z.label,
                     xAxisLabel: TimeUnitCodes.months,
@@ -170,7 +190,8 @@ export const chartData: ChartData = {
         },
         datasets: {
             [ChartCodes.wfa_g_0_13_w_z]: {
-                datasetValues: wfa_g_0_13_w_z,
+                zScoreDatasetValues: wfa_g_0_13_w_z,
+                percentileDatasetValues: wfa_g_0_13_w_p,
                 metadata: {
                     chartLabel: ChartCodes.wfa_g_0_13_w_z,
                     xAxisLabel: TimeUnitCodes.weeks,
@@ -179,7 +200,8 @@ export const chartData: ChartData = {
                 },
             },
             [ChartCodes.wfa_g_0_5_y_z]: {
-                datasetValues: wfa_g_0_5_y_z,
+                zScoreDatasetValues: wfa_g_0_5_y_z,
+                percentileDatasetValues: wfa_g_0_5_y_p,
                 metadata: {
                     chartLabel: ChartCodes.wfa_g_0_5_y_z.label,
                     xAxisLabel: TimeUnitCodes.months,
@@ -196,7 +218,8 @@ export const chartData: ChartData = {
         },
         datasets: {
             [ChartCodes.wfl_b_0_2_y_z]: {
-                datasetValues: wfl_b_0_2_y_z,
+                zScoreDatasetValues: wfl_b_0_2_y_z,
+                percentileDatasetValues: wfl_b_0_2_y_p,
                 metadata: {
                     chartLabel: ChartCodes.wfl_b_0_2_y_z.label,
                     xAxisLabel: MeasurementTypeCodesLabel.length,
@@ -205,7 +228,8 @@ export const chartData: ChartData = {
                 },
             },
             [ChartCodes.wfh_b_2_5_y_z]: {
-                datasetValues: wfh_b_2_5_y_z,
+                zScoreDatasetValues: wfh_b_2_5_y_z,
+                percentileDatasetValues: wfh_b_2_5_y_p,
                 metadata: {
                     chartLabel: ChartCodes.wfh_b_2_5_y_z,
                     xAxisLabel: MeasurementTypeCodesLabel.height,
@@ -222,7 +246,8 @@ export const chartData: ChartData = {
         },
         datasets: {
             [ChartCodes.wfl_g_0_2_y_z]: {
-                datasetValues: wfl_g_0_2_y_z,
+                zScoreDatasetValues: wfl_g_0_2_y_z,
+                percentileDatasetValues: wfl_g_0_2_y_p,
                 metadata: {
                     chartLabel: ChartCodes.wfl_g_0_2_y_z.label,
                     xAxisLabel: MeasurementTypeCodesLabel.length,
@@ -231,7 +256,8 @@ export const chartData: ChartData = {
                 },
             },
             [ChartCodes.wfh_g_2_5_y_z]: {
-                datasetValues: wfh_g_2_5_y_z,
+                zScoreDatasetValues: wfh_g_2_5_y_z,
+                percentileDatasetValues: wfh_g_2_5_y_p,
                 metadata: {
                     chartLabel: ChartCodes.wfh_g_2_5_y_z,
                     xAxisLabel: MeasurementTypeCodesLabel.height,
