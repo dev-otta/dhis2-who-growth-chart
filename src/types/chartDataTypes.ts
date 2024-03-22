@@ -3,9 +3,9 @@ import i18n from '@dhis2/d2-i18n';
 export interface MeasurementData {
     eventDate: string;
     dataValues: {
-        weight: string;
-        headCircumference: string;
-        height: string;
+        weight: number;
+        headCircumference: number;
+        height: number;
     };
 }
 

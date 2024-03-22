@@ -19,11 +19,9 @@ const queryClient = new QueryClient();
 
 const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const { chartConfig, isLoading, isError } = useChartConfig();
-    const { teiId, programId, orgUnitId } = propsFromParent;
+    const { teiId, programId } = propsFromParent;
     const { trackedEntity } = useTeiById({ teiId });
     const { events } = useEvents({
-        orgUnitId,
-        programStageId: chartConfig?.metadata.program.programStageId,
         programId,
         teiId,
     });
