@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { usePopper } from 'react-popper';
 import { EllipsisButton } from './EllipsisButton';
 import { PopoverList, PopoverListItem, PopoverListDivider } from './PopoverList';
-import { usePrintDocument } from '../../../utils/usePrintDocument';
 import { CategoryCodes, ChartData } from '../../../types/chartDataTypes';
 import { PdfIcon } from '../../../UI/Icons/PdfIcon';
 import { MappedEntityValues } from '../../../utils/DataFetching/Sorting/useMappedTrackedEntity';
+import { PrintDocument } from '../../../utils/ChartOptions';
 
 interface ChartSettingsButtonProps {
     category: keyof typeof CategoryCodes;
@@ -49,7 +49,7 @@ export const ChartSettingsButton = ({
         };
     }, []);
 
-    const handlePrintDocument = () => usePrintDocument({
+    const handlePrintDocument = () => PrintDocument({
         category, dataset, gender, firstName: trackedEntity.firstName, lastName: trackedEntity.lastName,
     });
 

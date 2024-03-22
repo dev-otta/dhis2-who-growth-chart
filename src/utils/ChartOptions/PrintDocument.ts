@@ -1,7 +1,7 @@
 import html2canvas from 'html2canvas';
 import i18n from '@dhis2/d2-i18n';
 import JsPDF from 'jspdf';
-import { CategoryCodes, ChartData, CategoryToLabel } from '../types/chartDataTypes';
+import { CategoryCodes, ChartData, CategoryToLabel } from '../../types/chartDataTypes';
 
 interface PrintDocumentProps {
     category: keyof typeof CategoryCodes;
@@ -11,7 +11,7 @@ interface PrintDocumentProps {
     lastName?: string;
 }
 
-export const usePrintDocument = ({
+export const PrintDocument = ({
     category,
     dataset,
     gender,
