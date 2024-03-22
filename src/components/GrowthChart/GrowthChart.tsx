@@ -17,7 +17,7 @@ export const GrowthChart = ({
     measurementData,
 }: GrowthChartProps) => {
     const trackedEntityGender = trackedEntity.gender;
-    const [isPercentiles] = useState<boolean>(true);
+    const [isPercentiles] = useState<boolean>(false);
 
     const [gender, setGender] = useState<string>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.CGC_Female);
     const { chartDataForGender } = useChartDataForGender({ gender });

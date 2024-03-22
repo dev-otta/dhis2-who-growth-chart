@@ -33,12 +33,12 @@ const contentText = (value: number, xAxisLabel: string) => {
 };
 
 export const GrowthChartAnnotations = (
-    ZscoreLines: any[],
+    ChartLines: any[],
     datasetMetadata: any,
 ): AnnotationLabelType[] => {
     const timeUnitConfig = timeUnitData[datasetMetadata.xAxisLabel];
     if (timeUnitConfig) {
-        const xValues = ZscoreLines[0]?.data.map((entry: any) => entry.x) || [];
+        const xValues = ChartLines[0]?.data.map((entry: any) => entry.x) || [];
 
         const { divisor } = timeUnitConfig;
 

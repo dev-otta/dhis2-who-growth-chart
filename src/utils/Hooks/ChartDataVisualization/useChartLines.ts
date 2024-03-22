@@ -5,7 +5,7 @@ interface DatasetValues {
     [key: string]: number;
 }
 
-export const useZscoreLines = (
+export const useChartLines = (
     datasetValues: DatasetValues[],
     keysDataSet: string[],
     datasetMetadata: any,
@@ -28,7 +28,7 @@ export const useZscoreLines = (
         }));
 
         setZScoreLines(ZscoreLines);
-    }, [datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex]);
+    }, [datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex, isPercentiles]);
 
     return zScoreLines;
 };
