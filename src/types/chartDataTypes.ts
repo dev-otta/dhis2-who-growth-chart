@@ -9,12 +9,6 @@ export interface MeasurementData {
     };
 }
 
-interface TimeUnitData {
-    singular: string;
-    plural: string;
-    divisor: number;
-}
-
 export interface ChartDataTypes {
     datasetValues: { [key: string]: number }[];
     datasetMetadata: {
@@ -34,14 +28,14 @@ export interface ChartData {
             label: string;
             gender: string;
         };
-        datasets: {
-            [key: string]: {
-                datasetValues: { [key: string]: number }[];
-                metadata: {
-                    chartLabel: string;
-                    yAxisLabel: string;
-                    xAxisLabel: string;
-                    range: { start: number; end: number };
+        datasets: { [key: string]: {
+            zScoreDatasetValues: { [key: string]: number }[];
+            percentileDatasetValues: { [key: string]: number }[];
+            metadata: {
+                chartLabel: string;
+                yAxisLabel: string;
+                xAxisLabel: string;
+                range: { start: number; end: number };
                 };
             }
         };
@@ -53,24 +47,16 @@ export const TimeUnitCodes = Object.freeze({
     weeks: i18n.t('Weeks'),
 });
 
-export const timeUnitData: { [key: string]: TimeUnitData } = {
-    [TimeUnitCodes.months]: {
-        singular: i18n.t('Year'),
-        plural: i18n.t('Years'),
-        divisor: 12,
-    },
-    [TimeUnitCodes.weeks]: {
-        singular: i18n.t('Month'),
-        plural: i18n.t('Months'),
-        divisor: 4,
-    },
-};
-
 export const MeasurementTypeCodesLabel = Object.freeze({
     headCircumference: i18n.t('Head circumference'),
     length: i18n.t('Length'),
     height: i18n.t('Height'),
     weight: i18n.t('Weight'),
+});
+
+export const unitCodes = Object.freeze({
+    cm: i18n.t('cm'),
+    kg: i18n.t('kg'),
 });
 
 export const MeasurementTypeCodes = Object.freeze({
@@ -84,24 +70,11 @@ export const MeasurementTypeCodes = Object.freeze({
     wflh_g: 'weight',
 });
 
-export const unitCodes = Object.freeze({
-    cm: 'cm',
-    kg: 'kg',
-    g: 'g',
-});
-
 export const CategoryLabels = Object.freeze({
     hcfa: i18n.t('Head circumference for age'),
     lhfa: i18n.t('Length/height for age'),
     wfa: i18n.t('Weight for age'),
     wflh: i18n.t('Weight for length/height'),
-});
-
-const CategoryToYUnitLabel = Object.freeze({
-    hcfa: unitCodes.cm,
-    lhfa: unitCodes.cm,
-    wfa: unitCodes.kg,
-    wflh: unitCodes.cm,
 });
 
 export const CategoryCodes = Object.freeze({
@@ -125,18 +98,6 @@ export const CategoryToLabel = Object.freeze({
     wflh_b: CategoryLabels.wflh,
     wflh_g: CategoryLabels.wflh,
 });
-
-export const CategoryToYUnit = Object.freeze({
-    hcfa_b: CategoryToYUnitLabel.hcfa,
-    hcfa_g: CategoryToYUnitLabel.hcfa,
-    lhfa_b: CategoryToYUnitLabel.lhfa,
-    lhfa_g: CategoryToYUnitLabel.lhfa,
-    wfa_b: CategoryToYUnitLabel.wfa,
-    wfa_g: CategoryToYUnitLabel.wfa,
-    wflh_b: CategoryToYUnitLabel.wflh,
-    wflh_g: CategoryToYUnitLabel.wflh,
-});
-
 export const DataSetLabels = Object.freeze({
     y_0_5: i18n.t('0 to 5 years'),
     w_0_13: i18n.t('0 to 13 weeks'),

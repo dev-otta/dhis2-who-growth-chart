@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
-import { ChartSelector } from '../GrowthChartSelector';
-import { ChartData, GenderCodes, CategoryCodes, MeasurementData } from '../../types/chartDataTypes';
-import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
+import { ChartSelector } from './GrowthChartSelector';
+import { GenderCodes, CategoryCodes, MeasurementData } from '../../types/chartDataTypes';
+import { useCalculateMinMaxValues } from '../../utils/Hooks/Calculations/useCalculateMinMaxValues';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
 import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTrackedEntity';
@@ -17,17 +17,19 @@ export const GrowthChart = ({
     measurementData,
 }: GrowthChartProps) => {
     const trackedEntityGender = trackedEntity.gender;
+    const [isPercentiles] = useState<boolean>(false);
+
     const [gender, setGender] = useState<string>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.CGC_Female);
     const { chartDataForGender } = useChartDataForGender({ gender });
 
     const [category, setCategory] = useState<keyof typeof CategoryCodes>();
-    const [dataset, setDataset] = useState<keyof ChartData>();
+    const [dataset, setDataset] = useState<string>();
 
     useEffect(() => {
         if (Object.keys(chartDataForGender).length > 0) {
             const newCategory = Object.keys(chartDataForGender)[0] as keyof typeof CategoryCodes;
             setCategory(newCategory);
-            const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0] as keyof ChartData;
+            const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0];
             setDataset(newDataset);
         }
     }, [chartDataForGender]);
@@ -38,8 +40,8 @@ export const GrowthChart = ({
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
 
+    const dataSetValues = isPercentiles ? dataSetEntry?.percentileDatasetValues : dataSetEntry?.zScoreDatasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
-    const dataSetValues = dataSetEntry?.datasetValues;
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
 
     const [minDataValue, maxDataValue] = useMemo(() => {
@@ -75,6 +77,7 @@ export const GrowthChart = ({
                         category={category}
                         dataset={dataset}
                         gender={gender}
+                        trackedEntity={trackedEntity}
                     />
                 </div>
             </div>
@@ -88,6 +91,7 @@ export const GrowthChart = ({
                 dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
                 category={category}
                 dataset={dataset}
+                isPercentiles={isPercentiles}
             />
         </div>
     );

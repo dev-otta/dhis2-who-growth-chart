@@ -4,16 +4,17 @@ import { Line } from 'react-chartjs-2';
 import Chart, { ChartOptions } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { ChartDataTypes, CategoryToLabel, MeasurementTypeCodes } from '../../../types/chartDataTypes';
-import { annotateLineEnd } from '../../../utils/annotateLineEnd';
-import { useMeasurementPlotting, useZscoreLines } from '../../../utils';
-import { tooltipConfig } from './tooltipConfig';
-import { useGrowthChartAnnotations } from '../../../utils/GrowthChartOptions';
+import { ChartDataTypes, CategoryToLabel,
+    MeasurementTypeCodes, DataSetLabels, CategoryCodes } from '../../../types/chartDataTypes';
+import { GrowthChartAnnotations, AnnotateLineEnd } from '../../../utils/ChartOptions';
+import { useMeasurementPlotting, useChartLines } from '../../../utils/Hooks/ChartDataVisualization';
+import { ChartTooltip } from './ChartTooltip';
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
-    dataset: string | number;
+    dataset: string;
     dateOfBirth: Date;
+    isPercentiles: boolean;
 }
 
 export const GrowthChartBuilder = ({
@@ -25,27 +26,29 @@ export const GrowthChartBuilder = ({
     category,
     dataset,
     dateOfBirth,
+    isPercentiles,
 }: GrowthChartBuilderProps) => {
     Chart.register(annotationPlugin);
 
     const { minDataValue, maxDataValue } = yAxisValues;
 
-    const MeasurementCode = MeasurementTypeCodes[category];
+    const MeasuremenCode = MeasurementTypeCodes[category];
 
-    const ZscoreLinesData = useZscoreLines(datasetValues, keysDataSet, datasetMetadata, category, dataset);
-    const MeasurementData = useMeasurementPlotting(measurementData, MeasurementCode, category, dataset, dateOfBirth);
-    const data: any = { datasets: [...ZscoreLinesData, ...MeasurementData] };
-    const annotations = useGrowthChartAnnotations(ZscoreLinesData, datasetMetadata);
+    const adjustIndex = (dataset === DataSetLabels.y_2_5) ? 24 : 0;
+    const startIndex = (category !== CategoryCodes.wflh_b && category !== CategoryCodes.wflh_g) ? adjustIndex : datasetMetadata.range.start;
+
+    const ChartLinesData = useChartLines(datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex, isPercentiles);
+    const MeasurementData = useMeasurementPlotting(measurementData, MeasuremenCode, category, dataset, dateOfBirth, startIndex);
+    const data: any = { datasets: [...ChartLinesData, ...MeasurementData] };
+    const annotations = GrowthChartAnnotations(ChartLinesData, datasetMetadata);
 
     const options: ChartOptions<'line'> = {
         elements: { point: { radius: 0, hoverRadius: 0 } },
         plugins: {
             annotation: { annotations },
             legend: { display: false },
-            tooltip: {
-                ...tooltipConfig(category, datasetMetadata.xAxisLabel, datasetMetadata.yAxisLabel),
-                animation: false,
-            },
+            ...ChartTooltip(category, datasetMetadata.xAxisLabel, datasetMetadata.yAxisLabel),
+            animation: false,
         },
         scales: {
             x: {
@@ -73,12 +76,12 @@ export const GrowthChartBuilder = ({
                 position: 'right',
                 min: minDataValue,
                 max: maxDataValue,
-                ticks: { padding: 18 },
+                ticks: { padding: isPercentiles ? 36 : 18 },
             },
         },
         animation: {
-            onComplete: (chartAnimation: any) => annotateLineEnd(chartAnimation),
-            onProgress: (chartAnimation: any) => annotateLineEnd(chartAnimation),
+            onComplete: (chartAnimation: any) => AnnotateLineEnd(chartAnimation, isPercentiles, keysDataSet),
+            onProgress: (chartAnimation: any) => AnnotateLineEnd(chartAnimation, isPercentiles, keysDataSet),
         },
     };
 

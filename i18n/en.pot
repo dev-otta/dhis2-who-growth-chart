@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-19T10:22:35.729Z\n"
-"PO-Revision-Date: 2024-03-19T10:22:35.729Z\n"
+"POT-Creation-Date: 2024-03-22T20:34:59.747Z\n"
+"PO-Revision-Date: 2024-03-22T20:34:59.747Z\n"
 
 msgid "Date"
 msgstr "Date"
@@ -19,12 +19,6 @@ msgstr "Weight"
 
 msgid "Growth Chart"
 msgstr "Growth Chart"
-
-msgid "There was an error fetching the config for the growth chart."
-msgstr "There was an error fetching the config for the growth chart."
-
-msgid "Please check the configuration in Datastore Management and try again."
-msgstr "Please check the configuration in Datastore Management and try again."
 
 msgid "Months"
 msgstr "Months"
@@ -67,6 +61,12 @@ msgstr "Boy"
 
 msgid "Girl"
 msgstr "Girl"
+
+msgid "There was an error fetching the config for the growth chart."
+msgstr "There was an error fetching the config for the growth chart."
+
+msgid "Please check the configuration in Datastore Management and try again."
+msgstr "Please check the configuration in Datastore Management and try again."
 
 msgid "Year"
 msgstr "Year"

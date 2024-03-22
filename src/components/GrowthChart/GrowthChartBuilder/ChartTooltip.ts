@@ -23,7 +23,7 @@ interface TooltipConfig {
     };
 }
 
-export const tooltipConfig = (category: string, xAxisLabel: string, yAxisLabel: string): TooltipConfig => {
+export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: string): TooltipConfig => {
     let xUnit = '';
     let yUnit = '';
 

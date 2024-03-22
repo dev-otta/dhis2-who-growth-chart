@@ -1,4 +1,11 @@
-import { timeUnitData } from '../../types/chartDataTypes';
+import i18n from '@dhis2/d2-i18n';
+import { TimeUnitCodes } from '../../types/chartDataTypes';
+
+interface TimeUnitData {
+    singular: string;
+    plural: string;
+    divisor: number;
+}
 
 export interface AnnotationLabelType {
     display: boolean;
@@ -7,18 +14,31 @@ export interface AnnotationLabelType {
     yAdjust?: number;
 }
 
+const timeUnitData: { [key: string]: TimeUnitData } = {
+    [TimeUnitCodes.months]: {
+        singular: i18n.t('Year'),
+        plural: i18n.t('Years'),
+        divisor: 12,
+    },
+    [TimeUnitCodes.weeks]: {
+        singular: i18n.t('Month'),
+        plural: i18n.t('Months'),
+        divisor: 4,
+    },
+};
+
 const contentText = (value: number, xAxisLabel: string) => {
     const { singular, plural } = timeUnitData[xAxisLabel];
     return `${value} ${value === 1 ? singular : plural}`;
 };
 
-export const useGrowthChartAnnotations = (
-    ZscoreLines: any[],
+export const GrowthChartAnnotations = (
+    ChartLines: any[],
     datasetMetadata: any,
 ): AnnotationLabelType[] => {
     const timeUnitConfig = timeUnitData[datasetMetadata.xAxisLabel];
     if (timeUnitConfig) {
-        const xValues = ZscoreLines[0]?.data.map((entry: any) => entry.x) || [];
+        const xValues = ChartLines[0]?.data.map((entry: any) => entry.x) || [];
 
         const { divisor } = timeUnitConfig;
 

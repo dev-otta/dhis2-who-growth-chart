@@ -1,33 +1,34 @@
 import { useEffect, useState } from 'react';
-import { chartLineColorPicker } from './chartLineColorPicker';
+import { ChartLineColorPicker } from '../../ChartOptions';
 
 interface DatasetValues {
     [key: string]: number;
 }
 
-export const useZscoreLines = (
+export const useChartLines = (
     datasetValues: DatasetValues[],
     keysDataSet: string[],
     datasetMetadata: any,
     category: string,
     dataset: string | number,
+    startIndex: number,
+    isPercentiles: boolean,
 ) => {
     const [zScoreLines, setZScoreLines] = useState<any[]>([]);
-    const adjustIndex = (dataset === '2 to 5 years') ? 24 : 0;
 
     useEffect(() => {
         const ZscoreLines = keysDataSet.map((key) => ({
             data: datasetValues.map((entry, index) => ({
-                x: (category !== 'wflh_b' && category !== 'wflh_g') ? adjustIndex + index : datasetMetadata.range.start + index,
+                x: startIndex + index,
                 y: entry[key],
             })),
             borderWidth: 0.9,
-            borderColor: chartLineColorPicker(key),
+            borderColor: ChartLineColorPicker(key, isPercentiles),
             label: key,
         }));
 
         setZScoreLines(ZscoreLines);
-    }, [datasetValues, keysDataSet, datasetMetadata, category, dataset, adjustIndex]);
+    }, [datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex, isPercentiles]);
 
     return zScoreLines;
 };
