@@ -2,17 +2,24 @@ import React, { useState, useRef, useEffect } from 'react';
 import { usePopper } from 'react-popper';
 import { EllipsisButton } from './EllipsisButton';
 import { PopoverList, PopoverListItem, PopoverListDivider } from './PopoverList';
-import { PrintDocument } from '../../../utils/ChartOptions';
 import { CategoryCodes, ChartData } from '../../../types/chartDataTypes';
 import { PdfIcon } from '../../../UI/Icons/PdfIcon';
+import { MappedEntityValues } from '../../../utils/DataFetching/Sorting/useMappedTrackedEntity';
+import { PrintDocument } from '../../../utils/ChartOptions';
 
 interface ChartSettingsButtonProps {
     category: keyof typeof CategoryCodes;
     dataset: keyof ChartData;
     gender: string;
+    trackedEntity: MappedEntityValues;
 }
 
-export const ChartSettingsButton = ({ category, dataset, gender }: ChartSettingsButtonProps) => {
+export const ChartSettingsButton = ({
+    category,
+    dataset,
+    gender,
+    trackedEntity,
+}: ChartSettingsButtonProps) => {
     const [referenceElement, setReferenceElement] = useState(null);
     const [popperElement, setPopperElement] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
@@ -43,7 +50,7 @@ export const ChartSettingsButton = ({ category, dataset, gender }: ChartSettings
     }, []);
 
     const handlePrintDocument = () => PrintDocument({
-        category, dataset, gender,
+        category, dataset, gender, firstName: trackedEntity.firstName, lastName: trackedEntity.lastName,
     });
 
     return (
