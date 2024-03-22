@@ -12,7 +12,7 @@ export const useZscoreLines = (
     category: string,
     dataset: string | number,
     startIndex: number,
-    isPercentiles: boolean
+    isPercentiles: boolean,
 ) => {
     const [zScoreLines, setZScoreLines] = useState<any[]>([]);
 
