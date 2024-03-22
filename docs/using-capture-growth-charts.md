@@ -5,7 +5,9 @@
 Capture growth charts is a web application that allows users to capture and view growth data for children under the age of 5. The application is designed to be used by health workers in the field to capture growth data for children and to view growth charts for children in their care. The application is designed to be used on a tablet or computer device and is optimized for data entry and visualization of growth charts for efficient monitoring of child development.
 
 # Growth chart plugin upload
-Run `yarn build` in the root of the project to build the plugin. Then upload the plugin to the DHIS2 instance using the App Management app. Now the plugin should be an available app on the instance and you can find it on this url: 
+Run `yarn build` in the root of the project to build the plugin. The build can be found in `/build/bundle`, and is a compressed file (`.zip`). <br/>
+
+Upload the compressed file to the DHIS2 instance using the `manuall install` funciton in the **App Management** app. Now the plugin should be an available app on the instance and you can find it on this url: 
 - `<Url of instance>/api/apps/capture-growth-chart/plugin.html` 
 
 Remember to alter `<Url of instance>` with the actual url of you instance.
