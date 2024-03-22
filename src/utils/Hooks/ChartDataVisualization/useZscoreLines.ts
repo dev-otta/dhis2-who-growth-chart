@@ -12,6 +12,7 @@ export const useZscoreLines = (
     category: string,
     dataset: string | number,
     startIndex: number,
+    isPercentiles: boolean
 ) => {
     const [zScoreLines, setZScoreLines] = useState<any[]>([]);
 
@@ -22,7 +23,7 @@ export const useZscoreLines = (
                 y: entry[key],
             })),
             borderWidth: 0.9,
-            borderColor: ChartLineColorPicker(key),
+            borderColor: ChartLineColorPicker(key, isPercentiles),
             label: key,
         }));
 
