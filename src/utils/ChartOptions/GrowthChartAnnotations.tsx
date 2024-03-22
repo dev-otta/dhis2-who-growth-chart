@@ -1,11 +1,12 @@
 import i18n from '@dhis2/d2-i18n';
-import { timeUnitCodes } from '../../../types/chartDataTypes';
+import { TimeUnitCodes } from '../../types/chartDataTypes';
 
 interface TimeUnitData {
     singular: string;
     plural: string;
     divisor: number;
 }
+
 export interface AnnotationLabelType {
     display: boolean;
     content?: (value: number) => string;
@@ -14,12 +15,12 @@ export interface AnnotationLabelType {
 }
 
 const timeUnitData: { [key: string]: TimeUnitData } = {
-    [timeUnitCodes.months]: {
+    [TimeUnitCodes.months]: {
         singular: i18n.t('Year'),
         plural: i18n.t('Years'),
         divisor: 12,
     },
-    [timeUnitCodes.weeks]: {
+    [TimeUnitCodes.weeks]: {
         singular: i18n.t('Month'),
         plural: i18n.t('Months'),
         divisor: 4,
@@ -31,25 +32,28 @@ const contentText = (value: number, xAxisLabel: string) => {
     return `${value} ${value === 1 ? singular : plural}`;
 };
 
-export const GrowthChartAnnotations = (xAxisValues: number[], xAxisLabel: string) => {
-    const timeUnitConfig = timeUnitData[xAxisLabel];
+export const GrowthChartAnnotations = (
+    ChartLines: any[],
+    datasetMetadata: any,
+): AnnotationLabelType[] => {
+    const timeUnitConfig = timeUnitData[datasetMetadata.xAxisLabel];
     if (timeUnitConfig) {
-        const firstXValue = xAxisValues[0];
+        const xValues = ChartLines[0]?.data.map((entry: any) => entry.x) || [];
+
         const { divisor } = timeUnitConfig;
 
-        const annotations = xAxisValues
-            .filter((label) => label % divisor === 0)
-            .map((label) => ({
+        const annotations = xValues.filter((label: number) => label % divisor === 0)
+            .map((label: number) => ({
                 display: true,
                 type: 'line',
                 scaleID: 'x',
                 borderWidth: 1.2,
-                value: label - firstXValue,
+                value: label,
                 label: {
                     display: true,
                     content: () => {
                         const value = label / divisor;
-                        return contentText(value, xAxisLabel);
+                        return contentText(value, datasetMetadata.xAxisLabel);
                     },
                     position: 'end',
                     yAdjust: 10,
@@ -58,7 +62,7 @@ export const GrowthChartAnnotations = (xAxisValues: number[], xAxisLabel: string
                     backgroundColor: 'rgba(237, 237, 237)',
                 },
             }));
-        if ((xAxisValues.length - 1) % 12 === 0) {
+        if ((xValues.length - 1) % 12 === 0) {
             annotations.pop();
         }
         annotations.shift();

@@ -1,54 +1,48 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
-import { useRangeTimePeriod } from '../../utils/useRangeTimePeriod';
-import { ChartSelector } from '../GrowthChartSelector';
-import { ChartData, GenderCodes, CategoryCodes, MeasurementData } from '../../types/chartDataTypes';
-import { useCalculateMinMaxValues } from '../../utils/useCalculateMinMaxValues';
-import { GrowthChartAnnotations } from './GrowthChartOptions';
+import { ChartSelector } from './GrowthChartSelector';
+import { GenderCodes, CategoryCodes, MeasurementData } from '../../types/chartDataTypes';
+import { useCalculateMinMaxValues } from '../../utils/Hooks/Calculations/useCalculateMinMaxValues';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
-import { ChartConfig } from '../../utils/DataFetching/Hooks/useChartConfig';
-import { usePercentilesOrZScores } from '../../utils/DataFetching/Sorting';
+import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTrackedEntity';
 
 interface GrowthChartProps {
-    trackedEntity: ChartConfig['metadata']['attributes'];
+    trackedEntity: MappedEntityValues;
     measurementData: MeasurementData[];
-    usePercent: boolean;
+    isPercentiles: boolean;
 }
 
 export const GrowthChart = ({
     trackedEntity,
     measurementData,
-    usePercent,
+    isPercentiles,
 }: GrowthChartProps) => {
-    const trackedEntityGender = GenderCodes[trackedEntity?.gender?.toLowerCase() as 'male' | 'female'];
+    const trackedEntityGender = trackedEntity.gender;
 
-    const [gender, setGender] = useState<keyof typeof GenderCodes>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.female);
+    const [gender, setGender] = useState<string>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.CGC_Female);
     const { chartDataForGender } = useChartDataForGender({ gender });
 
     const [category, setCategory] = useState<keyof typeof CategoryCodes>();
-    const [dataset, setDataset] = useState<keyof ChartData>();
+    const [dataset, setDataset] = useState<string>();
 
     useEffect(() => {
         if (Object.keys(chartDataForGender).length > 0) {
             const newCategory = Object.keys(chartDataForGender)[0] as keyof typeof CategoryCodes;
             setCategory(newCategory);
-            const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0] as keyof ChartData;
+            const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0];
             setDataset(newDataset);
         }
     }, [chartDataForGender]);
 
     useEffect(() => {
-        trackedEntity?.gender !== undefined && setGender(GenderCodes[trackedEntity?.gender?.toLowerCase() as 'male' | 'female']);
+        Object.values(GenderCodes).includes(trackedEntity.gender) && setGender(trackedEntity?.gender);
     }, [trackedEntity]);
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
 
-    const dataSetValues = usePercentilesOrZScores(dataSetEntry, usePercent);
+    const dataSetValues = isPercentiles ? dataSetEntry?.percentileDatasetValues : dataSetEntry?.zScoreDatasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
-
-    const xAxisValues = useRangeTimePeriod(dataSetMetadata?.range.start, dataSetMetadata?.range.end);
-
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
 
     const [minDataValue, maxDataValue] = useMemo(() => {
@@ -57,14 +51,8 @@ export const GrowthChart = ({
         return [minVal, maxVal];
     }, [min, max]);
 
-    const annotations = GrowthChartAnnotations(xAxisValues, dataSetMetadata?.xAxisLabel);
-
     if (!chartDataForGender || !dataSetValues) {
         return null;
-    }
-
-    if (xAxisValues.length !== dataSetValues.length) {
-        console.error('xAxisValues and dataSet should have the same length');
     }
 
     const keysDataSet = Object.keys(dataSetValues[0]);
@@ -90,22 +78,21 @@ export const GrowthChart = ({
                         category={category}
                         dataset={dataset}
                         gender={gender}
+                        trackedEntity={trackedEntity}
                     />
                 </div>
             </div>
 
             <GrowthChartBuilder
+                measurementData={measurementData}
                 datasetValues={dataSetValues}
                 datasetMetadata={dataSetMetadata}
-                xAxisValues={xAxisValues}
                 yAxisValues={yAxisValues}
                 keysDataSet={keysDataSet}
-                annotations={annotations}
-                measurementData={measurementData}
                 dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
                 category={category}
                 dataset={dataset}
-                usePercent={usePercent}
+                isPercentiles={isPercentiles}
             />
         </div>
     );
