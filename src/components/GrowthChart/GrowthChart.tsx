@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
 import { ChartSelector } from './GrowthChartSelector';
-import { GenderCodes, CategoryCodes, MeasurementData } from '../../types/chartDataTypes';
+import { GenderCodes, CategoryCodes, MeasurementData, ChartData } from '../../types/chartDataTypes';
 import { useCalculateMinMaxValues } from '../../utils/Hooks/Calculations/useCalculateMinMaxValues';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
@@ -10,15 +10,17 @@ import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTr
 interface GrowthChartProps {
     trackedEntity: MappedEntityValues;
     measurementData: MeasurementData[];
+    chartData: ChartData;
 }
 
 export const GrowthChart = ({
     trackedEntity,
     measurementData,
+    chartData,
 }: GrowthChartProps) => {
     const trackedEntityGender = trackedEntity.gender;
     const [gender, setGender] = useState<string>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.CGC_Female);
-    const { chartDataForGender } = useChartDataForGender({ gender });
+    const { chartDataForGender } = useChartDataForGender({ gender, chartData });
 
     const [category, setCategory] = useState<keyof typeof CategoryCodes>();
     const [dataset, setDataset] = useState<string>();

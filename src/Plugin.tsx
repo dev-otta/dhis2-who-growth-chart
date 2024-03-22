@@ -14,11 +14,14 @@ import { useEvents } from './utils/DataFetching/Hooks/useEvents';
 import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/useMappedTrackedEntity';
 import { ChartConfigError } from './UI/GenericError/ChartConfigError';
 import { GenericLoading } from './UI/GenericLoading';
+import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
+import { chartData } from './DataSets/WhoStandardDataSets/ChartDataZscores';
 
 const queryClient = new QueryClient();
 
 const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const { chartConfig, isLoading, isError } = useChartConfig();
+    const { customReferences, isLoading: isLoadingRef } = useCustomReferences();
     const { teiId, programId, orgUnitId } = propsFromParent;
     const { trackedEntity } = useTeiById({ teiId });
     const { events } = useEvents({
@@ -40,7 +43,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     const [open, setOpen] = useState(true);
 
-    if (isLoading) {
+    if (isLoading || isLoadingRef) {
         return <GenericLoading />;
     }
 
@@ -73,6 +76,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                         <GrowthChart
                             trackedEntity={mappedTrackedEntity}
                             measurementData={mappedGrowthVariables}
+                            chartData={chartConfig.settings.customReferences ? customReferences : chartData}
                         />
                     </WidgetCollapsible>
                 </div>
