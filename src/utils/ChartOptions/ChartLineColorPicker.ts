@@ -1,4 +1,4 @@
-export const chartLineColorPicker = (key: string, percentiles: boolean): string => {
+export const ChartLineColorPicker = (key: string, percentiles: boolean): string => {
     if (percentiles) {
         const value = parseFloat(key.substring(1)) / 1000;
         if (value < 0.015 || value > 0.085) return 'red';

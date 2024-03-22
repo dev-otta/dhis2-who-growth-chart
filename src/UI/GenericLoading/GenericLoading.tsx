@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import i18n from '@dhis2/d2-i18n';
-import { WidgetCollapsible } from '../../Components/WidgetCollapsible';
+import { WidgetCollapsible } from '../../components/WidgetCollapsible';
 
 export const GenericLoading = (): JSX.Element => {
     const [open, setOpen] = useState(true);

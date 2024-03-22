@@ -7,7 +7,7 @@ interface DataSet {
     label: string;
 }
 
-export const annotateLineEnd = (animation: Animation & { chart?: Chart }, isPercentiles: boolean, keysDataSet: string[]) => {
+export const AnnotateLineEnd = (animation: Animation & { chart?: Chart }, isPercentiles: boolean, keysDataSet: string[]) => {
     const { chart } = animation;
     if (!chart) return;
 

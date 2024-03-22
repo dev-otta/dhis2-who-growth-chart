@@ -7,8 +7,11 @@ interface Attribute {
 }
 
 export interface MappedEntityValues {
+    [key: string]: string | undefined;
     dateOfBirth: string | undefined;
-    gender: string;
+    gender: string | undefined;
+    firstName: string | undefined;
+    lastName: string | undefined;
 }
 
 interface UseMappedTrackedEntityVariablesProps {
@@ -25,6 +28,8 @@ export const useMappedTrackedEntityVariables = ({
     const mappedValues: MappedEntityValues = {
         dateOfBirth: undefined,
         gender: undefined,
+        firstName: undefined,
+        lastName: undefined,
     };
 
     if (!trackedEntity || !trackedEntityAttributes || !variableMappings) {
@@ -32,8 +37,6 @@ export const useMappedTrackedEntityVariables = ({
     }
 
     return Object.entries(variableMappings).reduce((acc, [key, attributeId]) => {
-        if (key !== 'dateOfBirth' && key !== 'gender') return acc;
-
         const attribute = trackedEntityAttributes.find((attr: Attribute) => attr.attribute === attributeId);
         if (attribute) {
             const value = trackedEntity.attributes.find((attr: Attribute) => attr.attribute === attributeId)?.value;

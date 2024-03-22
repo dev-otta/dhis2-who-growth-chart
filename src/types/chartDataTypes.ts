@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n';
-import { AnnotationLabelType } from '../Components/GrowthChart/GrowthChartOptions';
 
 export interface MeasurementData {
     eventDate: string;
@@ -18,10 +17,8 @@ export interface ChartDataTypes {
         xAxisLabel: string;
         range: { start: number; end: number };
     };
-    xAxisValues: number[];
     yAxisValues: { minDataValue: number; maxDataValue: number };
     keysDataSet: string[];
-    annotations: AnnotationLabelType[];
     measurementData: MeasurementData[];
 }
 
@@ -45,16 +42,27 @@ export interface ChartData {
     };
 }
 
-export const timeUnitCodes = Object.freeze({
+export const TimeUnitCodes = Object.freeze({
     months: i18n.t('Months'),
     weeks: i18n.t('Weeks'),
 });
 
-export const measurementTypeCodes = Object.freeze({
-    hc_cm: i18n.t('Head circumference (cm)'),
-    l_cm: i18n.t('Length (cm)'),
-    h_cm: i18n.t('Height (cm)'),
-    w_kg: i18n.t('Weight (kg)'),
+export const MeasurementTypeCodesLabel = Object.freeze({
+    headCircumference: i18n.t('Head circumference'),
+    length: i18n.t('Length'),
+    height: i18n.t('Height'),
+    weight: i18n.t('Weight'),
+});
+
+export const MeasurementTypeCodes = Object.freeze({
+    hcfa_b: 'headCircumference',
+    hcfa_g: 'headCircumference',
+    lhfa_b: 'height',
+    lhfa_g: 'height',
+    wfa_g: 'weight',
+    wfa_b: 'weight',
+    wflh_b: 'weight',
+    wflh_g: 'weight',
 });
 
 export const CategoryLabels = Object.freeze({
@@ -85,7 +93,6 @@ export const CategoryToLabel = Object.freeze({
     wflh_b: CategoryLabels.wflh,
     wflh_g: CategoryLabels.wflh,
 });
-
 export const DataSetLabels = Object.freeze({
     y_0_5: i18n.t('0 to 5 years'),
     w_0_13: i18n.t('0 to 13 weeks'),
