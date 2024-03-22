@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { usePopper } from 'react-popper';
+import { Popover, Menu, MenuItem } from '@dhis2/ui';
 import { EllipsisButton } from './EllipsisButton';
-import { PopoverList, PopoverListItem, PopoverListDivider } from './PopoverList';
 import { CategoryCodes, ChartData } from '../../../types/chartDataTypes';
 import { PdfIcon } from '../../../UI/Icons/PdfIcon';
 import { MappedEntityValues } from '../../../utils/DataFetching/Sorting/useMappedTrackedEntity';
@@ -20,28 +19,26 @@ export const ChartSettingsButton = ({
     gender,
     trackedEntity,
 }: ChartSettingsButtonProps) => {
-    const [referenceElement, setReferenceElement] = useState(null);
-    const [popperElement, setPopperElement] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
+    const referenceElementRef = useRef(null);
 
-    const { styles, attributes } = usePopper(referenceElement, popperElement, {
-        placement: 'bottom-end',
-        modifiers: [
-            {
-                name: 'offset',
-                options: { offset: [0, 2] },
-            },
-        ],
-    });
-
-    const popoverRef = useRef(null);
+    const handlePrintDocument = () => {
+        PrintDocument({
+            category,
+            dataset,
+            gender,
+            firstName: trackedEntity.firstName,
+            lastName: trackedEntity.lastName,
+        });
+    };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (popoverRef.current && !popoverRef.current.contains(event.target)) {
+            if (referenceElementRef.current && !referenceElementRef.current.contains(event.target)) {
                 setIsVisible(false);
             }
         };
+
         document.addEventListener('mousedown', handleClickOutside);
 
         return () => {
@@ -49,30 +46,30 @@ export const ChartSettingsButton = ({
         };
     }, []);
 
-    const handlePrintDocument = () => PrintDocument({
-        category, dataset, gender, firstName: trackedEntity.firstName, lastName: trackedEntity.lastName,
-    });
-
     return (
-        <div ref={popoverRef}>
+        <div ref={referenceElementRef}>
             <EllipsisButton
                 onClick={() => setIsVisible((prevState) => !prevState)}
                 isVisible={isVisible}
-                setReferenceElement={setReferenceElement}
+                setReferenceElement={(element) => {
+                    referenceElementRef.current = element;
+                }}
             />
             {isVisible && (
-                <PopoverList
-                    setPopperElement={setPopperElement}
-                    style={styles.popper}
-                    popoverAttributes={{ ...attributes.popper }}
+                <Popover
+                    reference={referenceElementRef.current}
+                    onClickOutside={() => setIsVisible(false)}
+                    arrow={false}
+                    placement='bottom-end'
                 >
-                    <PopoverListItem
-                        label='Convert to PDF'
-                        icon={<PdfIcon />}
-                        onClick={handlePrintDocument}
-                    />
-                    <PopoverListDivider />
-                </PopoverList>
+                    <Menu>
+                        <MenuItem
+                            label='Convert to PDF'
+                            onClick={handlePrintDocument}
+                            icon={<PdfIcon />}
+                        />
+                    </Menu>
+                </Popover>
             )}
         </div>
     );
