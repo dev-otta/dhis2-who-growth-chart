@@ -15,6 +15,7 @@ interface TooltipConfig {
     caretPadding: number;
     boxPadding: number;
     usePointStyle: boolean;
+    animation: boolean;
     filter: (tooltipItem: any) => boolean;
     callbacks: {
         title: () => string;
@@ -60,6 +61,7 @@ export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: s
         caretPadding: 4,
         boxPadding: 4,
         usePointStyle: true,
+        animation: false,
         filter: (tooltipItem) => tooltipItem.dataset.id === 'measurementData',
         callbacks: {
             title: () => '',
