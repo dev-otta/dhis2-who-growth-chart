@@ -1,4 +1,4 @@
-export const chartLineColorPicker = (key: string): string => {
+export const ChartLineColorPicker = (key: string): string => {
     switch (key) {
     case 'SD3neg':
         return 'black';

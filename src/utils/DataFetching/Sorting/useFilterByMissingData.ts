@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { ChartData, MeasurementData } from '../../types/chartDataTypes';
+import { ChartData, MeasurementData } from '../../../types/chartDataTypes';
 
 export const useFilterByMissingData = (measurementData: MeasurementData[], chartData: ChartData) => {
     const requiredData = Object.freeze({
