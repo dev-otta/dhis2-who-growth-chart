@@ -2,41 +2,44 @@
 
 ## About Capture Growth Charts { #about_capture_growth_charts } 
 
-Capture growth charts is a web application that allows users to capture and view growth data for children under the age of 5. The application is designed to be used by health workers in the field to capture growth data for children and to view growth charts for children in their care. The application is designed to be used on a tablet or computer device and is optimized for data entry and visualization of growth charts for efficient monitoring of child development.
+Capture growth charts is a web application that allows users to capture and view growth data for children under the age of 5. The application is designed to be used by health workers to capture growth data for children and to view growth charts for children in their care. The application is designed to be used on a tablet or computer device and is optimized for data entry and visualization of growth charts for efficient monitoring of child development.
 
 # Growth chart plugin upload
-Run `yarn build` in the root of the project to build the plugin. The build can then be found in `/build/bundle`, and is a compressed file (`.zip`). <br/>
+Run `yarn build` in the root of the project to build the plugin. The build can then be found in `/build/bundle`, and is a compressed file (`.zip`).
 
 Upload the compressed file to the DHIS2 instance using the `manuall install` funciton in the **App Management** app. Now the plugin should be an available app on the instance and you can find it on this url: 
 - `<Url of instance>/api/apps/capture-growth-chart/plugin.html` 
 
 Make sure to alter `<Url of instance>` with the actual url of you instance.
-<br />
+
 
 # Configuration { #configuration }
 ## Maintenance app { #maintenance }
-The following steps can be made in the **Maintenance** app on DHIS2. <br />
+The following steps can be made in the **Maintenance** app on DHIS2. 
 
 ### Data element
-Data elements needed to support full functionality in for the growth chart are; **Weight**, **Height** and **Head circumference**. **Weight** can be in either `gram` or `kg`, but **Height** and **Head circumference** should be in `cm`. If one of the data elements are missing, growth charts using that data element will not be displayed. <br /> <br />
+Data elements needed to support full functionality in for the growth chart are; **Weight**, **Height** and **Head circumference**. **Weight** can be in either `gram` or `kg`, but **Height** and **Head circumference** should be in `cm`. If one of the data elements are missing, growth charts using that data element will not be displayed.  
 
 ### Program
 #### Tracked entity attribute
-Tracked entity attribues needed for the Growth chart plugin is `Date of birth` and `Gender`. However, `First Name` and `Last Name` are also utilized in additional functionality, but not necessary for using the growth chart itself. <br /> <br />
+Tracked entity attribues needed for the Growth chart plugin is `Date of birth` and `Gender`. 
+
+**Tip**
+`First Name` and `Last Name` are also utilized in additional functionality, but not necessary for using the growth chart itself.  
                     
 #### Tracked entity type
 Navigate to the tracked entity type for **Person**. This type needs to be assigned the same attributes as those created in the [Tracked Entity Attributes](#tracked-entity-attributes) step. Make sure `Display in list` for the attributes is active, like the image below. 
-![Tracked entity type](resources/images/tracked_entity_type_attributes.png) <br /> <br />
+![Tracked entity type](resources/images/tracked_entity_type_attributes.png)  
 
 #### Program     
-Select you preffered program for storing the growth variables and displaying the Growth Chart. <br />
+Select you preffered program for storing the growth variables and displaying the Growth Chart. 
 ##### Attributes
 The program should have the following attributes:
 - `First name`
 - `Last name`
 - `Date of birth`
 - `Gender`
- <br />
+ 
 
 ##### Program stages
 Select stage where growth variables currently are or will be stored.
@@ -44,7 +47,7 @@ The program stage should have the following data elements:
 - `Weight` (g or kg)
 - `Height` (cm)
 - `Head circumference` (cm)
-<br /> <br />               
+                
                          
 ## Datastore Manangement app { #datastore_management }
 ### Capture
@@ -56,7 +59,7 @@ Add new section for the growth chart under `leftColumn`. You can choose where on
     "type": "plugin"
 }
 ```
-<br />
+
 
 ### Capture-growth-chart
 #### Config      
@@ -67,12 +70,12 @@ In the configuration we use a `programStageId` which refers to the program stage
 
 The `femaleOptionCode` and `maleOptionCode` should map to the option codes that correspont to the gender of the individual. 
 
-Option code used for gender can be found or created in `Option set` under **Other** in the **Maintenance** app. <br />
+Option code used for gender can be found or created in `Option set` under **Other** in the **Maintenance** app. 
 
 The `settings` object contains the following keys:
 - `customReferences` - A boolean value that determines if custom references should be used.
 - `defaultStandard` - A string value that determines the default standard to use. Here you can choose between `z` and `p`, where `z` is the z-score and `p` is the percentile.
-- `weightInGrams` - A boolean value that determines if the weight should be in grams or kg. <br />
+- `weightInGrams` - A boolean value that determines if the weight should be in grams or kg. 
 
 The structure of the config has to be the same as the one in the example below;
 ```json
@@ -102,7 +105,7 @@ The structure of the config has to be the same as the one in the example below;
     }
 }
 ```    
-<br />
+
 
 #### Custom references (Future functionality)
 ##### Create custom references
@@ -166,8 +169,8 @@ The structure of the config has to be the same as the one in the example below;
     }
 }
 ```
-<br />
+
 
 ##### Use custom references
 
-If you want to use custom references, you can set `customReferences` to `true` in the config. This will make the plugin use the custom references you have created. If you want to use the default references, you can set `customReferences` to `false` in the config. This will make the plugin use the WHO references. <br /> 
+If you want to use custom references, you can set `customReferences` to `true` in the config. This will make the plugin use the custom references you have created. If you want to use the default references, you can set `customReferences` to `false` in the config. This will make the plugin use the WHO references.  
