@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { Scriptable, ScriptableTooltipContext, TooltipPositionerMap } from 'chart.js';
-import { unitCodes } from '../../../types/chartDataTypes';
+import { unitCodes, CategoryCodes, timeUnitData, TimeUnitCodes } from '../../../types/chartDataTypes';
 
 interface TooltipConfig {
     enabled: boolean;
@@ -15,7 +15,7 @@ interface TooltipConfig {
     caretPadding: number;
     boxPadding: number;
     usePointStyle: boolean;
-    animation: boolean;
+    animation: any;
     filter: (tooltipItem: any) => boolean;
     callbacks: {
         title: () => string;
@@ -28,25 +28,22 @@ export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: s
     let xUnit = '';
     let yUnit = '';
 
-    if (category === 'hcfa_g' || category === 'hcfa_b') {
+    if (category === CategoryCodes.hcfa_b || category === CategoryCodes.hcfa_g) {
         yUnit = unitCodes.cm;
     }
 
-    if (category === 'lhfa_g' || category === 'lhfa_b') {
+    if (category === CategoryCodes.lhfa_b || category === CategoryCodes.lhfa_g) {
         yUnit = unitCodes.cm;
     }
 
-    if (category === 'wfa_g' || category === 'wfa_b') {
+    if (category === CategoryCodes.wfa_g || category === CategoryCodes.wfa_b) {
         yUnit = unitCodes.kg;
     }
 
-    if (category === 'wflh_g' || category === 'wflh_b') {
+    if (category === CategoryCodes.wflh_b || category === CategoryCodes.wflh_g) {
         xUnit = unitCodes.cm;
         yUnit = unitCodes.kg;
     }
-
-    if (xAxisLabel === 'Months') xUnit = xAxisLabel;
-    if (xAxisLabel === 'Weeks') xUnit = xAxisLabel;
 
     return {
         enabled: true,
@@ -81,17 +78,23 @@ export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: s
                 const yLabel = `${yAxisLabel}: ${yValue} ${yUnit}`;
                 xLabel = `${xAxisLabel}: ${xValue} ${xUnit}`;
 
-                if (xAxisLabel === 'Weeks') {
-                    const weeks = xValue % 4;
-                    const months = Math.floor(xValue / 4);
-                    xLabel = (months === 0 ? `${i18n.t('Age')}: ${weeks.toFixed(0)} ${i18n.t('Weeks')}`
-                        : `${i18n.t('Age')}: ${months} ${i18n.t('Months')} ${weeks.toFixed(0)} ${i18n.t('Weeks')}`);
+                if (xAxisLabel === TimeUnitCodes.weeks) {
+                    const weeks = Number((xValue % timeUnitData.Months.divisor).toFixed(0));
+                    const months = Number((Math.floor(xValue / timeUnitData.Months.divisor)).toFixed(0));
+                    xLabel = (months === 0 ? `${i18n.t('Age')}: ${weeks} ${(weeks === 1)
+                        ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural}`
+                        : `${i18n.t('Age')}: ${months} ${(months === 1) ? timeUnitData.Months.singular
+                            : timeUnitData.Months.plural} ${(weeks > 0) ? `${weeks} ${(weeks === 1)
+                            ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural}` : ''}`);
                 }
-                if (xAxisLabel === 'Months') {
-                    const months = xValue % 12;
-                    const years = Math.floor(xValue / 12);
-                    xLabel = (years === 0 ? `${i18n.t('Age')}: ${months.toFixed(0)} ${i18n.t('Months')}`
-                        : `${i18n.t('Age')}: ${years} ${i18n.t('Years')} ${months.toFixed(0)} ${i18n.t('Months')}`);
+                if (xAxisLabel === TimeUnitCodes.months) {
+                    const months = Number(Math.floor(xValue % timeUnitData.Years.divisor).toFixed(0));
+                    const years = Number(Math.floor(xValue / timeUnitData.Years.divisor).toFixed(0));
+                    xLabel = (years === 0 ? `${i18n.t('Age')}: ${months} ${(months === 1)
+                        ? timeUnitData.Months.singular : timeUnitData.Months.plural}`
+                        : `${i18n.t('Age')}: ${years} ${(years === 1) ? timeUnitData.Years.singular
+                            : timeUnitData.Years.plural} ${(months > 0) ? `${months} ${(months === 1)
+                            ? timeUnitData.Months.singular : timeUnitData.Months.plural}` : ''}`);
                 }
 
                 const labels = [];
