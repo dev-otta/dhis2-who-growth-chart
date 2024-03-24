@@ -21,6 +21,8 @@ export const ChartSelectorDropdown = ({
         {isDisabled ? (
             // @ts-ignore
             <Button
+                small
+                secondary
                 className='pointer-events-none'
                 dataTest={`${dataTest}-disabled-button`}
             >
@@ -28,6 +30,8 @@ export const ChartSelectorDropdown = ({
             </Button>
         ) : (
             <DropdownButton
+                secondary
+                small
                 component={(
                     <FlyoutMenu>
                         {items.map((key) => (
