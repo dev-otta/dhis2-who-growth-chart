@@ -7,14 +7,13 @@ type Props = {
     label?: string,
     primary?: boolean,
     secondary?: boolean,
-    icon?: React.Node,
+    icon?: React.ReactElement,
     onClick?: () => void,
     open?: boolean,
-    component: React.Node,
+    component: React.ReactNode,
     dataTest?: string,
     small?: boolean,
     large?: boolean,
-    className: string,
 };
 
 export const EllipsisButton = ({
@@ -28,7 +27,6 @@ export const EllipsisButton = ({
     icon,
     dataTest,
     component,
-    className,
 }: Props) => {
     const [isOpen, setIsOpen] = useState(false);
     const anchorRef = useRef(null);
@@ -42,7 +40,9 @@ export const EllipsisButton = ({
     };
 
     return (
-        <div className="ellipses-button-container" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <div className='flex items-center absolute right-[55px] justify-center w-7 h-7 rounded border
+        text-gray-600 hover:bg-gray-300 hover:text-gray-700'
+        >
             <div ref={anchorRef}>
                 {/* @ts-ignore */}
                 <Button
@@ -53,7 +53,6 @@ export const EllipsisButton = ({
                     large={large}
                     onClick={toggle}
                     icon={icon}
-                    className='' //legges til høyre
                 >
                     {label}
                 </Button>
