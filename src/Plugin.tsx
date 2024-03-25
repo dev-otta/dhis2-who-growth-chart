@@ -38,7 +38,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isWeightInGrams: chartConfig?.settings.weightInGrams || false,
     });
 
-    const isPercentiles = chartConfig?.settings.defaultStandard === 'p';
+    const isPercentiles = chartConfig?.settings.usePercentiles;
 
     const [open, setOpen] = useState(true);
 
