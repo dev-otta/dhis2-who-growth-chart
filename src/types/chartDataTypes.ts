@@ -36,7 +36,8 @@ export interface ChartData {
         };
         datasets: {
             [key: string]: {
-                datasetValues: { [key: string]: number }[];
+                zScoreDatasetValues: { [key: string]: number }[];
+                percentileDatasetValues: { [key: string]: number }[];
                 metadata: {
                     chartLabel: string;
                     yAxisLabel: string;
