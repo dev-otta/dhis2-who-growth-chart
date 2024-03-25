@@ -14,10 +14,10 @@ export const useChartLines = (
     startIndex: number,
     isPercentiles: boolean,
 ) => {
-    const [zScoreLines, setZScoreLines] = useState<any[]>([]);
+    const [ChartLines, setChartLines] = useState<any[]>([]);
 
     useEffect(() => {
-        const ZscoreLines = keysDataSet.map((key) => ({
+        const newChartLines = keysDataSet.map((key) => ({
             data: datasetValues.map((entry, index) => ({
                 x: startIndex + index,
                 y: entry[key],
@@ -27,8 +27,8 @@ export const useChartLines = (
             label: key,
         }));
 
-        setZScoreLines(ZscoreLines);
+        setChartLines(newChartLines);
     }, [datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex, isPercentiles]);
 
-    return zScoreLines;
+    return ChartLines;
 };

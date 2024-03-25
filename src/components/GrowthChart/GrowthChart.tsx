@@ -10,14 +10,15 @@ import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTr
 interface GrowthChartProps {
     trackedEntity: MappedEntityValues;
     measurementData: MeasurementData[];
+    isPercentiles: boolean;
 }
 
 export const GrowthChart = ({
     trackedEntity,
     measurementData,
+    isPercentiles,
 }: GrowthChartProps) => {
     const trackedEntityGender = trackedEntity.gender;
-    const [isPercentiles] = useState<boolean>(false);
 
     const [gender, setGender] = useState<string>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.CGC_Female);
     const { chartDataForGender } = useChartDataForGender({ gender });
