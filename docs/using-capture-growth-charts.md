@@ -74,7 +74,7 @@ Option code used for gender can be found or created in `Option set` under **Othe
 
 The `settings` object contains the following keys:
 - `customReferences` - A boolean value that determines if custom references should be used.
-- `defaultStandard` - A string value that determines the default standard to use. Here you can choose between `z` and `p`, where `z` is the z-score and `p` is the percentile.
+- `usePercentiles` - A boolean value that determines if the growth chart should use percentiles or z-scores. If `true`, the growth chart will use percentiles. If `false`, the growth chart will use z-scores
 - `weightInGrams` - A boolean value that determines if the weight should be in grams or kg. 
 
 The structure of the config has to be the same as the one in the example below;
@@ -100,7 +100,7 @@ The structure of the config has to be the same as the one in the example below;
     },
     "settings": {
         "customReferences": false,
-        "defaultStandard": "ID",
+        "usePercentiles": false,
         "weightInGrams": false
     }
 }
