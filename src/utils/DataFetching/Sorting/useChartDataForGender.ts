@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ChartData } from '../../../types/chartDataTypes';
-import { chartData } from '../../../DataSets/WhoStandardDataSets/ChartDataZscores';
+import { chartData } from '../../../DataSets/WhoStandardDataSets/ChartData';
 
 interface ChartDataForGenderProps {
     gender: string;
