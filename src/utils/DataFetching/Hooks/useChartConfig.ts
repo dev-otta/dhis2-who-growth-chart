@@ -33,7 +33,7 @@ export const useChartConfig = () => {
         isError,
     } = useQuery(
         'chartConfig',
-        (): any => dataEngine.query({ chartConfig: { resource: 'dataStore/capture-growth-charts/config' } }),
+        (): any => dataEngine.query({ chartConfig: { resource: 'dataStore/capture-growth-chart/config' } }),
         { staleTime: 5000 },
     );
 
