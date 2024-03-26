@@ -4,6 +4,88 @@
 
 Capture growth charts is a web application that allows users to capture and view growth data for children under the age of 5. The application is designed to be used by health workers to capture growth data for children and to view growth charts for children in their care. The application is designed to be used on a tablet or computer device and is optimized for data entry and visualization of growth charts for efficient monitoring of child development.
 
+# Plugin Implementation { #implement_plugin }
+Plugins allows developers to extend the functionality on DHIS2. These plugins enable users to customize form fields and sections within the Capture app, potentially enhancing data entry and user experience. The Growth Chart is using the plugin functionality to be implemented in the Capture app.
+
+## Prerequisites { #prerequisites }
+- DHIS2 version 2.38 or later
+- Capture app version v100.53.0 or later (Can be updated in the **App Management** app).
+- Access to the Datastore Management app.
+- Access to the App Management app.
+
+## Implementation { #implementation }
+### Datastore Management app
+The plugin is implemented using the Datastore Management app.
+
+#### capture namespace
+- Create a new namespace with the key `capture` and key `useNewDashboard`.
+    - Add the following code to the namespace. Make sure to change `programId` to the id of the program you want to use the plugin for.
+    ```json
+    {
+        "<programId>": true
+    }
+    ```
+
+- Create a new key `enrollmentOverviewLayout` in the `capture` namespace.
+    - Add the following code to the key. This will be the new layout for the Capture app. Again, change the `programId` Make sure to change the contents of `leftColumn` and `rightColumn` to fit your needs.
+    ```json
+    {
+        "<programId>": {
+            "leftColumn": [
+                {
+                    "name": "QuickActions",
+                    "type": "component"
+                },
+                {
+                    "name": "StagesAndEvents",
+                    "type": "component"
+                }
+            ],
+            "rightColumn": [
+                {
+                    "name": "TrackedEntityRelationship",
+                    "type": "component"
+                },
+                {
+                    "name": "ErrorWidget",
+                    "type": "component"
+                },
+                {
+                    "name": "WarningWidget",
+                    "type": "component"
+                },
+                {
+                    "name": "FeedbackWidget",
+                    "type": "component"
+                },
+                {
+                    "name": "IndicatorWidget",
+                    "type": "component"
+                },
+                {
+                    "name": "Notes",
+                    "type": "component"
+                },
+                {
+                    "name": "ProfileWidget",
+                    "settings": {
+                    "readOnlyMode": true
+                    },
+                    "type": "component"
+                },
+                {
+                    "name": "EnrollmentWidget",
+                    "settings": {
+                    "readOnlyMode": false
+                    },
+                    "type": "component"
+                }
+            ],
+            "title": "Growth Monitoring"
+        }
+    }
+    ```
+
 # Growth chart plugin upload
 Run `yarn build` in the root of the project to build the plugin. The build can then be found in `/build/bundle`, and is a compressed file (`.zip`).
 
@@ -11,7 +93,6 @@ Upload the compressed file to the DHIS2 instance using the `manuall install` fun
 - `<Url of instance>/api/apps/capture-growth-chart/plugin.html` 
 
 Make sure to alter `<Url of instance>` with the actual url of you instance.
-
 
 # Configuration { #configuration }
 ## Maintenance app { #maintenance }
@@ -50,7 +131,7 @@ The program stage should have the following data elements:
                 
                          
 ## Datastore Manangement app { #datastore_management }
-### Capture
+### Capture namespace
 In namespace `capture`, enter the file with key `enrollmentOverviewLayout`
 Add new section for the growth chart under `leftColumn`. You can choose where on the left column to place it. Add the following code, but remember to change out `<Url of instance>` with the url of your instance.
 ```json
@@ -60,13 +141,12 @@ Add new section for the growth chart under `leftColumn`. You can choose where on
 }
 ```
 
-
-### Capture-growth-chart
+### Capture-growth-chart namespace
 #### Config      
 Create new namespace `capture-growth-chart` with key `config`
 The growth chart plugin needs this config to work. Keep in mind that all Id's should be changed, and will be specific for each implementation. 
 
-In the configuration we use a `programStageId` which refers to the program stage where the growth data is stored. 
+In the configuration we use a `programStageId` which refers to the program stage where the growth data is stored. The `programStageId` can be found in the **Maintenance** app under **Programs** and **Program stages**.
 
 The `femaleOptionCode` and `maleOptionCode` should map to the option codes that correspont to the gender of the individual. 
 
@@ -105,7 +185,6 @@ The structure of the config has to be the same as the one in the example below;
     }
 }
 ```    
-
 
 #### Custom references (Future functionality)
 ##### Create custom references
@@ -173,4 +252,4 @@ The structure of the config has to be the same as the one in the example below;
 
 ##### Use custom references
 
-If you want to use custom references, you can set `customReferences` to `true` in the config. This will make the plugin use the custom references you have created. If you want to use the default references, you can set `customReferences` to `false` in the config. This will make the plugin use the WHO references.  
+Now you can set `customReferences` to `true` in the config. This will make the plugin use the custom references you have created. If you want to use the default references, you can set `customReferences` to `false` in the config. This will make the plugin use the WHO references.
