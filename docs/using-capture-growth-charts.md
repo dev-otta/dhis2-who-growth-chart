@@ -96,7 +96,7 @@ Make sure to alter `<Url of instance>` with the actual url of you instance.
 
 # Configuration { #configuration }
 ## Maintenance app { #maintenance }
-The following steps can be made in the **Maintenance** app on DHIS2. 
+The following steps can be made in the **Maintenance** app on DHIS2.
 
 ### Data element
 Data elements needed to support full functionality in for the growth chart are; **Weight**, **Height** and **Head circumference**. **Weight** can be in either `gram` or `kg`, but **Height** and **Head circumference** should be in `cm`. If one of the data elements are missing, growth charts using that data element will not be displayed.  
@@ -146,14 +146,14 @@ Add new section for the growth chart under `leftColumn`. You can choose where on
 Create new namespace `capture-growth-chart` with key `config`
 The growth chart plugin needs this config to work. Keep in mind that all Id's should be changed, and will be specific for each implementation. 
 
-In the configuration we use a `programStageId` which refers to the program stage where the growth data is stored. The `programStageId` can be found in the **Maintenance** app under **Programs** and **Program stages**.
+##### Metadata
+The `metadata` object contains the following keys:
+- `attributes` - Contains the attribute IDs for `dateOfBirth`, `gender`, `firstName`, `lastName`, `femaleOptionCode` and `maleOptionCode`. All of these attribute IDs can be found in the **Maintenance** app under **Tracked entity attributes**, except for the `femaleOptionCode` and `maleOptionCode` which can be found in `Option set` under **Other** in the **Maintenance** app. 
+- `dataElements` - Contains the data element IDs for `headCircumference`, `height` and `weight`. All of these data element IDs can be found in the **Maintenance** app under **Data elements**.
+- `program` - Contains the program stage ID for the program stage where the growth data is stored. This ID can be found in the **Maintenance** app under **Programs** and **Program stages**.
 
-The `femaleOptionCode` and `maleOptionCode` should map to the option codes that correspont to the gender of the individual. 
-
-Option code used for gender can be found or created in `Option set` under **Other** in the **Maintenance** app. 
-
+##### Settings
 The `settings` object contains the following keys:
-- `customReferences` - A boolean value that determines if custom references should be used.
 - `usePercentiles` - A boolean value that determines if the growth chart should use percentiles or z-scores. If `true`, the growth chart will use percentiles. If `false`, the growth chart will use z-scores
 - `weightInGrams` - A boolean value that determines if the weight should be in grams or kg. 
 
@@ -179,7 +179,6 @@ The structure of the config has to be the same as the one in the example below;
         }
     },
     "settings": {
-        "customReferences": false,
         "usePercentiles": false,
         "weightInGrams": false
     }
