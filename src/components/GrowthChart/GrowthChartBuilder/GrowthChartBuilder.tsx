@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 import Chart, { ChartOptions } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { ChartDataTypes, CategoryToLabel, MeasurementTypeCodesLabel,
+import { ChartDataTypes, CategoryToLabel,
     MeasurementTypeCodes, DataSetLabels, CategoryCodes } from '../../../types/chartDataTypes';
 import { GrowthChartAnnotations, AnnotateLineEnd } from '../../../utils/ChartOptions';
 import { useMeasurementPlotting, useChartLines } from '../../../utils/Hooks/ChartDataVisualization';
@@ -32,10 +32,7 @@ export const GrowthChartBuilder = ({
 
     const { minDataValue, maxDataValue } = yAxisValues;
 
-    const categoryLabel = CategoryToLabel[category];
-
     const MeasuremenCode = MeasurementTypeCodes[category];
-    const MeasuremenLabel = MeasurementTypeCodesLabel[MeasuremenCode];
 
     const adjustIndex = (dataset === DataSetLabels.y_2_5) ? 24 : 0;
     const startIndex = (category !== CategoryCodes.wflh_b && category !== CategoryCodes.wflh_g) ? adjustIndex : datasetMetadata.range.start;
@@ -50,7 +47,7 @@ export const GrowthChartBuilder = ({
         plugins: {
             annotation: { annotations },
             legend: { display: false },
-            tooltip: ChartTooltip(MeasuremenLabel, categoryLabel),
+            tooltip: ChartTooltip(category, datasetMetadata.xAxisLabel, datasetMetadata.yAxisLabel),
         },
         scales: {
             x: {
