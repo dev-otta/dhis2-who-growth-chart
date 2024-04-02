@@ -10,6 +10,7 @@ Plugins allows developers to extend the functionality on DHIS2. These plugins en
 ## Prerequisites { #prerequisites }
 - DHIS2 version 2.38 or later
 - Capture app version v100.53.0 or later (Can be updated in the **App Management** app).
+- Access to the Maintenance app.
 - Access to the Datastore Management app.
 - Access to the App Management app.
 
@@ -18,7 +19,7 @@ Plugins allows developers to extend the functionality on DHIS2. These plugins en
 The plugin is implemented using the Datastore Management app.
 
 #### capture namespace
-- Create a new namespace with the key `capture` and key `useNewDashboard`.
+- Create a new namespace `capture` with key `useNewDashboard`.
     - Add the following code to the namespace. Make sure to change `programId` to the id of the program you want to use the plugin for.
     ```json
     {
@@ -87,10 +88,20 @@ The plugin is implemented using the Datastore Management app.
     ```
 
 # Growth chart plugin upload
+## Clone the repository
+Clone the repository to your local machine by running the following command in your terminal:
+```bash
+git clone https://github.com/dev-otta/dhis2-who-growth-chart.git
+```
+
+## Build the plugin
 Run `yarn build` in the root of the project to build the plugin. The build can then be found in `/build/bundle`, and is a compressed file (`.zip`).
 
 Upload the compressed file to the DHIS2 instance using the `manuall install` funciton in the **App Management** app. Now the plugin should be an available app on the instance and you can find it on this url: 
 - `<Url of instance>/api/apps/capture-growth-chart/plugin.html` 
+
+> **Note:** The growth chart will display a warning if it's missing the configuration file. The steps to complete this configuration file will be covered later in this guide.
+
 
 Make sure to alter `<Url of instance>` with the actual url of you instance.
 
@@ -105,15 +116,14 @@ Data elements needed to support full functionality in for the growth chart are; 
 #### Tracked entity attribute
 Tracked entity attribues needed for the Growth chart plugin is `Date of birth` and `Gender`. 
 
-**Tip**
-`First Name` and `Last Name` are also utilized in additional functionality, but not necessary for using the growth chart itself.  
+> **Tip:** `First Name` and `Last Name` are also utilized in additional functionality, but not necessary for using the growth chart itself.
                     
 #### Tracked entity type
 Navigate to the tracked entity type for **Person**. This type needs to be assigned the same attributes as those created in the [Tracked Entity Attributes](#tracked-entity-attributes) step. Make sure `Display in list` for the attributes is active, like the image below. 
 ![Tracked entity type](resources/images/tracked_entity_type_attributes.png)  
 
 #### Program     
-Select you preffered program for storing the growth variables and displaying the Growth Chart. 
+Select your preffered program for storing the growth variables and displaying the Growth Chart. 
 ##### Attributes
 The program should have the following attributes:
 - `First name`
@@ -136,7 +146,7 @@ In namespace `capture`, enter the file with key `enrollmentOverviewLayout`
 Add new section for the growth chart under `leftColumn`. You can choose where on the left column to place it. Add the following code, but remember to change out `<Url of instance>` with the url of your instance.
 ```json
 {
-    "source": "<Url of instance>/api/apps/capture-growth-chart/plugin.html",
+    "source": "http://<Url of instance>/api/apps/capture-growth-chart/plugin.html",
     "type": "plugin"
 }
 ```
@@ -148,8 +158,8 @@ The growth chart plugin needs this config to work. Keep in mind that all Id's sh
 
 ##### Metadata
 The `metadata` object contains the following keys:
-- `attributes` - Contains the attribute IDs for `dateOfBirth`, `gender`, `firstName`, `lastName`, `femaleOptionCode` and `maleOptionCode`. All of these attribute IDs can be found in the **Maintenance** app under **Tracked entity attributes**, except for the `femaleOptionCode` and `maleOptionCode` which can be found in `Option set` under **Other** in the **Maintenance** app. 
-- `dataElements` - Contains the data element IDs for `headCircumference`, `height` and `weight`. All of these data element IDs can be found in the **Maintenance** app under **Data elements**.
+- `attributes` - Contains the attribute IDs for **dateOfBirth**, **gender**, **firstName**, **lastName**, **femaleOptionCode** and **maleOptionCode**. All of these attribute IDs can be found in the **Maintenance** app under `Tracked entity attributes`, except for the **femaleOptionCode** and **maleOptionCode** which can be found in `Option set` under **Other** in the **Maintenance** app. 
+- `dataElements` - Contains the data element IDs for **headCircumference**, **height** and **weight**. All of these data element IDs can be found in the **Maintenance** app under **Data elements**.
 - `program` - Contains the program stage ID for the program stage where the growth data is stored. This ID can be found in the **Maintenance** app under **Programs** and **Program stages**.
 
 ##### Settings
