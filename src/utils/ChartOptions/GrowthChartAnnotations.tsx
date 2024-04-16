@@ -17,7 +17,7 @@ export const GrowthChartAnnotations = (
     };
 
     if (datasetMetadata.xAxisLabel === TimeUnitCodes.weeks) {
-        timeUnitConfig = timeUnitData.Months;
+        return [];
     }
 
     if (datasetMetadata.xAxisLabel === TimeUnitCodes.months) {
