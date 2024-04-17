@@ -68,7 +68,7 @@ export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: s
             },
             label: (tooltipItem) => {
                 let yValue = Number(tooltipItem.formattedValue.replace(',', '.'));
-                let xValue = Number(tooltipItem.label.replace(',', '.'));
+                let xValue = Number(tooltipItem.label.replace(',', '.')) + 0.01;
 
                 let xLabel = '';
 
@@ -79,8 +79,8 @@ export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: s
                 xLabel = `${xAxisLabel}: ${xValue} ${xUnit}`;
 
                 if (xAxisLabel === TimeUnitCodes.weeks) {
-                    const weeks = Number((xValue % timeUnitData.Months.divisor).toFixed(0));
-                    const months = Number((Math.floor(xValue / timeUnitData.Months.divisor)).toFixed(0));
+                    const weeks = Number(Math.floor(xValue % timeUnitData.Months.divisor));
+                    const months = Number(Math.floor(xValue / timeUnitData.Months.divisor));
                     xLabel = (months === 0 ? `${i18n.t('Age')}: ${weeks} ${(weeks === 1)
                         ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural}`
                         : `${i18n.t('Age')}: ${months} ${(months === 1) ? timeUnitData.Months.singular
@@ -88,8 +88,8 @@ export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: s
                             ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural}` : ''}`);
                 }
                 if (xAxisLabel === TimeUnitCodes.months) {
-                    const months = Number(Math.floor(xValue % timeUnitData.Years.divisor).toFixed(0));
-                    const years = Number(Math.floor(xValue / timeUnitData.Years.divisor).toFixed(0));
+                    const months = Number(Math.floor(xValue % timeUnitData.Years.divisor));
+                    const years = Number(Math.floor(xValue / timeUnitData.Years.divisor));
                     xLabel = (years === 0 ? `${i18n.t('Age')}: ${months} ${(months === 1)
                         ? timeUnitData.Months.singular : timeUnitData.Months.plural}`
                         : `${i18n.t('Age')}: ${years} ${(years === 1) ? timeUnitData.Years.singular

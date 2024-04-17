@@ -64,7 +64,7 @@ export const timeUnitData: { [key: string]: TimeUnitData } = {
     [TimeUnitCodes.months]: {
         singular: i18n.t('month'),
         plural: i18n.t('months'),
-        divisor: 4,
+        divisor: 4.34812141,
     },
     [TimeUnitCodes.weeks]: {
         singular: i18n.t('week'),
