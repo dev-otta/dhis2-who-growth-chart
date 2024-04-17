@@ -81,20 +81,54 @@ export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: s
                 if (xAxisLabel === TimeUnitCodes.weeks) {
                     const weeks = Number(Math.floor(xValue % timeUnitData.Months.divisor));
                     const months = Number(Math.floor(xValue / timeUnitData.Months.divisor));
-                    xLabel = (months === 0 ? `${i18n.t('Age')}: ${weeks} ${(weeks === 1)
-                        ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural}`
-                        : `${i18n.t('Age')}: ${months} ${(months === 1) ? timeUnitData.Months.singular
-                            : timeUnitData.Months.plural} ${(weeks > 0) ? `${weeks} ${(weeks === 1)
-                            ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural}` : ''}`);
+
+                    xLabel = `${i18n.t('Age')}: `;
+
+                    if (months > 0) {
+                        xLabel += `${months} ${(months === 1) ? timeUnitData.Months.singular : timeUnitData.Months.plural} `;
+                    }
+
+                    if (weeks > 0) {
+                        xLabel += `${weeks} ${(weeks === 1) ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural} `;
+                    }
+
+                    if (months < 1) {
+                        const totalDays = Number(xValue * timeUnitData.Weeks.divisor);
+                        const days = Number(Math.floor(totalDays % timeUnitData.Weeks.divisor));
+                        if (weeks === 0) {
+                            xLabel += `${days} ${(days === 1) ? timeUnitData.Days.singular : timeUnitData.Days.plural}`;
+                        }
+                        if (weeks > 0) {
+                            days === 0 ? xLabel += '' : xLabel += `${days} ${(days === 1) ? timeUnitData.Days.singular
+                                : timeUnitData.Days.plural}`;
+                        }
+                    }
                 }
                 if (xAxisLabel === TimeUnitCodes.months) {
                     const months = Number(Math.floor(xValue % timeUnitData.Years.divisor));
                     const years = Number(Math.floor(xValue / timeUnitData.Years.divisor));
-                    xLabel = (years === 0 ? `${i18n.t('Age')}: ${months} ${(months === 1)
-                        ? timeUnitData.Months.singular : timeUnitData.Months.plural}`
-                        : `${i18n.t('Age')}: ${years} ${(years === 1) ? timeUnitData.Years.singular
-                            : timeUnitData.Years.plural} ${(months > 0) ? `${months} ${(months === 1)
-                            ? timeUnitData.Months.singular : timeUnitData.Months.plural}` : ''}`);
+
+                    xLabel = `${i18n.t('Age')}: `;
+
+                    if (years > 0) {
+                        xLabel += `${years} ${(years === 1) ? timeUnitData.Years.singular : timeUnitData.Years.plural} `;
+                    }
+
+                    if (months > 0) {
+                        xLabel += `${months} ${(months === 1) ? timeUnitData.Months.singular : timeUnitData.Months.plural} `;
+                    }
+
+                    if (years < 1) {
+                        const totalWeeks = Number(xValue * timeUnitData.Months.divisor);
+                        const weeks = Number(Math.floor(totalWeeks % timeUnitData.Months.divisor));
+                        if (months === 0) {
+                            xLabel += `${weeks} ${(weeks === 1) ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural}`;
+                        }
+                        if (months > 0) {
+                            weeks === 0 ? xLabel += '' : xLabel += `${weeks} ${(weeks === 1) ? timeUnitData.Weeks.singular
+                                : timeUnitData.Weeks.plural}`;
+                        }
+                    }
                 }
 
                 const labels = [];
