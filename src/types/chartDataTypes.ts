@@ -12,7 +12,7 @@ export interface MeasurementData {
 interface TimeUnitData {
     singular: string;
     plural: string;
-    divisor?: number;
+    divisor: number;
 }
 
 export interface ChartDataTypes {
@@ -75,6 +75,7 @@ export const timeUnitData: { [key: string]: TimeUnitData } = {
     [TimeUnitCodes.days]: {
         singular: i18n.t('day'),
         plural: i18n.t('days'),
+        divisor: 1,
     },
 };
 
