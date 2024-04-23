@@ -1,11 +1,4 @@
-import i18n from '@dhis2/d2-i18n';
-import { TimeUnitCodes } from '../../types/chartDataTypes';
-
-interface TimeUnitData {
-    singular: string;
-    plural: string;
-    divisor: number;
-}
+import { timeUnitData, TimeUnitCodes } from '../../types/chartDataTypes';
 
 export interface AnnotationLabelType {
     display: boolean;
@@ -13,30 +6,24 @@ export interface AnnotationLabelType {
     position?: 'top' | 'bottom' | 'center' | 'start' | 'end';
     yAdjust?: number;
 }
-
-const timeUnitData: { [key: string]: TimeUnitData } = {
-    [TimeUnitCodes.months]: {
-        singular: i18n.t('Year'),
-        plural: i18n.t('Years'),
-        divisor: 12,
-    },
-    [TimeUnitCodes.weeks]: {
-        singular: i18n.t('Month'),
-        plural: i18n.t('Months'),
-        divisor: 4,
-    },
-};
-
-const contentText = (value: number, xAxisLabel: string) => {
-    const { singular, plural } = timeUnitData[xAxisLabel];
-    return `${value} ${value === 1 ? singular : plural}`;
-};
-
 export const GrowthChartAnnotations = (
     ZscoreLines: any[],
     datasetMetadata: any,
 ): AnnotationLabelType[] => {
-    const timeUnitConfig = timeUnitData[datasetMetadata.xAxisLabel];
+    let timeUnitConfig = {
+        singular: '',
+        plural: '',
+        divisor: 0,
+    };
+
+    if (datasetMetadata.xAxisLabel === TimeUnitCodes.weeks) {
+        timeUnitConfig = timeUnitData.Months;
+    }
+
+    if (datasetMetadata.xAxisLabel === TimeUnitCodes.months) {
+        timeUnitConfig = timeUnitData.Years;
+    }
+
     if (timeUnitConfig) {
         const xValues = ZscoreLines[0]?.data.map((entry: any) => entry.x) || [];
 
@@ -53,7 +40,7 @@ export const GrowthChartAnnotations = (
                     display: true,
                     content: () => {
                         const value = label / divisor;
-                        return contentText(value, datasetMetadata.xAxisLabel);
+                        return `${value} ${value === 1 ? timeUnitConfig.singular : timeUnitConfig.plural}`;
                     },
                     position: 'end',
                     yAdjust: 10,

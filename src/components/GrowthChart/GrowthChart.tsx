@@ -10,15 +10,18 @@ import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTr
 interface GrowthChartProps {
     trackedEntity: MappedEntityValues;
     measurementData: MeasurementData[];
+    isPercentiles: boolean;
     chartData: ChartData;
 }
 
 export const GrowthChart = ({
     trackedEntity,
     measurementData,
+    isPercentiles,
     chartData,
 }: GrowthChartProps) => {
     const trackedEntityGender = trackedEntity.gender;
+
     const [gender, setGender] = useState<string>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.CGC_Female);
     const { chartDataForGender } = useChartDataForGender({ gender, chartData });
 
@@ -40,8 +43,8 @@ export const GrowthChart = ({
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
 
+    const dataSetValues = isPercentiles ? dataSetEntry?.percentileDatasetValues : dataSetEntry?.zScoreDatasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
-    const dataSetValues = dataSetEntry?.datasetValues;
     const { min, max } = useCalculateMinMaxValues(dataSetValues);
 
     const [minDataValue, maxDataValue] = useMemo(() => {
@@ -91,6 +94,7 @@ export const GrowthChart = ({
                 dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
                 category={category}
                 dataset={dataset}
+                isPercentiles={isPercentiles}
             />
         </div>
     );

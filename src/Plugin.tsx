@@ -15,7 +15,7 @@ import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/us
 import { ChartConfigError } from './UI/GenericError/ChartConfigError';
 import { GenericLoading } from './UI/GenericLoading';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
-import { chartData } from './DataSets/WhoStandardDataSets/ChartDataZscores';
+import { chartData } from './DataSets/WhoStandardDataSets/ChartData';
 
 const queryClient = new QueryClient();
 
@@ -40,6 +40,8 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         events,
         isWeightInGrams: chartConfig?.settings.weightInGrams || false,
     });
+
+    const isPercentiles = chartConfig?.settings.usePercentiles || false;
 
     const [open, setOpen] = useState(true);
 
@@ -77,6 +79,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                             trackedEntity={mappedTrackedEntity}
                             measurementData={mappedGrowthVariables}
                             chartData={chartConfig.settings.customReferences ? customReferences : chartData}
+                            isPercentiles={isPercentiles}
                         />
                     </WidgetCollapsible>
                 </div>

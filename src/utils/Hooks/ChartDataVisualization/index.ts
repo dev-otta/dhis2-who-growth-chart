@@ -1,2 +1,2 @@
-export { useZscoreLines } from './useZscoreLines';
+export { useChartLines } from './useChartLines';
 export { useMeasurementPlotting } from './useMeasurementPlotting';
