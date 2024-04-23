@@ -66,8 +66,10 @@ export const GrowthChartBuilder = ({
                             const isFirstTick = index === 0;
                             const isLastTick = index === values.length - 1;
 
-                            if (isFirstTick) return '0';
-                            if (isLastTick) return '12';
+                            if (isFirstTick || isLastTick) {
+                                const years = value / 12;
+                                return `${years} ${years === 1 ? i18n.t('Year') : i18n.t('Years')}`;
+                            }
 
                             const modulo = value % 12;
                             return modulo === 0 ? '' : modulo;
