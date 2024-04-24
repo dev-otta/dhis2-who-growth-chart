@@ -6,8 +6,6 @@ import { ServerEvent } from '../../../types/Event.types';
 import { RequestedEntities, handleAPIResponse } from './handleAPIResponse';
 
 type UseEventsByProgramStageProps = {
-    programStageId: string | undefined;
-    orgUnitId: string | undefined;
     programId: string | undefined;
     teiId: string | undefined;
 };
@@ -38,9 +36,7 @@ interface UseEventsByProgramStageReturn {
 }
 
 export const useEvents = ({
-    orgUnitId,
     programId,
-    programStageId,
     teiId,
 }: UseEventsByProgramStageProps): UseEventsByProgramStageReturn => {
     const dataEngine = useDataEngine();
@@ -48,28 +44,21 @@ export const useEvents = ({
         data,
         isLoading,
         isError,
-    } = useQuery(['eventsByProgramStage', orgUnitId, programStageId, programId, teiId], (): any => dataEngine.query({
+    } = useQuery(['eventsByProgramStage', programId, teiId], (): any => dataEngine.query({
         eventsByProgramStage: {
             resource: 'tracker/events',
             params: ({
-                orgUnitId,
-                programStageId,
                 programId,
                 teiId,
             }) => ({
-                fields: 'event,status,program,dataValues,occurredAt,programStage',
                 program: programId,
-                programStage: programStageId,
-                orgUnit: orgUnitId,
                 trackedEntity: teiId,
             }),
         },
     }, {
         variables: {
-            orgUnitId,
-            programStageId,
-            programId,
             teiId,
+            programId,
         },
     }), { staleTime: 5000 });
 

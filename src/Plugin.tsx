@@ -15,19 +15,19 @@ import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/us
 import { ChartConfigError } from './UI/GenericError/ChartConfigError';
 import { GenericLoading } from './UI/GenericLoading';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
-import { chartData } from './DataSets/WhoStandardDataSets/ChartData';
+import { chartData as chartDataWHO } from './DataSets/WhoStandardDataSets/ChartData';
 import { CustomReferencesError } from './UI/GenericError/CustomReferencesError';
+import { useFilterByMissingData } from './utils/DataFetching/Sorting';
+import { MissingGrowthVariablesError } from './UI/GenericError/MissingGrowthVariablesError';
 
 const queryClient = new QueryClient();
 
 const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const { chartConfig, isLoading, isError } = useChartConfig();
     const { customReferences, isLoading: isLoadingRef, isError: isErrorRef } = useCustomReferences();
-    const { teiId, programId, orgUnitId } = propsFromParent;
+    const { teiId, programId } = propsFromParent;
     const { trackedEntity } = useTeiById({ teiId });
-    const { events } = useEvents({
-        orgUnitId,
-        programStageId: chartConfig?.metadata.program.programStageId,
+    const { events, isLoading: isLoadingEvents } = useEvents({
         programId,
         teiId,
     });
@@ -42,11 +42,16 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isWeightInGrams: chartConfig?.settings.weightInGrams || false,
     });
 
+    const { chartData, measurementDataExist } = useFilterByMissingData(
+        mappedGrowthVariables,
+        chartConfig && customReferences && chartConfig?.settings.customReferences ? customReferences : chartDataWHO,
+    );
+
     const isPercentiles = chartConfig?.settings.usePercentiles || false;
 
     const [open, setOpen] = useState(true);
 
-    if (isLoading || isLoadingRef) {
+    if (isLoading || isLoadingRef || isLoadingEvents) {
         return <GenericLoading />;
     }
 
@@ -56,6 +61,10 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     if (chartConfig?.settings.customReferences && isErrorRef) {
         return <CustomReferencesError />;
+    }
+
+    if (measurementDataExist.headCircumference === false && measurementDataExist.height === false && measurementDataExist.weight === false) {
+        return <MissingGrowthVariablesError />;
     }
 
     return (
@@ -83,7 +92,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                         <GrowthChart
                             trackedEntity={mappedTrackedEntity}
                             measurementData={mappedGrowthVariables}
-                            chartData={chartConfig.settings.customReferences ? customReferences : chartData}
+                            chartData={chartData}
                             isPercentiles={isPercentiles}
                         />
                     </WidgetCollapsible>
