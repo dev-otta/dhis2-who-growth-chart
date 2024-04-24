@@ -9,7 +9,7 @@ export const useCustomReferences = () => {
         isError,
     } = useQuery(
         'customReferences',
-        (): any => dataEngine.query({ customReferences: { resource: 'dataStore/capture-growth-charts/customReference' } }),
+        (): any => dataEngine.query({ customReferences: { resource: 'dataStore/capture-growth-chart/customReference' } }),
         { staleTime: 5000 },
     );
 
