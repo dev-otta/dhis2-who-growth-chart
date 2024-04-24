@@ -16,12 +16,13 @@ import { ChartConfigError } from './UI/GenericError/ChartConfigError';
 import { GenericLoading } from './UI/GenericLoading';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
 import { chartData } from './DataSets/WhoStandardDataSets/ChartData';
+import { CustomReferencesError } from './UI/GenericError/CustomReferencesError';
 
 const queryClient = new QueryClient();
 
 const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const { chartConfig, isLoading, isError } = useChartConfig();
-    const { customReferences, isLoading: isLoadingRef } = useCustomReferences();
+    const { customReferences, isLoading: isLoadingRef, isError: isErrorRef } = useCustomReferences();
     const { teiId, programId, orgUnitId } = propsFromParent;
     const { trackedEntity } = useTeiById({ teiId });
     const { events } = useEvents({
@@ -51,6 +52,10 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     if (isError) {
         return <ChartConfigError />;
+    }
+
+    if (chartConfig?.settings.customReferences && isErrorRef) {
+        return <CustomReferencesError />;
     }
 
     return (
