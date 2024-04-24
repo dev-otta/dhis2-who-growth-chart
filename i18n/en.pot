@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-04-24T10:57:45.778Z\n"
-"PO-Revision-Date: 2024-04-24T10:57:45.778Z\n"
+"POT-Creation-Date: 2024-04-24T11:33:57.683Z\n"
+"PO-Revision-Date: 2024-04-24T11:33:57.683Z\n"
 
 msgid "Growth Chart"
 msgstr "Growth Chart"
@@ -19,6 +19,12 @@ msgstr "Please check the configuration in Datastore Management and try again."
 
 msgid "There was an error fetching the custom references for the growth chart."
 msgstr "There was an error fetching the custom references for the growth chart."
+
+msgid "No growth variables were found."
+msgstr "No growth variables were found."
+
+msgid "Please add growth variables and try again."
+msgstr "Please add growth variables and try again."
 
 msgid "Date"
 msgstr "Date"
