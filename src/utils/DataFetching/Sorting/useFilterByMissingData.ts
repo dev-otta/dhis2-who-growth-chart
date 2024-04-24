@@ -52,5 +52,5 @@ export const useFilterByMissingData = (measurementData: MeasurementData[], chart
         return filteredData;
     }, [chartData, measurementDataExist, requiredData]);
 
-    return { chartData: filteredChartData };
+    return { chartData: filteredChartData, measurementDataExist };
 };

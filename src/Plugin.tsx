@@ -18,6 +18,7 @@ import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferen
 import { chartData as chartDataWHO } from './DataSets/WhoStandardDataSets/ChartData';
 import { CustomReferencesError } from './UI/GenericError/CustomReferencesError';
 import { useFilterByMissingData } from './utils/DataFetching/Sorting';
+import { MissingGrowthVariablesError } from './UI/GenericError/MissingGrowthVariablesError';
 
 const queryClient = new QueryClient();
 
@@ -41,7 +42,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isWeightInGrams: chartConfig?.settings.weightInGrams || false,
     });
 
-    const { chartData } = useFilterByMissingData(
+    const { chartData, measurementDataExist } = useFilterByMissingData(
         mappedGrowthVariables,
         chartConfig?.settings.customReferences ? customReferences : chartDataWHO,
     );
@@ -60,6 +61,10 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     if (chartConfig?.settings.customReferences && isErrorRef) {
         return <CustomReferencesError />;
+    }
+
+    if (measurementDataExist.headCircumference === false && measurementDataExist.height === false && measurementDataExist.weight === false) {
+        return <MissingGrowthVariablesError />;
     }
 
     return (
