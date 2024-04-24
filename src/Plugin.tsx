@@ -27,7 +27,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const { customReferences, isLoading: isLoadingRef, isError: isErrorRef } = useCustomReferences();
     const { teiId, programId } = propsFromParent;
     const { trackedEntity } = useTeiById({ teiId });
-    const { events } = useEvents({
+    const { events, isLoading: isLoadingEvents } = useEvents({
         programId,
         teiId,
     });
@@ -44,14 +44,14 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     const { chartData, measurementDataExist } = useFilterByMissingData(
         mappedGrowthVariables,
-        chartConfig?.settings.customReferences ? customReferences : chartDataWHO,
+        chartConfig && customReferences && chartConfig?.settings.customReferences ? customReferences : chartDataWHO,
     );
 
     const isPercentiles = chartConfig?.settings.usePercentiles || false;
 
     const [open, setOpen] = useState(true);
 
-    if (isLoading || isLoadingRef) {
+    if (isLoading || isLoadingRef || isLoadingEvents) {
         return <GenericLoading />;
     }
 
