@@ -195,70 +195,176 @@ The structure of the config has to be the same as the one in the example below;
 }
 ```    
 
-#### Custom references (Future functionality)
+#### Custom references
 ##### Create custom references
-1. Create a new key in the `capture-growth-chart` namespace with the key `customReferences`
-2. Add the custom references you want to use. The structure of the custom references has to be the same as the one in the example below. But the **datasetValues** should be changed to fit your own references.
+1. Create a new key in the `capture-growth-chart` namespace with the key `customReferences`.
+2. Here is the format for the custom references:
 ```json
 {
-    "hcfa_b": {
-        "categoryMetadata": {
-            "gender": "Boy",
-            "label": "Head circumference for age"
+  "<Indicator key>": {
+    "categoryMetadata": {
+      "gender": "<Girl || Boy>",
+      "label": "<Indicator label>"
+    },
+    "datasets": {
+      "<time interval>": {
+        "metadata": {
+          "range": {
+            "end": <X-axis dataset end>,
+            "start": <X-axis dataset start>
+          },
+          "xAxisLabel": "<Weeks || Months || Weight>",
+          "yAxisLabel": "<Anthropometric measurements, Height || Length || Weight || Head circumference>"
         },
-        "datasets": {
-            "0 to 13 weeks": {
-                "datasetValues": [
-                    {
-                        "SD0": 34.5,
-                        "SD1": 35.7,
-                        "SD1neg": 33.2,
-                        "SD2": 37,
-                        "SD2neg": 31.9,
-                        "SD3": 38.3,
-                        "SD3neg": 30.7
-                    },
-                    // ... more data points ...
-                ],
-                "metadata": {
-                    "chartLabel": "0 to 13 weeks",
-                    "range": {
-                        "end": 13,
-                        "start": 0
-                    },
-                    "xAxisLabel": "Weeks",
-                    "yAxisLabel": "Head circumference (cm)"
-                }
-            },
-            "0 to 5 years": {
-                "datasetValues": [
-                    {
-                        "SD0": 34.5,
-                        "SD1": 35.7,
-                        "SD1neg": 33.2,
-                        "SD2": 37,
-                        "SD2neg": 31.9,
-                        "SD3": 38.3,
-                        "SD3neg": 30.7
-                    },
-                    // ... more data points ...
-                ],
-                "metadata": {
-                    "chartLabel": "0 to 5 years",
-                    "range": {
-                        "end": 5,
-                        "start": 0
-                    },
-                    "xAxisLabel": "Years",
-                    "yAxisLabel": "Head circumference (cm)"
-                }
+        "percentileDatasetValues": [
+          {
+            "P3": <P3 value>,
+            "P15": <P15 value>,
+            "P50": <P50 value>,
+            "P85": <P85 value>,
+            "P97": <P97 value>
+          }
+        ],
+        "zScoreDatasetValues": [
+            {
+            "SD0": <SD0 value>,
+            "SD1": <SD1 value>,
+            "SD2": <SD2 value>,
+            "SD3": <SD3 value>,
+            "SD1neg": <SD1neg value>,
+            "SD2neg": <SD2neg value>,
+            "SD3neg": <SD3neg value>
             }
-        }
+        ]
+      },
     }
+  }
 }
 ```
 
+3. Add the custom references you want to use. The structure of the custom references has to be the same as the one in the example below. But the contents of **percentileDatasetValues** and **zScoreDatasetValues** should be changed to your custom references. However, you don't need to add references for both percentiles and z-scores, you can choose to only add one of them if desired.
+4. Add other indicators if you want, but make sure that the key maps to the right category and gender. The indicator key should be one of the following:
+- `"hcfa_g"` -> Head circumference for age
+- `"lhfa_g"` -> Length/height for age
+- `"wfa_g"` -> Weight for age
+- `"wlfh_g"` -> Weight for length/height
+<br>
+    `"_g"` indicates that the gender is girl. If you want to add references for boys, you can add the same key but with `"_b"` instead of `"_g"`. 
+    For example; 
+    `"hcfa_b"` -> Head circumference for age
+
+
+Here is an example of how the custom references could look like:
+```json
+{
+  "lhfa_g": {
+    "categoryMetadata": {
+      "gender": "Girl",
+      "label": "Length/height for age"
+    },
+    "datasets": {
+      "0 to 13 weeks": {
+        "metadata": {
+          "chartLabel": "0 to 13 weeks",
+          "range": {
+            "end": 13,
+            "start": 0
+          },
+          "xAxisLabel": "Weeks",
+          "yAxisLabel": "Length"
+        },
+        "percentileDatasetValues": [
+          {
+            "P15": 47.2,
+            "P3": 45.6,
+            "P50": 49.1,
+            "P85": 51.1,
+            "P97": 52.7
+          }
+          // Add more data here
+        ],
+        "zScoreDatasetValues": [
+          {
+            "SD0": 49.1,
+            "SD1": 51,
+            "SD1neg": 47.3,
+            "SD2": 52.9,
+            "SD2neg": 45.4,
+            "SD3": 54.7,
+            "SD3neg": 43.6
+          }
+          // Add more data here
+        ]
+      },
+      "0 to 2 years": {
+        "metadata": {
+          "range": {
+            "end": 24,
+            "start": 0
+          },
+          "xAxisLabel": "Months",
+          "yAxisLabel": "Length"
+        },
+        "percentileDatasetValues": [
+          {
+            "P15": 47.2,
+            "P3": 45.6,
+            "P50": 49.1,
+            "P85": 51.1,
+            "P97": 52.7
+          }
+          // Add more data here
+        ],
+        "zScoreDatasetValues": [
+          {
+            "SD0": 49.1,
+            "SD1": 51,
+            "SD1neg": 47.3,
+            "SD2": 52.9,
+            "SD2neg": 45.4,
+            "SD3": 54.7,
+            "SD3neg": 43.6
+          }
+          // Add more data here
+        ]
+      },
+      "2 to 5 years": {
+        "metadata": {
+          "chartLabel": "2 to 5 years",
+          "range": {
+            "end": 60,
+            "start": 24
+          },
+          "xAxisLabel": "Months",
+          "yAxisLabel": "Height"
+        },
+        "percentileDatasetValues": [
+          {
+            "P15": 82.4,
+            "P3": 79.6,
+            "P50": 85.7,
+            "P85": 89.1,
+            "P97": 91.8
+          }
+          // Add more data here
+        ],
+        "zScoreDatasetValues": [
+          {
+            "SD0": 85.7,
+            "SD1": 88.9,
+            "SD1neg": 82.5,
+            "SD2": 92.2,
+            "SD2neg": 79.3,
+            "SD3": 95.4,
+            "SD3neg": 76
+          }
+          // Add more data here
+        ]
+      }
+    }
+  }
+}
+```
 
 ##### Use custom references
-
-Now you can set `customReferences` to `true` in the config. This will make the plugin use the custom references you have created. If you want to use the default references, you can set `customReferences` to `false` in the config. This will make the plugin use the WHO references.
+Now you can set `customReferences` to `true` in the config. This will make the plugin use the custom references you have created. If you want to use the default references, you can set `customReferences` to `false` in the config. This will make the plugin use the WHO references. Make sure to also alter the `usePercentiles` in the chart config to match the references you are using, z-scores or percentiles. 
