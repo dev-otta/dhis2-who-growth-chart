@@ -2,6 +2,9 @@ import { useMemo } from 'react';
 import { ChartData, MeasurementData } from '../../../types/chartDataTypes';
 
 export const useFilterByMissingData = (measurementData: MeasurementData[], chartData: ChartData) => {
+    if (!chartData || !measurementData) {
+        return {};
+    }
     const requiredData = Object.freeze({
         hcfa_b: { headCircumference: true },
         hcfa_g: { headCircumference: true },

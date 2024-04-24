@@ -15,8 +15,9 @@ import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/us
 import { ChartConfigError } from './UI/GenericError/ChartConfigError';
 import { GenericLoading } from './UI/GenericLoading';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
-import { chartData } from './DataSets/WhoStandardDataSets/ChartData';
+import { chartData as chartDataWHO } from './DataSets/WhoStandardDataSets/ChartData';
 import { CustomReferencesError } from './UI/GenericError/CustomReferencesError';
+import { useFilterByMissingData } from './utils/DataFetching/Sorting';
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,11 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         events,
         isWeightInGrams: chartConfig?.settings.weightInGrams || false,
     });
+
+    const { chartData } = useFilterByMissingData(
+        mappedGrowthVariables,
+        chartConfig?.settings.customReferences ? customReferences : chartDataWHO,
+    );
 
     const isPercentiles = chartConfig?.settings.usePercentiles || false;
 
@@ -81,7 +87,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                         <GrowthChart
                             trackedEntity={mappedTrackedEntity}
                             measurementData={mappedGrowthVariables}
-                            chartData={chartConfig.settings.customReferences ? customReferences : chartData}
+                            chartData={chartData}
                             isPercentiles={isPercentiles}
                         />
                     </WidgetCollapsible>
