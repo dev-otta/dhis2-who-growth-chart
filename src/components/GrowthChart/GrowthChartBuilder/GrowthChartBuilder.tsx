@@ -47,7 +47,7 @@ export const GrowthChartBuilder = ({
         plugins: {
             annotation: { annotations },
             legend: { display: false },
-            tooltip: ChartTooltip(category, datasetMetadata.xAxisLabel, datasetMetadata.yAxisLabel),
+            tooltip: ChartTooltip(category, datasetMetadata.xAxisLabel, datasetMetadata.yAxisLabel, dateOfBirth),
         },
         scales: {
             x: {
