@@ -52,7 +52,6 @@ export const TimeUnitCodes = Object.freeze({
     years: i18n.t('Years'),
     months: i18n.t('Months'),
     weeks: i18n.t('Weeks'),
-    days: i18n.t('Days'),
 });
 
 export const timeUnitData: { [key: string]: TimeUnitData } = {
@@ -67,10 +66,6 @@ export const timeUnitData: { [key: string]: TimeUnitData } = {
     [TimeUnitCodes.weeks]: {
         singular: i18n.t('week'),
         plural: i18n.t('weeks'),
-    },
-    [TimeUnitCodes.days]: {
-        singular: i18n.t('day'),
-        plural: i18n.t('days'),
     },
 };
 
