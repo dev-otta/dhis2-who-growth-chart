@@ -59,7 +59,25 @@ export const GrowthChartBuilder = ({
                 },
                 min: datasetMetadata.range.start,
                 max: datasetMetadata.range.end,
-                ticks: { stepSize: 1 },
+                ticks: {
+                    stepSize: 1,
+                    callback: (value: number, index, values) => {
+                        if (datasetMetadata.xAxisLabel === 'Months') {
+                            const isFirstTick = index === 0;
+                            const isLastTick = index === values.length - 1;
+
+                            if (isFirstTick || isLastTick) {
+                                const years = value / 12;
+                                return `${years} ${years === 1 ? i18n.t('Year') : i18n.t('Years')}`;
+                            }
+
+                            const modulo = value % 12;
+                            return modulo === 0 ? '' : modulo;
+                        }
+                        return value;
+                    },
+                },
+
             },
             y: {
                 title: {
