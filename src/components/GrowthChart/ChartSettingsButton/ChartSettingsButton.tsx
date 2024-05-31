@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
+import i18n from '@dhis2/d2-i18n';
 import { usePopper } from 'react-popper';
 import { EllipsisButton } from './EllipsisButton';
 import { PopoverList, PopoverListItem, PopoverListDivider } from './PopoverList';
 import { CategoryCodes, ChartData } from '../../../types/chartDataTypes';
-import { PdfIcon } from '../../../UI/Icons/PdfIcon';
 import { MappedEntityValues } from '../../../utils/DataFetching/Sorting/useMappedTrackedEntity';
 import { PrintDocument } from '../../../utils/ChartOptions';
+import { PrintIcon } from '../../../UI/Icons/PrintIcon';
 
 interface ChartSettingsButtonProps {
     category: keyof typeof CategoryCodes;
@@ -67,8 +68,8 @@ export const ChartSettingsButton = ({
                     popoverAttributes={{ ...attributes.popper }}
                 >
                     <PopoverListItem
-                        label='Convert to PDF'
-                        icon={<PdfIcon />}
+                        label={i18n.t('Print')}
+                        icon={<PrintIcon />}
                         onClick={handlePrintDocument}
                     />
                     <PopoverListDivider />
