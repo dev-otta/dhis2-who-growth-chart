@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import i18n from '@dhis2/d2-i18n';
 import { WidgetCollapsible } from '../../components/WidgetCollapsible';
+import { Warning } from '../Icons';
 
-export const GenericLoading = (): JSX.Element => {
+export const CustomReferencesError = () => {
     const [open, setOpen] = useState(true);
     return (
         <div style={{
@@ -18,8 +19,13 @@ export const GenericLoading = (): JSX.Element => {
                 onOpen={() => setOpen(true)}
                 onClose={() => setOpen(false)}
             >
-                <div className='flex p-5'>
-                    <div className='w-full h-20 animate-pulse bg-gray-300' />
+                <div className='flex justify-center'>
+                    <Warning className='w-12 h-12' />
+                    <p className='flex p-5 pt-2'>
+                        {i18n.t('There was an error fetching the custom references for the growth chart.')}
+                        <br />
+                        {i18n.t('Please check the configuration in Datastore Management and try again.')}
+                    </p>
                 </div>
             </WidgetCollapsible>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu } from '@headlessui/react';
-import { CategoryCodes, ChartData } from '../../../types/chartDataTypes';
-import { Chevron } from '../../../UI/Icons';
+import { CategoryCodes, ChartData } from '../../../../types/chartDataTypes';
+import { Chevron } from '../../../../UI/Icons';
 
 interface ChartSelectorDropdownProps {
     title: keyof typeof CategoryCodes | keyof ChartData;
@@ -19,7 +19,7 @@ export const ChartSelectorDropdown = ({
     dataTest,
 }: ChartSelectorDropdownProps) => (
     <div className='flex flex-col'>
-        {isDisabled ? (
+        {isDisabled || items.length <= 1 ? (
             <button
                 className='flex flex-row rounded border border-gray-300 py-1 gap-2 h-7 px-4 items-center whitespace-nowrap'
                 disabled

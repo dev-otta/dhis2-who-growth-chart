@@ -5,29 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-03-18T10:17:19.228Z\n"
-"PO-Revision-Date: 2024-03-18T10:17:19.228Z\n"
-
-msgid "Date"
-msgstr "Date"
-
-msgid "Height"
-msgstr "Height"
-
-msgid "Weight"
-msgstr "Weight"
-
-msgid "Year"
-msgstr "Year"
-
-msgid "Years"
-msgstr "Years"
-
-msgid "Month"
-msgstr "Month"
-
-msgid "Months"
-msgstr "Months"
+"POT-Creation-Date: 2024-05-22T11:41:21.544Z\n"
+"PO-Revision-Date: 2024-05-22T11:41:21.544Z\n"
 
 msgid "Growth Chart"
 msgstr "Growth Chart"
@@ -38,20 +17,65 @@ msgstr "There was an error fetching the config for the growth chart."
 msgid "Please check the configuration in Datastore Management and try again."
 msgstr "Please check the configuration in Datastore Management and try again."
 
+msgid "There was an error fetching the custom references for the growth chart."
+msgstr "There was an error fetching the custom references for the growth chart."
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Age"
+msgstr "Age"
+
+msgid "Year"
+msgstr "Year"
+
+msgid "Years"
+msgstr "Years"
+
+msgid "Months"
+msgstr "Months"
+
 msgid "Weeks"
 msgstr "Weeks"
 
-msgid "Head circumference (cm)"
-msgstr "Head circumference (cm)"
+msgid "Days"
+msgstr "Days"
 
-msgid "Length (cm)"
-msgstr "Length (cm)"
+msgid "year"
+msgstr "year"
 
-msgid "Height (cm)"
-msgstr "Height (cm)"
+msgid "years"
+msgstr "years"
 
-msgid "Weight (kg)"
-msgstr "Weight (kg)"
+msgid "month"
+msgstr "month"
+
+msgid "months"
+msgstr "months"
+
+msgid "week"
+msgstr "week"
+
+msgid "weeks"
+msgstr "weeks"
+
+msgid "day"
+msgstr "day"
+
+msgid "days"
+msgstr "days"
+
+msgid "Head circumference"
+msgstr "Head circumference"
+
+msgid "Length"
+msgstr "Length"
+
+msgid "Height"
+msgstr "Height"
+
+msgid "Weight"
+msgstr "Weight"
 
 msgid "Head circumference for age"
 msgstr "Head circumference for age"
