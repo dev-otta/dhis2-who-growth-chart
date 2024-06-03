@@ -67,7 +67,6 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                     backgroundColor: 'white',
                     width: '100vw',
                     display: 'flex',
-                    //minWidth: 'fit-content',
                     margin: 0,
                     padding: 0,
                 }}
