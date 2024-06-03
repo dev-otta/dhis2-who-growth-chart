@@ -1,44 +1,58 @@
-# Using Capture Growth Charts { #capture_growth_charts } 
+# Using Capture Growth Charts
 
-## About Capture Growth Charts { #about_capture_growth_charts } 
+## About Capture Growth Charts
 
-Capture growth charts is a web application that allows users to capture and view growth data for children under the age of 5. The application is designed to be used by health workers to capture growth data for children and to view growth charts for children in their care. The application is designed to be used on a tablet or computer device and is optimized for data entry and visualization of growth charts for efficient monitoring of child development.
+Capture growth charts plugin is a web application that allows users to capture and view growth data for children under the age of 5. 
+The application is designed to be used by health workers to capture growth data for children and to view growth charts for children in their care. 
+The plugin is designed to be used on a tablet or computer device and is optimized for data entry and visualization of growth charts for efficient monitoring of child development.
 
-# Plugin Implementation { #implement_plugin }
-Plugins allows developers to extend the functionality on DHIS2. These plugins enable users to customize form fields and sections within the Capture app, potentially enhancing data entry and user experience. The Growth Chart is using the plugin functionality to be implemented in the Capture app.
+# Plugin Implementation
+Plugins allows developers to extend the functionality on DHIS2. 
+These plugins enable users to customize form fields and sections within the Capture app, potentially enhancing data entry and user experience. 
+The Growth Chart is using the plugin functionality to be implemented in the Capture app.
+Read more about plugins [here](https://kdb.devotta.com/docs/capture-plugins/getting-started).
 
-## Prerequisites { #prerequisites }
+## Prerequisites
 - DHIS2 version 2.38 or later
 - [Capture](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/tracking-individual-level-data/capture.html) app version v100.53.0 or later (Can be updated in the **App Management** app).
-- Access to the Maintenance app.
-- Access to the Datastore Management app.
-- Access to the App Management app.
+- Access to the [Maintenance](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/configuring-the-system/metadata.html) app.
+- Access to the [Datastore Management](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/maintaining-the-system/datastore-manager.html) app.
+- Access to the [App Management](https://developers.dhis2.org/docs/guides/submit-apphub/#faq) app.
 - [Tracker Plugin Configurator](https://apps.dhis2.org/app/85d156b7-6e3f-43f0-be57-395449393f7d) application (Can be installed in the **App Management** app).
 
 # Growth chart plugin download
-The Capture Growth Charts plugin is availiable in the [DHIS2 App Hub](https://apps.dhis2.org/app/09f48f78-b67c-4efa-90ad-9ac2fed53bb8), and needs to be download in the **App Management** application.
+Download the Capture Growth Charts plugin availiable in the [DHIS2 App Hub](https://apps.dhis2.org/app/09f48f78-b67c-4efa-90ad-9ac2fed53bb8) in the **App Management** application on DHIS2.
 
-# Configuration { #configuration }
-## Maintenance app { #maintenance }
+# Configuration
+The following steps are needed to configure the Growth Chart plugin in the Capture app.
+## Maintenance app
 The following steps can be made in the **Maintenance** app on DHIS2.
+The steps can be skipped if the necessary metadata is already in place.
 
 ### Data element
-Data elements needed to support full functionality in for the growth chart are; **Weight**, **Height** and **Head circumference**. **Weight** can be in either `gram` or `kg`, but **Height** and **Head circumference** should be in `cm`. If one of the data elements are missing, growth charts using that data element will not be displayed.
+[Data elements](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata.html#manage_data_element) needed to support full functionality in for the growth chart are; **Weight**, **Height** and **Head circumference**. 
+**Weight** can be in either `gram` or `kg`, but **Height** and **Head circumference** should be in `cm`. 
+If one of the data elements are missing, growth charts using that data element will not be displayed.
+Documentation for configuring data elements on DHIS2 can be found [here](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata.html#manage_data_element).
 
 ### Program
 Create a program for storing the growth variables and displaying the Growth Chart. 
 Documentation for configuring programs on DHIS2 can be found [here](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-241/configuring-the-system/programs.html).
-#### Tracked entity attribute {#tracked-entity-attribute}
-Tracked entity attribues needed for the Growth chart plugin is `Date of birth` and `Gender`.
+
+#### Tracked entity attributes
+Tracked entity attribues needed for the Growth chart plugin are `Date of birth` and `Gender`.
 
 > **Tip:** `First Name` and `Last Name` are also utilized in additional functionality, but not necessary for using the growth chart itself.
 
 #### Tracked entity type
-Navigate to the tracked entity type for **Person**. This type needs to be assigned the same attributes as those created in the [Tracked Entity Attributes](#tracked-entity-attribute) step. Make sure `Display in list` for the attributes is active, like the image below.
+Navigate to the tracked entity type for **Person**. 
+This type needs to be assigned the same attributes as those created in the previous step (`Date of birth`, `Gender`, `First Name` and `Last Name`). 
+
+> **Note:** Make sure `Display in list` for the attributes is active, like the image below.
 ![Tracked entity type](resources/images/tracked_entity_type_attributes.png)
 
 #### Program
-Select your preffered program for storing the growth variables and displaying the Growth Chart.
+Select or create the preffered program for storing the growth variables and displaying the Growth Chart plugin.
 ##### Attributes
 The program should have the following attributes:
 - `First name`
@@ -53,7 +67,7 @@ The program stage should have the following data elements:
 - `Height` (cm)
 - `Head circumference` (cm)
 
-## Datastore Manangement app { #datastore_management }
+## Datastore Manangement app
 The following steps can be made in the **Datastore Management** app on DHIS2.
 Documentation for the application can be found [here](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/maintaining-the-system/datastore-manager.html).
 
@@ -96,30 +110,40 @@ The structure of the config has to be the same as the one in the example below;
 
 ##### Metadata
 The `metadata` object contains the following keys:
-- `attributes` - Contains the attribute IDs for **dateOfBirth**, **gender**, **firstName**, **lastName**, **femaleOptionCode** and **maleOptionCode**. All of these attribute IDs can be found in the **Maintenance** app under `Tracked entity attributes`, except for the **femaleOptionCode** and **maleOptionCode** which can be found in `Option set` under **Other** in the **Maintenance** app.
-- `dataElements` - Contains the data element IDs for **headCircumference**, **height** and **weight**. All of these data element IDs can be found in the **Maintenance** app under **Data elements**.
-- `program` - Contains the program stage ID for the program stage where the growth data is stored. This ID can be found in the **Maintenance** app under **Programs** and **Program stages**.
+- `attributes` - Contains the attribute IDs for **dateOfBirth**, **gender**, **firstName**, **lastName**, **femaleOptionCode** and **maleOptionCode**. 
+All of these attribute IDs can be found in the **Maintenance** app under `Tracked entity attributes`, except for the **femaleOptionCode** and **maleOptionCode** which can be found in `Option set` under **Other** in the **Maintenance** app. 
+Documentation for `Option Sets` can be found [here](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/configuring-the-system/metadata.html#manage_option_set).
+- `dataElements` - Contains the data element IDs for **headCircumference**, **height** and **weight**. 
+All of these data element IDs can be found in the **Maintenance** app under **Data elements**.
+- `program` - Contains the program stage ID for the program stage where the growth data is stored. 
+This ID can be found in the **Maintenance** app under **Programs** and **Program stages**.
 
 ##### Settings
 The `settings` object contains the following keys:
-- `usePercentiles` - A boolean value that determines if the growth chart should use percentiles or z-scores. If `true`, the growth chart will use percentiles. If `false`, the growth chart will use z-scores
-- `customReferences` - A boolean value that determines if the growth chart should use custom references or the WHO references. If `true`, the growth chart will use custom references. If `false`, the growth chart will use the WHO references.
+- `usePercentiles` - A boolean value that determines if the growth chart should use percentiles or z-scores. 
+If `true`, the growth chart will use percentiles. 
+If `false`, the growth chart will use z-scores
+- `customReferences` - A boolean value that determines if the growth chart should use custom references or the WHO references. 
+If `true`, the growth chart will use custom references. 
+If `false`, the growth chart will use the WHO references.
 - `weightInGrams` - A boolean value that determines if the weight should be in grams or kg.
+If `true`, the weight will be in grams. 
+If `false`, the weight will be in kg.
                 
-# Enable the plugin in the Capture enrollment dashboard { #enable_plugin }
-## Tracker Plugin Configurator app { #tracker_plugin_configurator }
+# Enable the plugin in the Capture enrollment dashboard
+## Tracker Plugin Configurator app
 The **Tracker Plugin Configurator** app is used to enable the Growth Chart plugin in the Capture app.
 To display the growth chart in the Capture app, use the **Tracker Plugin Configurator** app or follow the guide on [configuring enrollment plugins](https://kdb.devotta.com/docs/capture-plugins/enrollment-plugins).
 
 > **Note:** You are now finished with the configuration and ready to use the Growth Chart plugin in the Capture app with WHO's standard references.
 > If you want to use country specific references, follow the steps in the next section.
 
-# Custom references { #custom_references }
+# Custom references 
 The growth chart plugin can be configured to use country specific references, instead of the WHO's standard references. 
 This can be useful if you want to use references that are specific to your country or region. 
 The custom references can be set up in the **Datastore Management** app.
 If you don't want to use custom references, you are finished with the configuration.
-## Datastore Management app { #custom_references_datastore_management }
+## Datastore Management app 
 ### Create custom references
 1. Create a new key in the `capture-growth-chart` namespace with the key `customReferences`, as seen in the image below.
 
