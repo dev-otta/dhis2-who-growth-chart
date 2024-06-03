@@ -1,17 +1,20 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import i18n from '@dhis2/d2-i18n';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
 import { ChartSelector } from './GrowthChartSelector';
-import { GenderCodes, CategoryCodes, MeasurementData, ChartData } from '../../types/chartDataTypes';
-import { useCalculateMinMaxValues } from '../../utils/Hooks/Calculations/useCalculateMinMaxValues';
+import { CategoryCodes, ChartData, GenderCodes, MeasurementData } from '../../types/chartDataTypes';
+import { useCalculateMinMaxValues } from '../../utils/Hooks/Calculations';
 import { ChartSettingsButton } from './ChartSettingsButton';
-import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
+import { useChartDataForGender } from '../../utils/DataFetching/Sorting';
 import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTrackedEntity';
+import { GenericError } from '../../UI/GenericError/GenericError';
 
 interface GrowthChartProps {
     trackedEntity: MappedEntityValues;
     measurementData: MeasurementData[];
     isPercentiles: boolean;
     chartData: ChartData;
+    defaultIndicator?: string;
 }
 
 export const GrowthChart = ({
@@ -19,33 +22,49 @@ export const GrowthChart = ({
     measurementData,
     isPercentiles,
     chartData,
+    defaultIndicator,
 }: GrowthChartProps) => {
     const trackedEntityGender = trackedEntity?.gender;
 
     const [gender, setGender] = useState<string>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.CGC_Female);
-    const { chartDataForGender } = useChartDataForGender({ gender, chartData });
+    const { chartDataForGender } = useChartDataForGender({
+        gender,
+        chartData,
+    });
 
     const [category, setCategory] = useState<keyof typeof CategoryCodes>();
     const [dataset, setDataset] = useState<string>();
+    const [defaultIndicatorError, setDefaultIndicatorError] = useState<boolean>(false);
+
+    const isKeyOfCategoryCodes = (key: string): key is keyof typeof CategoryCodes => key in CategoryCodes;
 
     useEffect(() => {
-        if (Object.keys(chartDataForGender).length > 0) {
-            const newCategory = Object.keys(chartDataForGender)[0] as keyof typeof CategoryCodes;
+        const key = `${defaultIndicator}_${gender.charAt(0)
+            .toLowerCase()}`;
+        if (!isKeyOfCategoryCodes(key)) {
+            setDefaultIndicatorError(true);
+        }
+        if (isKeyOfCategoryCodes(key) && chartDataForGender[key]) {
+            const newCategory = CategoryCodes[key];
             setCategory(newCategory);
             const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0];
             setDataset(newDataset);
         }
-    }, [chartDataForGender]);
+    }, [chartDataForGender, defaultIndicator, gender]);
 
     useEffect(() => {
-        Object.values(GenderCodes).includes(trackedEntity.gender) && setGender(trackedEntity?.gender);
+        Object.values(GenderCodes)
+            .includes(trackedEntity.gender) && setGender(trackedEntity?.gender);
     }, [trackedEntity]);
 
     const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
 
     const dataSetValues = isPercentiles ? dataSetEntry?.percentileDatasetValues : dataSetEntry?.zScoreDatasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
-    const { min, max } = useCalculateMinMaxValues(dataSetValues);
+    const {
+        min,
+        max,
+    } = useCalculateMinMaxValues(dataSetValues);
 
     const [minDataValue, maxDataValue] = useMemo(() => {
         const minVal = Math.max(0, Math.floor(min));
@@ -53,12 +72,24 @@ export const GrowthChart = ({
         return [minVal, maxVal];
     }, [min, max]);
 
+    if (defaultIndicatorError) {
+        return (
+            <GenericError
+                errorTextLine_1={`${i18n.t('The default indicator')} "${defaultIndicator}" ${i18n.t('is not a valid indicator.')}`}
+                errorTextLine_2={i18n.t('Please select a valid indicator in the configuration.')}
+            />
+        );
+    }
+
     if (!chartDataForGender || !dataSetValues) {
         return null;
     }
 
     const keysDataSet = Object.keys(dataSetValues[0]);
-    const yAxisValues = { minDataValue, maxDataValue };
+    const yAxisValues = {
+        minDataValue,
+        maxDataValue,
+    };
 
     return (
         <div>

@@ -5,11 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-05-22T11:41:21.544Z\n"
-"PO-Revision-Date: 2024-05-22T11:41:21.544Z\n"
-
-msgid "Growth Chart"
-msgstr "Growth Chart"
+"POT-Creation-Date: 2024-06-03T10:25:33.640Z\n"
+"PO-Revision-Date: 2024-06-03T10:25:33.640Z\n"
 
 msgid "There was an error fetching the config for the growth chart."
 msgstr "There was an error fetching the config for the growth chart."
@@ -19,6 +16,21 @@ msgstr "Please check the configuration in Datastore Management and try again."
 
 msgid "There was an error fetching the custom references for the growth chart."
 msgstr "There was an error fetching the custom references for the growth chart."
+
+msgid "Growth Chart"
+msgstr "Growth Chart"
+
+msgid "Print"
+msgstr "Print"
+
+msgid "The default indicator"
+msgstr "The default indicator"
+
+msgid "is not a valid indicator."
+msgstr "is not a valid indicator."
+
+msgid "Please select a valid indicator in the configuration."
+msgstr "Please select a valid indicator in the configuration."
 
 msgid "Date"
 msgstr "Date"
@@ -38,9 +50,6 @@ msgstr "Months"
 msgid "Weeks"
 msgstr "Weeks"
 
-msgid "Days"
-msgstr "Days"
-
 msgid "year"
 msgstr "year"
 
@@ -58,12 +67,6 @@ msgstr "week"
 
 msgid "weeks"
 msgstr "weeks"
-
-msgid "day"
-msgstr "day"
-
-msgid "days"
-msgstr "days"
 
 msgid "Head circumference"
 msgstr "Head circumference"

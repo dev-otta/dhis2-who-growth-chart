@@ -7,24 +7,37 @@ import i18n from '@dhis2/d2-i18n';
 import { WidgetCollapsible } from './components/WidgetCollapsible';
 import { GrowthChart } from './components/GrowthChart/GrowthChart';
 import { EnrollmentOverviewProps } from './Plugin.types';
-import { useTeiById } from './utils/DataFetching/Hooks';
-import { useChartConfig } from './utils/DataFetching/Hooks/useChartConfig';
+import { useChartConfig, useEvents, useTeiById } from './utils/DataFetching/Hooks';
 import { useMappedGrowthVariables } from './utils/DataFetching/Sorting/useMappedGrowthVariables';
-import { useEvents } from './utils/DataFetching/Hooks/useEvents';
 import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/useMappedTrackedEntity';
-import { ChartConfigError } from './UI/GenericError/ChartConfigError';
 import { GenericLoading } from './UI/GenericLoading';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
 import { chartData } from './DataSets/WhoStandardDataSets/ChartData';
-import { CustomReferencesError } from './UI/GenericError/CustomReferencesError';
+import { GenericError } from './UI/GenericError/GenericError';
 
 const queryClient = new QueryClient();
 
 const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
-    const { chartConfig, isLoading, isError } = useChartConfig();
-    const { customReferences, isLoading: isLoadingRef, isError: isErrorRef } = useCustomReferences();
-    const { teiId, programId, orgUnitId } = propsFromParent;
+    const {
+        chartConfig,
+        isLoading,
+        isError,
+    } = useChartConfig();
+
+    const {
+        customReferences,
+        isLoading: isLoadingRef,
+        isError: isErrorRef,
+    } = useCustomReferences();
+
+    const {
+        teiId,
+        programId,
+        orgUnitId,
+    } = propsFromParent;
+
     const { trackedEntity } = useTeiById({ teiId });
+
     const { events } = useEvents({
         orgUnitId,
         programStageId: chartConfig?.metadata.program.programStageId,
@@ -33,7 +46,9 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     });
 
     const mappedTrackedEntity = useMappedTrackedEntityVariables({
-        variableMappings: chartConfig?.metadata.attributes, trackedEntity, trackedEntityAttributes: trackedEntity?.attributes,
+        variableMappings: chartConfig?.metadata.attributes,
+        trackedEntity,
+        trackedEntityAttributes: trackedEntity?.attributes,
     });
 
     const mappedGrowthVariables = useMappedGrowthVariables({
@@ -44,6 +59,8 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     const isPercentiles = chartConfig?.settings.usePercentiles || false;
 
+    const defaultIndicator = chartConfig?.settings.defaultIndicator || 'wfa';
+
     const [open, setOpen] = useState(true);
 
     if (isLoading || isLoadingRef) {
@@ -51,11 +68,23 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     }
 
     if (isError) {
-        return <ChartConfigError />;
+        return (
+            <GenericError
+                withWidgetCollapsible
+                errorTextLine_1={i18n.t('There was an error fetching the config for the growth chart.')}
+                errorTextLine_2={i18n.t('Please check the configuration in Datastore Management and try again.')}
+            />
+        );
     }
 
     if (chartConfig?.settings.customReferences && isErrorRef) {
-        return <CustomReferencesError />;
+        return (
+            <GenericError
+                withWidgetCollapsible
+                errorTextLine_1={i18n.t('There was an error fetching the custom references for the growth chart.')}
+                errorTextLine_2={i18n.t('Please check the configuration in Datastore Management and try again.')}
+            />
+        );
     }
 
     return (
@@ -84,6 +113,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                             trackedEntity={mappedTrackedEntity}
                             measurementData={mappedGrowthVariables}
                             chartData={chartConfig.settings.customReferences ? customReferences : chartData}
+                            defaultIndicator={defaultIndicator}
                             isPercentiles={isPercentiles}
                         />
                     </WidgetCollapsible>

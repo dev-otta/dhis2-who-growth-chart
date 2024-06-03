@@ -20,8 +20,9 @@ export type ChartConfig = {
     };
     settings: {
         customReferences: boolean;
-        zScoreStandard: string;
+        usePercentiles: boolean;
         weightInGrams: boolean;
+        defaultIndicator: string;
     };
 };
 
@@ -33,7 +34,8 @@ export const useChartConfig = () => {
         isError,
     } = useQuery(
         'chartConfig',
-        (): any => dataEngine.query({ chartConfig: { resource: 'dataStore/capture-growth-chart/config' } }),
+        (): any =>
+            dataEngine.query({ chartConfig: { resource: 'dataStore/capture-growth-chart/config' } }),
         { staleTime: 5000 },
     );
 
