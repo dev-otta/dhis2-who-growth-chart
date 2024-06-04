@@ -5,6 +5,9 @@ import { CategoryCodes, ChartData, MeasurementTypeCodesLabel, TimeUnitCodes } fr
 export const useAppropriateChartData = (
     chartDataForGender: ChartData,
     dateOfBirth: Date,
+    defaultIndicator: string,
+    gender: string,
+    setDefaultIndicatorError: (value: boolean) => void,
 ) => {
     const [selectedCategory, setSelectedCategory] = useState<keyof typeof CategoryCodes>();
     const [selectedDataset, setSelectedDataset] = useState<string>();
@@ -47,14 +50,19 @@ export const useAppropriateChartData = (
         }
     }, [selectedCategory, chartDataForGender]);
 
+    const isKeyOfCategoryCodes = (key: string): key is keyof typeof CategoryCodes => key in CategoryCodes;
+
     useEffect(() => {
-        if (Object.keys(chartDataForGender).length > 0) {
-            const firstKey = Object.keys(chartDataForGender)[0];
-            if (firstKey) {
-                chartDataForGender[firstKey] && setSelectedCategory(firstKey);
-            }
+        const key = `${defaultIndicator}_${gender.charAt(0)
+            .toLowerCase()}`;
+        if (!isKeyOfCategoryCodes(key)) {
+            setDefaultIndicatorError(true);
         }
-    }, [chartDataForGender]);
+        if (isKeyOfCategoryCodes(key) && chartDataForGender[key]) {
+            const newCategory = CategoryCodes[key];
+            setSelectedCategory(newCategory);
+        }
+    }, [chartDataForGender, defaultIndicator, gender, setDefaultIndicatorError]);
 
     return {
         selectedCategory,
