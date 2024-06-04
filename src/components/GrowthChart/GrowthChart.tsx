@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
 import { ChartSelector } from './GrowthChartSelector';
-import { GenderCodes, CategoryCodes, MeasurementData, ChartData } from '../../types/chartDataTypes';
-import { useCalculateMinMaxValues } from '../../utils/Hooks/Calculations/useCalculateMinMaxValues';
+import { ChartData, GenderCodes, MeasurementData } from '../../types/chartDataTypes';
+import { useCalculateMinMaxValues } from '../../utils/Hooks/Calculations';
 import { ChartSettingsButton } from './ChartSettingsButton';
-import { useChartDataForGender } from '../../utils/DataFetching/Sorting/useChartDataForGender';
+import { useChartDataForGender } from '../../utils/DataFetching/Sorting';
 import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTrackedEntity';
+import { useAppropriateChartData } from '../../utils/Hooks/Calculations/useAppropriateChartData';
 
 interface GrowthChartProps {
     trackedEntity: MappedEntityValues;
@@ -21,31 +22,33 @@ export const GrowthChart = ({
     chartData,
 }: GrowthChartProps) => {
     const trackedEntityGender = trackedEntity?.gender;
-
+    const dateOfBirth = new Date(trackedEntity?.dateOfBirth);
     const [gender, setGender] = useState<string>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.CGC_Female);
-    const { chartDataForGender } = useChartDataForGender({ gender, chartData });
+    const { chartDataForGender } = useChartDataForGender({
+        gender,
+        chartData,
+    });
 
-    const [category, setCategory] = useState<keyof typeof CategoryCodes>();
-    const [dataset, setDataset] = useState<string>();
-
-    useEffect(() => {
-        if (Object.keys(chartDataForGender).length > 0) {
-            const newCategory = Object.keys(chartDataForGender)[0] as keyof typeof CategoryCodes;
-            setCategory(newCategory);
-            const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0];
-            setDataset(newDataset);
-        }
-    }, [chartDataForGender]);
+    const {
+        selectedCategory,
+        selectedDataset,
+        setSelectedCategory: setCategory,
+        setSelectedDataset: setDataset,
+    } = useAppropriateChartData(chartDataForGender, dateOfBirth);
 
     useEffect(() => {
-        Object.values(GenderCodes).includes(trackedEntity.gender) && setGender(trackedEntity?.gender);
+        Object.values(GenderCodes)
+            .includes(trackedEntity.gender) && setGender(trackedEntity?.gender);
     }, [trackedEntity]);
 
-    const dataSetEntry = chartDataForGender[category]?.datasets[dataset];
+    const dataSetEntry = chartDataForGender[selectedCategory]?.datasets[selectedDataset];
 
     const dataSetValues = isPercentiles ? dataSetEntry?.percentileDatasetValues : dataSetEntry?.zScoreDatasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
-    const { min, max } = useCalculateMinMaxValues(dataSetValues);
+    const {
+        min,
+        max,
+    } = useCalculateMinMaxValues(dataSetValues);
 
     const [minDataValue, maxDataValue] = useMemo(() => {
         const minVal = Math.max(0, Math.floor(min));
@@ -58,15 +61,18 @@ export const GrowthChart = ({
     }
 
     const keysDataSet = Object.keys(dataSetValues[0]);
-    const yAxisValues = { minDataValue, maxDataValue };
+    const yAxisValues = {
+        minDataValue,
+        maxDataValue,
+    };
 
     return (
         <div>
             <div className='flex flex-wrap-reverse pl-12'>
                 <div>
                     <ChartSelector
-                        category={category}
-                        dataset={dataset}
+                        category={selectedCategory}
+                        dataset={selectedDataset}
                         setCategory={setCategory}
                         setDataset={setDataset}
                         chartData={chartDataForGender}
@@ -77,8 +83,8 @@ export const GrowthChart = ({
                 </div>
                 <div className='grow relative min-w-[100px] text-sm'>
                     <ChartSettingsButton
-                        category={category}
-                        dataset={dataset}
+                        category={selectedCategory}
+                        dataset={selectedDataset}
                         gender={gender}
                         trackedEntity={trackedEntity}
                     />
@@ -91,9 +97,9 @@ export const GrowthChart = ({
                 datasetMetadata={dataSetMetadata}
                 yAxisValues={yAxisValues}
                 keysDataSet={keysDataSet}
-                dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
-                category={category}
-                dataset={dataset}
+                dateOfBirth={dateOfBirth}
+                category={selectedCategory}
+                dataset={selectedDataset}
                 isPercentiles={isPercentiles}
             />
         </div>

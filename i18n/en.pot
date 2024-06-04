@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-05-22T11:41:21.544Z\n"
-"PO-Revision-Date: 2024-05-22T11:41:21.544Z\n"
+"POT-Creation-Date: 2024-06-03T12:47:42.239Z\n"
+"PO-Revision-Date: 2024-06-03T12:47:42.239Z\n"
 
 msgid "Growth Chart"
 msgstr "Growth Chart"
@@ -19,6 +19,9 @@ msgstr "Please check the configuration in Datastore Management and try again."
 
 msgid "There was an error fetching the custom references for the growth chart."
 msgstr "There was an error fetching the custom references for the growth chart."
+
+msgid "Print"
+msgstr "Print"
 
 msgid "Date"
 msgstr "Date"
@@ -38,9 +41,6 @@ msgstr "Months"
 msgid "Weeks"
 msgstr "Weeks"
 
-msgid "Days"
-msgstr "Days"
-
 msgid "year"
 msgstr "year"
 
@@ -58,12 +58,6 @@ msgstr "week"
 
 msgid "weeks"
 msgstr "weeks"
-
-msgid "day"
-msgstr "day"
-
-msgid "days"
-msgstr "days"
 
 msgid "Head circumference"
 msgstr "Head circumference"
