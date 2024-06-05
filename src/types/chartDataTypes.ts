@@ -9,6 +9,11 @@ export interface MeasurementData {
     };
 }
 
+interface TimeUnitData {
+    singular: string;
+    plural: string;
+}
+
 export interface ChartDataTypes {
     datasetValues: { [key: string]: number }[];
     datasetMetadata: {
@@ -30,7 +35,8 @@ export interface ChartData {
         };
         datasets: {
             [key: string]: {
-                datasetValues: { [key: string]: number }[];
+                zScoreDatasetValues: { [key: string]: number }[];
+                percentileDatasetValues: { [key: string]: number }[];
                 metadata: {
                     chartLabel: string;
                     yAxisLabel: string;
@@ -43,9 +49,25 @@ export interface ChartData {
 }
 
 export const TimeUnitCodes = Object.freeze({
+    years: i18n.t('Years'),
     months: i18n.t('Months'),
     weeks: i18n.t('Weeks'),
 });
+
+export const timeUnitData: { [key: string]: TimeUnitData } = {
+    [TimeUnitCodes.years]: {
+        singular: i18n.t('year'),
+        plural: i18n.t('years'),
+    },
+    [TimeUnitCodes.months]: {
+        singular: i18n.t('month'),
+        plural: i18n.t('months'),
+    },
+    [TimeUnitCodes.weeks]: {
+        singular: i18n.t('week'),
+        plural: i18n.t('weeks'),
+    },
+};
 
 export const MeasurementTypeCodesLabel = Object.freeze({
     headCircumference: i18n.t('Head circumference'),
@@ -65,11 +87,24 @@ export const MeasurementTypeCodes = Object.freeze({
     wflh_g: 'weight',
 });
 
+export const unitCodes = Object.freeze({
+    cm: 'cm',
+    kg: 'kg',
+    g: 'g',
+});
+
 export const CategoryLabels = Object.freeze({
     hcfa: i18n.t('Head circumference for age'),
     lhfa: i18n.t('Length/height for age'),
     wfa: i18n.t('Weight for age'),
     wflh: i18n.t('Weight for length/height'),
+});
+
+const CategoryToYUnitLabel = Object.freeze({
+    hcfa: unitCodes.cm,
+    lhfa: unitCodes.cm,
+    wfa: unitCodes.kg,
+    wflh: unitCodes.cm,
 });
 
 export const CategoryCodes = Object.freeze({
@@ -93,6 +128,18 @@ export const CategoryToLabel = Object.freeze({
     wflh_b: CategoryLabels.wflh,
     wflh_g: CategoryLabels.wflh,
 });
+
+export const CategoryToYUnit = Object.freeze({
+    hcfa_b: CategoryToYUnitLabel.hcfa,
+    hcfa_g: CategoryToYUnitLabel.hcfa,
+    lhfa_b: CategoryToYUnitLabel.lhfa,
+    lhfa_g: CategoryToYUnitLabel.lhfa,
+    wfa_b: CategoryToYUnitLabel.wfa,
+    wfa_g: CategoryToYUnitLabel.wfa,
+    wflh_b: CategoryToYUnitLabel.wflh,
+    wflh_g: CategoryToYUnitLabel.wflh,
+});
+
 export const DataSetLabels = Object.freeze({
     y_0_5: i18n.t('0 to 5 years'),
     w_0_13: i18n.t('0 to 13 weeks'),

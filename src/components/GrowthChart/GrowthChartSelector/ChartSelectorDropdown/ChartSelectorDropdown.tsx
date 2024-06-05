@@ -18,7 +18,7 @@ export const ChartSelectorDropdown = ({
     dataTest,
 }: ChartSelectorDropdownProps) => (
     <div className='flex flex-col'>
-        {isDisabled ? (
+        {isDisabled || items.length <= 1 ? (
             // @ts-ignore
             <Button
                 small

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import i18n from '@dhis2/d2-i18n';
 import { FlyoutMenu, IconMore16, MenuItem } from '@dhis2/ui';
 import { EllipsisButton } from './EllipsisButton';
 import { CategoryCodes, ChartData } from '../../../types/chartDataTypes';
-import { PdfIcon } from '../../../UI/Icons/PdfIcon';
 import { MappedEntityValues } from '../../../utils/DataFetching/Sorting/useMappedTrackedEntity';
 import { PrintDocument } from '../../../utils/ChartOptions';
+import { PrintIcon } from '../../../UI/Icons/PrintIcon';
 
 interface ChartSettingsButtonProps {
     category: keyof typeof CategoryCodes;
@@ -43,9 +44,9 @@ export const ChartSettingsButton = ({
                 component={(
                     <FlyoutMenu dense>
                         <MenuItem
-                            label='Convert to PDF'
+                            label={i18n.t('Print')}
                             onClick={handlePrintDocument}
-                            icon={<PdfIcon />}
+                            icon={<PrintIcon />}
                         />
                     </FlyoutMenu>
                 )}

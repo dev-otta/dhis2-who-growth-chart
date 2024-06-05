@@ -5,29 +5,30 @@ interface DatasetValues {
     [key: string]: number;
 }
 
-export const useZscoreLines = (
+export const useChartLines = (
     datasetValues: DatasetValues[],
     keysDataSet: string[],
     datasetMetadata: any,
     category: string,
     dataset: string | number,
     startIndex: number,
+    isPercentiles: boolean,
 ) => {
-    const [zScoreLines, setZScoreLines] = useState<any[]>([]);
+    const [ChartLines, setChartLines] = useState<any[]>([]);
 
     useEffect(() => {
-        const ZscoreLines = keysDataSet.map((key) => ({
+        const newChartLines = keysDataSet.map((key) => ({
             data: datasetValues.map((entry, index) => ({
                 x: startIndex + index,
                 y: entry[key],
             })),
             borderWidth: 0.9,
-            borderColor: ChartLineColorPicker(key),
+            borderColor: ChartLineColorPicker(key, isPercentiles),
             label: key,
         }));
 
-        setZScoreLines(ZscoreLines);
-    }, [datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex]);
+        setChartLines(newChartLines);
+    }, [datasetValues, keysDataSet, datasetMetadata, category, dataset, startIndex, isPercentiles]);
 
-    return zScoreLines;
+    return ChartLines;
 };
