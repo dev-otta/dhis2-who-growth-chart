@@ -165,6 +165,9 @@ The `settings` object contains the following keys:
 
 The **Tracker Plugin Configurator** app is used to enable the Growth Chart plugin in the Capture app.
 To display the growth chart in the Capture app, use the **Tracker Plugin Configurator** app (recommended) or follow the guide on [configuring enrollment plugins](https://kdb.devotta.com/docs/capture-plugins/enrollment-plugins).
+If you follow the guide, the source should be:
+
+`"source": "https://<instance-url>/api/apps/capture-growth-chart/plugin.html"`
 
 > **Note:** You are now finished with the configuration and ready to use the Growth Chart plugin in the Capture app with WHO's standard references.
 > If you want to use country-specific references, follow the steps in the next section.
