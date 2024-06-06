@@ -2,7 +2,7 @@
 
 ## About Capture Growth Charts
 
-Capture Growth Charts plugin is a web application that allows users to capture and view growth data for children under the age of 5.
+Capture Growth Charts plugin is a web application that allows users to capture and view growth data for children under the age of five.
 The application is designed to be used by health workers to capture growth data for children and to view growth charts for children in their care.
 The plugin is designed to be used on a tablet or computer device and is optimized for data entry and visualization of growth charts for efficient monitoring of child development.
 
@@ -16,7 +16,7 @@ Read more about plugins [here](https://kdb.devotta.com/docs/capture-plugins/gett
 ## Prerequisites
 
 - DHIS2 version 2.38 or later
-- [Capture](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/tracking-individual-level-data/capture.html) app version v100.53.0 or later (Can be updated in the **App Management** app).
+- [Capture](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/tracking-individual-level-data/capture.html) app version 100.53.0 or later (Can be updated in the **App Management** app).
 - Access to the [Maintenance](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/configuring-the-system/metadata.html) app.
 - Access to the [Datastore Management](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/maintaining-the-system/datastore-manager.html) app.
 - Access to the [App Management](https://developers.dhis2.org/docs/guides/submit-apphub/#faq) app.
@@ -51,12 +51,12 @@ Documentation for configuring programs on DHIS2 can be found [here](https://docs
 
 Tracked entity attributes needed for the Growth chart plugin are `Date of birth` and `Gender`.
 
-> **Tip:** `First Name` and `Last Name` are also utilized in additional functionality, but not necessary for using the growth chart itself.
+> **Tip:** `First name` and `Last name` are also utilized in additional functionality, but not necessary for using the growth chart itself.
 
 #### Tracked entity type
 
 Navigate to the tracked entity type for **Person**.
-This type needs to be assigned the same attributes as those created in the previous step (`Date of birth`, `Gender`, `First Name` and `Last Name`).
+This type needs to be assigned the same attributes as those created in the previous step (`Date of birth`, `Gender`, `First name` and `Last name`).
 
 > **Note:** Make sure `Display in list` for the attributes is active, like the image below.
 ![Tracked entity type](resources/images/tracked_entity_type_attributes.png)
@@ -129,7 +129,7 @@ The structure of the config has to be the same as the one in the example below;
 }
 ``` 
 
-#### Config structure and explanation
+#### Config structure explanation
 
 ##### Metadata
 
