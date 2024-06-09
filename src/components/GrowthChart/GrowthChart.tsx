@@ -80,7 +80,6 @@ export const GrowthChart = ({
                     trackedEntity={trackedEntity}
                 />
             </div>
-
             <GrowthChartBuilder
                 measurementData={measurementData}
                 datasetValues={dataSetValues}

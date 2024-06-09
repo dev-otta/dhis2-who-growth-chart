@@ -103,7 +103,7 @@ export const GrowthChartBuilder = ({
     };
 
     return (
-        <div className='aspect-video min-h-[400px]' id='divToPrint'>
+        <div className='aspect-video min-h-[400px] px-1' id='divToPrint'>
             <AutoSizer>
                 {/* eslint-disable-next-line react/no-unused-prop-types */}
                 {({ height, width }: { height: number, width: number }) => (
