@@ -29,6 +29,7 @@ export const ChartSelectorDropdown = ({
                     disabled
                     inputWidth='50px'
                     dense
+                    data-test={`${dataTest}-disabled-button`}
                 />
             </Tooltip>
         ) : (
