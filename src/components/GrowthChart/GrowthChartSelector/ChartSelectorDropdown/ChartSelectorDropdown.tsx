@@ -38,7 +38,7 @@ export const ChartSelectorDropdown = ({
                 selected={title.toString()}
                 inputWidth={inputWidth}
                 dense
-                data-test={`${dataTest}-select`}
+                data-test={`${dataTest}-button`}
             >
                 {items.map((item) => (
                     <SingleSelectOption
