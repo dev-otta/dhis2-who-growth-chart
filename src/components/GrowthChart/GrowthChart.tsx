@@ -62,27 +62,23 @@ export const GrowthChart = ({
 
     return (
         <div>
-            <div className='flex flex-wrap-reverse pl-12'>
-                <div>
-                    <ChartSelector
-                        category={category}
-                        dataset={dataset}
-                        setCategory={setCategory}
-                        setDataset={setDataset}
-                        chartData={chartDataForGender}
-                        isDisabled={trackedEntityGender !== undefined}
-                        gender={gender}
-                        setGender={setGender}
-                    />
-                </div>
-                <div className='grow relative min-w-[100px] text-sm'>
-                    <ChartSettingsButton
-                        category={category}
-                        dataset={dataset}
-                        gender={gender}
-                        trackedEntity={trackedEntity}
-                    />
-                </div>
+            <div className='flex justify-between px-14'>
+                <ChartSelector
+                    category={category}
+                    dataset={dataset}
+                    setCategory={setCategory}
+                    setDataset={setDataset}
+                    chartData={chartDataForGender}
+                    isDisabled={trackedEntityGender !== undefined}
+                    gender={gender}
+                    setGender={setGender}
+                />
+                <ChartSettingsButton
+                    category={category}
+                    dataset={dataset}
+                    gender={gender}
+                    trackedEntity={trackedEntity}
+                />
             </div>
 
             <GrowthChartBuilder

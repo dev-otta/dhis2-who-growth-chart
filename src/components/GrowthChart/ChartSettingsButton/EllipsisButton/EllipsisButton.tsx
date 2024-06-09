@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import { useRef, useState } from 'react';
-import { Button, Layer, Popper } from '@dhis2/ui';
+import { Button, Layer, Popper, FlyoutMenu, IconMore16, MenuItem } from '@dhis2/ui';
 
 type Props = {
     label?: string,
@@ -9,8 +9,6 @@ type Props = {
     secondary?: boolean,
     icon?: React.ReactElement,
     onClick?: () => void,
-    open?: boolean,
-    component: React.ReactNode,
     dataTest?: string,
     small?: boolean,
     large?: boolean,
@@ -23,48 +21,41 @@ export const EllipsisButton = ({
     small,
     large,
     onClick: handleClick,
-    open: propsOpen,
     icon,
     dataTest,
-    component,
 }: Props) => {
-    const [isOpen, setIsOpen] = useState(false);
     const anchorRef = useRef(null);
-    const open = propsOpen !== undefined ? propsOpen : isOpen;
+    const [actionsIsOpen, setActionsIsOpen] = useState(false);
 
     const toggle = () => {
-        if (propsOpen === undefined) {
-            setIsOpen((prev) => !prev);
-        }
-        handleClick && handleClick();
+        setActionsIsOpen((prev) => !prev);
     };
 
     return (
-        <div className='flex items-center absolute right-[55px] justify-center w-7 h-7 rounded border
-        text-gray-600 hover:bg-gray-300 hover:text-gray-700'
-        >
-            <div ref={anchorRef}>
-                {/* @ts-ignore */}
-                <Button
-                    primary={primary}
-                    secondary={secondary}
-                    dataTest={dataTest}
-                    small={small}
-                    large={large}
-                    onClick={toggle}
-                    icon={icon}
-                >
-                    {label}
-                </Button>
-
-                {open && (
-                    <Layer onBackdropClick={toggle}>
-                        <Popper reference={anchorRef} placement='bottom-end'>
-                            {component}
-                        </Popper>
-                    </Layer>
-                )}
-            </div>
+        <div ref={anchorRef}>
+            {/* @ts-ignore */}
+            <Button
+                primary={primary}
+                secondary={secondary}
+                dataTest={dataTest}
+                small={small}
+                large={large}
+                onClick={toggle}
+                icon={<IconMore16 />}
+            />
+            {actionsIsOpen && (
+                <Layer onBackdropClick={toggle}>
+                    <Popper reference={anchorRef} placement='bottom-end'>
+                        <FlyoutMenu dense>
+                            <MenuItem
+                                label={label}
+                                onClick={handleClick}
+                                icon={icon}
+                            />
+                        </FlyoutMenu>
+                    </Popper>
+                </Layer>
+            )}
         </div>
     );
 };

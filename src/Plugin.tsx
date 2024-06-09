@@ -33,7 +33,9 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     });
 
     const mappedTrackedEntity = useMappedTrackedEntityVariables({
-        variableMappings: chartConfig?.metadata.attributes, trackedEntity, trackedEntityAttributes: trackedEntity?.attributes,
+        variableMappings: chartConfig?.metadata.attributes,
+        trackedEntity,
+        trackedEntityAttributes: trackedEntity?.attributes,
     });
 
     const mappedGrowthVariables = useMappedGrowthVariables({
@@ -59,35 +61,22 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     }
 
     return (
-        <QueryClientProvider
-            client={queryClient}
-        >
-            <div style={{
-                backgroundColor: 'white',
-                width: '100vw',
-                display: 'flex',
-                margin: 0,
-                padding: 0,
-            }}
-            >
-                <div
-                    style={{ width: '100%' }}
+        <QueryClientProvider client={queryClient}>
+            <div className='bg-white w-screen flex m-0 p-0'>
+                <WidgetCollapsible
+                    header={i18n.t('Growth Chart')}
+                    borderless={false}
+                    open={open}
+                    onOpen={() => setOpen(true)}
+                    onClose={() => setOpen(false)}
                 >
-                    <WidgetCollapsible
-                        header={i18n.t('Growth Chart')}
-                        borderless={false}
-                        open={open}
-                        onOpen={() => setOpen(true)}
-                        onClose={() => setOpen(false)}
-                    >
-                        <GrowthChart
-                            trackedEntity={mappedTrackedEntity}
-                            measurementData={mappedGrowthVariables}
-                            chartData={chartConfig.settings.customReferences ? customReferences : chartData}
-                            isPercentiles={isPercentiles}
-                        />
-                    </WidgetCollapsible>
-                </div>
+                    <GrowthChart
+                        trackedEntity={mappedTrackedEntity}
+                        measurementData={mappedGrowthVariables}
+                        chartData={chartConfig.settings.customReferences ? customReferences : chartData}
+                        isPercentiles={isPercentiles}
+                    />
+                </WidgetCollapsible>
             </div>
         </QueryClientProvider>
     );

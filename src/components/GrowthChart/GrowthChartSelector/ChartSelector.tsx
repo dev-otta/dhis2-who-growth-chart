@@ -34,12 +34,13 @@ export const ChartSelector = ({
     };
 
     return (
-        <div className='flex flex-wrap w-full gap-2 text-sm'>
+        <div className='flex flex-wrap gap-2 items-center'>
             <ChartSelectorDropdown
                 title={gender}
                 items={Object.values(GenderCodes)}
                 handleItemChange={setGender}
                 isDisabled={isDisabled}
+                inputWidth='50px'
                 dataTest='CGC-gender-dropdown'
             />
             <ChartSelectorDropdown
@@ -47,12 +48,14 @@ export const ChartSelector = ({
                 items={Object.keys(chartData).map((key) => chartData[key].categoryMetadata.label)}
                 handleItemChange={handleCategoryChange}
                 dataTest='CGC-category-dropdown'
+                inputWidth='220px'
             />
             <ChartSelectorDropdown
                 title={dataset}
                 items={Object.keys(chartData[category].datasets)}
                 handleItemChange={handleDatasetChange}
                 dataTest='CGC-dataset-dropdown'
+                inputWidth='130px'
             />
         </div>
     );
