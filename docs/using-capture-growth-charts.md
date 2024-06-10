@@ -124,7 +124,8 @@ The structure of the config has to be the same as the one in the example below;
   "settings": {
     "usePercentiles": false,
     "customReferences": false,
-    "weightInGrams": false
+    "weightInGrams": false,
+    "defaultIndicator": "wfa"
   }
 }
 ``` 
@@ -158,6 +159,13 @@ The `settings` object contains the following keys:
 - `weightInGrams` - A boolean value that determines if the weight should be in grams or kg.
   If `true`, the weight will be in grams.
   If `false`, the weight will be in kg.
+  - `defaultIndicator` - A string value that determines which indicator should be displayed by default.
+  If it isnt set, the default indicator will be weight for age.
+  The indicator key should be one of the following:
+    - `"hcfa"` -> Head circumference for age
+    - `"lhfa"` -> Length/height for age
+    - `"wfa"` -> Weight for age
+    - `"wflh"` -> Weight for length/height
 
 # Enable the plugin in the Capture enrollment dashboard
 
