@@ -54,7 +54,7 @@ describe('ChartSelector', () => {
             <TestComponent />,
         );
         cy.get('[data-test="CGC-category-dropdown-button"]').contains('Head circumference for age').click();
-        cy.get('[data-test="CGC-category-dropdown-item"]').should('have.length', 3);
+        cy.get('[data-test="CGC-category-dropdown-item"]').should('have.length', 4);
         cy.get('[data-test="CGC-category-dropdown-item"]').should('contain', 'Length/height for age');
         cy.get('[data-test="CGC-category-dropdown-item"]').should('contain', 'Weight for age');
         cy.get('[data-test="CGC-category-dropdown-item"]').should('contain', 'Weight for length/height');

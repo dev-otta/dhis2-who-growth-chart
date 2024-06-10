@@ -28,7 +28,7 @@ describe('ChartSelectorDropdown', () => {
             <TestComponent />,
         );
         cy.get('[data-test="CGC-dropdown-button"]').click();
-        cy.get('[data-test="CGC-dropdown-item"]').should('have.length', 2);
+        cy.get('[data-test="CGC-dropdown-item"]').should('have.length', 3);
     });
 
     it('Selecting a new item should change the title', () => {
