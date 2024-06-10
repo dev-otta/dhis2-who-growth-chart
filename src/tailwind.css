@@ -1474,6 +1474,10 @@ video {
     border-bottom-right-radius: 0.125rem;
 }
 
+.border-t {
+  border-top-width: 1px;
+}
+
 .border {
     border-width: 1px;
 }
@@ -1839,6 +1843,10 @@ video {
 
 .pl-12 {
     padding-left: 3rem;
+}
+
+.pl-13 {
+  padding-left: 3.25rem;
 }
 
 .text-left {
