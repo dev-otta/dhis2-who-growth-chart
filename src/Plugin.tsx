@@ -97,16 +97,15 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                     onOpen={() => setOpen(true)}
                     onClose={() => setOpen(false)}
                 >
-                        <GrowthChart
-                            trackedEntity={mappedTrackedEntity}
-                            measurementData={mappedGrowthVariables}
-                            chartData={chartConfig.settings.customReferences ? customReferences : chartData}
-                            defaultIndicator={defaultIndicator}
-                            isPercentiles={isPercentiles}
-                            setDefaultIndicatorError={setDefaultIndicatorError}
-                        />
-                    </WidgetCollapsible>
-                </div>
+                    <GrowthChart
+                        trackedEntity={mappedTrackedEntity}
+                        measurementData={mappedGrowthVariables}
+                        chartData={chartConfig.settings.customReferences ? customReferences : chartData}
+                        defaultIndicator={defaultIndicator}
+                        isPercentiles={isPercentiles}
+                        setDefaultIndicatorError={setDefaultIndicatorError}
+                    />
+                </WidgetCollapsible>
             </div>
         </QueryClientProvider>
     );
