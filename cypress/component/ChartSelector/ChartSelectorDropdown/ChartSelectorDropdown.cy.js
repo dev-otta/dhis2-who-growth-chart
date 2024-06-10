@@ -5,7 +5,7 @@ describe('ChartSelectorDropdown', () => {
     const TestComponent = () => {
         const [title, handleItemChange] = useState('0 to 13 weeks');
         return (
-        // eslint-disable-next-line react/jsx-filename-extension
+            // eslint-disable-next-line react/jsx-filename-extension
             <ChartSelectorDropdown
                 title={title}
                 items={['0 to 13 weeks', '0 to 2 years', '2 to 5 years']}
@@ -35,8 +35,8 @@ describe('ChartSelectorDropdown', () => {
         cy.mount(
             <TestComponent />,
         );
-        cy.get('[data-test="CGC-dropdown-button"]').contains('0 to 13 weeks').click();
-        cy.get('[data-test="CGC-dropdown-item"]').contains('0 to 2 years').click();
-        cy.get('[data-test="CGC-dropdown-button"]').should('contain', '0 to 2 years');
+        cy.get('[data-test="CGC-dropdown-button"]').click();
+        cy.get('[data-test="CGC-dropdown-item"]').contains('2 to 5 years').click();
+        cy.get('[data-test="CGC-dropdown-button"]').should('contain', '2 to 5 years');
     });
 });
