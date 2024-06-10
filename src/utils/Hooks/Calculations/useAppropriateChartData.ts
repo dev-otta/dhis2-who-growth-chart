@@ -53,14 +53,15 @@ export const useAppropriateChartData = (
     const isKeyOfCategoryCodes = (key: string): key is keyof typeof CategoryCodes => key in CategoryCodes;
 
     useEffect(() => {
-        const key = `${defaultIndicator}_${gender.charAt(0)
-            .toLowerCase()}`;
+        const key = `${defaultIndicator}_${gender.charAt(0).toLowerCase()}`;
         if (!isKeyOfCategoryCodes(key)) {
             setDefaultIndicatorError(true);
         }
         if (isKeyOfCategoryCodes(key) && chartDataForGender[key]) {
             const newCategory = CategoryCodes[key];
             setSelectedCategory(newCategory);
+            const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0];
+            setSelectedDataset(newDataset);
         }
     }, [chartDataForGender, defaultIndicator, gender, setDefaultIndicatorError]);
 

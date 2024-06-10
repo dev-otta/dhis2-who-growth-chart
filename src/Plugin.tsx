@@ -13,11 +13,14 @@ import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/us
 import { GenericLoading } from './UI/GenericLoading';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
 import { chartData } from './DataSets/WhoStandardDataSets/ChartData';
-import { GenericError } from './UI/GenericError/GenericError';
+import { ConfigError, CustomReferenceError, DefaultIndicatorError } from './UI/FeedbackComponents';
+import { TrackedEntityError } from './UI/FeedbackComponents/TrackedEntityError';
 
 const queryClient = new QueryClient();
 
 const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
+    const [defaultIndicatorError, setDefaultIndicatorError] = useState<boolean>(false);
+
     const {
         chartConfig,
         isLoading,
@@ -73,31 +76,25 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     if (isError) {
         return (
-            <GenericError
-                withWidgetCollapsible
-                errorTextLine_1={i18n.t('There was an error fetching the config for the growth chart.')}
-                errorTextLine_2={i18n.t('Please check the configuration in Datastore Management and try again.')}
-            />
+            <ConfigError />
         );
     }
 
     if (chartConfig?.settings.customReferences && isErrorRef) {
         return (
-            <GenericError
-                withWidgetCollapsible
-                errorTextLine_1={i18n.t('There was an error fetching the custom references for the growth chart.')}
-                errorTextLine_2={i18n.t('Please check the configuration in Datastore Management and try again.')}
-            />
+            <CustomReferenceError />
+        );
+    }
+
+    if (defaultIndicatorError) {
+        return (
+            <DefaultIndicatorError defaultIndicator={defaultIndicator} />
         );
     }
 
     if (isErrorTei) {
         return (
-            <GenericError
-                withWidgetCollapsible
-                errorTextLine_1={i18n.t('There was an error fetching the tracked entity for the growth chart.')}
-                errorTextLine_2={i18n.t('Please check the configuration in Datastore Management and try again.')}
-            />
+            <TrackedEntityError />
         );
     }
 
@@ -105,13 +102,14 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         <QueryClientProvider
             client={queryClient}
         >
-            <div style={{
-                backgroundColor: 'white',
-                width: '100vw',
-                display: 'flex',
-                margin: 0,
-                padding: 0,
-            }}
+            <div
+                style={{
+                    backgroundColor: 'white',
+                    width: '100vw',
+                    display: 'flex',
+                    margin: 0,
+                    padding: 0,
+                }}
             >
                 <div
                     style={{ width: '100%' }}
@@ -129,6 +127,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                             chartData={chartConfig.settings.customReferences ? customReferences : chartData}
                             defaultIndicator={defaultIndicator}
                             isPercentiles={isPercentiles}
+                            setDefaultIndicatorError={setDefaultIndicatorError}
                         />
                     </WidgetCollapsible>
                 </div>

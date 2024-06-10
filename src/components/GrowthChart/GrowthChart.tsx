@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import i18n from '@dhis2/d2-i18n';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
 import { ChartSelector } from './GrowthChartSelector';
 import { ChartData, GenderCodes, MeasurementData } from '../../types/chartDataTypes';
@@ -8,7 +7,6 @@ import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting';
 import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTrackedEntity';
 import { useAppropriateChartData } from '../../utils/Hooks/Calculations/useAppropriateChartData';
-import { GenericError } from '../../UI/GenericError/GenericError';
 
 interface GrowthChartProps {
     trackedEntity: MappedEntityValues;
@@ -16,6 +14,7 @@ interface GrowthChartProps {
     isPercentiles: boolean;
     chartData: ChartData;
     defaultIndicator?: string;
+    setDefaultIndicatorError: (error: boolean) => void;
 }
 
 export const GrowthChart = ({
@@ -24,6 +23,7 @@ export const GrowthChart = ({
     isPercentiles,
     chartData,
     defaultIndicator,
+    setDefaultIndicatorError,
 }: GrowthChartProps) => {
     const trackedEntityGender = trackedEntity?.gender;
     const dateOfBirth = new Date(trackedEntity?.dateOfBirth);
@@ -32,8 +32,6 @@ export const GrowthChart = ({
         gender,
         chartData,
     });
-
-    const [defaultIndicatorError, setDefaultIndicatorError] = useState<boolean>(false);
 
     const {
         selectedCategory,
@@ -49,8 +47,9 @@ export const GrowthChart = ({
     );
 
     useEffect(() => {
-        Object.values(GenderCodes)
-            .includes(trackedEntity.gender) && setGender(trackedEntity?.gender);
+        if (trackedEntity && Object.values(GenderCodes).includes(trackedEntity.gender)) {
+            setGender(trackedEntity.gender);
+        }
     }, [trackedEntity]);
 
     const dataSetEntry = chartDataForGender[selectedCategory]?.datasets[selectedDataset];
@@ -68,15 +67,6 @@ export const GrowthChart = ({
         return [minVal, maxVal];
     }, [min, max]);
 
-    if (defaultIndicatorError) {
-        return (
-            <GenericError
-                errorTextLine_1={`${i18n.t('The default indicator')} "${defaultIndicator}" ${i18n.t('is not a valid indicator.')}`}
-                errorTextLine_2={i18n.t('Please select a valid indicator in the configuration.')}
-            />
-        );
-    }
-
     if (!chartDataForGender || !dataSetValues) {
         return null;
     }
@@ -89,7 +79,7 @@ export const GrowthChart = ({
 
     return (
         <div>
-            <div className='flex flex-wrap-reverse pl-12'>
+            <div className='flex flex-wrap-reverse pl-14'>
                 <div>
                     <ChartSelector
                         category={selectedCategory}
@@ -111,18 +101,21 @@ export const GrowthChart = ({
                     />
                 </div>
             </div>
-
-            <GrowthChartBuilder
-                measurementData={measurementData}
-                datasetValues={dataSetValues}
-                datasetMetadata={dataSetMetadata}
-                yAxisValues={yAxisValues}
-                keysDataSet={keysDataSet}
-                dateOfBirth={dateOfBirth}
-                category={selectedCategory}
-                dataset={selectedDataset}
-                isPercentiles={isPercentiles}
-            />
+            <div className='px-2'>
+                <div className='overflow-auto'>
+                    <GrowthChartBuilder
+                        measurementData={measurementData}
+                        datasetValues={dataSetValues}
+                        datasetMetadata={dataSetMetadata}
+                        yAxisValues={yAxisValues}
+                        keysDataSet={keysDataSet}
+                        dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
+                        category={selectedCategory}
+                        dataset={selectedDataset}
+                        isPercentiles={isPercentiles}
+                    />
+                </div>
+            </div>
         </div>
     );
 };

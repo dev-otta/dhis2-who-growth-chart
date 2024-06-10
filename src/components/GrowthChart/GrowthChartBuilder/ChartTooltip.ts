@@ -92,7 +92,7 @@ export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: s
                     xLabel = `${i18n.t('Age')}: `;
 
                     if (weeks <= 13) {
-                        xLabel = `${weeks} ${(weeks === 1) ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural} `;
+                        xLabel += `${weeks} ${(weeks === 1) ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural} `;
                     }
 
                     if (weeks > 13) {
