@@ -23,6 +23,7 @@ export const EllipsisButton = ({
     return (
         <>
             <div ref={anchorRef}>
+                {/* @ts-ignore */}
                 <Button
                     onClick={toggle}
                     icon={<IconMore16 />}
