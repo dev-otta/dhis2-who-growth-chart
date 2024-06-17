@@ -1,13 +1,16 @@
-// @flow
-import * as React from 'react';
-import { useRef, useState } from 'react';
-import { Button, Layer, Popper, FlyoutMenu, IconMore16, MenuItem, ButtonProps } from '@dhis2/ui';
+import React, { useState, useRef } from 'react';
+import { Button, Layer, Popper, FlyoutMenu, IconMore16, MenuItem } from '@dhis2/ui';
 
 type Props = {
     label?: string,
+    primary?: boolean,
+    secondary?: boolean,
     icon?: React.ReactElement,
     onClick?: () => void,
-} & ButtonProps;
+    dataTest?: string,
+    small?: boolean,
+    large?: boolean,
+};
 
 export const EllipsisButton = ({
     label,
@@ -18,7 +21,6 @@ export const EllipsisButton = ({
     onClick: handleClick,
     icon,
     dataTest,
-    ...rest // spread remaining props
 }: Props) => {
     const anchorRef = useRef(null);
     const [actionsIsOpen, setActionsIsOpen] = useState(false);
@@ -38,7 +40,6 @@ export const EllipsisButton = ({
                     large={large}
                     onClick={toggle}
                     icon={<IconMore16 />}
-                    {...rest} // pass remaining props to Button
                 />
             </div>
             {actionsIsOpen && (
