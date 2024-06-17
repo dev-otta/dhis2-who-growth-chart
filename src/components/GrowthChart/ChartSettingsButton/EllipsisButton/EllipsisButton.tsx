@@ -1,21 +1,28 @@
-// @flow
-import * as React from 'react';
-import { useRef, useState } from 'react';
-import { Button, Layer, Popper, FlyoutMenu, IconMore16, MenuItem, ButtonProps } from '@dhis2/ui';
+import React, { useState, useRef } from 'react';
+import { Button, Layer, Popper, FlyoutMenu, IconMore16, MenuItem } from '@dhis2/ui';
 
 type Props = {
     label?: string,
+    primary?: boolean,
+    secondary?: boolean,
     icon?: React.ReactElement,
     onClick?: () => void,
-} & ButtonProps;
+    dataTest?: string,
+    small?: boolean,
+    large?: boolean,
+};
 
 export const EllipsisButton = ({
     label,
-    icon,
+    primary,
+    secondary,
+    small,
+    large,
     onClick: handleClick,
-    ...props // Capture remaining props
+    icon,
+    dataTest,
 }: Props) => {
-    const anchorRef = useRef<HTMLDivElement>(null);
+    const anchorRef = useRef(null);
     const [actionsIsOpen, setActionsIsOpen] = useState(false);
 
     const toggle = () => {
@@ -25,10 +32,15 @@ export const EllipsisButton = ({
     return (
         <>
             <div ref={anchorRef}>
+                {/* @ts-ignore */}
                 <Button
+                    primary={primary}
+                    secondary={secondary}
+                    dataTest={dataTest}
+                    small={small}
+                    large={large}
                     onClick={toggle}
                     icon={<IconMore16 />}
-                    {...props}
                 />
             </div>
             {actionsIsOpen && (
