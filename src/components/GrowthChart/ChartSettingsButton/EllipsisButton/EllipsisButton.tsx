@@ -32,17 +32,18 @@ export const EllipsisButton = ({
     };
 
     return (
-        <div ref={anchorRef}>
-            {/* @ts-ignore */}
-            <Button
-                primary={primary}
-                secondary={secondary}
-                dataTest={dataTest}
-                small={small}
-                large={large}
-                onClick={toggle}
-                icon={<IconMore16 />}
-            />
+        <>
+            <div ref={anchorRef}>
+                <Button
+                    primary={primary}
+                    secondary={secondary}
+                    dataTest={dataTest}
+                    small={small}
+                    large={large}
+                    onClick={toggle}
+                    icon={<IconMore16 />}
+                />
+            </div>
             {actionsIsOpen && (
                 <Layer onBackdropClick={toggle}>
                     <Popper reference={anchorRef} placement='bottom-end'>
@@ -56,6 +57,6 @@ export const EllipsisButton = ({
                     </Popper>
                 </Layer>
             )}
-        </div>
+        </>
     );
 };

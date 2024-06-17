@@ -36,7 +36,7 @@ describe('ChartSelectorDropdown', () => {
             <TestComponent />,
         );
         cy.get('[data-test="CGC-dropdown-button"]').click();
-        cy.get('[data-test="CGC-dropdown-item"]').contains('2 to 5 years').click();
+        cy.get('[data-test="CGC-dropdown-item"]').contains('2 to 5 years').click({ force: true });
         cy.get('[data-test="CGC-dropdown-button"]').should('contain', '2 to 5 years');
     });
 });

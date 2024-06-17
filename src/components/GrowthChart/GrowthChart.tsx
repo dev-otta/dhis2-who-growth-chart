@@ -79,7 +79,7 @@ export const GrowthChart = ({
     };
 
     return (
-        <div>
+        <>
             <div className='flex justify-between px-14'>
                 <ChartSelector
                     category={category}
@@ -91,24 +91,29 @@ export const GrowthChart = ({
                     gender={gender}
                     setGender={setGender}
                 />
-                <ChartSettingsButton
+                <div className='relativ'>
+                    <ChartSettingsButton
+                        category={category}
+                        dataset={dataset}
+                        gender={gender}
+                        trackedEntity={trackedEntity}
+                    />
+                </div>
+
+            </div>
+            <div className='overflow-auto px-2'>
+                <GrowthChartBuilder
+                    measurementData={measurementData}
+                    datasetValues={dataSetValues}
+                    datasetMetadata={dataSetMetadata}
+                    yAxisValues={yAxisValues}
+                    keysDataSet={keysDataSet}
+                    dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
                     category={category}
                     dataset={dataset}
-                    gender={gender}
-                    trackedEntity={trackedEntity}
+                    isPercentiles={isPercentiles}
                 />
             </div>
-            <GrowthChartBuilder
-                measurementData={measurementData}
-                datasetValues={dataSetValues}
-                datasetMetadata={dataSetMetadata}
-                yAxisValues={yAxisValues}
-                keysDataSet={keysDataSet}
-                dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
-                category={category}
-                dataset={dataset}
-                isPercentiles={isPercentiles}
-            />
-        </div>
+        </>
     );
 };

@@ -9,7 +9,6 @@ interface ChartSelectorDropdownProps {
     handleItemChange: (key: string) => void;
     isDisabled?: boolean;
     dataTest?: string;
-    inputWidth?: string;
 }
 
 export const ChartSelectorDropdown = ({
@@ -18,7 +17,6 @@ export const ChartSelectorDropdown = ({
     handleItemChange,
     isDisabled,
     dataTest,
-    inputWidth,
 }: ChartSelectorDropdownProps) => {
     const tooltipContent = i18n.t('Gender is pre-selected based on the profile');
     return (
@@ -37,7 +35,6 @@ export const ChartSelectorDropdown = ({
                 className='cursor-pointer'
                 onChange={({ selected }) => handleItemChange(selected)}
                 selected={title.toString()}
-                inputWidth={inputWidth}
                 dense
                 dataTest={`${dataTest}-button`}
             >
