@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { Button, Layer, Popper, FlyoutMenu, IconMore16, MenuItem, ButtonProps } from '@dhis2/ui';
+import { Button, Layer, Popper, FlyoutMenu, MenuItem, ButtonProps, IconMore16 } from '@dhis2/ui';
 
-interface Props extends ButtonProps {
+type Props = ButtonProps & {
     label?: string;
     icon?: React.ReactElement;
     onClick: () => void;
-}
+};
 
 export const EllipsisButton = ({
     label,
@@ -25,7 +25,7 @@ export const EllipsisButton = ({
             <div ref={anchorRef}>
                 <Button
                     onClick={toggle}
-                    icon={icon ?? <IconMore16 />}
+                    icon={<IconMore16 />}
                     {...buttonProps}
                 />
             </div>
