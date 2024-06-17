@@ -23,11 +23,10 @@ export const EllipsisButton = ({
     return (
         <>
             <div ref={anchorRef}>
-                {/* @ts-ignore */}
                 <Button
+                    {...buttonProps}
                     onClick={toggle}
                     icon={<IconMore16 />}
-                    {...buttonProps}
                 />
             </div>
             {actionsIsOpen && (
