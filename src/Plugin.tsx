@@ -14,6 +14,7 @@ import { GenericLoading } from './UI/GenericLoading';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
 import { chartData } from './DataSets/WhoStandardDataSets/ChartData';
 import { ConfigError, CustomReferenceError, DefaultIndicatorError } from './UI/FeedbackComponents';
+import { TrackedEntityError } from './UI/FeedbackComponents/TrackedEntityError';
 
 const queryClient = new QueryClient();
 
@@ -38,7 +39,11 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         orgUnitId,
     } = propsFromParent;
 
-    const { trackedEntity } = useTeiById({ teiId });
+    const {
+        trackedEntity,
+        isLoading: isLoadingTei,
+        isError: isErrorTei,
+    } = useTeiById({ teiId });
 
     const { events } = useEvents({
         orgUnitId,
@@ -65,7 +70,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     const [open, setOpen] = useState(true);
 
-    if (isLoading || isLoadingRef) {
+    if (isLoading || isLoadingRef || isLoadingTei) {
         return <GenericLoading />;
     }
 
@@ -84,6 +89,12 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     if (defaultIndicatorError) {
         return (
             <DefaultIndicatorError defaultIndicator={defaultIndicator} />
+        );
+    }
+
+    if (isErrorTei) {
+        return (
+            <TrackedEntityError />
         );
     }
 
