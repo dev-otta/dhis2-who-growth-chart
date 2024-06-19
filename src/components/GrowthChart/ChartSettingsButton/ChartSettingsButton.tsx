@@ -5,6 +5,7 @@ import { CategoryCodes, ChartData } from '../../../types/chartDataTypes';
 import { MappedEntityValues } from '../../../utils/DataFetching/Sorting/useMappedTrackedEntity';
 import { PrintDocument } from '../../../utils/ChartOptions';
 import { PrintIcon } from '../../../UI/Icons/PrintIcon';
+import { MenuItem } from '@dhis2/ui';
 
 interface ChartSettingsButtonProps {
     category: keyof typeof CategoryCodes;
@@ -32,11 +33,14 @@ export const ChartSettingsButton = ({
     return (
         <EllipsisButton
             dataTest='widget-profile-overflow-menu'
-            icon={<PrintIcon />}
-            label={i18n.t('Print')}
-            onClick={handlePrintDocument}
             secondary
             small
-        />
+        >
+            <MenuItem
+                label={i18n.t('Print')}
+                onClick={handlePrintDocument}
+                icon={<PrintIcon />}
+            />
+        </EllipsisButton>
     );
 };

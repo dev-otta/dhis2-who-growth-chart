@@ -99,20 +99,21 @@ export const GrowthChart = ({
                         trackedEntity={trackedEntity}
                     />
                 </div>
-
             </div>
-            <div className='overflow-auto px-2'>
-                <GrowthChartBuilder
-                    measurementData={measurementData}
-                    datasetValues={dataSetValues}
-                    datasetMetadata={dataSetMetadata}
-                    yAxisValues={yAxisValues}
-                    keysDataSet={keysDataSet}
-                    dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
-                    category={category}
-                    dataset={dataset}
-                    isPercentiles={isPercentiles}
-                />
+            <div className='px-2'>
+                <div className='overflow-auto'>
+                    <GrowthChartBuilder
+                        measurementData={measurementData}
+                        datasetValues={dataSetValues}
+                        datasetMetadata={dataSetMetadata}
+                        yAxisValues={yAxisValues}
+                        keysDataSet={keysDataSet}
+                        dateOfBirth={new Date(trackedEntity?.dateOfBirth)}
+                        category={category}
+                        dataset={dataset}
+                        isPercentiles={isPercentiles}
+                    />
+                </div>
             </div>
         </>
     );

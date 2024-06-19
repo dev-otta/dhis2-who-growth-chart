@@ -1,26 +1,23 @@
-import React, { useState, useRef } from 'react';
-import { Button, Layer, Popper, FlyoutMenu, IconMore16, MenuItem } from '@dhis2/ui';
+import React, { useState, useRef, ReactNode } from 'react';
+import { Button, Layer, Popper, FlyoutMenu, IconMore16 } from '@dhis2/ui';
 
 type Props = {
-    label?: string,
-    primary?: boolean,
-    secondary?: boolean,
-    icon?: React.ReactElement,
-    onClick?: () => void,
-    dataTest?: string,
-    small?: boolean,
-    large?: boolean,
+    primary?: boolean;
+    secondary?: boolean;
+    icon?: React.ReactElement;
+    dataTest?: string;
+    small?: boolean;
+    large?: boolean;
+    children: ReactNode;
 };
 
 export const EllipsisButton = ({
-    label,
     primary,
     secondary,
     small,
     large,
-    onClick: handleClick,
-    icon,
     dataTest,
+    children,
 }: Props) => {
     const anchorRef = useRef(null);
     const [actionsIsOpen, setActionsIsOpen] = useState(false);
@@ -47,11 +44,7 @@ export const EllipsisButton = ({
                 <Layer onBackdropClick={toggle}>
                     <Popper reference={anchorRef} placement='bottom-end'>
                         <FlyoutMenu dense>
-                            <MenuItem
-                                label={label}
-                                onClick={handleClick}
-                                icon={icon}
-                            />
+                            {children}
                         </FlyoutMenu>
                     </Popper>
                 </Layer>
