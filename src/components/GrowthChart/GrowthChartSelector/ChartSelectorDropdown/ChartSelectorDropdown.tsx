@@ -17,36 +17,38 @@ export const ChartSelectorDropdown = ({
     handleItemChange,
     isDisabled,
     dataTest,
-}: ChartSelectorDropdownProps) => {
-    const tooltipContent = i18n.t('Gender is pre-selected based on the profile');
-    return (
-        isDisabled ? (
-            <Tooltip openDelay={500} closeDelay={50} content={tooltipContent}>
-                <InputField
-                    value={title.toString()}
-                    disabled
-                    inputWidth='50px'
-                    dense
-                    data-test={`${dataTest}-disabled-button`}
-                />
-            </Tooltip>
-        ) : (
-            <SingleSelectField
-                className='cursor-pointer'
-                onChange={({ selected }) => handleItemChange(selected)}
-                selected={title.toString()}
+}: ChartSelectorDropdownProps) => (
+    isDisabled ? (
+        <Tooltip
+            openDelay={500}
+            closeDelay={50}
+            content={i18n.t('Gender is pre-selected based on the profile')}>
+
+            <InputField
+                value={title.toString()}
+                disabled
+                inputWidth='50px'
                 dense
-                dataTest={`${dataTest}-button`}
-            >
-                {items.map((item) => (
-                    <SingleSelectOption
-                        key={item}
-                        label={item}
-                        value={item}
-                        dataTest={`${dataTest}-item`}
-                    />
-                ))}
-            </SingleSelectField>
-        )
-    );
-};
+                data-test={`${dataTest}-disabled-button`}
+            />
+        </Tooltip>
+    ) : (
+        <SingleSelectField
+            className='cursor-pointer'
+            onChange={({ selected }) => handleItemChange(selected)}
+            selected={title.toString()}
+            dense
+            dataTest={`${dataTest}-button`}
+        >
+            {items.map((item) => (
+                <SingleSelectOption
+                    key={item}
+                    label={item}
+                    value={item}
+                    dataTest={`${dataTest}-item`}
+                />
+            ))}
+        </SingleSelectField>
+    )
+);
+

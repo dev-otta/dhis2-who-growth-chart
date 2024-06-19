@@ -91,7 +91,7 @@ export const GrowthChart = ({
                     gender={gender}
                     setGender={setGender}
                 />
-                <div className='relativ'>
+                <div>
                     <ChartSettingsButton
                         category={category}
                         dataset={dataset}

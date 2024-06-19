@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-06-10T07:28:02.836Z\n"
-"PO-Revision-Date: 2024-06-10T07:28:02.836Z\n"
+"POT-Creation-Date: 2024-06-19T13:53:21.384Z\n"
+"PO-Revision-Date: 2024-06-19T13:53:21.384Z\n"
 
 msgid "Growth Chart"
 msgstr "Growth Chart"
@@ -45,6 +45,9 @@ msgstr "Year"
 
 msgid "Years"
 msgstr "Years"
+
+msgid "Gender is pre-selected based on the profile"
+msgstr "Gender is pre-selected based on the profile"
 
 msgid "Months"
 msgstr "Months"
