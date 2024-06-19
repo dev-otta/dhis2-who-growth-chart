@@ -1,11 +1,11 @@
 import React from 'react';
 import i18n from '@dhis2/d2-i18n';
+import { MenuItem } from '@dhis2/ui';
 import { EllipsisButton } from './EllipsisButton';
 import { CategoryCodes, ChartData } from '../../../types/chartDataTypes';
 import { MappedEntityValues } from '../../../utils/DataFetching/Sorting/useMappedTrackedEntity';
 import { PrintDocument } from '../../../utils/ChartOptions';
 import { PrintIcon } from '../../../UI/Icons/PrintIcon';
-import { MenuItem } from '@dhis2/ui';
 
 interface ChartSettingsButtonProps {
     category: keyof typeof CategoryCodes;

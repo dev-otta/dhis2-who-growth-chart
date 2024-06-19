@@ -22,7 +22,8 @@ export const ChartSelectorDropdown = ({
         <Tooltip
             openDelay={500}
             closeDelay={50}
-            content={i18n.t('Gender is pre-selected based on the profile')}>
+            content={i18n.t('Gender is pre-selected based on the profile')}
+        >
 
             <InputField
                 value={title.toString()}
@@ -51,4 +52,3 @@ export const ChartSelectorDropdown = ({
         </SingleSelectField>
     )
 );
-

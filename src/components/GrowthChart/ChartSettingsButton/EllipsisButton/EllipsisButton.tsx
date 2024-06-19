@@ -4,7 +4,6 @@ import { Button, Layer, Popper, FlyoutMenu, IconMore16 } from '@dhis2/ui';
 type Props = {
     primary?: boolean;
     secondary?: boolean;
-    icon?: React.ReactElement;
     dataTest?: string;
     small?: boolean;
     large?: boolean;
