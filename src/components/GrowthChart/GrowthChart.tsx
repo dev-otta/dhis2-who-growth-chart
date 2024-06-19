@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { differenceInMonths, differenceInWeeks } from 'date-fns';
 import { GrowthChartBuilder } from './GrowthChartBuilder';
 import { ChartSelector } from './GrowthChartSelector';
 import { ChartData, GenderCodes, MeasurementData } from '../../types/chartDataTypes';
@@ -26,7 +27,10 @@ export const GrowthChart = ({
     setDefaultIndicatorError,
 }: GrowthChartProps) => {
     const trackedEntityGender = trackedEntity?.gender;
-    const dateOfBirth = new Date(trackedEntity?.dateOfBirth);
+    const dateOfBirth = useMemo(() => new Date(trackedEntity.dateOfBirth), [trackedEntity.dateOfBirth]);
+    const childAgeInWeeks = useMemo(() => differenceInWeeks(new Date(), dateOfBirth), [dateOfBirth]);
+    const childAgeInMonths = useMemo(() => differenceInMonths(new Date(), dateOfBirth), [dateOfBirth]);
+
     const [gender, setGender] = useState<string>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.CGC_Female);
     const { chartDataForGender } = useChartDataForGender({
         gender,
@@ -40,14 +44,16 @@ export const GrowthChart = ({
         setSelectedDataset: setDataset,
     } = useAppropriateChartData(
         chartDataForGender,
-        dateOfBirth,
         defaultIndicator,
         gender,
         setDefaultIndicatorError,
+        childAgeInWeeks,
+        childAgeInMonths,
     );
 
     useEffect(() => {
-        if (trackedEntity && Object.values(GenderCodes).includes(trackedEntity.gender)) {
+        if (trackedEntity && Object.values(GenderCodes)
+            .includes(trackedEntity.gender)) {
             setGender(trackedEntity.gender);
         }
     }, [trackedEntity]);

@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { differenceInMonths, differenceInWeeks } from 'date-fns';
 import { CategoryCodes, ChartData, MeasurementTypeCodesLabel, TimeUnitCodes } from '../../../types/chartDataTypes';
 
 export const useAppropriateChartData = (
     chartDataForGender: ChartData,
-    dateOfBirth: Date,
     defaultIndicator: string,
     gender: string,
     setDefaultIndicatorError: (value: boolean) => void,
+    childAgeInWeeks: number,
+    childAgeInMonths: number,
 ) => {
     const [selectedCategory, setSelectedCategory] = useState<keyof typeof CategoryCodes>();
     const [selectedDataset, setSelectedDataset] = useState<string>();
@@ -15,27 +15,23 @@ export const useAppropriateChartData = (
     const selectDatasetForCategoryRef = useRef<(category: keyof typeof CategoryCodes) => void>();
     selectDatasetForCategoryRef.current = (category: keyof typeof CategoryCodes) => {
         const { datasets } = chartDataForGender[category];
-        const childAgeInWeeks = differenceInWeeks(new Date(), dateOfBirth);
-        const childAgeInMonths = differenceInMonths(new Date(), dateOfBirth);
+
+        const isMeasurementType = (xAxis: string) =>
+            Object.values(MeasurementTypeCodesLabel)
+                .includes(xAxis);
+
+        const isWeeksInRange = (xAxis: string) =>
+            xAxis === TimeUnitCodes.weeks && childAgeInWeeks < 13;
+
+        const isMonthsInRange = (xAxis: string, range: { start: number, end: number }) =>
+            xAxis === TimeUnitCodes.months && childAgeInMonths >= range.start && childAgeInMonths < range.end;
+
         Object.entries(datasets)
             .some(([key, value]) => {
                 const { range } = value.metadata;
                 const xAxis = value.metadata.xAxisLabel;
 
-                if (Object.values(MeasurementTypeCodesLabel)
-                    .includes(xAxis)) {
-                    setSelectedDataset((prevDataset) => (prevDataset !== key ? key : prevDataset));
-                    return true;
-                }
-
-                if (xAxis === TimeUnitCodes.weeks && childAgeInWeeks <= 13) {
-                    setSelectedDataset((prevDataset) => (prevDataset !== key ? key : prevDataset));
-                    return true;
-                }
-
-                const isChildAgeInRange = xAxis === TimeUnitCodes.months && childAgeInMonths >= range.start && childAgeInMonths <= range.end;
-
-                if (isChildAgeInRange) {
+                if (isMeasurementType(xAxis) || isWeeksInRange(xAxis) || isMonthsInRange(xAxis, range)) {
                     setSelectedDataset((prevDataset) => (prevDataset !== key ? key : prevDataset));
                     return true;
                 }
@@ -53,7 +49,8 @@ export const useAppropriateChartData = (
     const isKeyOfCategoryCodes = (key: string): key is keyof typeof CategoryCodes => key in CategoryCodes;
 
     useEffect(() => {
-        const key = `${defaultIndicator}_${gender.charAt(0).toLowerCase()}`;
+        const key = `${defaultIndicator}_${gender.charAt(0)
+            .toLowerCase()}`;
         if (!isKeyOfCategoryCodes(key)) {
             setDefaultIndicatorError(true);
         }
