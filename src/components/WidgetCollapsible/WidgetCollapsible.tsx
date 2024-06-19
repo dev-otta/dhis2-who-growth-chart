@@ -6,6 +6,7 @@ import { colors, spacersNum, IconChevronUp24 } from '@dhis2/ui';
 import { IconButton } from './IconButton';
 
 type Classes = {
+    widgetStyle: string,
     headerContainer: string,
     header: string,
     children: string,
@@ -13,6 +14,10 @@ type Classes = {
 }
 
 const styles = {
+    widgetStyle: {
+        backgroundColor: colors.white,
+        width: '100%',
+    },
     headerContainer: {
         borderRadius: 3,
         borderStyle: 'solid',
@@ -89,7 +94,6 @@ const WidgetCollapsiblePlain = ({
     open,
     onOpen,
     onClose,
-    color = colors.white,
     borderless = false,
     children,
     classes,
@@ -98,7 +102,6 @@ const WidgetCollapsiblePlain = ({
     open: boolean,
     onOpen: () => void,
     onClose: () => void,
-    color?: string,
     borderless?: boolean,
     children: ReactNode,
     classes: Classes,
@@ -132,7 +135,7 @@ const WidgetCollapsiblePlain = ({
     }, [open, animationsReady]);
 
     return (
-        <div style={{ backgroundColor: color }}>
+        <div className={classes.widgetStyle}>
             <div
                 className={cx(classes.headerContainer, {
                     childrenVisible,
