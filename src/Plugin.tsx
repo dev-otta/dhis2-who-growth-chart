@@ -14,6 +14,7 @@ import { GenericLoading } from './UI/GenericLoading';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
 import { chartData } from './DataSets/WhoStandardDataSets/ChartData';
 import { ConfigError, CustomReferenceError, DefaultIndicatorError } from './UI/FeedbackComponents';
+import { GenericError } from './UI/GenericError';
 
 const queryClient = new QueryClient();
 
@@ -38,9 +39,17 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         orgUnitId,
     } = propsFromParent;
 
-    const { trackedEntity } = useTeiById({ teiId });
+    const {
+        trackedEntity,
+        isLoading: isLoadingTei,
+        isError: isErrorTei,
+    } = useTeiById({ teiId });
 
-    const { events } = useEvents({
+    const {
+        events,
+        isLoading: isLoadingEvents,
+        isError: isErrorEvents,
+    } = useEvents({
         orgUnitId,
         programStageId: chartConfig?.metadata.program.programStageId,
         programId,
@@ -65,13 +74,21 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     const [open, setOpen] = useState(true);
 
-    if (isLoading || isLoadingRef) {
+    if (isLoading || isLoadingRef || isLoadingTei || isLoadingEvents) {
         return <GenericLoading />;
     }
 
     if (isError) {
         return (
             <ConfigError />
+        );
+    }
+
+    if (isErrorTei || isErrorEvents) {
+        return (
+            <GenericError
+                errorMessage={i18n.t('Failed to load data. Please check that you have selected the correct program stage ID in the configuration.')}
+            />
         );
     }
 
