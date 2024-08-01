@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-06-10T07:28:02.836Z\n"
-"PO-Revision-Date: 2024-06-10T07:28:02.836Z\n"
+"POT-Creation-Date: 2024-08-01T09:01:17.374Z\n"
+"PO-Revision-Date: 2024-08-01T09:01:17.374Z\n"
 
 msgid "Growth Chart"
 msgstr "Growth Chart"
@@ -31,6 +31,13 @@ msgstr "The default indicator"
 msgid "is not a valid. Please select a valid indicator in the configuration"
 msgstr "is not a valid. Please select a valid indicator in the configuration"
 
+msgid ""
+"There was an error fetching the tracked entity for the growth chart. Please "
+"check the configuration in Datastore Management and try again."
+msgstr ""
+"There was an error fetching the tracked entity for the growth chart. Please "
+"check the configuration in Datastore Management and try again."
+
 msgid "Print"
 msgstr "Print"
 
@@ -45,6 +52,9 @@ msgstr "Year"
 
 msgid "Years"
 msgstr "Years"
+
+msgid "Gender is pre-selected based on the profile"
+msgstr "Gender is pre-selected based on the profile"
 
 msgid "Months"
 msgstr "Months"
