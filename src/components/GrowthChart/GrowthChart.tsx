@@ -62,10 +62,7 @@ export const GrowthChart = ({
 
     const dataSetValues = isPercentiles ? dataSetEntry?.percentileDatasetValues : dataSetEntry?.zScoreDatasetValues;
     const dataSetMetadata = dataSetEntry?.metadata;
-    const {
-        min,
-        max,
-    } = useCalculateMinMaxValues(dataSetValues);
+    const { min, max } = useCalculateMinMaxValues(dataSetValues);
 
     const [minDataValue, maxDataValue] = useMemo(() => {
         const minVal = Math.max(0, Math.floor(min));
@@ -84,21 +81,19 @@ export const GrowthChart = ({
     };
 
     return (
-        <div>
-            <div className='flex flex-wrap-reverse pl-14'>
+        <>
+            <div className='flex justify-between px-14'>
+                <ChartSelector
+                    category={selectedCategory}
+                    dataset={selectedDataset}
+                    setCategory={setCategory}
+                    setDataset={setDataset}
+                    chartData={chartDataForGender}
+                    isDisabled={trackedEntityGender !== undefined}
+                    gender={gender}
+                    setGender={setGender}
+                />
                 <div>
-                    <ChartSelector
-                        category={selectedCategory}
-                        dataset={selectedDataset}
-                        setCategory={setCategory}
-                        setDataset={setDataset}
-                        chartData={chartDataForGender}
-                        isDisabled={trackedEntityGender !== undefined}
-                        gender={gender}
-                        setGender={setGender}
-                    />
-                </div>
-                <div className='grow relative min-w-[100px] text-sm'>
                     <ChartSettingsButton
                         category={selectedCategory}
                         dataset={selectedDataset}
@@ -122,6 +117,6 @@ export const GrowthChart = ({
                     />
                 </div>
             </div>
-        </div>
+        </>
     );
 };

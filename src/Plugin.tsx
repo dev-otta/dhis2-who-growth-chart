@@ -99,38 +99,24 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     }
 
     return (
-        <QueryClientProvider
-            client={queryClient}
-        >
-            <div
-                style={{
-                    backgroundColor: 'white',
-                    width: '100vw',
-                    display: 'flex',
-                    margin: 0,
-                    padding: 0,
-                }}
-            >
-                <div
-                    style={{ width: '100%' }}
+        <QueryClientProvider client={queryClient}>
+            <div className='bg-white w-screen flex m-0 p-0'>
+                <WidgetCollapsible
+                    header={i18n.t('Growth Chart')}
+                    borderless={false}
+                    open={open}
+                    onOpen={() => setOpen(true)}
+                    onClose={() => setOpen(false)}
                 >
-                    <WidgetCollapsible
-                        header={i18n.t('Growth Chart')}
-                        borderless={false}
-                        open={open}
-                        onOpen={() => setOpen(true)}
-                        onClose={() => setOpen(false)}
-                    >
-                        <GrowthChart
-                            trackedEntity={mappedTrackedEntity}
-                            measurementData={mappedGrowthVariables}
-                            chartData={chartConfig.settings.customReferences ? customReferences : chartData}
-                            defaultIndicator={defaultIndicator}
-                            isPercentiles={isPercentiles}
-                            setDefaultIndicatorError={setDefaultIndicatorError}
-                        />
-                    </WidgetCollapsible>
-                </div>
+                    <GrowthChart
+                        trackedEntity={mappedTrackedEntity}
+                        measurementData={mappedGrowthVariables}
+                        chartData={chartConfig.settings.customReferences ? customReferences : chartData}
+                        defaultIndicator={defaultIndicator}
+                        isPercentiles={isPercentiles}
+                        setDefaultIndicatorError={setDefaultIndicatorError}
+                    />
+                </WidgetCollapsible>
             </div>
         </QueryClientProvider>
     );
