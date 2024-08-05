@@ -11,7 +11,6 @@ export interface MappedEntityValues {
     gender: string | undefined;
     firstName: string | undefined;
     lastName: string | undefined;
-
     [key: string]: string | undefined;
 }
 
