@@ -87,7 +87,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     if (isErrorTei || isErrorEvents) {
         return (
             <GenericError
-                errorMessage={i18n.t('Failed to load data. Please check that you have selected the correct program stage ID in the configuration.')}
+                errorMessage={i18n.t('Failed to load data. Please check that you have selected the correct programStageId in the configuration.')}
             />
         );
     }
