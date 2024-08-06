@@ -15,6 +15,7 @@ import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferen
 import { chartData } from './DataSets/WhoStandardDataSets/ChartData';
 import { ConfigError, CustomReferenceError, DefaultIndicatorError } from './UI/FeedbackComponents';
 import { TrackedEntityError } from './UI/FeedbackComponents/TrackedEntityError';
+import { GenericError } from './UI/GenericError';
 
 const queryClient = new QueryClient();
 
@@ -45,7 +46,11 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isError: isErrorTei,
     } = useTeiById({ teiId });
 
-    const { events } = useEvents({
+    const {
+        events,
+        isLoading: isLoadingEvents,
+        isError: isErrorEvents,
+    } = useEvents({
         orgUnitId,
         programStageId: chartConfig?.metadata.program.programStageId,
         programId,
@@ -70,13 +75,21 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     const [open, setOpen] = useState(true);
 
-    if (isLoading || isLoadingRef || isLoadingTei) {
+    if (isLoading || isLoadingRef || isLoadingTei || isLoadingEvents) {
         return <GenericLoading />;
     }
 
     if (isError) {
         return (
             <ConfigError />
+        );
+    }
+
+    if (isErrorTei || isErrorEvents) {
+        return (
+            <GenericError
+                errorMessage={i18n.t('Failed to load data. Please check that you have selected the correct programStageId in the configuration.')}
+            />
         );
     }
 
