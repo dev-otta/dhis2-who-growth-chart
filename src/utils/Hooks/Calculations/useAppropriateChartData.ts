@@ -26,6 +26,13 @@ export const useAppropriateChartData = (
         const isMonthsInRange = (xAxis: string, range: { start: number, end: number }) =>
             xAxis === TimeUnitCodes.months && childAgeInMonths >= range.start && childAgeInMonths < range.end;
 
+        const getMaxRangeDataset = (datasets: ChartData[0]['datasets']) =>
+            Object.entries(datasets)
+                .reduce((max, [key, value]) =>
+                    ((!max || value.metadata.range.end > max[1].metadata.range.end) ? [key, value] : max));
+
+        const isAboveRange = (xAxis: string, range: { start: number, end: number }) =>
+            xAxis === TimeUnitCodes.months && childAgeInMonths >= range.end;
         Object.entries(datasets)
             .some(([key, value]) => {
                 const { range } = value.metadata;
@@ -36,6 +43,11 @@ export const useAppropriateChartData = (
                     return true;
                 }
 
+                if (isAboveRange(xAxis, range)) {
+                    const [newDatasetKey] = getMaxRangeDataset(datasets);
+                    setSelectedDataset(newDatasetKey);
+                    return true;
+                }
                 return false;
             });
     };
