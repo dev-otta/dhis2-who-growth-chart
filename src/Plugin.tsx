@@ -14,6 +14,7 @@ import { GenericLoading } from './UI/GenericLoading';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
 import { chartData } from './DataSets/WhoStandardDataSets/ChartData';
 import { ConfigError, CustomReferenceError, DefaultIndicatorError } from './UI/FeedbackComponents';
+import { TrackedEntityError } from './UI/FeedbackComponents/TrackedEntityError';
 import { GenericError } from './UI/GenericError';
 
 const queryClient = new QueryClient();
@@ -34,9 +35,9 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     } = useCustomReferences();
 
     const {
-        teiId,
-        programId,
-        orgUnitId,
+        teiId = 'oJGqqqazdje',
+        programId = 'Ewe20zBQxw4',
+        orgUnitId = 'RaTwtPm4gBX',
     } = propsFromParent;
 
     const {
@@ -84,7 +85,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         );
     }
 
-    if (isErrorTei || isErrorEvents) {
+    if (isErrorEvents) {
         return (
             <GenericError
                 errorMessage={i18n.t('Failed to load data. Please check that you have selected the correct programStageId in the configuration.')}
@@ -101,6 +102,12 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     if (defaultIndicatorError) {
         return (
             <DefaultIndicatorError defaultIndicator={defaultIndicator} />
+        );
+    }
+
+    if (isErrorTei) {
+        return (
+            <TrackedEntityError />
         );
     }
 
