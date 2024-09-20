@@ -35,9 +35,9 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     } = useCustomReferences();
 
     const {
-        teiId = 'oJGqqqazdje',
-        programId = 'Ewe20zBQxw4',
-        orgUnitId = 'RaTwtPm4gBX',
+        teiId,
+        programId,
+        orgUnitId,
     } = propsFromParent;
 
     const {
