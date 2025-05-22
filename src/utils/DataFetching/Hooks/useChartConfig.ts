@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
 
 export type ChartConfig = {
@@ -33,9 +33,9 @@ export const useChartConfig = () => {
         isLoading,
         isError,
     } = useQuery(
-        'chartConfig',
+        ['chartConfig'],
         (): any =>
-            dataEngine.query({ chartConfig: { resource: 'dataStore/capture-growth-chart/config' } }),
+            dataEngine.query({ chartConfig: { resource: 'dataStore/CaptureGrowthChart/config' } }),
         { staleTime: 5000 },
     );
 
