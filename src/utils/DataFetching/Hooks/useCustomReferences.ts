@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
-import { useDataEngine } from '@dhis2/app-runtime'
+import { useQuery } from '@tanstack/react-query';
+import { useDataEngine } from '@dhis2/app-runtime';
 
 export const useCustomReferences = () => {
     const dataEngine = useDataEngine();
