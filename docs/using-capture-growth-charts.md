@@ -92,7 +92,7 @@ Documentation for the application can be found [here](https://docs.dhis2.org/en/
 
 #### Config
 
-Create a new namespace `capture-growth-chart` with key `config`, as seen in the image below.
+Create a new namespace `CaptureGrowthChart` with key `config`, as seen in the image below.
 Refer to the [documentation](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/maintaining-the-system/datastore-manager.html) for guidance on creating a new namespace and key.
 <img src="resources/images/DataStoreManagement_plugin_folder.png" width="500"/>
 
@@ -175,7 +175,7 @@ The **Tracker Plugin Configurator** app is used to enable the Growth Chart plugi
 To display the growth chart in the Capture app, use the **Tracker Plugin Configurator** app (recommended) or follow the guide on [configuring enrollment plugins](https://kdb.devotta.com/docs/capture-plugins/enrollment-plugins).
 If you follow the guide, the source should be:
 
-`"source": "https://<instance-url>/api/apps/capture-growth-chart/plugin.html"`
+`"source": "https://<instance-url>/api/apps/CaptureGrowthChart/plugin.html"`
 
 > **Note:** You are now finished with the configuration and ready to use the Growth Chart plugin in the Capture app with WHO's standard references.
 > If you want to use country-specific references, follow the steps in the next section.
@@ -190,7 +190,7 @@ The custom references can be set up in the **Datastore Management** app.
 
 ### Create custom references
 
-1. Create a new key in the `capture-growth-chart` namespace with the key `customReferences`, as seen in the image below.
+1. Create a new key in the `CaptureGrowthChart` namespace with the key `customReferences`, as seen in the image below.
 
 <img src="resources/images/DatastoreManagement_Custom_Folder.png" width="300"/>
 
