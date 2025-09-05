@@ -12,7 +12,9 @@ import { useMappedGrowthVariables } from './utils/DataFetching/Sorting/useMapped
 import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/useMappedTrackedEntity';
 import { GenericLoading } from './UI/GenericLoading';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
-import { chartData } from './DataSets/WhoStandardDataSets/ChartData';
+import { chartData as chartDataWHO } from './DataSets/WhoStandardDataSets/ChartData';
+import { useFilterByMissingData } from './utils/DataFetching/Sorting';
+import { MissingGrowthVariablesError } from './UI/GenericError/MissingGrowthVariablesError';
 import { ConfigError, CustomReferenceError, DefaultIndicatorError } from './UI/FeedbackComponents';
 import { TrackedEntityError } from './UI/FeedbackComponents/TrackedEntityError';
 import { GenericError } from './UI/GenericError';
@@ -69,6 +71,11 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isWeightInGrams: chartConfig?.settings.weightInGrams || false,
     });
 
+    const { chartData, measurementDataExist } = useFilterByMissingData(
+        mappedGrowthVariables,
+        chartConfig && customReferences && chartConfig?.settings.customReferences ? customReferences : chartDataWHO,
+    );
+
     const isPercentiles = chartConfig?.settings.usePercentiles || false;
 
     const defaultIndicator = chartConfig?.settings.defaultIndicator || 'wfa';
@@ -111,6 +118,10 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         );
     }
 
+    if (measurementDataExist.headCircumference === false && measurementDataExist.height === false && measurementDataExist.weight === false) {
+        return <MissingGrowthVariablesError />;
+    }
+
     return (
         <QueryClientProvider client={queryClient}>
             <div className='bg-white w-screen flex m-0 p-0'>
@@ -124,7 +135,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                     <GrowthChart
                         trackedEntity={mappedTrackedEntity}
                         measurementData={mappedGrowthVariables}
-                        chartData={chartConfig.settings.customReferences ? customReferences : chartData}
+                        chartData={chartData}
                         defaultIndicator={defaultIndicator}
                         isPercentiles={isPercentiles}
                         setDefaultIndicatorError={setDefaultIndicatorError}

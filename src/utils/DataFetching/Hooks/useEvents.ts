@@ -38,9 +38,9 @@ interface UseEventsByProgramStageReturn {
 }
 
 export const useEvents = ({
+    programStageId,
     orgUnitId,
     programId,
-    programStageId,
     teiId,
 }: UseEventsByProgramStageProps): UseEventsByProgramStageReturn => {
     const dataEngine = useDataEngine();

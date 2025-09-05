@@ -30,7 +30,6 @@ export const GrowthChart = ({
     const dateOfBirth = useMemo(() => new Date(trackedEntity.dateOfBirth), [trackedEntity.dateOfBirth]);
     const childAgeInWeeks = useMemo(() => differenceInWeeks(new Date(), dateOfBirth), [dateOfBirth]);
     const childAgeInMonths = useMemo(() => differenceInMonths(new Date(), dateOfBirth), [dateOfBirth]);
-
     const [gender, setGender] = useState<string>(trackedEntityGender !== undefined ? trackedEntityGender : GenderCodes.CGC_Female);
     const { chartDataForGender } = useChartDataForGender({
         gender,
