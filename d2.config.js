@@ -1,6 +1,6 @@
 const config = {
     type: 'app',
-    name: 'capture-growth-chart',
+    name: 'Capture Growth Chart',
 
     entryPoints: { plugin: './src/Plugin.tsx' },
 };
