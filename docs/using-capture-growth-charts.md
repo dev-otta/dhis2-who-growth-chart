@@ -204,7 +204,7 @@ The custom references can be set up in the **Datastore Management** app.
 
 1. Create a new key in the `CaptureGrowthChart` namespace with the key `customReferences`, as seen in the image below.
 
-<img src="resources/images/DatastoreManagement_Custom_Folder.png" width="300"/>
+<img src="resources/images/DatastoreManagement_Custom_Folder.png" width="500"/>
 
 2. Here is the format for `customReferences`:
 
@@ -262,6 +262,8 @@ The custom references can be set up in the **Datastore Management** app.
 - `"lhfa_g"` -> Length/height for age
 - `"wfa_g"` -> Weight for age
 - `"wlfh_g"` -> Weight for length/height
+
+
 
 `"_g"` indicates that the gender is girl.
 If you want to add references for boys, you can add the same key but with `"_b"` instead of `"_g"`.

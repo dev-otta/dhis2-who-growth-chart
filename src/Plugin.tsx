@@ -141,7 +141,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <div className='bg-white w-screen flex m-0 p-0'>
+            <div className='bg-white w-full m-0 p-0'>
                 <WidgetCollapsible
                     header={i18n.t('Growth Chart')}
                     borderless={false}

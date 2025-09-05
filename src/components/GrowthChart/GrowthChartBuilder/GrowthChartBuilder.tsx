@@ -10,6 +10,7 @@ import {
 import { GrowthChartAnnotations, AnnotateLineEnd } from '../../../utils/ChartOptions';
 import { useMeasurementPlotting, useChartLines } from '../../../utils/Hooks/ChartDataVisualization';
 import { ChartTooltip } from './ChartTooltip';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;
@@ -105,9 +106,14 @@ export const GrowthChartBuilder = ({
 
     return (
         <div className='aspect-video min-h-[400px]' id='divToPrint'>
-
-            <Line data={data} options={options} />
-
+            <AutoSizer>
+                {/* eslint-disable-next-line */}
+                {({ height, width }: { height: number, width: number }) => (
+                    <div style={{ height, width }}>
+                        <Line data={data} options={options} />
+                    </div>
+                )}
+            </AutoSizer>
         </div>
     );
 };
