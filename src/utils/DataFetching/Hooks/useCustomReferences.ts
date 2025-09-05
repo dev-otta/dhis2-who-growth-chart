@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
 
 export const useCustomReferences = () => {
@@ -8,8 +8,8 @@ export const useCustomReferences = () => {
         isLoading,
         isError,
     } = useQuery(
-        'customReferences',
-        (): any => dataEngine.query({ customReferences: { resource: 'dataStore/CaptureGrowthChart/customReferences' } }),
+        ['customReferences'],
+        (): any => dataEngine.query({ customReferences: { resource: 'dataStore/capture-growth-chart/customReferences' } }),
         { staleTime: 5000 },
     );
 
