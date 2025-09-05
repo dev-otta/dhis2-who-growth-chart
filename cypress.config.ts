@@ -6,8 +6,11 @@ export default defineConfig({
     component: {
         setupNodeEvents() {},
         devServer: {
-            framework: 'create-react-app',
-            bundler: 'webpack',
+            framework: 'react',
+            bundler: 'vite',
+            viteConfig: {
+                configFile: './vite.cypress.config.mts',
+            },
         },
     },
 
