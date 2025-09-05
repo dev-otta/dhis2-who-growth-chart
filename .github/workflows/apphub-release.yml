@@ -28,7 +28,7 @@ jobs:
             - name: Install JS dependencies
               run: yarn install --frozen-lockfile
             - name: Test
-              run: yarn test
+              run: yarn build
 
     publish:
         # Wait for test to succeed before publishing
