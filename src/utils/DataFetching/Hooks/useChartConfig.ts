@@ -15,7 +15,7 @@ export type ChartConfig = {
             weight: string;
         };
         program: {
-            programStageId: string | string[];
+            programStageId: string;
         };
     };
     settings: {
