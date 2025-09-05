@@ -21,7 +21,7 @@ export type ChartConfig = {
             height: string;
             weight: string;
         };
-        programStages: ProgramStageConfig[]; // As per documentation
+        programStages: ProgramStageConfig[];
     };
     settings: {
         customReferences: boolean;
