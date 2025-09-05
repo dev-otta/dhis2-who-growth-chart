@@ -10,10 +10,10 @@ msgstr ""
 
 msgid ""
 "Failed to load data. Please check that you have selected the correct "
-"programStageId(s) in the configuration."
+"programStageId in the configuration."
 msgstr ""
 "Failed to load data. Please check that you have selected the correct "
-"programStageId(s) in the configuration."
+"programStageId in the configuration."
 
 msgid "Growth Chart"
 msgstr "Growth Chart"
