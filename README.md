@@ -1,45 +1,55 @@
-This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).
+# Capture Growth Charts
 
-## Available Scripts
+A plugin for displaying growth charts in the Capture app.
+The plugin is based on the [WHO growth standards](https://www.who.int/childgrowth/standards/en/) and is intended to be used in the context of child growth monitoring or nutrition programs.
 
-In the project directory, you can run:
+## Features
 
-### `yarn start`
+- Display growth charts for weight-for-age, height-for-age, weight-for-height, and head circumference-for-age.
+- Display growth charts for children aged 0-5 years.
+- Easily switch between different growth charts.
+- Create printed copies for parents or health workers.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+1. Download the latest version of the plugin from the [App hub](https://apps.dhis2.org).
+2. Upload the plugin to your DHIS2 instance.
+3. Configure the capture app to display the growth charts in the correct context.
+4. Map required data elements and attributes to the growth chart plugin.
 
-### `yarn test`
+## Configuration
 
-Launches the test runner and runs all available tests found in `/src`.<br />
+The plugins expect a configuration object to be found in the Data Store. The configuration object tells the plugin which data elements and attributes to use when calculating the growth charts.
 
-See the section about [running tests](https://platform.dhis2.nu/#/scripts/test) for more information.
+The configuration object should look something like this:
 
-### `yarn build`
+```json
+{
+    "metadata": {
+        "attributes": {
+            "dateOfBirth": "AMl8BkN8Lyq",
+            "gender": "tyNlJWNnEbs",
+            "firstName": "Sx5Gd4JfPrL",
+            "lastName": "sljlq9XtqaA",
+            "femaleOptionCode": "CGC_Female",
+            "maleOptionCode": "CGC_Male"
+        },
+        "dataElements": {
+            "headCircumference": "GfchA70xtmP",
+            "height": "wWCSulSdUgd",
+            "weight": "yZwKJdYXTZF"
+        },
+        "program": {
+            "programStageId": "h3gT08Et4sC"
+        }
+    },
+    "settings": {
+        "usePercentiles": false,
+        "weightInGrams": false
+    }
+}
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
 
-The build is minified and the filenames include the hashes.<br />
-A deployable `.zip` file can be found in `build/bundle`!
+Want to read more in details of how to configure the plugin? Check out the [documentation](https://github.com/dev-otta/dhis2-who-growth-chart/blob/master/docs/using-capture-growth-charts.md) in our user guide.
 
-See the section about [building](https://platform.dhis2.nu/#/scripts/build) for more information.
-
-### `yarn deploy`
-
-Deploys the built app in the `build` folder to a running DHIS2 instance.<br />
-This command will prompt you to enter a server URL as well as the username and password of a DHIS2 user with the App Management authority.<br/>
-You must run `yarn build` before running `yarn deploy`.<br />
-
-See the section about [deploying](https://platform.dhis2.nu/#/scripts/deploy) for more information.
-
-## Learn More
-
-You can learn more about the platform in the [DHIS2 Application Platform Documentation](https://platform.dhis2.nu/).
-
-You can learn more about the runtime in the [DHIS2 Application Runtime Documentation](https://runtime.dhis2.nu/).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
