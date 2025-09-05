@@ -3,7 +3,7 @@ import i18n from '@dhis2/d2-i18n';
 import { WidgetCollapsible } from '../../components/WidgetCollapsible';
 import { Warning } from '../Icons';
 
-export const CustomReferencesError = () => {
+export const ChartConfigError = () => {
     const [open, setOpen] = useState(true);
     return (
         <div style={{
@@ -22,9 +22,9 @@ export const CustomReferencesError = () => {
                 <div className='flex justify-center'>
                     <Warning className='w-12 h-12' />
                     <p className='flex p-5 pt-2'>
-                        {i18n.t('There was an error fetching the custom references for the growth chart.')}
+                        {i18n.t('There was an error fetching the event.')}
                         <br />
-                        {i18n.t('Please check the configuration in Datastore Management and try again.')}
+                        {i18n.t('Please check the configuration in Datastore Management application and try again.')}
                     </p>
                 </div>
             </WidgetCollapsible>

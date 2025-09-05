@@ -3,7 +3,11 @@ import i18n from '@dhis2/d2-i18n';
 import { WidgetCollapsible } from '../../components/WidgetCollapsible';
 import { Warning } from '../Icons';
 
-export const ChartConfigError = () => {
+interface GenericErrorProps {
+    errorMessage: string;
+}
+
+export const GenericError = ({ errorMessage }: GenericErrorProps) => {
     const [open, setOpen] = useState(true);
     return (
         <div style={{
@@ -20,11 +24,11 @@ export const ChartConfigError = () => {
                 onClose={() => setOpen(false)}
             >
                 <div className='flex justify-center'>
-                    <Warning className='w-12 h-12' />
-                    <p className='flex p-5 pt-2'>
-                        {i18n.t('There was an error fetching the config for the growth chart.')}
-                        <br />
-                        {i18n.t('Please check the configuration in Datastore Management and try again.')}
+                    <p className={'flex items-center'}>
+                        <Warning className='w-12 h-12' />
+                    </p>
+                    <p className='flex p-5 items-center w-1/2 max-w-[500px]'>
+                        {errorMessage}
                     </p>
                 </div>
             </WidgetCollapsible>

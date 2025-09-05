@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n';
 import { Scriptable, ScriptableTooltipContext, TooltipPositionerMap } from 'chart.js';
+import { differenceInMonths, differenceInWeeks, differenceInYears } from 'date-fns';
 import { unitCodes, CategoryCodes, timeUnitData, TimeUnitCodes } from '../../../types/chartDataTypes';
 
 interface TooltipConfig {
@@ -24,7 +25,7 @@ interface TooltipConfig {
     };
 }
 
-export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: string): TooltipConfig => {
+export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: string, dateOfBirth: Date): TooltipConfig => {
     let xUnit = '';
     let yUnit = '';
 
@@ -67,8 +68,10 @@ export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: s
                 return `${i18n.t('Date')}: ${date}`;
             },
             label: (tooltipItem) => {
+                const date = new Date(tooltipItem.raw.eventDate);
                 let yValue = Number(tooltipItem.formattedValue.replace(',', '.'));
                 let xValue = Number(tooltipItem.label.replace(',', '.'));
+                const weeks = differenceInWeeks(date, dateOfBirth);
 
                 let xLabel = '';
 
@@ -79,22 +82,28 @@ export const ChartTooltip = (category: string, xAxisLabel: string, yAxisLabel: s
                 xLabel = `${xAxisLabel}: ${xValue} ${xUnit}`;
 
                 if (xAxisLabel === TimeUnitCodes.weeks) {
-                    const weeks = Number((xValue % timeUnitData.Months.divisor).toFixed(0));
-                    const months = Number((Math.floor(xValue / timeUnitData.Months.divisor)).toFixed(0));
-                    xLabel = (months === 0 ? `${i18n.t('Age')}: ${weeks} ${(weeks === 1)
-                        ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural}`
-                        : `${i18n.t('Age')}: ${months} ${(months === 1) ? timeUnitData.Months.singular
-                            : timeUnitData.Months.plural} ${(weeks > 0) ? `${weeks} ${(weeks === 1)
-                            ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural}` : ''}`);
+                    xLabel = `${i18n.t('Age')}: `;
+                    xLabel += `${weeks} ${(weeks === 1) ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural} `;
                 }
                 if (xAxisLabel === TimeUnitCodes.months) {
-                    const months = Number(Math.floor(xValue % timeUnitData.Years.divisor).toFixed(0));
-                    const years = Number(Math.floor(xValue / timeUnitData.Years.divisor).toFixed(0));
-                    xLabel = (years === 0 ? `${i18n.t('Age')}: ${months} ${(months === 1)
-                        ? timeUnitData.Months.singular : timeUnitData.Months.plural}`
-                        : `${i18n.t('Age')}: ${years} ${(years === 1) ? timeUnitData.Years.singular
-                            : timeUnitData.Years.plural} ${(months > 0) ? `${months} ${(months === 1)
-                            ? timeUnitData.Months.singular : timeUnitData.Months.plural}` : ''}`);
+                    const months = differenceInMonths(date, dateOfBirth) % 12;
+                    const years = differenceInYears(date, dateOfBirth);
+
+                    xLabel = `${i18n.t('Age')}: `;
+
+                    if (weeks <= 13) {
+                        xLabel += `${weeks} ${(weeks === 1) ? timeUnitData.Weeks.singular : timeUnitData.Weeks.plural} `;
+                    }
+
+                    if (weeks > 13) {
+                        if (years > 0) {
+                            xLabel += `${years} ${(years === 1) ? timeUnitData.Years.singular : timeUnitData.Years.plural} `;
+                        }
+
+                        if (months > 0) {
+                            xLabel += `${months} ${(months === 1) ? timeUnitData.Months.singular : timeUnitData.Months.plural} `;
+                        }
+                    }
                 }
 
                 const labels = [];

@@ -34,7 +34,7 @@ export const ChartSelector = ({
     };
 
     return (
-        <div className='flex flex-wrap w-full gap-2 text-sm'>
+        <div className='flex flex-wrap gap-2 items-center'>
             <ChartSelectorDropdown
                 title={gender}
                 items={Object.values(GenderCodes)}

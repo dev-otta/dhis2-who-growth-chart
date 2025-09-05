@@ -7,11 +7,11 @@ interface Attribute {
 }
 
 export interface MappedEntityValues {
-    [key: string]: string | undefined;
     dateOfBirth: string | undefined;
     gender: string | undefined;
     firstName: string | undefined;
     lastName: string | undefined;
+    [key: string]: string | undefined;
 }
 
 interface UseMappedTrackedEntityVariablesProps {
@@ -36,23 +36,24 @@ export const useMappedTrackedEntityVariables = ({
         return mappedValues;
     }
 
-    return Object.entries(variableMappings).reduce((acc, [key, attributeId]) => {
-        const attribute = trackedEntityAttributes.find((attr: Attribute) => attr.attribute === attributeId);
-        if (attribute) {
-            const value = trackedEntity.attributes.find((attr: Attribute) => attr.attribute === attributeId)?.value;
-            if (value !== undefined && value !== null) {
-                if (key === 'gender') {
-                    if (value === variableMappings.femaleOptionCode) {
-                        acc.gender = GenderCodes.CGC_Female;
+    return Object.entries(variableMappings)
+        .reduce((acc, [key, attributeId]) => {
+            const attribute = trackedEntityAttributes.find((attr: Attribute) => attr.attribute === attributeId);
+            if (attribute) {
+                const value = trackedEntity.attributes.find((attr: Attribute) => attr.attribute === attributeId)?.value;
+                if (value !== undefined && value !== null) {
+                    if (key === 'gender') {
+                        if (value === String(variableMappings.femaleOptionCode)) {
+                            acc.gender = GenderCodes.CGC_Female;
+                        }
+                        if (value === String(variableMappings.maleOptionCode)) {
+                            acc.gender = GenderCodes.CGC_Male;
+                        }
+                        return acc;
                     }
-                    if (value === variableMappings.maleOptionCode) {
-                        acc.gender = GenderCodes.CGC_Male;
-                    }
-                    return acc;
+                    acc[key] = value;
                 }
-                acc[key] = value;
             }
-        }
-        return acc;
-    }, mappedValues);
+            return acc;
+        }, mappedValues);
 };
