@@ -28,14 +28,13 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         teiId,
         programId,
         orgUnitId,
-        configKey,
     } = propsFromParent;
 
     const {
         chartConfig,
         isLoading,
         isError,
-    } = useChartConfig(configKey);
+    } = useChartConfig();
 
     const {
         customReferences,

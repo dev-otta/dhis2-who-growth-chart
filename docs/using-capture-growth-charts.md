@@ -90,8 +90,6 @@ Documentation for the application can be found [here](https://docs.dhis2.org/en/
 
 ### Capture-growth-chart namespace
 
-> **Note:** You can create multiple configurations for different growth chart setups by using different keys within the same namespace. For example, use `config_child_health` for child health programs and `config_nutrition` for nutrition programs. This allows you to have different program stages, data elements, and settings for different use cases.
-
 #### Config
 
 Create a new namespace `CaptureGrowthChart` with key `config`, as seen in the image below.
@@ -103,7 +101,6 @@ Keep in mind that all ID's should be changed, and will be unique for each implem
 
 The structure of the config has to be the same as the one in the example below;
 
-#### Single program stage configuration:
 ```json
 {
   "metadata": {
@@ -131,36 +128,6 @@ The structure of the config has to be the same as the one in the example below;
     "defaultIndicator": "wfa"
   }
 }
-```
-
-#### Multiple program stages configuration:
-```json
-{
-  "metadata": {
-    "attributes": {
-      "dateOfBirth": "AMl8BkN8Lyq",
-      "gender": "tyNlJWNnEbs",
-      "firstName": "Sx5Gd4JfPrL",
-      "lastName": "sljlq9XtqaA",
-      "femaleOptionCode": "CGC_Female",
-      "maleOptionCode": "CGC_Male"
-    },
-    "dataElements": {
-      "headCircumference": "GfchA70xtmP",
-      "height": "wWCSulSdUgd",
-      "weight": "yZwKJdYXTZF"
-    },
-    "program": {
-      "programStageId": ["h3gT08Et4sC", "k5dU12Rt9fX", "m7fP34Yt2bN"]
-    }
-  },
-  "settings": {
-    "usePercentiles": false,
-    "customReferences": false,
-    "weightInGrams": false,
-    "defaultIndicator": "wfa"
-  }
-}
 ``` 
 
 #### Config structure explanation
@@ -176,9 +143,8 @@ The `metadata` object contains the following keys:
   Documentation for `Option Sets` can be found [here](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/configuring-the-system/metadata.html#manage_option_set).
 - `dataElements` - Contains the data element IDs for **headCircumference**, **height** and **weight**.
   All of these data element IDs can be found in the **Maintenance** app under **Data elements**.
-- `program` - Contains the program stage ID(s) for the program stage(s) where the growth data is stored.
-  This can be either a single program stage ID (string) or multiple program stage IDs (array of strings).
-  These IDs can be found in the **Maintenance** app under **Programs** and **Program stages**.
+- `program` - Contains the program stage ID for the program stage where the growth data is stored.
+  This ID can be found in the **Maintenance** app under **Programs** and **Program stages**.
 
 ##### Settings
 
@@ -201,95 +167,6 @@ The `settings` object contains the following keys:
     - `"wfa"` -> Weight for age
     - `"wflh"` -> Weight for length/height
 
-### Multiple Program Stages Support
-
-The Growth Chart plugin supports data collection from multiple program stages, allowing you to combine growth measurements from different stages of a program. This is useful when:
-
-- Growth data is collected at different visit types (e.g., birth registration, routine check-ups, immunization visits)
-- You have separate stages for different age groups or conditions
-- Different health workers collect data in different program stages
-
-#### How it works:
-
-1. **Single Program Stage**: Use a string value for `programStageId` (traditional approach)
-   ```json
-   "program": {
-     "programStageId": "h3gT08Et4sC"
-   }
-   ```
-
-2. **Multiple Program Stages**: Use an array of strings for `programStageId`
-   ```json
-   "program": {
-     "programStageId": ["h3gT08Et4sC", "k5dU12Rt9fX", "m7fP34Yt2bN"]
-   }
-   ```
-
-When multiple program stages are configured, the plugin will:
-- Fetch events from all specified program stages
-- Combine all growth measurements into a single timeline
-- Sort events by date to create a chronological growth chart
-- Display all measurements regardless of which program stage they came from
-
-#### Example Use Cases:
-
-- **Maternal and Child Health Program**: Combine data from birth registration stage, postnatal care stage, and routine immunization stages
-- **Nutrition Program**: Combine data from screening stage, treatment stage, and follow-up stage
-- **Multi-clinic Program**: Different clinics using different program stages but tracking the same children
-
-### Multiple Configuration Keys
-
-You can create multiple configuration keys within the `CaptureGrowthChart` namespace to support different programs or use cases:
-
-#### Example configurations:
-
-1. **Child Health Program** (`config_child_health`):
-   ```json
-   {
-     "metadata": {
-       "program": {
-         "programStageId": ["birth_stage", "checkup_stage", "vaccination_stage"]
-       }
-     }
-   }
-   ```
-
-2. **Nutrition Program** (`config_nutrition`):
-   ```json
-   {
-     "metadata": {
-       "program": {
-         "programStageId": ["screening_stage", "treatment_stage"]
-       }
-     }
-   }
-   ```
-
-3. **Emergency Care** (`config_emergency`):
-   ```json
-   {
-     "metadata": {
-       "program": {
-         "programStageId": "emergency_care_stage"
-       }
-     }
-   }
-   ```
-
-To use a specific configuration, pass the `configKey` parameter when configuring the plugin. This can be done through:
-
-1. **Tracker Plugin Configurator**: Add the configKey in the plugin configuration settings
-2. **Manual Plugin Configuration**: Include configKey in the plugin props
-
-Example plugin configuration with custom config key:
-```json
-{
-  "configKey": "config_child_health"
-}
-```
-
-If no `configKey` is provided, the plugin will default to using the `config` key for backward compatibility.
-
 # Enable the plugin in the Capture enrollment dashboard
 
 ## Tracker Plugin Configurator app
@@ -298,7 +175,7 @@ The **Tracker Plugin Configurator** app is used to enable the Growth Chart plugi
 To display the growth chart in the Capture app, use the **Tracker Plugin Configurator** app (recommended) or follow the guide on [configuring enrollment plugins](https://kdb.devotta.com/docs/capture-plugins/enrollment-plugins).
 If you follow the guide, the source should be:
 
-`"source": "https://[instance-url]/api/apps/CaptureGrowthChart/plugin.html"`
+`"source": "https://<instance-url>/api/apps/CaptureGrowthChart/plugin.html"`
 
 > **Note:** You are now finished with the configuration and ready to use the Growth Chart plugin in the Capture app with WHO's standard references.
 > If you want to use country-specific references, follow the steps in the next section.
@@ -321,39 +198,39 @@ The custom references can be set up in the **Datastore Management** app.
 
 ```json
 {
-  "[Indicator key]": {
+  "<Indicator key>": {
     "categoryMetadata": {
-      "gender": "[Girl || Boy]",
-      "label": "[Indicator label]"
+      "gender": "<Girl || Boy>",
+      "label": "<Indicator label>"
     },
     "datasets": {
-      "[time interval]": {
+      "<time interval>": {
         "metadata": {
           "range": {
-            "end": "[X-axis_dataset_end]",
-            "start": "[X-axis_dataset_start]"
+            "end": <X-axis_dataset_end>,
+            "start": <X-axis_dataset_start>
           },
-          "xAxisLabel": "[Weeks || Months || Weight]",
-          "yAxisLabel": "[Anthropometric measurements, Height || Length || Weight || Head circumference]"
+          "xAxisLabel": "<Weeks || Months || Weight>",
+          "yAxisLabel": "<Anthropometric measurements, Height || Length || Weight || Head circumference>"
         },
         "percentileDatasetValues": [
           {
-            "P3": "[P3_value]",
-            "P15": "[P15_value]",
-            "P50": "[P50_value]",
-            "P85": "[P85_value]",
-            "P97": "[P97_value]"
+            "P3": <P3_value>,
+            "P15": <P15_value>,
+            "P50": <P50_value>,
+            "P85": <P85_value>,
+            "P97": <P97_value>
           }
         ],
         "zScoreDatasetValues": [
           {
-            "SD0": "[SD0_value]",
-            "SD1": "[SD1_value]",
-            "SD2": "[SD2_value]",
-            "SD3": "[SD3_value]",
-            "SD1neg": "[SD1neg_value]",
-            "SD2neg": "[SD2neg_value]",
-            "SD3neg": "[SD3neg_value]"
+            "SD0": <SD0_value>,
+            "SD1": <SD1_value>,
+            "SD2": <SD2_value>,
+            "SD3": <SD3_value>,
+            "SD1neg": <SD1neg_value>,
+            "SD2neg": <SD2neg_value>,
+            "SD3neg": <SD3neg_value>
           }
         ]
       }
@@ -374,6 +251,7 @@ The custom references can be set up in the **Datastore Management** app.
 - `"wfa_g"` -> Weight for age
 - `"wlfh_g"` -> Weight for length/height
 
+<br>
 
 `"_g"` indicates that the gender is girl.
 If you want to add references for boys, you can add the same key but with `"_b"` instead of `"_g"`.

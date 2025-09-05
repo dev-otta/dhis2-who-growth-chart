@@ -26,16 +26,16 @@ export type ChartConfig = {
     };
 };
 
-export const useChartConfig = (configKey: string = 'config') => {
+export const useChartConfig = () => {
     const dataEngine = useDataEngine();
     const {
         data,
         isLoading,
         isError,
     } = useQuery(
-        ['chartConfig', configKey],
+        ['chartConfig'],
         (): any =>
-            dataEngine.query({ chartConfig: { resource: `dataStore/CaptureGrowthChart/${configKey}` } }),
+            dataEngine.query({ chartConfig: { resource: 'dataStore/CaptureGrowthChart/config' } }),
         { staleTime: 5000 },
     );
 
