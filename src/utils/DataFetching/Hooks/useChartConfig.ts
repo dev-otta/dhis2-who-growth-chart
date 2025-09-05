@@ -15,7 +15,7 @@ export type ChartConfig = {
             weight: string;
         };
         program: {
-            programStageId: string;
+            programStageId: string | string[];
         };
     };
     settings: {
@@ -26,16 +26,16 @@ export type ChartConfig = {
     };
 };
 
-export const useChartConfig = () => {
+export const useChartConfig = (configKey: string = 'config') => {
     const dataEngine = useDataEngine();
     const {
         data,
         isLoading,
         isError,
     } = useQuery(
-        ['chartConfig'],
+        ['chartConfig', configKey],
         (): any =>
-            dataEngine.query({ chartConfig: { resource: 'dataStore/CaptureGrowthChart/config' } }),
+            dataEngine.query({ chartConfig: { resource: `dataStore/CaptureGrowthChart/${configKey}` } }),
         { staleTime: 5000 },
     );
 
