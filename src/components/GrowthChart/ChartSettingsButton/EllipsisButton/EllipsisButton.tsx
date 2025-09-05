@@ -28,7 +28,6 @@ export const EllipsisButton = ({
     return (
         <>
             <div ref={anchorRef}>
-                {/* @ts-ignore */}
                 <Button
                     primary={primary}
                     secondary={secondary}

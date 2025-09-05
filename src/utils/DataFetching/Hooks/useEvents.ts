@@ -71,8 +71,17 @@ export const useEvents = ({
             programId,
             teiId,
         },
-    }), { staleTime: 5000 });
+    }), { 
+        staleTime: 5000,
+        enabled: !!programStageId && !!orgUnitId && !!programId && !!teiId,
+    });
 
+    console.log('programId', programId);
+    console.log('programStageId', programStageId);
+    console.log('orgUnitId', orgUnitId);
+    console.log('teiId', teiId);
+    console.log('data', data);
+    
     const apiResponse = handleAPIResponse(RequestedEntities.events, data?.eventsByProgramStage);
 
     const events = useMemo(() => apiResponse?.map((event: ServerEvent) => {

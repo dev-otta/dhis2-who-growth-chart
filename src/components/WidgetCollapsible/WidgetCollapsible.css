@@ -1,0 +1,108 @@
+/* DHIS2 Color Variables */
+:root {
+    --color-dhis-light: #79B9E3;
+    --color-dhis-dark: #3A668F;
+    --color-dhis-secondary: #1F78B4;
+}
+
+/* Animation Keyframes */
+@keyframes widget-slide-in {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+}
+
+@keyframes widget-slide-out {
+    from { transform: scaleY(1); }
+    to { transform: scaleY(0); }
+}
+
+@keyframes widget-flip-open {
+    from { transform: rotateX(180deg); }
+    to { transform: rotateX(0deg); }
+}
+
+@keyframes widget-flip-close {
+    from { transform: rotateX(0deg); }
+    to { transform: rotateX(180deg); }
+}
+
+/* Widget Container */
+.widget-container {
+    background-color: white;
+    width: 100%;
+}
+
+/* Widget Header */
+.widget-header {
+    border-radius: 0.25rem;
+    border: 1px solid rgb(156 163 175);
+}
+
+.widget-header-open {
+    border-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.widget-header-borderless {
+    border: none;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    font-weight: 500;
+    font-size: 1rem;
+    color: rgb(31 41 55);
+}
+
+/* Icon Button */
+.icon-button {
+    margin-left: 0.25rem;
+    height: 1.5rem;
+    border-radius: 0.125rem;
+    color: rgb(75 85 99);
+    transition: all 150ms ease-in-out;
+}
+
+.icon-button:hover {
+    background-color: rgb(229 231 235);
+    color: rgb(31 41 55);
+}
+
+.icon-button-closed {
+    transform: rotate(180deg);
+}
+
+.icon-button-animate-open {
+    animation: widget-flip-open 200ms linear forwards;
+}
+
+.icon-button-animate-close {
+    animation: widget-flip-close 200ms linear forwards;
+}
+
+/* Widget Content */
+.widget-content {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    border: 1px solid rgb(156 163 175);
+    border-top: 0;
+    transform-origin: top;
+}
+
+.widget-content-borderless {
+    border: none;
+}
+
+.widget-content-animate-in {
+    animation: widget-slide-in 200ms ease-in-out forwards;
+}
+
+.widget-content-animate-out {
+    animation: widget-slide-out 200ms ease-in-out forwards;
+}

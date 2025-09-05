@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Plugin.module.css';
+import './Plugin.css';
 import './tailwind.css';
 import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

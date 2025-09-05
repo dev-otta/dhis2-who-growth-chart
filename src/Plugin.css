@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+
+@theme {
+    --color-dhis-light: #79B9E3;
+    --color-dhis-dark: #3A668F;
+    --color-dhis-secondary: #1F78B4;
+
+    --transition-property-width: width;
+
+    --animate-slide-in: slide-in 200ms ease-in-out forwards;
+    --animate-slide-out: slide-out 200ms ease-in-out forwards;
+    --animate-flip-open: flip-open 200ms linear forwards;
+    --animate-flip-close: flip-close 200ms linear forwards;
+}
+
+@keyframes slide-in {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+}
+
+@keyframes slide-out {
+    from { transform: scaleY(1); }
+    to { transform: scaleY(0); }
+}
+
+@keyframes flip-open {
+    from { transform: rotateX(180deg); }
+    to { transform: rotateX(0deg); }
+}
+
+@keyframes flip-close {
+    from { transform: rotateX(0deg); }
+    to { transform: rotateX(180deg); }
+}
+
+pre {
+    font-size: 14px;
+}
+
+p {
+    font-size: 14px;
+}

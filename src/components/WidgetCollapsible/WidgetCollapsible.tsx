@@ -1,102 +1,17 @@
 // @flow
 import React, { useState, useEffect, useRef, ReactNode } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import cx from 'classnames';
-import { colors, spacersNum, IconChevronUp24 } from '@dhis2/ui';
+import { IconChevronUp24 } from '@dhis2/ui';
 import { IconButton } from './IconButton';
+import './WidgetCollapsible.css';
 
-type Classes = {
-    widgetStyle: string,
-    headerContainer: string,
-    header: string,
-    children: string,
-    toggleButton: string
-}
-
-const styles = {
-    widgetStyle: {
-        backgroundColor: colors.white,
-        width: '100%',
-    },
-    headerContainer: {
-        borderRadius: 3,
-        borderStyle: 'solid',
-        borderColor: colors.grey400,
-        borderWidth: 1,
-        '&.childrenVisible': {
-            borderBottomWidth: 0,
-            borderBottomLeftRadius: 0,
-            borderBottomRightRadius: 0,
-        },
-        '&.borderless': { border: 'none' },
-    },
-    header: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: spacersNum.dp16,
-        fontWeight: 500,
-        fontSize: 16,
-        color: colors.grey800,
-    },
-    children: {
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0,
-        borderBottomLeftRadius: 3,
-        borderBottomRightRadius: 3,
-        borderStyle: 'solid',
-        borderColor: colors.grey400,
-        borderWidth: 1,
-        borderTopWidth: 0,
-        '&.open': {
-            animation: 'slidein 200ms normal forwards ease-in-out',
-            transformOrigin: '50% 0%',
-        },
-        '&.close': {
-            animation: 'slideout 200ms normal forwards ease-in-out',
-            transformOrigin: '100% 0%',
-        },
-        '&.borderless': { border: 'none' },
-    },
-    toggleButton: {
-        margin: `0 0 0 ${spacersNum.dp4}px`,
-        height: '24px',
-        borderRadius: '3px',
-        color: colors.grey600,
-        '&:hover': {
-            background: colors.grey200,
-            color: colors.grey800,
-        },
-        '&.open': { animation: 'flipOpen 200ms normal forwards linear' },
-        '&.close': { animation: 'flipClose 200ms normal forwards linear' },
-        '&.closeinit': { transform: 'rotateX(180deg)' },
-    },
-    '@keyframes slidein': {
-        from: { transform: 'scaleY(0)' },
-        to: { transform: 'scaleY(1)' },
-    },
-    '@keyframes slideout': {
-        from: { transform: 'scaleY(1)' },
-        to: { transform: 'scaleY(0)' },
-    },
-    '@keyframes flipOpen': {
-        from: { transform: 'rotateX(180deg)' },
-        to: { transform: 'rotateX(0)' },
-    },
-    '@keyframes flipClose': {
-        from: { transform: 'rotateX(0)' },
-        to: { transform: 'rotateX(180deg)' },
-    },
-};
-
-const WidgetCollapsiblePlain = ({
+export const WidgetCollapsible = ({
     header,
     open,
     onOpen,
     onClose,
     borderless = false,
     children,
-    classes,
 }: {
     header: ReactNode,
     open: boolean,
@@ -104,7 +19,6 @@ const WidgetCollapsiblePlain = ({
     onClose: () => void,
     borderless?: boolean,
     children: ReactNode,
-    classes: Classes,
 }) => {
     const [childrenVisible, setChildrenVisibility] = useState(open);
     const [animationsReady, setAnimationsReadyStatus] = useState(false);
@@ -135,22 +49,28 @@ const WidgetCollapsiblePlain = ({
     }, [open, animationsReady]);
 
     return (
-        <div className={classes.widgetStyle}>
+        <div className='widget-container'>
             <div
-                className={cx(classes.headerContainer, {
-                    childrenVisible,
-                    borderless,
-                })}
+                className={cx(
+                    'widget-header',
+                    {
+                        'widget-header-open': childrenVisible,
+                        'widget-header-borderless': borderless,
+                    },
+                )}
             >
-                <div className={classes.header}>
+                <div className='header-content'>
                     {header}
                     <IconButton
                         dataTest='widget-open-close-toggle-button'
-                        className={cx(classes.toggleButton, {
-                            closeinit: !animationsReady && !postEffectOpen,
-                            open: animationsReady && postEffectOpen,
-                            close: animationsReady && !postEffectOpen,
-                        })}
+                        className={cx(
+                            'icon-button',
+                            {
+                                'icon-button-closed': !animationsReady && !postEffectOpen,
+                                'icon-button-animate-open': animationsReady && postEffectOpen,
+                                'icon-button-animate-close': animationsReady && !postEffectOpen,
+                            },
+                        )}
                         onClick={open ? onClose : onOpen}
                     >
                         <IconChevronUp24 />
@@ -161,11 +81,14 @@ const WidgetCollapsiblePlain = ({
                 childrenVisible ? (
                     <div
                         data-test='widget-contents'
-                        className={cx(classes.children, {
-                            open: animationsReady && open,
-                            close: animationsReady && !open,
-                            borderless,
-                        })}
+                        className={cx(
+                            'widget-content',
+                            {
+                                'widget-content-animate-in': animationsReady && open,
+                                'widget-content-animate-out': animationsReady && !open,
+                                'widget-content-borderless': borderless,
+                            },
+                        )}
                     >
                         {children}
                     </div>
@@ -174,5 +97,3 @@ const WidgetCollapsiblePlain = ({
         </div>
     );
 };
-
-export const WidgetCollapsible = withStyles(styles)(WidgetCollapsiblePlain);
