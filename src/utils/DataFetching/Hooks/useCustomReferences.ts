@@ -16,7 +16,7 @@ export const useCustomReferences = (enabled: boolean = true) => {
 
     return {
         customReferences: data?.customReferences,
-        isLoading: enabled ? isLoading : false, // Force isLoading to false when disabled
+        isLoading: enabled ? isLoading : false,
         isError,
     };
 };

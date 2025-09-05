@@ -2,7 +2,8 @@ import { Event } from '../Hooks/useEvents';
 
 interface UseMappedGrowthVariablesProps {
     events: Event[];
-    growthVariables: { [key: string]: number | undefined };
+    // Map of variable name -> dataElement UID (string)
+    growthVariables: { [key: string]: string | undefined };
     isWeightInGrams: boolean;
 }
 
@@ -25,16 +26,23 @@ export const useMappedGrowthVariables = ({
     }
 
     const mappedData = events.map((event: Event) => {
-        const dataValueMap: { weight: number; headCircumference: number; height: number; [key: string]: number } = {
+        const dataValueMap: { 
+            weight: number | undefined; 
+            headCircumference: number | undefined; 
+            height: number | undefined; 
+            [key: string]: number | undefined 
+        } = {
             weight: undefined,
             headCircumference: undefined,
             height: undefined,
         };
 
         if (growthVariables && event.dataValues) {
-            Object.entries(growthVariables).reduce((acc, [key, value]: [string, number | undefined]) => {
-                const dataValue = Number(Object.entries(event.dataValues).find(([dataElement]) => dataElement === String(value))?.[1]);
-                if (dataValue && value) {
+            Object.entries(growthVariables).reduce((acc, [key, dataElementUid]: [string, string | undefined]) => {
+                if (!dataElementUid) return acc;
+                const raw = (event.dataValues as Record<string, unknown>)[dataElementUid];
+                const dataValue = raw != null ? Number(raw) : undefined;
+                if (typeof dataValue === 'number' && !Number.isNaN(dataValue)) {
                     acc[key] = (key === 'weight' && (isWeightInGrams || dataValue > 1000)) ? dataValue / 1000 : dataValue;
                 }
                 return acc;

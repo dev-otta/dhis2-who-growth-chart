@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-09-05T19:56:24.348Z\n"
-"PO-Revision-Date: 2025-09-05T19:56:24.348Z\n"
+"POT-Creation-Date: 2025-09-05T20:33:06.429Z\n"
+"PO-Revision-Date: 2025-09-05T20:33:06.429Z\n"
 
 msgid ""
 "Unable to load growth data. Please check that the configured programs and "
@@ -165,3 +165,11 @@ msgstr "Boy"
 
 msgid "Girl"
 msgstr "Girl"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Capture Growth Chart"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr "A plugin for displaying growth charts in the Capture app"

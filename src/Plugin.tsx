@@ -60,7 +60,8 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isLoading: isLoadingEvents,
         isError: isErrorEvents,
     } = useEvents({
-        programStages: chartConfig?.metadata?.programStages || [],
+        programStageId: chartConfig?.metadata?.programStages?.[0]?.programStageId,
+        programId: chartConfig?.metadata?.programStages?.[0]?.programId,
         orgUnitId,
         teiId,
     });
@@ -72,7 +73,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     });
     
     const mappedGrowthVariables = useMappedGrowthVariables({
-        growthVariables: chartConfig?.metadata?.dataElements ? {
+            growthVariables: chartConfig?.metadata?.dataElements ? {
             headCircumference: chartConfig.metadata.dataElements.headCircumference,
             height: chartConfig.metadata.dataElements.height,
             weight: chartConfig.metadata.dataElements.weight,

@@ -127,7 +127,6 @@ export const useConfigValidation = (
                 }
             }
 
-            // Validate data elements
             if (!chartConfig.metadata.dataElements) {
                 errors.push({
                     field: 'metadata.dataElements',

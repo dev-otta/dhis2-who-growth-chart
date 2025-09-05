@@ -4,16 +4,33 @@ import { useMemo } from 'react';
 import { convertDataElementToValues } from '../Convert';
 import { ServerEvent } from '../../../types/Event.types';
 import { RequestedEntities, handleAPIResponse } from './handleAPIResponse';
-import { ProgramStageConfig } from './useChartConfig';
-import { Event } from './useLegacyEvents';
 
-type UseEventsProps = {
-    programStages: ProgramStageConfig[] | undefined;
+type UseEventsByProgramStageProps = {
+    programStageId: string | undefined;
     orgUnitId: string | undefined;
+    programId: string | undefined;
     teiId: string | undefined;
 };
 
-interface UseEventsReturn {
+export type DataValue = {
+    [key: string]: string | number;
+};
+
+export type MeasurementData = {
+    eventDate: string;
+    dataValues: DataValue;
+};
+
+export interface Event {
+    dataValues: { [key: string]: string };
+    occurredAt: string;
+    event: string;
+    program: string;
+    programStage: string;
+    status: 'ACTIVE' | 'COMPLETED';
+}
+
+interface UseEventsByProgramStageReturn {
     events: Event[] | undefined;
     isLoading: boolean;
     isError: boolean;
@@ -21,80 +38,55 @@ interface UseEventsReturn {
 }
 
 export const useEvents = ({
-    programStages,
+    programStageId,
     orgUnitId,
+    programId,
     teiId,
-}: UseEventsProps): UseEventsReturn => {
+}: UseEventsByProgramStageProps): UseEventsByProgramStageReturn => {
     const dataEngine = useDataEngine();
-
-    const programStageIds = useMemo(() => 
-        programStages?.map(stage => stage.programStageId) || [], 
-        [programStages],
-    );
-
-    const queryKey = useMemo(() => 
-        ['growthChartEvents', orgUnitId, JSON.stringify(programStageIds), teiId],
-        [orgUnitId, programStageIds, teiId],
-    );
-
     const {
         data,
         isLoading,
         isError,
-    } = useQuery(
-        queryKey, 
-        async (): Promise<any> => {
-            if (!programStages || programStages.length === 0) {
-                return { allEvents: [] };
-            }
+    } = useQuery({
+        queryKey: ['eventsByProgramStage', orgUnitId, programStageId, programId, teiId],
+        queryFn: (): any => dataEngine.query({
+            eventsByProgramStage: {
+                resource: 'tracker/events',
+                params: ({
+                    orgUnitId,
+                    programStageId,
+                    programId,
+                    teiId,
+                }) => ({
+                    fields: 'event,status,program,dataValues,occurredAt,programStage',
+                    program: programId,
+                    programStage: programStageId,
+                    orgUnit: orgUnitId,
+                    trackedEntity: teiId,
+                }),
+            },
+        }, {
+            variables: {
+                orgUnitId,
+                programStageId,
+                programId,
+                teiId,
+            },
+        }),
+        staleTime: 5000,
+        enabled: !!programStageId && !!orgUnitId && !!programId && !!teiId,
+    });
+    
+    const apiResponse = handleAPIResponse(RequestedEntities.events, data?.eventsByProgramStage);
 
-            const queries = programStages.map((stageConfig, index) => ({
-                [`events_${index}`]: {
-                    resource: 'tracker/events',
-                    params: () => ({
-                        fields: 'event,status,program,dataValues,occurredAt,programStage',
-                        program: stageConfig.programId,
-                        programStage: stageConfig.programStageId,
-                        orgUnit: orgUnitId,
-                        trackedEntity: teiId,
-                    }),
-                },
-            }));
-
-            const combinedQuery = queries.reduce((acc, query) => ({ ...acc, ...query }), {});
-
-            const result = await dataEngine.query(combinedQuery);
-            
-            const allEvents: any[] = [];
-            Object.keys(result).forEach(key => {
-                const stageEvents = handleAPIResponse(RequestedEntities.events, result[key]);
-                if (stageEvents) {
-                    const filteredEvents = stageEvents.filter((event: any) => 
-                        programStageIds.includes(event.programStage),
-                    );
-                    allEvents.push(...filteredEvents);
-                }
-            });
-
-            return { allEvents };
-        }, 
-        { 
-            staleTime: 5000,
-            enabled: !!programStages && programStages.length > 0 && !!orgUnitId && !!teiId,
-        },
-    );
-
-    const events = useMemo(() => {
-        if (!data?.allEvents) return undefined;
-        
-        return data.allEvents.map((event: ServerEvent) => {
-            const dataValues = convertDataElementToValues(event?.dataValues);
-            return {
-                ...event,
-                dataValues,
-            };
-        });
-    }, [data]);
+    const events = useMemo(() => apiResponse?.map((event: ServerEvent) => {
+        const dataValues = convertDataElementToValues(event?.dataValues);
+        return {
+            ...event,
+            dataValues,
+        };
+    }), [apiResponse]);
 
     const stageHasEvents = useMemo(() => events?.length !== 0, [events]);
 
