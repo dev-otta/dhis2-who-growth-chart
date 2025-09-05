@@ -1,11 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
+import { useConfigNormalization } from './useConfigNormalization';
+
+export type ProgramStageConfig = {
+    programId: string;
+    programStageId: string;
+};
 
 export type ChartConfig = {
     metadata: {
         attributes: {
             dateOfBirth: string;
             gender: string;
+            firstName: string;
+            lastName: string;
             femaleOptionCode: string;
             maleOptionCode: string;
         };
@@ -14,11 +22,8 @@ export type ChartConfig = {
             height: string;
             weight: string;
         };
-        program: {
-            programId: string;
-            programStageId: string;
-        };
     };
+    programStages: ProgramStageConfig[]; // Moved to top level - simpler!
     settings: {
         customReferences: boolean;
         usePercentiles: boolean;
@@ -40,8 +45,11 @@ export const useChartConfig = () => {
         { staleTime: 5000 },
     );
 
+    // Normalize config to standard format if needed
+    const normalizedConfig = useConfigNormalization(data?.chartConfig);
+
     return {
-        chartConfig: data?.chartConfig,
+        chartConfig: normalizedConfig,
         isLoading,
         isError,
     };

@@ -20,7 +20,11 @@ export const useMappedGrowthVariables = ({
     growthVariables,
     isWeightInGrams,
 }: UseMappedGrowthVariablesProps): MappedDataValue[] | undefined => {
-    const mappedData = events?.map((event: Event) => {
+    if (!events || !Array.isArray(events)) {
+        return undefined;
+    }
+
+    const mappedData = events.map((event: Event) => {
         const dataValueMap: { weight: number; headCircumference: number; height: number; [key: string]: number } = {
             weight: undefined,
             headCircumference: undefined,

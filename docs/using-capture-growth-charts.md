@@ -99,7 +99,7 @@ Refer to the [documentation](https://docs.dhis2.org/en/use/user-guides/dhis-core
 The growth chart plugin depends on this config to work properly.
 Keep in mind that all ID's should be changed, and will be unique for each implementation.
 
-The structure of the config has to be the same as the one in the example below;
+The structure of the config has to be the same as the one in the example below. **Important**: The system will only fetch data from the program stages that are explicitly listed in this configuration - no other program stages will be queried:
 
 ```json
 {
@@ -117,9 +117,20 @@ The structure of the config has to be the same as the one in the example below;
       "height": "wWCSulSdUgd",
       "weight": "yZwKJdYXTZF"
     },
-    "program": {
-      "programStageId": "h3gT08Et4sC"
-    }
+    "programStages": [
+      {
+        "programId": "program1_id",
+        "programStageId": "h3gT08Et4sC"
+      },
+      {
+        "programId": "program2_id", 
+        "programStageId": "k5hU09Ft5dD"
+      },
+      {
+        "programId": "program1_id",
+        "programStageId": "m7iV10Gt6eE"
+      }
+    ]
   },
   "settings": {
     "usePercentiles": false,
@@ -132,19 +143,32 @@ The structure of the config has to be the same as the one in the example below;
 
 #### Config structure explanation
 
+**Multi-Program Stage Configuration**: The `programStages` array contains objects with both `programId` and `programStageId`:
+- Supports program stages from different programs
+- All program stages use the same `attributes` and `dataElements` defined globally
+- Each stage specifies its own `programId` and `programStageId`
+- Only fetches data from the explicitly configured program stages
+
+**Benefits**:
+- Support for growth data across multiple programs
+- Simplified configuration - same attributes and data elements for all stages
+- Flexible - can mix stages from different programs
+- Easy to maintain - one set of attribute and data element mappings
+
 ##### Metadata
 
 The `metadata` object contains the following keys:
 
-- `attributes` - Contains the attribute IDs for **dateOfBirth**, **gender**, **firstName**, **lastName**, *
-  *femaleOptionCode** and **maleOptionCode**.
+- `attributes` - Contains the attribute IDs for **dateOfBirth**, **gender**, **firstName**, **lastName**, **femaleOptionCode** and **maleOptionCode**.
   All of these attribute IDs can be found in the **Maintenance** app under `Tracked entity attributes`, except for the *
   *femaleOptionCode** and **maleOptionCode** which can be found in `Option set` under **Other** in the **Maintenance** app.
   Documentation for `Option Sets` can be found [here](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/configuring-the-system/metadata.html#manage_option_set).
 - `dataElements` - Contains the data element IDs for **headCircumference**, **height** and **weight**.
   All of these data element IDs can be found in the **Maintenance** app under **Data elements**.
-- `program` - Contains the program stage ID for the program stage where the growth data is stored.
-  This ID can be found in the **Maintenance** app under **Programs** and **Program stages**.
+- `programStages` - Array of objects, each containing:
+  - `programId`: The ID of the program this stage belongs to
+  - `programStageId`: The ID of the program stage where growth data is stored
+  These IDs can be found in the **Maintenance** app under **Programs** and **Program stages**.
 
 ##### Settings
 
@@ -250,8 +274,6 @@ The custom references can be set up in the **Datastore Management** app.
 - `"lhfa_g"` -> Length/height for age
 - `"wfa_g"` -> Weight for age
 - `"wlfh_g"` -> Weight for length/height
-
-<br>
 
 `"_g"` indicates that the gender is girl.
 If you want to add references for boys, you can add the same key but with `"_b"` instead of `"_g"`.

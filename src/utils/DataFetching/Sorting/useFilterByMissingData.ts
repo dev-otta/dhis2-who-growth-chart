@@ -1,10 +1,7 @@
 import { useMemo } from 'react';
 import { ChartData, MeasurementData } from '../../../types/chartDataTypes';
 
-export const useFilterByMissingData = (measurementData: MeasurementData[], chartData: ChartData) => {
-    if (!chartData || !measurementData) {
-        return {};
-    }
+export const useFilterByMissingData = (measurementData: MeasurementData[] | undefined, chartData: ChartData | undefined) => {
     const requiredData = Object.freeze({
         hcfa_b: { headCircumference: true },
         hcfa_g: { headCircumference: true },
@@ -17,18 +14,18 @@ export const useFilterByMissingData = (measurementData: MeasurementData[], chart
     });
 
     const measurementDataExist = useMemo(() => {
-        if (!measurementData) {
-            return {};
+        if (!measurementData || !Array.isArray(measurementData)) {
+            return { weight: false, height: false, headCircumference: false };
         }
         return {
-            weight: measurementData?.some((entry) => entry.dataValues.weight !== undefined),
-            headCircumference: measurementData?.some((entry) => entry.dataValues.headCircumference !== undefined),
-            height: measurementData?.some((entry) => entry.dataValues.height !== undefined),
+            weight: measurementData.some((entry) => entry.dataValues.weight !== undefined),
+            headCircumference: measurementData.some((entry) => entry.dataValues.headCircumference !== undefined),
+            height: measurementData.some((entry) => entry.dataValues.height !== undefined),
         };
     }, [measurementData]);
 
     const filteredChartData = useMemo(() => {
-        if (!chartData) {
+        if (!chartData || !measurementData || !Array.isArray(measurementData)) {
             return {};
         }
         const filteredData = Object.entries(chartData).reduce(
@@ -50,7 +47,7 @@ export const useFilterByMissingData = (measurementData: MeasurementData[], chart
         );
 
         return filteredData;
-    }, [chartData, measurementDataExist, requiredData]);
+    }, [chartData, measurementDataExist, measurementData]);
 
     return { chartData: filteredChartData, measurementDataExist };
 };
