@@ -25,12 +25,6 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const [defaultIndicatorError, setDefaultIndicatorError] = useState<boolean>(false);
 
     const {
-        teiId,
-        programId,
-        orgUnitId,
-    } = propsFromParent;
-
-    const {
         chartConfig,
         isLoading,
         isError,
@@ -41,6 +35,12 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isLoading: isLoadingRef,
         isError: isErrorRef,
     } = useCustomReferences();
+
+    const {
+        teiId,
+        programId,
+        orgUnitId,
+    } = propsFromParent;
 
     const {
         trackedEntity,
@@ -95,7 +95,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     if (isErrorEvents) {
         return (
             <GenericError
-                errorMessage={i18n.t('Failed to load data. Please check that you have selected the correct programStageId(s) in the configuration.')}
+                errorMessage={i18n.t('Failed to load data. Please check that you have selected the correct programStageId in the configuration.')}
             />
         );
     }
