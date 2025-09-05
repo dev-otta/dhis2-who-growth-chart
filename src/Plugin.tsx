@@ -7,33 +7,63 @@ import i18n from '@dhis2/d2-i18n';
 import { WidgetCollapsible } from './components/WidgetCollapsible';
 import { GrowthChart } from './components/GrowthChart/GrowthChart';
 import { EnrollmentOverviewProps } from './Plugin.types';
-import { useTeiById } from './utils/DataFetching/Hooks';
-import { useChartConfig } from './utils/DataFetching/Hooks/useChartConfig';
+import { useChartConfig, useEvents, useTeiById } from './utils/DataFetching/Hooks';
 import { useMappedGrowthVariables } from './utils/DataFetching/Sorting/useMappedGrowthVariables';
-import { useEvents } from './utils/DataFetching/Hooks/useEvents';
 import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/useMappedTrackedEntity';
-import { ChartConfigError } from './UI/GenericError/ChartConfigError';
 import { GenericLoading } from './UI/GenericLoading';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
 import { chartData as chartDataWHO } from './DataSets/WhoStandardDataSets/ChartData';
-import { CustomReferencesError } from './UI/GenericError/CustomReferencesError';
 import { useFilterByMissingData } from './utils/DataFetching/Sorting';
 import { MissingGrowthVariablesError } from './UI/GenericError/MissingGrowthVariablesError';
+import { ConfigError, CustomReferenceError, DefaultIndicatorError } from './UI/FeedbackComponents';
+import { TrackedEntityError } from './UI/FeedbackComponents/TrackedEntityError';
+import { GenericError } from './UI/GenericError';
 
 const queryClient = new QueryClient();
 
 const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
-    const { chartConfig, isLoading, isError } = useChartConfig();
-    const { customReferences, isLoading: isLoadingRef, isError: isErrorRef } = useCustomReferences();
-    const { teiId, programId } = propsFromParent;
-    const { trackedEntity } = useTeiById({ teiId });
-    const { events, isLoading: isLoadingEvents } = useEvents({
+    const [defaultIndicatorError, setDefaultIndicatorError] = useState<boolean>(false);
+
+    const {
+        teiId,
+        programId,
+        orgUnitId,
+        configKey,
+    } = propsFromParent;
+
+    const {
+        chartConfig,
+        isLoading,
+        isError,
+    } = useChartConfig(configKey);
+
+    const {
+        customReferences,
+        isLoading: isLoadingRef,
+        isError: isErrorRef,
+    } = useCustomReferences();
+
+    const {
+        trackedEntity,
+        isLoading: isLoadingTei,
+        isError: isErrorTei,
+    } = useTeiById({ teiId });
+
+    const {
+        events,
+        isLoading: isLoadingEvents,
+        isError: isErrorEvents,
+    } = useEvents({
+        orgUnitId,
+        programStageId: chartConfig?.metadata.program.programStageId,
         programId,
         teiId,
     });
 
     const mappedTrackedEntity = useMappedTrackedEntityVariables({
-        variableMappings: chartConfig?.metadata.attributes, trackedEntity, trackedEntityAttributes: trackedEntity?.attributes,
+        variableMappings: chartConfig?.metadata.attributes,
+        trackedEntity,
+        trackedEntityAttributes: trackedEntity?.attributes,
     });
 
     const mappedGrowthVariables = useMappedGrowthVariables({
@@ -49,18 +79,44 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     const isPercentiles = chartConfig?.settings.usePercentiles || false;
 
+    const defaultIndicator = chartConfig?.settings.defaultIndicator || 'wfa';
+
     const [open, setOpen] = useState(true);
 
-    if (isLoading || isLoadingRef || isLoadingEvents) {
+    if (isLoading || isLoadingRef || isLoadingTei || isLoadingEvents) {
         return <GenericLoading />;
     }
 
     if (isError) {
-        return <ChartConfigError />;
+        return (
+            <ConfigError />
+        );
+    }
+
+    if (isErrorEvents) {
+        return (
+            <GenericError
+                errorMessage={i18n.t('Failed to load data. Please check that you have selected the correct programStageId(s) in the configuration.')}
+            />
+        );
     }
 
     if (chartConfig?.settings.customReferences && isErrorRef) {
-        return <CustomReferencesError />;
+        return (
+            <CustomReferenceError />
+        );
+    }
+
+    if (defaultIndicatorError) {
+        return (
+            <DefaultIndicatorError defaultIndicator={defaultIndicator} />
+        );
+    }
+
+    if (isErrorTei) {
+        return (
+            <TrackedEntityError />
+        );
     }
 
     if (measurementDataExist.headCircumference === false && measurementDataExist.height === false && measurementDataExist.weight === false) {
@@ -68,35 +124,24 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     }
 
     return (
-        <QueryClientProvider
-            client={queryClient}
-        >
-            <div style={{
-                backgroundColor: 'white',
-                width: '100vw',
-                display: 'flex',
-                margin: 0,
-                padding: 0,
-            }}
-            >
-                <div
-                    style={{ width: '100%' }}
+        <QueryClientProvider client={queryClient}>
+            <div className='bg-white w-screen flex m-0 p-0'>
+                <WidgetCollapsible
+                    header={i18n.t('Growth Chart')}
+                    borderless={false}
+                    open={open}
+                    onOpen={() => setOpen(true)}
+                    onClose={() => setOpen(false)}
                 >
-                    <WidgetCollapsible
-                        header={i18n.t('Growth Chart')}
-                        borderless={false}
-                        open={open}
-                        onOpen={() => setOpen(true)}
-                        onClose={() => setOpen(false)}
-                    >
-                        <GrowthChart
-                            trackedEntity={mappedTrackedEntity}
-                            measurementData={mappedGrowthVariables}
-                            chartData={chartData}
-                            isPercentiles={isPercentiles}
-                        />
-                    </WidgetCollapsible>
-                </div>
+                    <GrowthChart
+                        trackedEntity={mappedTrackedEntity}
+                        measurementData={mappedGrowthVariables}
+                        chartData={chartData}
+                        defaultIndicator={defaultIndicator}
+                        isPercentiles={isPercentiles}
+                        setDefaultIndicatorError={setDefaultIndicatorError}
+                    />
+                </WidgetCollapsible>
             </div>
         </QueryClientProvider>
     );

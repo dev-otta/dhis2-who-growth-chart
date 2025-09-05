@@ -12,7 +12,6 @@ export interface MeasurementData {
 interface TimeUnitData {
     singular: string;
     plural: string;
-    divisor: number;
 }
 
 export interface ChartDataTypes {
@@ -59,17 +58,14 @@ export const timeUnitData: { [key: string]: TimeUnitData } = {
     [TimeUnitCodes.years]: {
         singular: i18n.t('year'),
         plural: i18n.t('years'),
-        divisor: 12,
     },
     [TimeUnitCodes.months]: {
         singular: i18n.t('month'),
         plural: i18n.t('months'),
-        divisor: 4,
     },
     [TimeUnitCodes.weeks]: {
         singular: i18n.t('week'),
         plural: i18n.t('weeks'),
-        divisor: 1,
     },
 };
 

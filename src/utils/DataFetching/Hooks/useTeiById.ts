@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
 import { RequestedEntities, handleAPIResponse } from './handleAPIResponse';
 

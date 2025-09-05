@@ -5,5 +5,6 @@ export type EnrollmentOverviewProps = {
     teiId: string;
     programStageId?: string;
     eventId?: string;
+    configKey?: string;
     navigate: (url: string) => void;
 }

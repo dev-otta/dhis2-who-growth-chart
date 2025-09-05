@@ -1,4 +1,4 @@
-import { timeUnitData, TimeUnitCodes } from '../../types/chartDataTypes';
+import { timeUnitData, TimeUnitCodes, MeasurementTypeCodesLabel } from '../../types/chartDataTypes';
 
 export interface AnnotationLabelType {
     display: boolean;
@@ -13,10 +13,9 @@ export const GrowthChartAnnotations = (
     let timeUnitConfig = {
         singular: '',
         plural: '',
-        divisor: 0,
     };
 
-    if (datasetMetadata.xAxisLabel === TimeUnitCodes.weeks) {
+    if (datasetMetadata.xAxisLabel === TimeUnitCodes.weeks || Object.values(MeasurementTypeCodesLabel).includes(datasetMetadata.xAxisLabel)) {
         return [];
     }
 
@@ -27,7 +26,7 @@ export const GrowthChartAnnotations = (
     if (timeUnitConfig) {
         const xValues = ZscoreLines[0]?.data.map((entry: any) => entry.x) || [];
 
-        const { divisor } = timeUnitConfig;
+        const { divisor } = { divisor: 12 };
 
         const annotations = xValues.filter((label: number) => label % divisor === 0)
             .map((label: number) => ({

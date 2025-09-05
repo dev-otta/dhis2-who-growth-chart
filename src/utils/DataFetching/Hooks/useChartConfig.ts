@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
 
 export type ChartConfig = {
@@ -15,25 +15,27 @@ export type ChartConfig = {
             weight: string;
         };
         program: {
-            programStageId: string;
+            programStageId: string | string[];
         };
     };
     settings: {
         customReferences: boolean;
-        zScoreStandard: string;
+        usePercentiles: boolean;
         weightInGrams: boolean;
+        defaultIndicator: string;
     };
 };
 
-export const useChartConfig = () => {
+export const useChartConfig = (configKey: string = 'config') => {
     const dataEngine = useDataEngine();
     const {
         data,
         isLoading,
         isError,
     } = useQuery(
-        'chartConfig',
-        (): any => dataEngine.query({ chartConfig: { resource: 'dataStore/capture-growth-chart/config' } }),
+        ['chartConfig', configKey],
+        (): any =>
+            dataEngine.query({ chartConfig: { resource: `dataStore/CaptureGrowthChart/${configKey}` } }),
         { staleTime: 5000 },
     );
 
