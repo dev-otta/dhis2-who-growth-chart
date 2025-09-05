@@ -27,13 +27,11 @@ export const useEvents = ({
 }: UseEventsProps): UseEventsReturn => {
     const dataEngine = useDataEngine();
 
-    // Create queries only for the specific program stages that are configured
     const programStageIds = useMemo(() => 
         programStages?.map(stage => stage.programStageId) || [], 
         [programStages],
     );
 
-    // Create a stable query key
     const queryKey = useMemo(() => 
         ['growthChartEvents', orgUnitId, JSON.stringify(programStageIds), teiId],
         [orgUnitId, programStageIds, teiId],
@@ -50,7 +48,6 @@ export const useEvents = ({
                 return { allEvents: [] };
             }
 
-            // Only fetch events from the explicitly configured program stages
             const queries = programStages.map((stageConfig, index) => ({
                 [`events_${index}`]: {
                     resource: 'tracker/events',
@@ -64,17 +61,14 @@ export const useEvents = ({
                 },
             }));
 
-            // Combine all queries into a single object
             const combinedQuery = queries.reduce((acc, query) => ({ ...acc, ...query }), {});
 
             const result = await dataEngine.query(combinedQuery);
             
-            // Combine events only from the configured program stages
             const allEvents: any[] = [];
             Object.keys(result).forEach(key => {
                 const stageEvents = handleAPIResponse(RequestedEntities.events, result[key]);
                 if (stageEvents) {
-                    // Filter to ensure we only include events from configured stages
                     const filteredEvents = stageEvents.filter((event: any) => 
                         programStageIds.includes(event.programStage),
                     );

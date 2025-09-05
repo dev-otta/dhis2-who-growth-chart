@@ -44,12 +44,9 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         customReferences,
         isLoading: isLoadingRef,
         isError: isErrorRef,
-    } = useCustomReferences();
+    } = useCustomReferences(chartConfig?.settings?.customReferences || false);
 
-    // Validate configuration
     const configValidation = useConfigValidation(chartConfig, isLoading, isError);
-    
-    // Validate runtime parameters
     const runtimeValidation = useRuntimeValidation(teiId, orgUnitId);
 
     const {
@@ -58,13 +55,12 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isError: isErrorTei,
     } = useTeiById({ teiId });
 
-    // Load events from all configured program stages
     const {
         events,
         isLoading: isLoadingEvents,
         isError: isErrorEvents,
     } = useEvents({
-        programStages: chartConfig?.programStages,
+        programStages: chartConfig?.metadata?.programStages || [],
         orgUnitId,
         teiId,
     });
@@ -76,7 +72,11 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     });
     
     const mappedGrowthVariables = useMappedGrowthVariables({
-        growthVariables: chartConfig?.metadata?.dataElements,
+        growthVariables: chartConfig?.metadata?.dataElements ? {
+            headCircumference: chartConfig.metadata.dataElements.headCircumference,
+            height: chartConfig.metadata.dataElements.height,
+            weight: chartConfig.metadata.dataElements.weight,
+        } : undefined,
         events,
         isWeightInGrams: chartConfig?.settings?.weightInGrams || false,
     });
@@ -93,7 +93,6 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         return <GenericLoading />;
     }
 
-    // Show validation errors first
     if (!configValidation.isValid || !runtimeValidation.isValid) {
         return (
             <ConfigValidationError 

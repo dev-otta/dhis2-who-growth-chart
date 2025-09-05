@@ -14,7 +14,7 @@ export const ConfigValidationError: React.FC<ConfigValidationErrorProps> = ({ er
             <h3 style={{ marginBottom: '16px', color: '#d32f2f' }}>
                 {i18n.t('Growth Chart Configuration Issues')}
             </h3>
-            
+
             <AlertStack>
                 {errors.map((error, index) => (
                     <AlertBar
@@ -22,28 +22,28 @@ export const ConfigValidationError: React.FC<ConfigValidationErrorProps> = ({ er
                         critical
                         permanent
                     >
-                        <strong>{error.field}:</strong> {error.message}
+                        {`${error.field}: ${error.message}`}
                     </AlertBar>
                 ))}
-                
+
                 {warnings.map((warning, index) => (
                     <AlertBar
                         key={`warning-${index}`}
                         warning
                         permanent
                     >
-                        <strong>{warning.field}:</strong> {warning.message}
+                        {`${warning.field}: ${warning.message}`}
                     </AlertBar>
                 ))}
             </AlertStack>
 
             {errors.length > 0 && (
-                <div style={{ 
-                    marginTop: '24px', 
-                    padding: '16px', 
-                    backgroundColor: '#fff3e0', 
+                <div style={{
+                    marginTop: '24px',
+                    padding: '16px',
+                    backgroundColor: '#fff3e0',
                     border: '1px solid #ffb74d',
-                    borderRadius: '4px'
+                    borderRadius: '4px',
                 }}>
                     <h4 style={{ marginTop: 0, color: '#e65100' }}>
                         {i18n.t('How to Fix These Issues:')}
@@ -54,7 +54,7 @@ export const ConfigValidationError: React.FC<ConfigValidationErrorProps> = ({ er
                         <li>{i18n.t('Update the configuration JSON to fix the issues listed above')}</li>
                         <li>{i18n.t('Save the changes and refresh this page')}</li>
                     </ol>
-                    
+
                     <div style={{ marginTop: '16px' }}>
                         <strong>{i18n.t('Need help?')}</strong>{' '}
                         <span>

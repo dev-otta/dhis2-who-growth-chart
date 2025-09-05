@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
-import { useConfigNormalization } from './useConfigNormalization';
 
 export type ProgramStageConfig = {
     programId: string;
@@ -22,8 +21,8 @@ export type ChartConfig = {
             height: string;
             weight: string;
         };
+        programStages: ProgramStageConfig[]; // As per documentation
     };
-    programStages: ProgramStageConfig[]; // Moved to top level - simpler!
     settings: {
         customReferences: boolean;
         usePercentiles: boolean;
@@ -38,18 +37,15 @@ export const useChartConfig = () => {
         data,
         isLoading,
         isError,
-    } = useQuery(
-        ['chartConfig'],
-        (): any =>
+    } = useQuery({
+        queryKey: ['chartConfig'],
+        queryFn: (): any =>
             dataEngine.query({ chartConfig: { resource: 'dataStore/CaptureGrowthChart/config' } }),
-        { staleTime: 5000 },
-    );
-
-    // Normalize config to standard format if needed
-    const normalizedConfig = useConfigNormalization(data?.chartConfig);
+        staleTime: 5000,
+    });
 
     return {
-        chartConfig: normalizedConfig,
+        chartConfig: data?.chartConfig as ChartConfig | undefined,
         isLoading,
         isError,
     };

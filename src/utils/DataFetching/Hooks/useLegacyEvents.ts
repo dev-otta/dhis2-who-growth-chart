@@ -48,39 +48,35 @@ export const useEvents = ({
         data,
         isLoading,
         isError,
-    } = useQuery(['eventsByProgramStage', orgUnitId, programStageId, programId, teiId], (): any => dataEngine.query({
-        eventsByProgramStage: {
-            resource: 'tracker/events',
-            params: ({
+    } = useQuery({
+        queryKey: ['eventsByProgramStage', orgUnitId, programStageId, programId, teiId],
+        queryFn: (): any => dataEngine.query({
+            eventsByProgramStage: {
+                resource: 'tracker/events',
+                params: ({
+                    orgUnitId,
+                    programStageId,
+                    programId,
+                    teiId,
+                }) => ({
+                    fields: 'event,status,program,dataValues,occurredAt,programStage',
+                    program: programId,
+                    programStage: programStageId,
+                    orgUnit: orgUnitId,
+                    trackedEntity: teiId,
+                }),
+            },
+        }, {
+            variables: {
                 orgUnitId,
                 programStageId,
                 programId,
                 teiId,
-            }) => ({
-                fields: 'event,status,program,dataValues,occurredAt,programStage',
-                program: programId,
-                programStage: programStageId,
-                orgUnit: orgUnitId,
-                trackedEntity: teiId,
-            }),
-        },
-    }, {
-        variables: {
-            orgUnitId,
-            programStageId,
-            programId,
-            teiId,
-        },
-    }), { 
+            },
+        }),
         staleTime: 5000,
         enabled: !!programStageId && !!orgUnitId && !!programId && !!teiId,
     });
-
-    console.log('programId', programId);
-    console.log('programStageId', programStageId);
-    console.log('orgUnitId', orgUnitId);
-    console.log('teiId', teiId);
-    console.log('data', data);
     
     const apiResponse = handleAPIResponse(RequestedEntities.events, data?.eventsByProgramStage);
 

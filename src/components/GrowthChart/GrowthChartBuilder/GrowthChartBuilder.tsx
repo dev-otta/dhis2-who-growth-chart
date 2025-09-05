@@ -3,9 +3,10 @@ import i18n from '@dhis2/d2-i18n';
 import { Line } from 'react-chartjs-2';
 import Chart, { ChartOptions } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import { ChartDataTypes, CategoryToLabel,
-    MeasurementTypeCodes, DataSetLabels, CategoryCodes } from '../../../types/chartDataTypes';
+import {
+    ChartDataTypes, CategoryToLabel,
+    MeasurementTypeCodes, DataSetLabels, CategoryCodes,
+} from '../../../types/chartDataTypes';
 import { GrowthChartAnnotations, AnnotateLineEnd } from '../../../utils/ChartOptions';
 import { useMeasurementPlotting, useChartLines } from '../../../utils/Hooks/ChartDataVisualization';
 import { ChartTooltip } from './ChartTooltip';
@@ -104,14 +105,9 @@ export const GrowthChartBuilder = ({
 
     return (
         <div className='aspect-video min-h-[400px]' id='divToPrint'>
-            <AutoSizer>
-                {/* eslint-disable-next-line */}
-                {({ height, width }: { height: number, width: number }) => (
-                    <div style={{ height, width }}>
-                        <Line data={data} options={options} />
-                    </div>
-                )}
-            </AutoSizer>
+
+            <Line data={data} options={options} />
+
         </div>
     );
 };

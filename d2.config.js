@@ -1,6 +1,6 @@
 const config = {
     type: 'app',
-    name: 'Capture Growth Chart',
+    name: 'capture-growth-chart',
     title: 'Capture Growth Chart',
     description: 'A plugin for displaying growth charts in the Capture app',
     minDHIS2Version: '2.38',
