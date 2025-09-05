@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Plugin.module.css';
+import './Plugin.css';
 import './tailwind.css';
 import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -7,7 +7,10 @@ import i18n from '@dhis2/d2-i18n';
 import { WidgetCollapsible } from './components/WidgetCollapsible';
 import { GrowthChart } from './components/GrowthChart/GrowthChart';
 import { EnrollmentOverviewProps } from './Plugin.types';
-import { useChartConfig, useEvents, useTeiById } from './utils/DataFetching/Hooks';
+import { useChartConfig, useTeiById } from './utils/DataFetching/Hooks';
+import { useEvents } from './utils/DataFetching/Hooks/useEvents';
+import { useConfigValidation } from './utils/DataFetching/Hooks/useConfigValidation';
+import { useRuntimeValidation } from './utils/DataFetching/Hooks/useRuntimeValidation';
 import { useMappedGrowthVariables } from './utils/DataFetching/Sorting/useMappedGrowthVariables';
 import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/useMappedTrackedEntity';
 import { GenericLoading } from './UI/GenericLoading';
@@ -18,11 +21,18 @@ import { MissingGrowthVariablesError } from './UI/GenericError/MissingGrowthVari
 import { ConfigError, CustomReferenceError, DefaultIndicatorError } from './UI/FeedbackComponents';
 import { TrackedEntityError } from './UI/FeedbackComponents/TrackedEntityError';
 import { GenericError } from './UI/GenericError';
+import { ConfigValidationError } from './UI/ConfigValidationError';
 
 const queryClient = new QueryClient();
 
 const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const [defaultIndicatorError, setDefaultIndicatorError] = useState<boolean>(false);
+    const [open, setOpen] = useState(true);
+
+    const {
+        teiId,
+        orgUnitId,
+    } = propsFromParent;
 
     const {
         chartConfig,
@@ -34,13 +44,10 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         customReferences,
         isLoading: isLoadingRef,
         isError: isErrorRef,
-    } = useCustomReferences();
+    } = useCustomReferences(chartConfig?.settings?.customReferences || false);
 
-    const {
-        teiId,
-        programId,
-        orgUnitId,
-    } = propsFromParent;
+    const configValidation = useConfigValidation(chartConfig, isLoading, isError);
+    const runtimeValidation = useRuntimeValidation(teiId, orgUnitId);
 
     const {
         trackedEntity,
@@ -53,37 +60,47 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isLoading: isLoadingEvents,
         isError: isErrorEvents,
     } = useEvents({
+        programStageId: chartConfig?.metadata?.programStages?.[0]?.programStageId,
+        programId: chartConfig?.metadata?.programStages?.[0]?.programId,
         orgUnitId,
-        programStageId: chartConfig?.metadata.program.programStageId,
-        programId,
         teiId,
     });
 
     const mappedTrackedEntity = useMappedTrackedEntityVariables({
-        variableMappings: chartConfig?.metadata.attributes,
+        variableMappings: chartConfig?.metadata?.attributes,
         trackedEntity,
         trackedEntityAttributes: trackedEntity?.attributes,
     });
-
+    
     const mappedGrowthVariables = useMappedGrowthVariables({
-        growthVariables: chartConfig?.metadata.dataElements,
+            growthVariables: chartConfig?.metadata?.dataElements ? {
+            headCircumference: chartConfig.metadata.dataElements.headCircumference,
+            height: chartConfig.metadata.dataElements.height,
+            weight: chartConfig.metadata.dataElements.weight,
+        } : undefined,
         events,
-        isWeightInGrams: chartConfig?.settings.weightInGrams || false,
+        isWeightInGrams: chartConfig?.settings?.weightInGrams || false,
     });
 
     const { chartData, measurementDataExist } = useFilterByMissingData(
         mappedGrowthVariables,
-        chartConfig && customReferences && chartConfig?.settings.customReferences ? customReferences : chartDataWHO,
+        chartConfig && customReferences && chartConfig?.settings?.customReferences ? customReferences : chartDataWHO,
     );
 
-    const isPercentiles = chartConfig?.settings.usePercentiles || false;
-
-    const defaultIndicator = chartConfig?.settings.defaultIndicator || 'wfa';
-
-    const [open, setOpen] = useState(true);
+    const isPercentiles = chartConfig?.settings?.usePercentiles || false;
+    const defaultIndicator = chartConfig?.settings?.defaultIndicator || 'wfa';
 
     if (isLoading || isLoadingRef || isLoadingTei || isLoadingEvents) {
         return <GenericLoading />;
+    }
+
+    if (!configValidation.isValid || !runtimeValidation.isValid) {
+        return (
+            <ConfigValidationError 
+                errors={[...configValidation.errors, ...runtimeValidation.errors]}
+                warnings={configValidation.warnings}
+            />
+        );
     }
 
     if (isError) {
@@ -95,12 +112,12 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     if (isErrorEvents) {
         return (
             <GenericError
-                errorMessage={i18n.t('Failed to load data. Please check that you have selected the correct programStageId in the configuration.')}
+                errorMessage={i18n.t('Unable to load growth data. Please check that the configured programs and stages exist and are accessible.')}
             />
         );
     }
 
-    if (chartConfig?.settings.customReferences && isErrorRef) {
+    if (chartConfig?.settings?.customReferences && isErrorRef) {
         return (
             <CustomReferenceError />
         );
@@ -124,7 +141,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <div className='bg-white w-screen flex m-0 p-0'>
+            <div className='bg-white w-full m-0 p-0'>
                 <WidgetCollapsible
                     header={i18n.t('Growth Chart')}
                     borderless={false}

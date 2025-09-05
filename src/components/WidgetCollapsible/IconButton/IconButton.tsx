@@ -1,7 +1,5 @@
 import React, { ReactNode } from 'react';
 import cx from 'classnames';
-import { colors } from '@dhis2/ui';
-import { withStyles } from '@material-ui/core/styles';
 
 type Props = {
     children: ReactNode,
@@ -9,50 +7,26 @@ type Props = {
     dataTest?: string,
     disabled?: boolean,
     onClick?: () => void,
-    classes?: Record<string, string>
 };
 
-const styles = {
-    button: {
-        cursor: 'pointer',
-        borderRadius: '3px',
-        border: 'none',
-        background: 'transparent',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '2px',
-        justifyContent: 'center',
-        color: colors.grey700,
-        '&:hover': {
-            background: colors.grey200,
-            color: colors.grey800,
-        },
-        '&:focus': {
-            outline: 'solid',
-            background: colors.grey200,
-            color: colors.grey800,
-        },
-        '&.disabled': {
-            color: colors.grey500,
-            cursor: 'not-allowed',
-        },
-    },
-};
-
-const IconButtonPlain = ({
-    children, className, dataTest, onClick, disabled, classes, ...passOnProps
+export const IconButton = ({
+    children, className, dataTest, onClick, disabled, ...passOnProps
 }: Props) => (
     <button
         {...passOnProps}
         onClick={onClick}
         disabled={disabled}
         data-test={dataTest}
-        className={cx(classes.button, { disabled, ...(className ? { [className]: true } : {}) })}
+        className={cx(
+            'cursor-pointer rounded-sm border-none bg-transparent flex items-center p-0.5 justify-center text-gray-700',
+            'hover:bg-gray-200 hover:text-gray-800',
+            'focus:outline-2 focus:bg-gray-200 focus:text-gray-800',
+            { 'text-gray-500 cursor-not-allowed': disabled },
+            className,
+        )}
         type='button'
         tabIndex={0}
     >
         {children}
     </button>
 );
-
-export const IconButton = withStyles(styles)(IconButtonPlain);

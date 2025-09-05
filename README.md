@@ -39,13 +39,18 @@ The configuration object should look something like this:
             "height": "wWCSulSdUgd",
             "weight": "yZwKJdYXTZF"
         },
-        "program": {
-            "programStageId": "h3gT08Et4sC"
-        }
+        "programStages": [
+            {
+                "programId": "program1_id",
+                "programStageId": "h3gT08Et4sC"
+            }
+        ]
     },
     "settings": {
         "usePercentiles": false,
-        "weightInGrams": false
+        "customReferences": false,
+        "weightInGrams": false,
+        "defaultIndicator": "wfa"
     }
 }
 

@@ -5,18 +5,39 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-09-05T09:47:14.994Z\n"
-"PO-Revision-Date: 2025-09-05T09:47:14.994Z\n"
+"POT-Creation-Date: 2025-09-05T20:46:56.437Z\n"
+"PO-Revision-Date: 2025-09-05T20:46:56.437Z\n"
 
 msgid ""
-"Failed to load data. Please check that you have selected the correct "
-"programStageId in the configuration."
+"Unable to load growth data. Please check that the configured programs and "
+"stages exist and are accessible."
 msgstr ""
-"Failed to load data. Please check that you have selected the correct "
-"programStageId in the configuration."
+"Unable to load growth data. Please check that the configured programs and "
+"stages exist and are accessible."
 
 msgid "Growth Chart"
 msgstr "Growth Chart"
+
+msgid "Growth Chart Configuration Issues"
+msgstr "Growth Chart Configuration Issues"
+
+msgid "Go to the Datastore Management app in DHIS2"
+msgstr "Go to the Datastore Management app in DHIS2"
+
+msgid "Find the namespace \"CaptureGrowthChart\" and key \"config\""
+msgstr "Find the namespace \"CaptureGrowthChart\" and key \"config\""
+
+msgid "Update the configuration JSON to fix the issues listed above"
+msgstr "Update the configuration JSON to fix the issues listed above"
+
+msgid "Save the changes and refresh this page"
+msgstr "Save the changes and refresh this page"
+
+msgid "Need help?"
+msgstr "Need help?"
+
+msgid "Check the documentation for the correct configuration format."
+msgstr "Check the documentation for the correct configuration format."
 
 msgid ""
 "There was an error fetching the config for the growth chart. Please check "

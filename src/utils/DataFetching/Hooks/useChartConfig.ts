@@ -1,11 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
 
+export type ProgramStageConfig = {
+    programId: string;
+    programStageId: string;
+};
+
 export type ChartConfig = {
     metadata: {
         attributes: {
             dateOfBirth: string;
             gender: string;
+            firstName: string;
+            lastName: string;
             femaleOptionCode: string;
             maleOptionCode: string;
         };
@@ -14,9 +21,7 @@ export type ChartConfig = {
             height: string;
             weight: string;
         };
-        program: {
-            programStageId: string;
-        };
+        programStages: ProgramStageConfig[];
     };
     settings: {
         customReferences: boolean;
@@ -32,15 +37,15 @@ export const useChartConfig = () => {
         data,
         isLoading,
         isError,
-    } = useQuery(
-        ['chartConfig'],
-        (): any =>
+    } = useQuery({
+        queryKey: ['chartConfig'],
+        queryFn: (): any =>
             dataEngine.query({ chartConfig: { resource: 'dataStore/CaptureGrowthChart/config' } }),
-        { staleTime: 5000 },
-    );
+        staleTime: 5000,
+    });
 
     return {
-        chartConfig: data?.chartConfig,
+        chartConfig: data?.chartConfig as ChartConfig | undefined,
         isLoading,
         isError,
     };

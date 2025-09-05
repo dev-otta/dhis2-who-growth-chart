@@ -35,12 +35,16 @@ export const useTeiById = ({ teiId }: UseEventByIdProps): UseEventByIdReturn => 
         data,
         isLoading,
         isError,
-    } = useQuery(['teilById', teiId], () => dataEngine.query({
-        trackedEntity: {
-            resource: 'tracker/trackedEntities',
-            id: ({ teiId }) => teiId,
-        },
-    }, { variables: { teiId } }), { staleTime: 5000 });
+    } = useQuery({
+        queryKey: ['teilById', teiId],
+        queryFn: () => dataEngine.query({
+            trackedEntity: {
+                resource: 'tracker/trackedEntities',
+                id: ({ teiId }) => teiId,
+            },
+        }, { variables: { teiId } }),
+        staleTime: 5000,
+    });
 
     const apiResponse: TrackedEntity = handleAPIResponse(RequestedEntities.trackedEntity, data);
 

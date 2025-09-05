@@ -99,7 +99,7 @@ Refer to the [documentation](https://docs.dhis2.org/en/use/user-guides/dhis-core
 The growth chart plugin depends on this config to work properly.
 Keep in mind that all ID's should be changed, and will be unique for each implementation.
 
-The structure of the config has to be the same as the one in the example below;
+The structure of the config has to be the same as the one in the example below.
 
 ```json
 {
@@ -117,9 +117,20 @@ The structure of the config has to be the same as the one in the example below;
       "height": "wWCSulSdUgd",
       "weight": "yZwKJdYXTZF"
     },
-    "program": {
-      "programStageId": "h3gT08Et4sC"
-    }
+    "programStages": [
+      {
+        "programId": "program1_id",
+        "programStageId": "h3gT08Et4sC"
+      },
+      {
+        "programId": "program2_id", 
+        "programStageId": "k5hU09Ft5dD"
+      },
+      {
+        "programId": "program3_id",
+        "programStageId": "m7iV10Gt6eE"
+      }
+    ]
   },
   "settings": {
     "usePercentiles": false,
@@ -136,15 +147,16 @@ The structure of the config has to be the same as the one in the example below;
 
 The `metadata` object contains the following keys:
 
-- `attributes` - Contains the attribute IDs for **dateOfBirth**, **gender**, **firstName**, **lastName**, *
-  *femaleOptionCode** and **maleOptionCode**.
-  All of these attribute IDs can be found in the **Maintenance** app under `Tracked entity attributes`, except for the *
-  *femaleOptionCode** and **maleOptionCode** which can be found in `Option set` under **Other** in the **Maintenance** app.
+- `attributes` - Contains the attribute IDs for **dateOfBirth**, **gender**, **firstName**, **lastName**, **femaleOptionCode** and **maleOptionCode**.
+  All of these attribute IDs can be set in the **Maintenance** app under `Tracked entity attributes`, except for the *
+  *femaleOptionCode** and **maleOptionCode** which can be set in `Option set` under **Other** in the **Maintenance** app.
   Documentation for `Option Sets` can be found [here](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-240/configuring-the-system/metadata.html#manage_option_set).
 - `dataElements` - Contains the data element IDs for **headCircumference**, **height** and **weight**.
   All of these data element IDs can be found in the **Maintenance** app under **Data elements**.
-- `program` - Contains the program stage ID for the program stage where the growth data is stored.
-  This ID can be found in the **Maintenance** app under **Programs** and **Program stages**.
+- `programStages` - Array of objects, each containing:
+  - `programId`: The ID of the program this stage belongs to
+  - `programStageId`: The ID of the program stage where growth data is stored
+  These IDs can be found in the **Maintenance** app under **Programs** and **Program stages**.
 
 ##### Settings
 
@@ -192,7 +204,7 @@ The custom references can be set up in the **Datastore Management** app.
 
 1. Create a new key in the `CaptureGrowthChart` namespace with the key `customReferences`, as seen in the image below.
 
-<img src="resources/images/DatastoreManagement_Custom_Folder.png" width="300"/>
+<img src="resources/images/DatastoreManagement_Custom_Folder.png" width="500"/>
 
 2. Here is the format for `customReferences`:
 
@@ -251,7 +263,7 @@ The custom references can be set up in the **Datastore Management** app.
 - `"wfa_g"` -> Weight for age
 - `"wlfh_g"` -> Weight for length/height
 
-<br>
+
 
 `"_g"` indicates that the gender is girl.
 If you want to add references for boys, you can add the same key but with `"_b"` instead of `"_g"`.

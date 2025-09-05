@@ -9,6 +9,7 @@ interface ChartSelectorDropdownProps {
     handleItemChange: (key: string) => void;
     isDisabled?: boolean;
     dataTest?: string;
+    width?: string;
 }
 
 export const ChartSelectorDropdown = ({
@@ -17,6 +18,7 @@ export const ChartSelectorDropdown = ({
     handleItemChange,
     isDisabled,
     dataTest,
+    width,
 }: ChartSelectorDropdownProps) => (
     isDisabled ? (
         <Tooltip
@@ -28,7 +30,7 @@ export const ChartSelectorDropdown = ({
             <InputField
                 value={title.toString()}
                 disabled
-                inputWidth='50px'
+                inputWidth={width}
                 dense
                 data-test={`${dataTest}-disabled-button`}
             />
@@ -39,6 +41,7 @@ export const ChartSelectorDropdown = ({
             onChange={({ selected }) => handleItemChange(selected)}
             selected={title.toString()}
             dense
+            inputWidth={width}
             dataTest={`${dataTest}-button`}
         >
             {items.map((item) => (

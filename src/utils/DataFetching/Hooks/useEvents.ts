@@ -22,7 +22,7 @@ export type MeasurementData = {
 };
 
 export interface Event {
-    dataValues: DataValue[];
+    dataValues: { [key: string]: string };
     occurredAt: string;
     event: string;
     program: string;
@@ -48,31 +48,36 @@ export const useEvents = ({
         data,
         isLoading,
         isError,
-    } = useQuery(['eventsByProgramStage', orgUnitId, programStageId, programId, teiId], (): any => dataEngine.query({
-        eventsByProgramStage: {
-            resource: 'tracker/events',
-            params: ({
+    } = useQuery({
+        queryKey: ['eventsByProgramStage', orgUnitId, programStageId, programId, teiId],
+        queryFn: (): any => dataEngine.query({
+            eventsByProgramStage: {
+                resource: 'tracker/events',
+                params: ({
+                    orgUnitId,
+                    programStageId,
+                    programId,
+                    teiId,
+                }) => ({
+                    fields: 'event,status,program,dataValues,occurredAt,programStage',
+                    program: programId,
+                    programStage: programStageId,
+                    orgUnit: orgUnitId,
+                    trackedEntity: teiId,
+                }),
+            },
+        }, {
+            variables: {
                 orgUnitId,
                 programStageId,
                 programId,
                 teiId,
-            }) => ({
-                fields: 'event,status,program,dataValues,occurredAt,programStage',
-                program: programId,
-                programStage: programStageId,
-                orgUnit: orgUnitId,
-                trackedEntity: teiId,
-            }),
-        },
-    }, {
-        variables: {
-            orgUnitId,
-            programStageId,
-            programId,
-            teiId,
-        },
-    }), { staleTime: 5000 });
-
+            },
+        }),
+        staleTime: 5000,
+        enabled: !!programStageId && !!orgUnitId && !!programId && !!teiId,
+    });
+    
     const apiResponse = handleAPIResponse(RequestedEntities.events, data?.eventsByProgramStage);
 
     const events = useMemo(() => apiResponse?.map((event: ServerEvent) => {

@@ -81,7 +81,7 @@ export const GrowthChart = ({
 
     return (
         <>
-            <div className='flex justify-between px-14'>
+            <div className='flex justify-between px-4'>
                 <ChartSelector
                     category={selectedCategory}
                     dataset={selectedDataset}

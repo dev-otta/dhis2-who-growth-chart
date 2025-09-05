@@ -3,12 +3,14 @@ import i18n from '@dhis2/d2-i18n';
 import { Line } from 'react-chartjs-2';
 import Chart, { ChartOptions } from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import { ChartDataTypes, CategoryToLabel,
-    MeasurementTypeCodes, DataSetLabels, CategoryCodes } from '../../../types/chartDataTypes';
+import {
+    ChartDataTypes, CategoryToLabel,
+    MeasurementTypeCodes, DataSetLabels, CategoryCodes,
+} from '../../../types/chartDataTypes';
 import { GrowthChartAnnotations, AnnotateLineEnd } from '../../../utils/ChartOptions';
 import { useMeasurementPlotting, useChartLines } from '../../../utils/Hooks/ChartDataVisualization';
 import { ChartTooltip } from './ChartTooltip';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 interface GrowthChartBuilderProps extends ChartDataTypes {
     category: keyof typeof CategoryToLabel;

@@ -1,5 +1,4 @@
-/// <reference types="cypress" />
-import '../../src/Plugin.module.css';
+import '../../src/Plugin.css';
 import '../../src/tailwind.css';
 import '../../src/index.css';
 

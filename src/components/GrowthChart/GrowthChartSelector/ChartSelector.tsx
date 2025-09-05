@@ -34,25 +34,28 @@ export const ChartSelector = ({
     };
 
     return (
-        <div className='flex flex-wrap gap-2 items-center'>
+        <div className='flex flex-wrap gap-2'>
             <ChartSelectorDropdown
                 title={gender}
                 items={Object.values(GenderCodes)}
                 handleItemChange={setGender}
                 isDisabled={isDisabled}
                 dataTest='CGC-gender-dropdown'
+                width='75px'
             />
             <ChartSelectorDropdown
                 title={CategoryToLabel[category]}
                 items={Object.keys(chartData).map((key) => chartData[key].categoryMetadata.label)}
                 handleItemChange={handleCategoryChange}
                 dataTest='CGC-category-dropdown'
+                width='230px'
             />
             <ChartSelectorDropdown
                 title={dataset}
                 items={Object.keys(chartData[category].datasets)}
                 handleItemChange={handleDatasetChange}
                 dataTest='CGC-dataset-dropdown'
+                width='150px'
             />
         </div>
     );
