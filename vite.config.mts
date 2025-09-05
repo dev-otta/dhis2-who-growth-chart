@@ -16,18 +16,6 @@ const viteConfig = defineConfig((configEnv) => {
                 '@': path.resolve(__dirname, './src'),
             },
         },
-        esbuild: {
-            loader: 'jsx',
-            include: /.*\.jsx?$/,
-        },
-        optimizeDeps: {
-            esbuildOptions: {
-                loader: {
-                    '.js': 'jsx',
-                    '.ts': 'tsx',
-                },
-            },
-        },
     };
 });
 export default viteConfig;
