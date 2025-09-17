@@ -162,38 +162,41 @@ export const useConfigValidation = (
             }
         }
 
-        if (!chartConfig.metadata.programStages) {
+        if (!chartConfig.metadata.programStageForGrowthChart) {
             errors.push({
-                field: 'metadata.programStages',
-                message: 'Missing "programStages" array in metadata configuration.',
+                field: 'metadata.programStageForGrowthChart',
+                message: 'Missing "programStageForGrowthChart" object in metadata configuration.',
                 severity: 'error',
             });
-        } else if (!Array.isArray(chartConfig.metadata.programStages)) {
+        } else if (typeof chartConfig.metadata.programStageForGrowthChart !== 'object' || 
+                   Array.isArray(chartConfig.metadata.programStageForGrowthChart)) {
             errors.push({
-                field: 'metadata.programStages',
-                message: '"programStages" must be an array. See documentation for correct configuration.',
+                field: 'metadata.programStageForGrowthChart',
+                message: '"programStageForGrowthChart" must be an object mapping programId to programStageId. ' +
+                    'Each program can only have one stage configured for growth chart data.',
                 severity: 'error',
             });
-        } else if (chartConfig.metadata.programStages.length === 0) {
+        } else if (Object.keys(chartConfig.metadata.programStageForGrowthChart).length === 0) {
             errors.push({
-                field: 'metadata.programStages',
-                message: '"programStages" array is empty. At least one program stage is required.',
+                field: 'metadata.programStageForGrowthChart',
+                message: '"programStageForGrowthChart" object is empty. At least one program stage mapping is required.',
                 severity: 'error',
             });
         } else {
-            chartConfig.metadata.programStages.forEach((stage, index) => {
-                if (!stage.programId) {
+            Object.entries(chartConfig.metadata.programStageForGrowthChart).forEach(([programId, programStageId]) => {
+                if (!programId || typeof programId !== 'string') {
                     errors.push({
-                        field: `metadata.programStages[${index}].programId`,
-                        message: `Missing "programId" for program stage ${index + 1}.`,
+                        field: `metadata.programStageForGrowthChart.${programId}`,
+                        message: `Invalid program ID "${programId}" in programStageForGrowthChart mapping.`,
                         severity: 'error',
                     });
                 }
 
-                if (!stage.programStageId) {
+                if (!programStageId || typeof programStageId !== 'string') {
                     errors.push({
-                        field: `metadata.programStages[${index}].programStageId`,
-                        message: `Missing "programStageId" for program stage ${index + 1}.`,
+                        field: `metadata.programStageForGrowthChart.${programId}`,
+                        message: `Invalid program stage ID "${programStageId}" for program "${programId}". ` +
+                            `Each program can only have one stage configured for growth chart data.`,
                         severity: 'error',
                     });
                 }

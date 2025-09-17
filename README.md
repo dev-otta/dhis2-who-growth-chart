@@ -39,12 +39,9 @@ The configuration object should look something like this:
             "height": "wWCSulSdUgd",
             "weight": "yZwKJdYXTZF"
         },
-        "programStages": [
-            {
-                "programId": "program1_id",
-                "programStageId": "h3gT08Et4sC"
-            }
-        ]
+        "programStageForGrowthChart": {
+            "programId_1": "programStageId_1"
+        }
     },
     "settings": {
         "usePercentiles": false,

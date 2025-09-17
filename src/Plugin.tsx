@@ -32,6 +32,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const {
         teiId,
         orgUnitId,
+        programId,
     } = propsFromParent;
 
     const {
@@ -60,8 +61,8 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isLoading: isLoadingEvents,
         isError: isErrorEvents,
     } = useEvents({
-        programStageId: chartConfig?.metadata?.programStages?.[0]?.programStageId,
-        programId: chartConfig?.metadata?.programStages?.[0]?.programId,
+        programStageId: chartConfig?.metadata?.programStageForGrowthChart?.[programId],
+        programId,
         orgUnitId,
         teiId,
     });

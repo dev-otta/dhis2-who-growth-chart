@@ -50,7 +50,7 @@ export const ConfigValidationError: React.FC<ConfigValidationErrorProps> = ({ er
                     </h4>
                     <ol style={{ marginBottom: 0 }}>
                         <li>{i18n.t('Go to the Datastore Management app in DHIS2')}</li>
-                        <li>{i18n.t('Find the namespace "CaptureGrowthChart" and key "config"')}</li>
+                        <li>{i18n.t('Find the namespace "captureGrowthChart" and key "config"')}</li>
                         <li>{i18n.t('Update the configuration JSON to fix the issues listed above')}</li>
                         <li>{i18n.t('Save the changes and refresh this page')}</li>
                     </ol>

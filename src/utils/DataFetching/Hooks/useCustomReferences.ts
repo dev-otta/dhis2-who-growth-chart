@@ -9,7 +9,7 @@ export const useCustomReferences = (enabled: boolean = true) => {
         isError,
     } = useQuery({
         queryKey: ['customReferences'],
-        queryFn: (): any => dataEngine.query({ customReferences: { resource: 'dataStore/CaptureGrowthChart/customReferences' } }),
+        queryFn: (): any => dataEngine.query({ customReferences: { resource: 'dataStore/captureGrowthChart/customReferences' } }),
         staleTime: 5000,
         enabled: enabled,
     });
