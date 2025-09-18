@@ -104,9 +104,9 @@ The structure of the config has to be the same as the one in the example below.
       "weight": "replace_with_weight_data_element_id"
     },
     "programStageForGrowthChart": {
-      "programId_1": "replace_with_program_stage_id_1",
-      "programId_2": "replace_with_program_stage_id_2",
-      "programId_3": "replace_with_program_stage_id_3"
+      "replace_with_programId_1": "replace_with_program_stage_id_1",
+      "replace_with_programId_2": "replace_with_program_stage_id_2",
+      "replace_with_programId_3": "replace_with_program_stage_id_3"
     }
   },
   "settings": {
