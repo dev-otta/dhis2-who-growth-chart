@@ -8,7 +8,7 @@ import { RuntimeValidationResult } from './useRuntimeValidation';
 export interface UsePluginErrorHandlingParams {
     isLoading: boolean;
     isLoadingRef: boolean;
-    isLoadingTei: boolean;
+    isLoadingProgramTrackedEntityAttributes: boolean;
     isLoadingEvents: boolean;
     configValidation: ConfigValidationResult;
     runtimeValidation: RuntimeValidationResult;
@@ -21,7 +21,7 @@ export const usePluginErrorHandling = (params: UsePluginErrorHandlingParams): Re
     const {
         isLoading,
         isLoadingRef,
-        isLoadingTei,
+        isLoadingProgramTrackedEntityAttributes,
         isLoadingEvents,
         configValidation,
         runtimeValidation,
@@ -42,7 +42,7 @@ export const usePluginErrorHandling = (params: UsePluginErrorHandlingParams): Re
         );
     }
 
-    if (isLoadingTei || isLoadingEvents) {
+    if (isLoadingProgramTrackedEntityAttributes || isLoadingEvents) {
         return <GenericLoading />;
     }
 

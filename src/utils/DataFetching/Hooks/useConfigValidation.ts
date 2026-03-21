@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { ChartConfig } from './useChartConfig';
+import type { ProgramTrackedEntityAttributeIds } from './useProgramTrackedEntityAttributes';
 
 const DHIS2_UID_REGEX = /^[a-zA-Z][a-zA-Z0-9]{10}$/;
 
@@ -28,9 +29,10 @@ export interface ConfigValidationResult {
 }
 
 interface ConfigValidationContext {
-    trackedEntityAttributeIds?: string[];
+    /** From program `programTrackedEntityAttributes` — used to validate optional first/last name attribute IDs. */
+    programTrackedEntityAttributeIds?: ProgramTrackedEntityAttributeIds;
+    isLoadingProgramTrackedEntityAttributes?: boolean;
     programStageDataElementIds?: string[];
-    isLoadingTrackedEntity?: boolean;
     isLoadingProgramStage?: boolean;
     genderOptionCodes?: string[];
     isLoadingGenderOptions?: boolean;
@@ -47,9 +49,9 @@ export const useConfigValidation = (
     context: ConfigValidationContext = {},
 ): ConfigValidationResult => {
     const {
-        trackedEntityAttributeIds,
+        programTrackedEntityAttributeIds,
+        isLoadingProgramTrackedEntityAttributes = false,
         programStageDataElementIds,
-        isLoadingTrackedEntity = false,
         isLoadingProgramStage = false,
         genderOptionCodes,
         isLoadingGenderOptions = false,
@@ -343,27 +345,18 @@ export const useConfigValidation = (
             });
         }
 
-        if (!isLoadingTrackedEntity && trackedEntityAttributeIds && chartConfig.metadata?.attributes) {
-            const observedAttributeIds = new Set(trackedEntityAttributeIds);
-            (['dateOfBirth', 'gender'] as const).forEach((attributeKey) => {
-                const configuredId = chartConfig.metadata.attributes[attributeKey];
-                if (!configuredId || !isValidUid(configuredId)) {
-                    return;
-                }
-                if (!observedAttributeIds.has(configuredId)) {
-                    errors.push({
-                        field: `metadata.attributes.${attributeKey}`,
-                        message: `Configured ID "${configuredId}" does not match any attribute on the tracked entity.`,
-                    });
-                }
-            });
-
+        if (
+            !isLoadingProgramTrackedEntityAttributes &&
+            programTrackedEntityAttributeIds &&
+            chartConfig.metadata?.attributes
+        ) {
+            const observedProgramTrackedEntityAttributeIds = new Set(programTrackedEntityAttributeIds);
             (['firstName', 'lastName'] as const).forEach((attributeKey) => {
                 const configuredId = chartConfig.metadata.attributes[attributeKey];
                 if (!configuredId || !isValidUid(configuredId)) {
                     return;
                 }
-                if (!observedAttributeIds.has(configuredId)) {
+                if (!observedProgramTrackedEntityAttributeIds.has(configuredId)) {
                     errors.push({
                         field: `metadata.attributes.${attributeKey}`,
                         message: optionalNameAttributeMismatchMessage(attributeKey, configuredId),
@@ -398,9 +391,9 @@ export const useConfigValidation = (
         chartConfig,
         isLoading,
         isError,
-        trackedEntityAttributeIds,
+        programTrackedEntityAttributeIds,
+        isLoadingProgramTrackedEntityAttributes,
         programStageDataElementIds,
-        isLoadingTrackedEntity,
         isLoadingProgramStage,
         genderOptionCodes,
         isLoadingGenderOptions,

@@ -6,7 +6,7 @@ import { ChartData, GenderCodes, MeasurementData } from '../../types/chartDataTy
 import { useCalculateMinMaxValues } from '../../utils/Hooks/Calculations';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting';
-import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTrackedEntity';
+import { MappedEntityValues } from '../../types/mappedEntityValues';
 import { useAppropriateChartData } from '../../utils/Hooks/Calculations/useAppropriateChartData';
 
 interface GrowthChartProps {

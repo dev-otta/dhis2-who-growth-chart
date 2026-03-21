@@ -1,4 +1,7 @@
-export { useTrackedEntityForProgram, type TrackedEntity } from './useTrackedEntityForProgram';
+export {
+    useProgramTrackedEntityAttributes,
+    type ProgramTrackedEntityAttributeIds,
+} from './useProgramTrackedEntityAttributes';
 export { handleAPIResponse } from './handleAPIResponse';
 export { useEvents } from './useEvents';
 export { useChartConfig } from './useChartConfig';

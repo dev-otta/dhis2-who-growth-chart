@@ -7,7 +7,7 @@ import i18n from '@dhis2/d2-i18n';
 import { WidgetCollapsible } from './components/WidgetCollapsible';
 import { GrowthChart } from './components/GrowthChart/GrowthChart';
 import { EnrollmentOverviewProps } from './Plugin.types';
-import { useChartConfig, usePluginErrorHandling, useTrackedEntityForProgram } from './utils/DataFetching/Hooks';
+import { useChartConfig, usePluginErrorHandling, useProgramTrackedEntityAttributes } from './utils/DataFetching/Hooks';
 import { useEvents } from './utils/DataFetching/Hooks/useEvents';
 import { useProgramStageDataElements } from './utils/DataFetching/Hooks/useProgramStageDataElements';
 import { useGenderAttributeOptionCodes } from './utils/DataFetching/Hooks/useGenderAttributeOptionCodes';
@@ -15,8 +15,8 @@ import { useProgramStageMappingValidation } from './utils/DataFetching/Hooks/use
 import { useConfigValidation } from './utils/DataFetching/Hooks/useConfigValidation';
 import { useRuntimeValidation } from './utils/DataFetching/Hooks/useRuntimeValidation';
 import { useMappedGrowthVariables } from './utils/DataFetching/Sorting/useMappedGrowthVariables';
-import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/useMappedTrackedEntity';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
+import { EMPTY_MAPPED_ENTITY_VALUES } from './types/mappedEntityValues';
 import { chartData as chartDataWHO } from './DataSets/WhoStandardDataSets/ChartData';
 
 const queryClient = new QueryClient();
@@ -25,7 +25,6 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const [open, setOpen] = useState(true);
 
     const {
-        teiId,
         orgUnitId,
         programId,
     } = propsFromParent;
@@ -43,12 +42,12 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     } = useCustomReferences(chartConfig?.settings?.customReferences || false);
 
     const {
-        trackedEntity,
-        isLoading: isLoadingTei,
-        isError: isErrorTei,
-    } = useTrackedEntityForProgram({ teiId, programId });
+        programTrackedEntityAttributeIds,
+        isLoading: isLoadingProgramTrackedEntityAttributes,
+        isError: isErrorProgramTrackedEntityAttributes,
+    } = useProgramTrackedEntityAttributes(programId);
 
-    const runtimeValidation = useRuntimeValidation(teiId, orgUnitId, isErrorTei);
+    const runtimeValidation = useRuntimeValidation(isErrorProgramTrackedEntityAttributes);
 
     const {
         events,
@@ -57,15 +56,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         programStageId: chartConfig?.metadata?.programStageForGrowthChart?.[programId],
         programId,
         orgUnitId,
-        teiId,
     });
-
-    const trackedEntityAttributeIds = useMemo(
-        () => (trackedEntity?.attributes ?? [])
-            .map((attribute) => attribute.attribute)
-            .filter((id): id is string => typeof id === 'string' && id.length > 0),
-        [trackedEntity?.attributes],
-    );
 
     const programStageId = chartConfig?.metadata?.programStageForGrowthChart?.[programId];
     const {
@@ -86,9 +77,9 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     } = useProgramStageMappingValidation(chartConfig?.metadata?.programStageForGrowthChart);
 
     const configValidation = useConfigValidation(chartConfig, isLoading, isError, {
-        trackedEntityAttributeIds,
+        programTrackedEntityAttributeIds,
+        isLoadingProgramTrackedEntityAttributes,
         programStageDataElementIds,
-        isLoadingTrackedEntity: isLoadingTei,
         isLoadingProgramStage,
         genderOptionCodes,
         isLoadingGenderOptions,
@@ -98,11 +89,6 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         parentProgramId: programId,
     });
 
-    const mappedTrackedEntity = useMappedTrackedEntityVariables({
-        variableMappings: chartConfig?.metadata?.attributes,
-        attributes: trackedEntity?.attributes,
-    });
-    
     const mappedGrowthVariables = useMappedGrowthVariables({
             growthVariables: chartConfig?.metadata?.dataElements ? {
             headCircumference: chartConfig.metadata.dataElements.headCircumference,
@@ -127,7 +113,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const errorView = usePluginErrorHandling({
         isLoading,
         isLoadingRef,
-        isLoadingTei,
+        isLoadingProgramTrackedEntityAttributes,
         isLoadingEvents,
         configValidation,
         runtimeValidation,
@@ -149,7 +135,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                     {errorView ?? (
                         <>
                             <GrowthChart
-                                trackedEntity={mappedTrackedEntity}
+                                trackedEntity={EMPTY_MAPPED_ENTITY_VALUES}
                                 measurementData={mappedGrowthVariables ?? []}
                                 chartData={chartData}
                                 defaultIndicator={defaultIndicator}

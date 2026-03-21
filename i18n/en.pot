@@ -5,33 +5,51 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-09-17T10:34:29.970Z\n"
-"PO-Revision-Date: 2025-09-17T10:34:29.970Z\n"
-
-msgid ""
-"Unable to load growth data. Please check that the configured programs and "
-"stages exist and are accessible."
-msgstr ""
-"Unable to load growth data. Please check that the configured programs and "
-"stages exist and are accessible."
+"POT-Creation-Date: 2026-03-21T12:15:21.566Z\n"
+"PO-Revision-Date: 2026-03-21T12:15:21.566Z\n"
 
 msgid "Growth Chart"
 msgstr "Growth Chart"
 
-msgid "Growth Chart Configuration Issues"
-msgstr "Growth Chart Configuration Issues"
+msgid "How to Fix This Issue"
+msgstr "How to Fix This Issue"
 
-msgid "Go to the Datastore Management app in DHIS2"
-msgstr "Go to the Datastore Management app in DHIS2"
+msgid "Use "
+msgstr "Use "
 
-msgid "Find the namespace \"captureGrowthChart\" and key \"config\""
-msgstr "Find the namespace \"captureGrowthChart\" and key \"config\""
+msgid " to open namespace "
+msgstr " to open namespace "
 
-msgid "Update the configuration JSON to fix the issues listed above"
-msgstr "Update the configuration JSON to fix the issues listed above"
+msgid " and key "
+msgstr " and key "
 
-msgid "Save the changes and refresh this page"
-msgstr "Save the changes and refresh this page"
+msgid ". Edit the "
+msgstr ". Edit the "
+
+msgid " to address the errors above, save, and refresh this page."
+msgstr " to address the errors above, save, and refresh this page."
+
+msgid ""
+"If you need to add or change attributes, program stage, data elements, or "
+"option codes in DHIS2, "
+msgstr ""
+"If you need to add or change attributes, program stage, data elements, or "
+"option codes in DHIS2, "
+
+msgid "do that in "
+msgstr "do that in "
+
+msgid " first. Afterwards, update "
+msgstr " first. Afterwards, update "
+
+msgid " so your "
+msgstr " so your "
+
+msgid " and "
+msgstr " and "
+
+msgid " match what you configured."
+msgstr " match what you configured."
 
 msgid "Need help?"
 msgstr "Need help?"
@@ -53,19 +71,6 @@ msgstr ""
 "There was an error fetching the custom references for the growth chart. "
 "Please check the configuration in Datastore Management and try again."
 
-msgid "The default indicator"
-msgstr "The default indicator"
-
-msgid "is not a valid. Please select a valid indicator in the configuration"
-msgstr "is not a valid. Please select a valid indicator in the configuration"
-
-msgid ""
-"There was an error fetching the tracked entity for the growth chart. Please "
-"check the configuration in Datastore Management and try again."
-msgstr ""
-"There was an error fetching the tracked entity for the growth chart. Please "
-"check the configuration in Datastore Management and try again."
-
 msgid "There was an error fetching the event."
 msgstr "There was an error fetching the event."
 
@@ -75,12 +80,6 @@ msgid ""
 msgstr ""
 "Please check the configuration in Datastore Management application and try "
 "again."
-
-msgid "No growth variables were found."
-msgstr "No growth variables were found."
-
-msgid "Please add growth variables and try again."
-msgstr "Please add growth variables and try again."
 
 msgid "Print"
 msgstr "Print"
@@ -165,3 +164,11 @@ msgstr "Boy"
 
 msgid "Girl"
 msgstr "Girl"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Capture Growth Chart"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr "A plugin for displaying growth charts in the Capture app"
