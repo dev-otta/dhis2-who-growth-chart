@@ -9,6 +9,7 @@ export interface RuntimeValidationResult {
 export const useRuntimeValidation = (
     teiId: string | undefined,
     orgUnitId: string | undefined,
+    isErrorTei?: boolean,
 ): RuntimeValidationResult => {
     const validation = useMemo((): RuntimeValidationResult => {
         const errors: ValidationError[] = [];
@@ -17,15 +18,22 @@ export const useRuntimeValidation = (
             errors.push({
                 field: 'teiId',
                 message: 'Missing Tracked Entity Instance ID. This should be provided by the Capture app.',
-                severity: 'error',
             });
         }
 
         if (!orgUnitId) {
             errors.push({
                 field: 'orgUnitId',
-                message: 'Missing Organization Unit ID. This should be provided by the Capture app.',
-                severity: 'error',
+                message: 'Missing Organisation Unit ID. This should be provided by the Capture app.',
+            });
+        }
+
+        if (isErrorTei) {
+            errors.push({
+                field: 'trackedEntity',
+                message:
+                    'Could not load tracked entity data for this profile. Check access to the program and that the ' +
+                    'tracked entity exists.',
             });
         }
 
@@ -33,7 +41,7 @@ export const useRuntimeValidation = (
             isValid: errors.length === 0,
             errors,
         };
-    }, [teiId, orgUnitId]);
+    }, [teiId, orgUnitId, isErrorTei]);
 
     return validation;
 };

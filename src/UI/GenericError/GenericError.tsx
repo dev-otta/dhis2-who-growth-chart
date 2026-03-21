@@ -3,12 +3,30 @@ import i18n from '@dhis2/d2-i18n';
 import { WidgetCollapsible } from '../../components/WidgetCollapsible';
 import { Warning } from '../Icons';
 
-interface GenericErrorProps {
+export interface GenericErrorProps {
     errorMessage: string;
+    /** When true, only the message body is rendered (for use inside Plugin's WidgetCollapsible). */
+    embedded?: boolean;
 }
 
-export const GenericError = ({ errorMessage }: GenericErrorProps) => {
+export const GenericError = ({ errorMessage, embedded = false }: GenericErrorProps) => {
     const [open, setOpen] = useState(true);
+
+    const body = (
+        <div className='flex w-full box-border items-start gap-4 p-5'>
+            <p className='flex shrink-0 items-center'>
+                <Warning className='w-12 h-12' />
+            </p>
+            <p className='flex min-w-0 flex-1 items-center'>
+                {errorMessage}
+            </p>
+        </div>
+    );
+
+    if (embedded) {
+        return body;
+    }
+
     return (
         <div style={{
             width: '100vw',
@@ -23,14 +41,7 @@ export const GenericError = ({ errorMessage }: GenericErrorProps) => {
                 onOpen={() => setOpen(true)}
                 onClose={() => setOpen(false)}
             >
-                <div className='flex justify-center'>
-                    <p className={'flex items-center'}>
-                        <Warning className='w-12 h-12' />
-                    </p>
-                    <p className='flex p-5 items-center w-1/2 max-w-[500px]'>
-                        {errorMessage}
-                    </p>
-                </div>
+                {body}
             </WidgetCollapsible>
         </div>
     );

@@ -15,7 +15,6 @@ interface GrowthChartProps {
     isPercentiles: boolean;
     chartData: ChartData;
     defaultIndicator?: string;
-    setDefaultIndicatorError: (error: boolean) => void;
 }
 
 export const GrowthChart = ({
@@ -24,7 +23,6 @@ export const GrowthChart = ({
     isPercentiles,
     chartData,
     defaultIndicator,
-    setDefaultIndicatorError,
 }: GrowthChartProps) => {
     const trackedEntityGender = trackedEntity?.gender;
     const dateOfBirth = useMemo(() => new Date(trackedEntity.dateOfBirth), [trackedEntity.dateOfBirth]);
@@ -45,7 +43,6 @@ export const GrowthChart = ({
         chartDataForGender,
         defaultIndicator,
         gender,
-        setDefaultIndicatorError,
         childAgeInWeeks,
         childAgeInMonths,
     );

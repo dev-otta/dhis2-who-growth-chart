@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './Plugin.css';
 import './tailwind.css';
 import './index.css';
@@ -7,25 +7,21 @@ import i18n from '@dhis2/d2-i18n';
 import { WidgetCollapsible } from './components/WidgetCollapsible';
 import { GrowthChart } from './components/GrowthChart/GrowthChart';
 import { EnrollmentOverviewProps } from './Plugin.types';
-import { useChartConfig, useTrackedEntityForProgram } from './utils/DataFetching/Hooks';
+import { useChartConfig, usePluginErrorHandling, useTrackedEntityForProgram } from './utils/DataFetching/Hooks';
 import { useEvents } from './utils/DataFetching/Hooks/useEvents';
+import { useProgramStageDataElements } from './utils/DataFetching/Hooks/useProgramStageDataElements';
+import { useGenderAttributeOptionCodes } from './utils/DataFetching/Hooks/useGenderAttributeOptionCodes';
+import { useProgramStageMappingValidation } from './utils/DataFetching/Hooks/useProgramStageMappingValidation';
 import { useConfigValidation } from './utils/DataFetching/Hooks/useConfigValidation';
 import { useRuntimeValidation } from './utils/DataFetching/Hooks/useRuntimeValidation';
 import { useMappedGrowthVariables } from './utils/DataFetching/Sorting/useMappedGrowthVariables';
 import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/useMappedTrackedEntity';
-import { GenericLoading } from './UI/GenericLoading';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
 import { chartData as chartDataWHO } from './DataSets/WhoStandardDataSets/ChartData';
-import { useFilterByMissingData } from './utils/DataFetching/Sorting';
-import { MissingGrowthVariablesError } from './UI/GenericError/MissingGrowthVariablesError';
-import { ConfigError, CustomReferenceError, DefaultIndicatorError } from './UI/FeedbackComponents';
-import { GenericError } from './UI/GenericError';
-import { ConfigValidationError } from './UI/ConfigValidationError';
 
 const queryClient = new QueryClient();
 
 const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
-    const [defaultIndicatorError, setDefaultIndicatorError] = useState<boolean>(false);
     const [open, setOpen] = useState(true);
 
     const {
@@ -46,26 +42,60 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isError: isErrorRef,
     } = useCustomReferences(chartConfig?.settings?.customReferences || false);
 
-    const configValidation = useConfigValidation(chartConfig, isLoading, isError);
-    const runtimeValidation = useRuntimeValidation(teiId, orgUnitId);
-
     const {
         trackedEntity,
         isLoading: isLoadingTei,
         isError: isErrorTei,
     } = useTrackedEntityForProgram({ teiId, programId });
 
-    console.log('trackedEntity', trackedEntity);
+    const runtimeValidation = useRuntimeValidation(teiId, orgUnitId, isErrorTei);
 
     const {
         events,
         isLoading: isLoadingEvents,
-        isError: isErrorEvents,
     } = useEvents({
         programStageId: chartConfig?.metadata?.programStageForGrowthChart?.[programId],
         programId,
         orgUnitId,
         teiId,
+    });
+
+    const trackedEntityAttributeIds = useMemo(
+        () => (trackedEntity?.attributes ?? [])
+            .map((attribute) => attribute.attribute)
+            .filter((id): id is string => typeof id === 'string' && id.length > 0),
+        [trackedEntity?.attributes],
+    );
+
+    const programStageId = chartConfig?.metadata?.programStageForGrowthChart?.[programId];
+    const {
+        programStageDataElementIds,
+        isLoading: isLoadingProgramStage,
+    } = useProgramStageDataElements(programStageId);
+
+    const genderAttributeId = chartConfig?.metadata?.attributes?.gender;
+    const {
+        genderOptionCodes,
+        isLoading: isLoadingGenderOptions,
+    } = useGenderAttributeOptionCodes(genderAttributeId);
+
+    const {
+        programStageIdsByProgramId,
+        programIdsFailedToLoad,
+        isLoading: isLoadingProgramMappings,
+    } = useProgramStageMappingValidation(chartConfig?.metadata?.programStageForGrowthChart);
+
+    const configValidation = useConfigValidation(chartConfig, isLoading, isError, {
+        trackedEntityAttributeIds,
+        programStageDataElementIds,
+        isLoadingTrackedEntity: isLoadingTei,
+        isLoadingProgramStage,
+        genderOptionCodes,
+        isLoadingGenderOptions,
+        programStageIdsByProgramId,
+        programIdsFailedToLoad,
+        isLoadingProgramMappings,
+        parentProgramId: programId,
     });
 
     const mappedTrackedEntity = useMappedTrackedEntityVariables({
@@ -83,64 +113,28 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isWeightInGrams: chartConfig?.settings?.weightInGrams || false,
     });
 
-    const { chartData, measurementDataExist } = useFilterByMissingData(
-        mappedGrowthVariables,
-        chartConfig && customReferences && chartConfig?.settings?.customReferences ? customReferences : chartDataWHO,
+    const chartData = useMemo(
+        () =>
+            chartConfig && customReferences && chartConfig?.settings?.customReferences
+                ? customReferences
+                : chartDataWHO,
+        [chartConfig, customReferences],
     );
 
     const isPercentiles = chartConfig?.settings?.usePercentiles || false;
     const defaultIndicator = chartConfig?.settings?.defaultIndicator || 'wfa';
 
-    if (isLoading || isLoadingRef || isLoadingTei || isLoadingEvents) {
-        return <GenericLoading />;
-    }
-
-    if (!configValidation.isValid || !runtimeValidation.isValid) {
-        return (
-            <ConfigValidationError 
-                errors={[...configValidation.errors, ...runtimeValidation.errors]}
-                warnings={configValidation.warnings}
-            />
-        );
-    }
-
-    if (isError) {
-        return (
-            <ConfigError />
-        );
-    }
-
-    if (isErrorEvents) {
-        return (
-            <GenericError
-                errorMessage={i18n.t('Unable to load growth data. Please check that the configured programs and stages exist and are accessible.')}
-            />
-        );
-    }
-
-    if (chartConfig?.settings?.customReferences && isErrorRef) {
-        return (
-            <CustomReferenceError />
-        );
-    }
-
-    if (defaultIndicatorError) {
-        return (
-            <DefaultIndicatorError defaultIndicator={defaultIndicator} />
-        );
-    }
-
-    if (isErrorTei) {
-        return (
-            <GenericError
-                errorMessage={i18n.t('Unable to load tracked entity data. Please check that the program attributes are accessible.')}
-            />
-        );
-    }
-
-    if (measurementDataExist.headCircumference === false && measurementDataExist.height === false && measurementDataExist.weight === false) {
-        return <MissingGrowthVariablesError />;
-    }
+    const errorView = usePluginErrorHandling({
+        isLoading,
+        isLoadingRef,
+        isLoadingTei,
+        isLoadingEvents,
+        configValidation,
+        runtimeValidation,
+        isError,
+        customReferencesEnabled: chartConfig?.settings?.customReferences,
+        isErrorRef,
+    });
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -152,14 +146,17 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                     onOpen={() => setOpen(true)}
                     onClose={() => setOpen(false)}
                 >
-                    <GrowthChart
-                        trackedEntity={mappedTrackedEntity}
-                        measurementData={mappedGrowthVariables}
-                        chartData={chartData}
-                        defaultIndicator={defaultIndicator}
-                        isPercentiles={isPercentiles}
-                        setDefaultIndicatorError={setDefaultIndicatorError}
-                    />
+                    {errorView ?? (
+                        <>
+                            <GrowthChart
+                                trackedEntity={mappedTrackedEntity}
+                                measurementData={mappedGrowthVariables ?? []}
+                                chartData={chartData}
+                                defaultIndicator={defaultIndicator}
+                                isPercentiles={isPercentiles}
+                            />
+                        </>
+                    )}
                 </WidgetCollapsible>
             </div>
         </QueryClientProvider>
