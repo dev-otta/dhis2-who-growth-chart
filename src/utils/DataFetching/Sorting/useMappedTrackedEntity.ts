@@ -1,6 +1,5 @@
 import { GenderCodes } from '../../../types/chartDataTypes';
 import { ChartConfig } from '../Hooks/useChartConfig';
-import { TrackedEntity } from '../Hooks/useTeiById';
 
 interface Attribute {
     [key: string]: string;
@@ -15,14 +14,12 @@ export interface MappedEntityValues {
 }
 
 interface UseMappedTrackedEntityVariablesProps {
-    trackedEntity: TrackedEntity;
-    trackedEntityAttributes: Attribute[];
+    attributes: Attribute[] | undefined;
     variableMappings: ChartConfig['metadata']['attributes'];
 }
 
 export const useMappedTrackedEntityVariables = ({
-    trackedEntity,
-    trackedEntityAttributes,
+    attributes,
     variableMappings,
 }: UseMappedTrackedEntityVariablesProps): MappedEntityValues => {
     const mappedValues: MappedEntityValues = {
@@ -32,15 +29,15 @@ export const useMappedTrackedEntityVariables = ({
         lastName: undefined,
     };
 
-    if (!trackedEntity || !trackedEntityAttributes || !variableMappings) {
+    if (!attributes || !variableMappings) {
         return mappedValues;
     }
 
     return Object.entries(variableMappings)
         .reduce((acc, [key, attributeId]) => {
-            const attribute = trackedEntityAttributes.find((attr: Attribute) => attr.attribute === attributeId);
+            const attribute = attributes.find((attr: Attribute) => attr.attribute === attributeId);
             if (attribute) {
-                const value = trackedEntity.attributes.find((attr: Attribute) => attr.attribute === attributeId)?.value;
+                const value = attribute.value;
                 if (value !== undefined && value !== null) {
                     if (key === 'gender') {
                         if (value === String(variableMappings.femaleOptionCode)) {

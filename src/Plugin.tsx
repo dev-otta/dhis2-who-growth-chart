@@ -7,7 +7,7 @@ import i18n from '@dhis2/d2-i18n';
 import { WidgetCollapsible } from './components/WidgetCollapsible';
 import { GrowthChart } from './components/GrowthChart/GrowthChart';
 import { EnrollmentOverviewProps } from './Plugin.types';
-import { useChartConfig, useTeiById } from './utils/DataFetching/Hooks';
+import { useChartConfig, useTrackedEntityForProgram } from './utils/DataFetching/Hooks';
 import { useEvents } from './utils/DataFetching/Hooks/useEvents';
 import { useConfigValidation } from './utils/DataFetching/Hooks/useConfigValidation';
 import { useRuntimeValidation } from './utils/DataFetching/Hooks/useRuntimeValidation';
@@ -19,7 +19,6 @@ import { chartData as chartDataWHO } from './DataSets/WhoStandardDataSets/ChartD
 import { useFilterByMissingData } from './utils/DataFetching/Sorting';
 import { MissingGrowthVariablesError } from './UI/GenericError/MissingGrowthVariablesError';
 import { ConfigError, CustomReferenceError, DefaultIndicatorError } from './UI/FeedbackComponents';
-import { TrackedEntityError } from './UI/FeedbackComponents/TrackedEntityError';
 import { GenericError } from './UI/GenericError';
 import { ConfigValidationError } from './UI/ConfigValidationError';
 
@@ -54,7 +53,9 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         trackedEntity,
         isLoading: isLoadingTei,
         isError: isErrorTei,
-    } = useTeiById({ teiId });
+    } = useTrackedEntityForProgram({ teiId, programId });
+
+    console.log('trackedEntity', trackedEntity);
 
     const {
         events,
@@ -69,8 +70,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     const mappedTrackedEntity = useMappedTrackedEntityVariables({
         variableMappings: chartConfig?.metadata?.attributes,
-        trackedEntity,
-        trackedEntityAttributes: trackedEntity?.attributes,
+        attributes: trackedEntity?.attributes,
     });
     
     const mappedGrowthVariables = useMappedGrowthVariables({
@@ -132,7 +132,9 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
 
     if (isErrorTei) {
         return (
-            <TrackedEntityError />
+            <GenericError
+                errorMessage={i18n.t('Unable to load tracked entity data. Please check that the program attributes are accessible.')}
+            />
         );
     }
 

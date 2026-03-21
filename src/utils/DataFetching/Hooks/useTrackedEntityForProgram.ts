@@ -2,8 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
 import { RequestedEntities, handleAPIResponse } from './handleAPIResponse';
 
-type UseEventByIdProps = {
+type UseTrackedEntityForProgramProps = {
     teiId: string | undefined;
+    programId: string | undefined;
 };
 
 type Attribute = {
@@ -23,26 +24,33 @@ export type TrackedEntity = {
     attributes: Attribute[];
 };
 
-type UseEventByIdReturn = {
+type UseTrackedEntityForProgramReturn = {
     trackedEntity: TrackedEntity | undefined;
     isLoading: boolean;
     isError: boolean;
 };
 
-export const useTeiById = ({ teiId }: UseEventByIdProps): UseEventByIdReturn => {
+export const useTrackedEntityForProgram = ({
+    teiId,
+    programId,
+}: UseTrackedEntityForProgramProps): UseTrackedEntityForProgramReturn => {
     const dataEngine = useDataEngine();
     const {
         data,
         isLoading,
         isError,
     } = useQuery({
-        queryKey: ['teilById', teiId],
+        queryKey: ['trackedEntityForProgram', teiId, programId],
         queryFn: () => dataEngine.query({
             trackedEntity: {
                 resource: 'tracker/trackedEntities',
-                id: ({ teiId }) => teiId,
+                id: teiId,
+                params: {
+                    program: programId,
+                    fields: 'attributes',
+                },
             },
-        }, { variables: { teiId } }),
+        }),
         staleTime: 5000,
     });
 
