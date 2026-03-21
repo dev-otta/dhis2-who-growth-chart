@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-03-21T12:15:21.566Z\n"
-"PO-Revision-Date: 2026-03-21T12:15:21.566Z\n"
+"POT-Creation-Date: 2026-03-21T13:10:58.448Z\n"
+"PO-Revision-Date: 2026-03-21T13:10:58.448Z\n"
 
 msgid "Growth Chart"
 msgstr "Growth Chart"
@@ -164,6 +164,18 @@ msgstr "Boy"
 
 msgid "Girl"
 msgstr "Girl"
+
+msgid "Date of birth"
+msgstr "Date of birth"
+
+msgid "Missing. Age-based axes and categories may be wrong."
+msgstr "Missing. Age-based axes and categories may be wrong."
+
+msgid "Gender"
+msgstr "Gender"
+
+msgid "Missing from the profile. Reference curves default until gender is set."
+msgstr "Missing from the profile. Reference curves default until gender is set."
 
 msgctxt "Application title"
 msgid "__MANIFEST_APP_TITLE"

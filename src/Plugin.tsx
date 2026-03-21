@@ -16,7 +16,10 @@ import { useConfigValidation } from './utils/DataFetching/Hooks/useConfigValidat
 import { useRuntimeValidation } from './utils/DataFetching/Hooks/useRuntimeValidation';
 import { useMappedGrowthVariables } from './utils/DataFetching/Sorting/useMappedGrowthVariables';
 import { useCustomReferences } from './utils/DataFetching/Hooks/useCustomReferences';
-import { EMPTY_MAPPED_ENTITY_VALUES } from './types/mappedEntityValues';
+import { useTrackedEntityInstanceAttributes } from './utils/DataFetching/Hooks/useTrackedEntityInstanceAttributes';
+import { useMappedTrackedEntityVariables } from './utils/DataFetching/Sorting/useMappedTrackedEntity';
+import { useInvalidProfileValidation } from './utils/DataFetching/Hooks/useInvalidProfileValidation';
+import { InvalidProfileValidationWarning } from './UI/InvalidProfileValidationWarning';
 import { chartData as chartDataWHO } from './DataSets/WhoStandardDataSets/ChartData';
 
 const queryClient = new QueryClient();
@@ -27,6 +30,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const {
         orgUnitId,
         programId,
+        teiId,
     } = propsFromParent;
 
     const {
@@ -110,11 +114,25 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const isPercentiles = chartConfig?.settings?.usePercentiles || false;
     const defaultIndicator = chartConfig?.settings?.defaultIndicator || 'wfa';
 
+    const { attributes: teiAttributes, isLoading: isLoadingTeiAttributes } =
+        useTrackedEntityInstanceAttributes({
+            teiId,
+            programId,
+        });
+
+    const mappedTrackedEntity = useMappedTrackedEntityVariables({
+        attributes: teiAttributes,
+        variableMappings: chartConfig?.metadata?.attributes,
+    });
+
+    const invalidProfileValidation = useInvalidProfileValidation(mappedTrackedEntity);
+
     const errorView = usePluginErrorHandling({
         isLoading,
         isLoadingRef,
         isLoadingProgramTrackedEntityAttributes,
         isLoadingEvents,
+        isLoadingTeiAttributes,
         configValidation,
         runtimeValidation,
         isError,
@@ -134,8 +152,11 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
                 >
                     {errorView ?? (
                         <>
+                            {!invalidProfileValidation.isValid && (
+                                <InvalidProfileValidationWarning warnings={invalidProfileValidation.warnings} />
+                            )}
                             <GrowthChart
-                                trackedEntity={EMPTY_MAPPED_ENTITY_VALUES}
+                                trackedEntity={mappedTrackedEntity}
                                 measurementData={mappedGrowthVariables ?? []}
                                 chartData={chartData}
                                 defaultIndicator={defaultIndicator}

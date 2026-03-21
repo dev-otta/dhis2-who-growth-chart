@@ -9,6 +9,8 @@ export interface UsePluginErrorHandlingParams {
     isLoading: boolean;
     isLoadingRef: boolean;
     isLoadingProgramTrackedEntityAttributes: boolean;
+    /** Tracker TEI fetch (same as Capture profile widget). */
+    isLoadingTeiAttributes: boolean;
     isLoadingEvents: boolean;
     configValidation: ConfigValidationResult;
     runtimeValidation: RuntimeValidationResult;
@@ -22,6 +24,7 @@ export const usePluginErrorHandling = (params: UsePluginErrorHandlingParams): Re
         isLoading,
         isLoadingRef,
         isLoadingProgramTrackedEntityAttributes,
+        isLoadingTeiAttributes,
         isLoadingEvents,
         configValidation,
         runtimeValidation,
@@ -42,7 +45,7 @@ export const usePluginErrorHandling = (params: UsePluginErrorHandlingParams): Re
         );
     }
 
-    if (isLoadingProgramTrackedEntityAttributes || isLoadingEvents) {
+    if (isLoadingProgramTrackedEntityAttributes || isLoadingTeiAttributes || isLoadingEvents) {
         return <GenericLoading />;
     }
 
