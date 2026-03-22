@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-03-22T08:27:41.768Z\n"
-"PO-Revision-Date: 2026-03-22T08:27:41.768Z\n"
+"POT-Creation-Date: 2026-03-22T09:03:05.690Z\n"
+"PO-Revision-Date: 2026-03-22T09:03:05.690Z\n"
 
 msgid "Growth Chart"
 msgstr "Growth Chart"
@@ -14,23 +14,42 @@ msgstr "Growth Chart"
 msgid "How to Fix This Issue"
 msgstr "How to Fix This Issue"
 
-msgid ""
-"Use Datastore Management to open namespace \"captureGrowthChart\" and key "
-"\"config\". Edit the JSON to address the errors above, save, and refresh "
-"this page."
-msgstr ""
-"Use Datastore Management to open namespace \"captureGrowthChart\" and key "
-"\"config\". Edit the JSON to address the errors above, save, and refresh "
-"this page."
+msgid "Use "
+msgstr "Use "
+
+msgid " to open namespace "
+msgstr " to open namespace "
+
+msgid " and key "
+msgstr " and key "
+
+msgid ". Edit the "
+msgstr ". Edit the "
+
+msgid " to address the errors above, save, and refresh this page."
+msgstr " to address the errors above, save, and refresh this page."
 
 msgid ""
 "If you need to add or change attributes, program stage, data elements, or "
-"option codes in DHIS2, do that in Maintenance first. Afterwards, update "
-"Datastore so your UIDs and option codes match what you configured."
+"option codes in DHIS2, "
 msgstr ""
 "If you need to add or change attributes, program stage, data elements, or "
-"option codes in DHIS2, do that in Maintenance first. Afterwards, update "
-"Datastore so your UIDs and option codes match what you configured."
+"option codes in DHIS2, "
+
+msgid "do that in "
+msgstr "do that in "
+
+msgid " first. Afterwards, update "
+msgstr " first. Afterwards, update "
+
+msgid " so your "
+msgstr " so your "
+
+msgid " and "
+msgstr " and "
+
+msgid " match what you configured."
+msgstr " match what you configured."
 
 msgid "Need help?"
 msgstr "Need help?"

@@ -47,7 +47,7 @@ export const useProgramTrackedEntityAttributes = (
 
     return {
         programTrackedEntityAttributeIds,
-        isLoading: Boolean(programId && isLoading),
+        isLoading,
         isError,
     };
 };

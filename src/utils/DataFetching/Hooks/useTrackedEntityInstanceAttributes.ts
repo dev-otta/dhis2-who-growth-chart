@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
 import { RequestedEntities, handleAPIResponse } from './handleAPIResponse';
 
-type Attribute = {
+export type TrackedEntityInstanceAttribute = {
     attribute: string;
     value?: string | null;
 };
@@ -13,7 +13,7 @@ type UseTrackedEntityInstanceAttributesProps = {
 };
 
 type UseTrackedEntityInstanceAttributesReturn = {
-    attributes: Attribute[] | undefined;
+    attributes: TrackedEntityInstanceAttribute[] | undefined;
     isLoading: boolean;
     isError: boolean;
 };
@@ -41,7 +41,7 @@ export const useTrackedEntityInstanceAttributes = ({
     });
 
     const raw = handleAPIResponse(RequestedEntities.trackedEntity, data) as
-        | { attributes?: Attribute[] }
+        | { attributes?: TrackedEntityInstanceAttribute[] }
         | unknown[];
 
     const attributes =

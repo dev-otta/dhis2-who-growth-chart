@@ -1,14 +1,11 @@
 import { useMemo } from 'react';
 import { GenderCodes } from '../../../types/chartDataTypes';
 import { MappedEntityValues } from '../../../types/mappedEntityValues';
+import type { TrackedEntityInstanceAttribute } from '../Hooks/useTrackedEntityInstanceAttributes';
 import { ChartConfig } from '../Hooks/useChartConfig';
 
-interface Attribute {
-    [key: string]: string;
-}
-
 interface UseMappedTrackedEntityVariablesProps {
-    attributes: Attribute[] | undefined;
+    attributes: TrackedEntityInstanceAttribute[] | undefined;
     variableMappings: ChartConfig['metadata']['attributes'] | undefined;
 }
 
@@ -37,7 +34,7 @@ export const useMappedTrackedEntityVariables = ({
 
         return keys.reduce((acc, key) => {
             const attributeId = variableMappings[key];
-            const attribute = attributes.find((attr: Attribute) => attr.attribute === attributeId);
+            const attribute = attributes.find((attr) => attr.attribute === attributeId);
             if (!attribute) {
                 return acc;
             }
