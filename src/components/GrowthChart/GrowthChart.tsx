@@ -6,7 +6,7 @@ import { ChartData, GenderCodes, MeasurementData } from '../../types/chartDataTy
 import { useCalculateMinMaxValues } from '../../utils/Hooks/Calculations';
 import { ChartSettingsButton } from './ChartSettingsButton';
 import { useChartDataForGender } from '../../utils/DataFetching/Sorting';
-import { MappedEntityValues } from '../../utils/DataFetching/Sorting/useMappedTrackedEntity';
+import { MappedEntityValues } from '../../types/mappedEntityValues';
 import { useAppropriateChartData } from '../../utils/Hooks/Calculations/useAppropriateChartData';
 
 interface GrowthChartProps {
@@ -15,7 +15,6 @@ interface GrowthChartProps {
     isPercentiles: boolean;
     chartData: ChartData;
     defaultIndicator?: string;
-    setDefaultIndicatorError: (error: boolean) => void;
 }
 
 export const GrowthChart = ({
@@ -24,7 +23,6 @@ export const GrowthChart = ({
     isPercentiles,
     chartData,
     defaultIndicator,
-    setDefaultIndicatorError,
 }: GrowthChartProps) => {
     const trackedEntityGender = trackedEntity?.gender;
     const dateOfBirth = useMemo(() => new Date(trackedEntity.dateOfBirth), [trackedEntity.dateOfBirth]);
@@ -45,7 +43,6 @@ export const GrowthChart = ({
         chartDataForGender,
         defaultIndicator,
         gender,
-        setDefaultIndicatorError,
         childAgeInWeeks,
         childAgeInMonths,
     );
@@ -70,6 +67,11 @@ export const GrowthChart = ({
     }, [min, max]);
 
     if (!chartDataForGender || !dataSetValues) {
+        console.error('[GrowthChart] Not rendering: missing chart data for gender or selected dataset values.', {
+            chartKeys: chartDataForGender ? Object.keys(chartDataForGender) : [],
+            selectedCategory,
+            selectedDataset,
+        });
         return null;
     }
 
