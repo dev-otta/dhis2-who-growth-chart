@@ -66,6 +66,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const {
         programStageDataElementIds,
         isLoading: isLoadingProgramStage,
+        isError: isErrorProgramStage,
     } = useProgramStageDataElements(programStageId);
 
     const genderAttributeId = chartConfig?.metadata?.attributes?.gender;
@@ -85,6 +86,7 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isLoadingProgramTrackedEntityAttributes,
         programStageDataElementIds,
         isLoadingProgramStage,
+        isErrorProgramStage,
         genderOptionCodes,
         isLoadingGenderOptions,
         programStageIdsByProgramId,

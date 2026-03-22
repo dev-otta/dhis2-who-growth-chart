@@ -1,9 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
 
+const DHIS2_UID_REGEX = /^[a-zA-Z][a-zA-Z0-9]{10}$/;
+
+const isValidProgramStageUid = (id: string | undefined): id is string =>
+    typeof id === 'string' && DHIS2_UID_REGEX.test(id);
+
 interface UseProgramStageDataElementsReturn {
     programStageDataElementIds: string[];
     isLoading: boolean;
+    isError: boolean;
 }
 
 export const useProgramStageDataElements = (
@@ -11,7 +17,9 @@ export const useProgramStageDataElements = (
 ): UseProgramStageDataElementsReturn => {
     const dataEngine = useDataEngine();
 
-    const { data, isLoading } = useQuery({
+    const queryEnabled = isValidProgramStageUid(programStageId);
+
+    const { data, isLoading, isError } = useQuery({
         queryKey: ['programStageDataElements', programStageId],
         queryFn: (): any =>
             dataEngine.query({
@@ -22,7 +30,7 @@ export const useProgramStageDataElements = (
                     },
                 },
             }),
-        enabled: !!programStageId,
+        enabled: queryEnabled,
         staleTime: 5000,
     });
 
@@ -33,6 +41,7 @@ export const useProgramStageDataElements = (
 
     return {
         programStageDataElementIds,
-        isLoading: Boolean(programStageId && isLoading),
+        isLoading: Boolean(queryEnabled && isLoading),
+        isError: queryEnabled && isError,
     };
 };

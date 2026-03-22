@@ -28,11 +28,11 @@ export interface ConfigValidationResult {
 }
 
 interface ConfigValidationContext {
-    /** From program `programTrackedEntityAttributes` — used to validate optional first/last name attribute IDs. */
     programTrackedEntityAttributeIds?: ProgramTrackedEntityAttributeIds;
     isLoadingProgramTrackedEntityAttributes?: boolean;
     programStageDataElementIds?: string[];
     isLoadingProgramStage?: boolean;
+    isErrorProgramStage?: boolean;
     genderOptionCodes?: string[];
     isLoadingGenderOptions?: boolean;
     programStageIdsByProgramId?: Record<string, string[]>;
@@ -52,6 +52,7 @@ export const useConfigValidation = (
         isLoadingProgramTrackedEntityAttributes = false,
         programStageDataElementIds,
         isLoadingProgramStage = false,
+        isErrorProgramStage = false,
         genderOptionCodes,
         isLoadingGenderOptions = false,
         programStageIdsByProgramId,
@@ -384,6 +385,28 @@ export const useConfigValidation = (
             });
         }
 
+        if (
+            !isLoadingProgramStage &&
+            isErrorProgramStage &&
+            parentProgramId &&
+            isValidUid(parentProgramId) &&
+            chartConfig.metadata?.programStageForGrowthChart &&
+            typeof chartConfig.metadata.programStageForGrowthChart === 'object' &&
+            !Array.isArray(chartConfig.metadata.programStageForGrowthChart)
+        ) {
+            const mapping = chartConfig.metadata.programStageForGrowthChart;
+            const configuredStageId = Object.prototype.hasOwnProperty.call(mapping, parentProgramId)
+                ? String(mapping[parentProgramId])
+                : undefined;
+            if (configuredStageId && isValidUid(configuredStageId)) {
+                errors.push({
+                    field: `metadata.programStageForGrowthChart.${parentProgramId}`,
+                    message:
+                        'Could not load data elements for this program stage from DHIS2. Check the stage ID and your access.',
+                });
+            }
+        }
+
         if (!isLoadingProgramStage && programStageDataElementIds && programStageDataElementIds.length > 0 && chartConfig.metadata?.dataElements) {
             const observedDataElementIds = new Set(programStageDataElementIds);
             (['weight', 'height', 'headCircumference'] as const).forEach((dataElementKey) => {
@@ -414,6 +437,7 @@ export const useConfigValidation = (
         isLoadingProgramTrackedEntityAttributes,
         programStageDataElementIds,
         isLoadingProgramStage,
+        isErrorProgramStage,
         genderOptionCodes,
         isLoadingGenderOptions,
         programStageIdsByProgramId,

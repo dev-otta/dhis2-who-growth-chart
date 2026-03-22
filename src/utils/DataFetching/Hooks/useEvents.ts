@@ -83,7 +83,7 @@ export const useEvents = ({
         };
     }), [apiResponse]);
 
-    const stageHasEvents = useMemo(() => events?.length !== 0, [events]);
+    const stageHasEvents = useMemo(() => Boolean(events?.length), [events]);
 
     return {
         events,
