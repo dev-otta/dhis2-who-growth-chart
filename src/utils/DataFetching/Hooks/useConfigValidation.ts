@@ -10,13 +10,11 @@ const isValidUid = (value: string | undefined): boolean =>
 const invalidUidMessage = (value: string): string =>
     `"${value}" is not a valid DHIS2 UID (must be 11 alphanumeric characters starting with a letter).`;
 
-const optionalNameAttributeMismatchMessage = (
-    attributeKey: 'firstName' | 'lastName',
+const programTrackedEntityAttributeMismatchMessage = (
+    attributeKey: 'dateOfBirth' | 'gender' | 'firstName' | 'lastName',
     configuredId: string,
 ): string =>
-    `The configured ID "${configuredId}" for metadata.attributes.${attributeKey} does not match any attribute on this tracked entity. ` +
-    'If this program does not use first name and last name attributes, ' +
-    'remove "firstName" and "lastName" from metadata.attributes in the growth chart datastore configuration.';
+    `The configured ID "${configuredId}" for metadata.attributes.${attributeKey} does not match any tracked entity attribute on this program.`;
 
 export interface ValidationError {
     field: string;
@@ -308,34 +306,40 @@ export const useConfigValidation = (
             typeof chartConfig.metadata.programStageForGrowthChart === 'object' &&
             !Array.isArray(chartConfig.metadata.programStageForGrowthChart)
         ) {
-            Object.entries(chartConfig.metadata.programStageForGrowthChart).forEach(
-                ([programId, programStageId]) => {
-                    if (!isValidUid(programId) || !isValidUid(String(programStageId))) {
-                        return;
-                    }
-                    if (programIdsFailedToLoad?.includes(programId)) {
-                        errors.push({
-                            field: `metadata.programStageForGrowthChart.${programId}`,
-                            message:
-                                `Program "${programId}" could not be loaded. ` +
-                                'Check that the program ID exists and you have access.',
-                        });
-                        return;
-                    }
-                    const allowedStages = programStageIdsByProgramId?.[programId];
-                    if (
-                        allowedStages !== undefined &&
-                        !allowedStages.includes(String(programStageId))
-                    ) {
-                        errors.push({
-                            field: `metadata.programStageForGrowthChart.${programId}`,
-                            message:
-                                `Program stage "${programStageId}" is not part of program "${programId}". ` +
-                                'Use a program stage ID that belongs to that program.',
-                        });
-                    }
-                },
-            );
+            const mapping = chartConfig.metadata.programStageForGrowthChart;
+            const entries: [string, unknown][] =
+                parentProgramId && isValidUid(parentProgramId)
+                    ? Object.prototype.hasOwnProperty.call(mapping, parentProgramId)
+                        ? [[parentProgramId, mapping[parentProgramId]]]
+                        : []
+                    : Object.entries(mapping);
+
+            entries.forEach(([programId, programStageId]) => {
+                if (!isValidUid(programId) || !isValidUid(String(programStageId))) {
+                    return;
+                }
+                if (programIdsFailedToLoad?.includes(programId)) {
+                    errors.push({
+                        field: `metadata.programStageForGrowthChart.${programId}`,
+                        message:
+                            `Program "${programId}" could not be loaded. ` +
+                            'Check that the program ID exists and you have access.',
+                    });
+                    return;
+                }
+                const allowedStages = programStageIdsByProgramId?.[programId];
+                if (
+                    allowedStages !== undefined &&
+                    !allowedStages.includes(String(programStageId))
+                ) {
+                    errors.push({
+                        field: `metadata.programStageForGrowthChart.${programId}`,
+                        message:
+                            `Program stage "${programStageId}" is not part of program "${programId}". ` +
+                            'Use a program stage ID that belongs to that program.',
+                    });
+                }
+            });
         }
 
         if (!chartConfig.settings) {
@@ -351,7 +355,7 @@ export const useConfigValidation = (
             chartConfig.metadata?.attributes
         ) {
             const observedProgramTrackedEntityAttributeIds = new Set(programTrackedEntityAttributeIds);
-            (['firstName', 'lastName'] as const).forEach((attributeKey) => {
+            (['dateOfBirth', 'gender', 'firstName', 'lastName'] as const).forEach((attributeKey) => {
                 const configuredId = chartConfig.metadata.attributes[attributeKey];
                 if (!configuredId || !isValidUid(configuredId)) {
                     return;
@@ -359,7 +363,10 @@ export const useConfigValidation = (
                 if (!observedProgramTrackedEntityAttributeIds.has(configuredId)) {
                     errors.push({
                         field: `metadata.attributes.${attributeKey}`,
-                        message: optionalNameAttributeMismatchMessage(attributeKey, configuredId),
+                        message: programTrackedEntityAttributeMismatchMessage(
+                            attributeKey,
+                            configuredId,
+                        ),
                     });
                 }
             });

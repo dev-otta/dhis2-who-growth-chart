@@ -24,14 +24,18 @@ export const useInvalidProfileValidation = (
         if (dateOfBirth === undefined || dateOfBirth === '') {
             warnings.push({
                 field: i18n.t('Date of birth'),
-                message: i18n.t('Missing. Age-based axes and categories may be wrong.'),
+                message: i18n.t(
+                    'No value on this profile. Age-based axes and categories may be wrong.',
+                ),
             });
         }
 
         if (trackedEntity.gender === undefined || trackedEntity.gender === '') {
             warnings.push({
                 field: i18n.t('Gender'),
-                message: i18n.t('Missing from the profile. Reference curves default until gender is set.'),
+                message: i18n.t(
+                    'No value on this profile. Reference curves default until gender is available.',
+                ),
             });
         }
 
