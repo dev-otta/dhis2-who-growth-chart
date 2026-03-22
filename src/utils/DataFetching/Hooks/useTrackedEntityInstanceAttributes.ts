@@ -2,11 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useDataEngine } from '@dhis2/app-runtime';
 import { RequestedEntities, handleAPIResponse } from './handleAPIResponse';
 
-/**
- * Same Tracker request as Capture’s profile widget (useTrackedEntityInstances):
- * GET tracker/trackedEntities/{teiId}?program={programId}
- * (no explicit fields param — same default projection as Capture).
- */
 type Attribute = {
     attribute: string;
     value?: string | null;
