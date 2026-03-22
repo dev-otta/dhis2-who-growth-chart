@@ -54,9 +54,11 @@ export const useTrackedEntityInstanceAttributes = ({
             ? undefined
             : raw.attributes;
 
+    const enabled = Boolean(teiId && programId);
+
     return {
         attributes,
-        isLoading: Boolean(teiId && programId && isLoading),
-        isError,
+        isLoading: Boolean(enabled && isLoading),
+        isError: enabled && isError,
     };
 };

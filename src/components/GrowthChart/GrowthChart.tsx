@@ -67,6 +67,11 @@ export const GrowthChart = ({
     }, [min, max]);
 
     if (!chartDataForGender || !dataSetValues) {
+        console.error('[GrowthChart] Not rendering: missing chart data for gender or selected dataset values.', {
+            chartKeys: chartDataForGender ? Object.keys(chartDataForGender) : [],
+            selectedCategory,
+            selectedDataset,
+        });
         return null;
     }
 

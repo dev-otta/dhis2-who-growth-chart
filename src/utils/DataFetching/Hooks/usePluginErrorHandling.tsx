@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
+import i18n from '@dhis2/d2-i18n';
 import { GenericLoading } from '../../../UI/GenericLoading';
+import { GenericError } from '../../../UI/GenericError';
 import { ConfigError, CustomReferenceError } from '../../../UI/FeedbackComponents';
 import { ConfigValidationError } from '../../../UI/ConfigValidationError';
 import { ConfigValidationResult } from './useConfigValidation';
@@ -9,9 +11,10 @@ export interface UsePluginErrorHandlingParams {
     isLoading: boolean;
     isLoadingRef: boolean;
     isLoadingProgramTrackedEntityAttributes: boolean;
-    /** Tracker TEI fetch (same as Capture profile widget). */
     isLoadingTeiAttributes: boolean;
     isLoadingEvents: boolean;
+    isErrorTeiAttributes: boolean;
+    isErrorEvents: boolean;
     configValidation: ConfigValidationResult;
     runtimeValidation: RuntimeValidationResult;
     isError: boolean;
@@ -26,6 +29,8 @@ export const usePluginErrorHandling = (params: UsePluginErrorHandlingParams): Re
         isLoadingProgramTrackedEntityAttributes,
         isLoadingTeiAttributes,
         isLoadingEvents,
+        isErrorTeiAttributes,
+        isErrorEvents,
         configValidation,
         runtimeValidation,
         isError,
@@ -47,6 +52,28 @@ export const usePluginErrorHandling = (params: UsePluginErrorHandlingParams): Re
 
     if (isLoadingProgramTrackedEntityAttributes || isLoadingTeiAttributes || isLoadingEvents) {
         return <GenericLoading />;
+    }
+
+    if (isErrorTeiAttributes) {
+        return (
+            <GenericError
+                embedded
+                errorMessage={i18n.t(
+                    'Could not load profile data for this person. Please try again or check your access.',
+                )}
+            />
+        );
+    }
+
+    if (isErrorEvents) {
+        return (
+            <GenericError
+                embedded
+                errorMessage={i18n.t(
+                    'Could not load growth measurements for this record. Please try again or check your access.',
+                )}
+            />
+        );
     }
 
     if (isError) {

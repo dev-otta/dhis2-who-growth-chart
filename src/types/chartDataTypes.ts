@@ -100,6 +100,12 @@ export const CategoryLabels = Object.freeze({
     wflh: i18n.t('Weight for length/height'),
 });
 
+export const DefaultIndicatorPrefixes = ['hcfa', 'lhfa', 'wfa', 'wflh'] as const;
+export type DefaultIndicatorPrefix = (typeof DefaultIndicatorPrefixes)[number];
+
+export const isDefaultIndicatorPrefix = (value: string): value is DefaultIndicatorPrefix =>
+    (DefaultIndicatorPrefixes as readonly string[]).includes(value);
+
 const CategoryToYUnitLabel = Object.freeze({
     hcfa: unitCodes.cm,
     lhfa: unitCodes.cm,

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { DefaultIndicatorPrefixes, isDefaultIndicatorPrefix } from '../../../types/chartDataTypes';
 import { ChartConfig } from './useChartConfig';
 import type { ProgramTrackedEntityAttributeIds } from './useProgramTrackedEntityAttributes';
 
@@ -346,6 +347,17 @@ export const useConfigValidation = (
             errors.push({
                 field: 'settings',
                 message: 'Missing "settings" section in configuration.',
+            });
+        } else if (
+            typeof chartConfig.settings.defaultIndicator === 'string' &&
+            chartConfig.settings.defaultIndicator.length > 0 &&
+            !isDefaultIndicatorPrefix(chartConfig.settings.defaultIndicator)
+        ) {
+            errors.push({
+                field: 'settings.defaultIndicator',
+                message:
+                    `Invalid defaultIndicator "${chartConfig.settings.defaultIndicator}". ` +
+                    `Use one of: ${DefaultIndicatorPrefixes.join(', ')}.`,
             });
         }
 

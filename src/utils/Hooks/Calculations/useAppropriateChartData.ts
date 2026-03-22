@@ -1,5 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
-import { CategoryCodes, ChartData, MeasurementTypeCodesLabel, TimeUnitCodes } from '../../../types/chartDataTypes';
+import {
+    CategoryCodes,
+    ChartData,
+    isDefaultIndicatorPrefix,
+    MeasurementTypeCodesLabel,
+    TimeUnitCodes,
+} from '../../../types/chartDataTypes';
+
+const firstChartKeyWithData = (
+    keys: string[],
+    byGender: ChartData,
+): keyof typeof CategoryCodes | undefined =>
+    keys.find((k): k is keyof typeof CategoryCodes => k in CategoryCodes && Boolean(byGender[k]));
 
 export const useAppropriateChartData = (
     chartDataForGender: ChartData,
@@ -57,17 +69,23 @@ export const useAppropriateChartData = (
         }
     }, [selectedCategory, chartDataForGender]);
 
-    const isKeyOfCategoryCodes = (key: string): key is keyof typeof CategoryCodes => key in CategoryCodes;
-
     useEffect(() => {
-        const key = `${defaultIndicator}_${gender.charAt(0)
-            .toLowerCase()}`;
-        if (isKeyOfCategoryCodes(key) && chartDataForGender[key]) {
-            const newCategory = CategoryCodes[key];
-            setSelectedCategory(newCategory);
-            const newDataset = Object.keys(chartDataForGender[newCategory].datasets)[0];
-            setSelectedDataset(newDataset);
+        const suffix = gender.charAt(0).toLowerCase();
+        const prefix = isDefaultIndicatorPrefix(defaultIndicator) ? defaultIndicator : 'wfa';
+        const preferredKeys =
+            prefix === 'wfa'
+                ? [`wfa_${suffix}`]
+                : [`${prefix}_${suffix}`, `wfa_${suffix}`];
+
+        const chartKey = firstChartKeyWithData(preferredKeys, chartDataForGender);
+
+        if (!chartKey) {
+            return;
         }
+
+        const category = CategoryCodes[chartKey];
+        setSelectedCategory(category);
+        setSelectedDataset(Object.keys(chartDataForGender[category].datasets)[0]);
     }, [chartDataForGender, defaultIndicator, gender]);
 
     return {

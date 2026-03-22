@@ -28,7 +28,6 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const [open, setOpen] = useState(true);
 
     const {
-        orgUnitId,
         programId,
         teiId,
     } = propsFromParent;
@@ -56,10 +55,11 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const {
         events,
         isLoading: isLoadingEvents,
+        isError: isErrorEvents,
     } = useEvents({
         programStageId: chartConfig?.metadata?.programStageForGrowthChart?.[programId],
         programId,
-        orgUnitId,
+        teiId,
     });
 
     const programStageId = chartConfig?.metadata?.programStageForGrowthChart?.[programId];
@@ -114,11 +114,14 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
     const isPercentiles = chartConfig?.settings?.usePercentiles || false;
     const defaultIndicator = chartConfig?.settings?.defaultIndicator || 'wfa';
 
-    const { attributes: teiAttributes, isLoading: isLoadingTeiAttributes } =
-        useTrackedEntityInstanceAttributes({
-            teiId,
-            programId,
-        });
+    const {
+        attributes: teiAttributes,
+        isLoading: isLoadingTeiAttributes,
+        isError: isErrorTeiAttributes,
+    } = useTrackedEntityInstanceAttributes({
+        teiId,
+        programId,
+    });
 
     const mappedTrackedEntity = useMappedTrackedEntityVariables({
         attributes: teiAttributes,
@@ -133,6 +136,8 @@ const PluginInner = (propsFromParent: EnrollmentOverviewProps) => {
         isLoadingProgramTrackedEntityAttributes,
         isLoadingEvents,
         isLoadingTeiAttributes,
+        isErrorTeiAttributes,
+        isErrorEvents,
         configValidation,
         runtimeValidation,
         isError,

@@ -7,8 +7,8 @@ import { RequestedEntities, handleAPIResponse } from './handleAPIResponse';
 
 type UseEventsByProgramStageProps = {
     programStageId: string | undefined;
-    orgUnitId: string | undefined;
     programId: string | undefined;
+    teiId: string | undefined;
 };
 
 export type DataValue = {
@@ -38,8 +38,8 @@ interface UseEventsByProgramStageReturn {
 
 export const useEvents = ({
     programStageId,
-    orgUnitId,
     programId,
+    teiId,
 }: UseEventsByProgramStageProps): UseEventsByProgramStageReturn => {
     const dataEngine = useDataEngine();
     const {
@@ -47,32 +47,32 @@ export const useEvents = ({
         isLoading,
         isError,
     } = useQuery({
-        queryKey: ['eventsByProgramStage', orgUnitId, programStageId, programId],
+        queryKey: ['eventsByProgramStage', programStageId, programId, teiId],
         queryFn: (): any => dataEngine.query({
             eventsByProgramStage: {
                 resource: 'tracker/events',
                 params: ({
-                    orgUnitId,
                     programStageId,
                     programId,
+                    teiId: trackedEntityId,
                 }) => ({
                     fields: 'event,status,program,dataValues,occurredAt,programStage',
                     program: programId,
                     programStage: programStageId,
-                    orgUnit: orgUnitId,
+                    trackedEntity: trackedEntityId,
                 }),
             },
         }, {
             variables: {
-                orgUnitId,
                 programStageId,
                 programId,
+                teiId,
             },
         }),
         staleTime: 5000,
-        enabled: !!programStageId && !!orgUnitId && !!programId,
+        enabled: !!programStageId && !!programId && !!teiId,
     });
-    
+
     const apiResponse = handleAPIResponse(RequestedEntities.events, data?.eventsByProgramStage);
 
     const events = useMemo(() => apiResponse?.map((event: ServerEvent) => {
@@ -88,7 +88,7 @@ export const useEvents = ({
     return {
         events,
         isLoading,
-        isError,
+        isError: !!programStageId && !!programId && !!teiId && isError,
         stageHasEvents,
     };
 };
